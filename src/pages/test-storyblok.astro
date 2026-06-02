@@ -1,0 +1,25 @@
+---
+// PAGE TEMPORAIRE — test de connexion Storyblok (Phase 2, étape 4).
+// À supprimer en Phase 4 quand les vraies pages arriveront.
+import { useStoryblokApi } from '@storyblok/astro';
+
+const api = useStoryblokApi();
+const { data } = await api.get('cdn/stories', { version: 'draft' });
+const stories = data.stories ?? [];
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="robots" content="noindex" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Test connexion Storyblok</title>
+	</head>
+	<body>
+		<h1>Connexion Storyblok OK</h1>
+		<p>{stories.length} story(ies) trouvée(s) dans l'espace :</p>
+		<ul>
+			{stories.map((s) => <li>{s.name} — <code>{s.full_slug}</code></li>)}
+		</ul>
+	</body>
+</html>
