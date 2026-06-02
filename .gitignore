@@ -1,0 +1,24 @@
+# Build output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Logs
+*-debug.log*
+logs/
+
+# Variables d'environnement (jamais commitées — tokens Storyblok, etc.)
+.env
+.env.*.local
+.env.production
+
+# Vercel
+.vercel
+
+# macOS
+.DS_Store
+
+# Config locale Claude Code (par poste, non partagée)
+.claude/settings.local.json
