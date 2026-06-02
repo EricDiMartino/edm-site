@@ -20,5 +20,8 @@ logs/
 # macOS
 .DS_Store
 
+# IDE JetBrains
+.idea/
+
 # Config locale Claude Code (par poste, non partagée)
 .claude/settings.local.json
