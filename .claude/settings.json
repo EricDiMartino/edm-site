@@ -7,11 +7,7 @@
       "Bash(rm -rf:*)",
       "Bash(vercel deploy:*)",
       "Bash(vercel --prod:*)",
-      "Bash(vercel promote:*)",
-      "Bash(storyblok delete:*)",
-      "Bash(npx storyblok delete:*)",
-      "Bash(storyblok spaces delete:*)",
-      "Bash(npx storyblok spaces delete:*)"
+      "Bash(vercel promote:*)"
     ],
     "allow": [
       "Bash(git add:*)",
@@ -24,8 +20,8 @@
       "Bash(npm install:*)",
       "Bash(npm run build)",
       "Bash(npm run dev)",
-      "Bash(npx storyblok pull-components:*)",
-      "Bash(npx storyblok components pull:*)"
+      "Bash(npx storyblok components pull:*)",
+      "Bash(npx storyblok comp pull:*)"
     ]
   }
 }
