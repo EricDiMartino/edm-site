@@ -6,9 +6,11 @@
 //
 // Token lu UNIQUEMENT depuis .env (STORYBLOK_PAT), jamais en dur.
 // Usage :
-//   node scripts/storyblok-sync.mjs pull            # read-only : affiche, n'écrit rien
+//   node scripts/storyblok-sync.mjs pull             # read-only : affiche, n'écrit rien
 //   node scripts/storyblok-sync.mjs pull --write     # écrit les schémas dans storyblok/components/
-// (le push distant n'est volontairement PAS implémenté ici — étape gated séparée)
+//   node scripts/storyblok-sync.mjs push <name>      # dry-run : montre l'action, n'écrit RIEN sur le distant
+//   node scripts/storyblok-sync.mjs push <name> --confirm   # pousse réellement (création ou mise à jour)
+// Le push est ciblé (un seul composant par nom) et gated par --confirm.
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -44,6 +46,19 @@ async function api(path, token) {
   return res.json()
 }
 
+async function apiWrite(path, method, bodyObj, token) {
+  const res = await fetch(`${REGION_HOST}/v1${path}`, {
+    method,
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body: JSON.stringify(bodyObj),
+  })
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`API ${res.status} sur ${method} ${path} : ${body}`)
+  }
+  return res.json()
+}
+
 async function pull({ token, spaceId, write }) {
   const { components } = await api(`/spaces/${spaceId}/components`, token)
   components.sort((a, b) => a.name.localeCompare(b.name))
@@ -73,6 +88,42 @@ async function pull({ token, spaceId, write }) {
   console.log(`\n${components.length} schéma(s) écrit(s) dans storyblok/components/`)
 }
 
+async function push({ token, spaceId, name, confirm }) {
+  if (!name) throw new Error('Nom du composant requis : push <name> [--confirm]')
+
+  // Schéma local
+  let local
+  try {
+    local = JSON.parse(readFileSync(join(COMPONENTS_DIR, `${name}.json`), 'utf8'))
+  } catch {
+    throw new Error(`Schéma local introuvable : storyblok/components/${name}.json`)
+  }
+
+  // Existant distant ? (recherche par nom → on en tire l'id pour une mise à jour)
+  const { components } = await api(`/spaces/${spaceId}/components`, token)
+  const remote = components.find((c) => c.name === name)
+  const willUpdate = Boolean(remote)
+
+  // On n'envoie pas les champs gérés par le serveur.
+  const { id, created_at, updated_at, real_name, ...rest } = local
+  const payload = { component: rest }
+
+  console.log(`\nCible   : composant "${name}" sur l'espace ${spaceId}`)
+  console.log(`Action  : ${willUpdate ? `MISE À JOUR (écrase le distant, id ${remote.id})` : 'CRÉATION'}`)
+  console.log(`Champs  : ${Object.keys(local.schema || {}).join(', ') || '(aucun)'}`)
+
+  if (!confirm) {
+    console.log('\n[dry-run] aucun appel d\'écriture distant. Relancer avec --confirm pour pousser.')
+    return
+  }
+
+  const result = willUpdate
+    ? await apiWrite(`/spaces/${spaceId}/components/${remote.id}`, 'PUT', payload, token)
+    : await apiWrite(`/spaces/${spaceId}/components`, 'POST', payload, token)
+  const c = result.component || {}
+  console.log(`\n✓ ${willUpdate ? 'mis à jour' : 'créé'} : ${c.name} (id ${c.id})`)
+}
+
 async function main() {
   const [cmd, ...rest] = process.argv.slice(2)
   const env = loadEnv()
@@ -85,8 +136,13 @@ async function main() {
     case 'pull':
       await pull({ token, spaceId, write: rest.includes('--write') })
       break
+    case 'push': {
+      const name = rest.find((a) => !a.startsWith('--'))
+      await push({ token, spaceId, name, confirm: rest.includes('--confirm') })
+      break
+    }
     default:
-      console.log('Usage : node scripts/storyblok-sync.mjs pull [--write]')
+      console.log('Usage : node scripts/storyblok-sync.mjs <pull [--write] | push <name> [--confirm]>')
       process.exit(1)
   }
 }
