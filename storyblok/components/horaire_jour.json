@@ -1,0 +1,41 @@
+{
+  "name": "horaire_jour",
+  "display_name": "Horaire — un jour",
+  "description": "Une ligne d'horaire pour un jour. Cocher « Fermé » si le salon est fermé ce jour-là.",
+  "is_nestable": true,
+  "is_root": false,
+  "schema": {
+    "jour": {
+      "type": "option",
+      "pos": 0,
+      "display_name": "Jour",
+      "options": [
+        { "name": "Lundi", "value": "lundi" },
+        { "name": "Mardi", "value": "mardi" },
+        { "name": "Mercredi", "value": "mercredi" },
+        { "name": "Jeudi", "value": "jeudi" },
+        { "name": "Vendredi", "value": "vendredi" },
+        { "name": "Samedi", "value": "samedi" },
+        { "name": "Dimanche", "value": "dimanche" }
+      ]
+    },
+    "ferme": {
+      "type": "boolean",
+      "pos": 1,
+      "display_name": "Fermé ce jour",
+      "description": "Coché = fermé. Les heures ci-dessous sont alors ignorées."
+    },
+    "ouverture": {
+      "type": "text",
+      "pos": 2,
+      "display_name": "Ouverture (HH:MM)",
+      "description": "Ex. 09:00. Laisser vide si fermé."
+    },
+    "fermeture": {
+      "type": "text",
+      "pos": 3,
+      "display_name": "Fermeture (HH:MM)",
+      "description": "Ex. 19:00. Laisser vide si fermé."
+    }
+  }
+}
