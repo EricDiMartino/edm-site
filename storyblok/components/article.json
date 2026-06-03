@@ -1,0 +1,72 @@
+{
+  "name": "article",
+  "display_name": "Article (actualité)",
+  "description": "Article du blog / actualités. Une story par article (URL /actualites/{slug}). Slug géré nativement par la story.",
+  "is_root": true,
+  "is_nestable": false,
+  "schema": {
+    "titre": {
+      "type": "text",
+      "pos": 0,
+      "display_name": "Titre"
+    },
+    "categorie": {
+      "type": "option",
+      "pos": 1,
+      "display_name": "Catégorie",
+      "options": [
+        { "name": "Conseils soin", "value": "conseils_soin" },
+        { "name": "Territoire Isère", "value": "territoire_isere" },
+        { "name": "Coulisses & équipe", "value": "coulisses_equipe" },
+        { "name": "Focus prestations", "value": "focus_prestations" }
+      ]
+    },
+    "date": {
+      "type": "datetime",
+      "pos": 2,
+      "display_name": "Date de publication"
+    },
+    "image": {
+      "type": "asset",
+      "filetypes": ["images"],
+      "pos": 3,
+      "display_name": "Image de couverture"
+    },
+    "extrait": {
+      "type": "textarea",
+      "pos": 4,
+      "display_name": "Extrait",
+      "description": "Résumé court affiché dans la liste des actualités."
+    },
+    "contenu": {
+      "type": "richtext",
+      "pos": 5,
+      "display_name": "Contenu",
+      "description": "Corps de l'article. Texte riche, images et liens autorisés."
+    },
+    "faq": {
+      "type": "bloks",
+      "pos": 6,
+      "display_name": "FAQ (optionnel)",
+      "description": "Questions/réponses en bas d'article (bon pour le référencement et les IA). Vide = masquée.",
+      "restrict_components": true,
+      "component_whitelist": ["faq_item"]
+    },
+    "prestations_liees": {
+      "type": "options",
+      "source": "internal_stories",
+      "pos": 7,
+      "display_name": "Pages liées (maillage)",
+      "description": "Pages internes à mettre en avant depuis l'article (prestations, salon…). Renforce le maillage SEO."
+    },
+    "seo": {
+      "type": "bloks",
+      "pos": 8,
+      "display_name": "SEO",
+      "description": "Title / meta description / image de partage, propres à cet article.",
+      "restrict_components": true,
+      "component_whitelist": ["seo"],
+      "maximum": 1
+    }
+  }
+}
