@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(rm -rf:*)",
+      "Bash(vercel deploy:*)",
+      "Bash(vercel --prod:*)",
+      "Bash(vercel promote:*)",
+      "Bash(storyblok delete:*)",
+      "Bash(npx storyblok delete:*)",
+      "Bash(storyblok spaces delete:*)",
+      "Bash(npx storyblok spaces delete:*)"
+    ],
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npm run build)",
+      "Bash(npm run dev)",
+      "Bash(npx storyblok pull-components:*)",
+      "Bash(npx storyblok components pull:*)"
+    ]
+  }
+}
