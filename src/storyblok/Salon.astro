@@ -222,11 +222,11 @@ const showFaq = faq.length > 0;
         </Fragment>
       );
       return dark ? (
-        <section class="service-dark">
+        <section class="service-dark" {...storyblokEditable(s)}>
           <div class={`split ${reverse ? 'reverse' : ''}`}>{content}</div>
         </section>
       ) : (
-        <section class={`split ${reverse ? 'reverse' : ''}`}>{content}</section>
+        <section class={`split ${reverse ? 'reverse' : ''}`} {...storyblokEditable(s)}>{content}</section>
       );
     })}
 
@@ -253,7 +253,7 @@ const showFaq = faq.length > 0;
             const q = txt(item.question);
             const r = rt(item.reponse);
             return (
-              <details class="faq-item">
+              <details class="faq-item" {...storyblokEditable(item)}>
                 <summary>{q}<span class="faq-plus" aria-hidden="true"></span></summary>
                 {r && <div class="rt" set:html={r} />}
               </details>

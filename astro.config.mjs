@@ -24,6 +24,8 @@ export default defineConfig({
 	integrations: [
 		storyblok({
 			accessToken: env.STORYBLOK_TOKEN,
+			// Bridge de l'éditeur visuel : DEV uniquement → la prod statique ne charge aucun JS éditeur.
+			bridge: isDev,
 			apiOptions: {
 				// Espace hébergé en région UE (RGPD) — voir PROJECT_BRIEF §3.
 				region: 'eu',
