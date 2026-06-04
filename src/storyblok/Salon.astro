@@ -1,0 +1,518 @@
+---
+// Composant Storyblok — content-type `salon` (modèle générique des 4 salons).
+// Le DESIGN V2 validé est conservé ; tout le CONTENU vient des champs de la story.
+// Règle de la spec : les sections optionnelles VIDES sont masquées au rendu
+//   → une story peu remplie s'affiche proprement quand même.
+// Le <head>/SEO (champ `seo`) est géré par la PAGE/route, pas ici (étape 3).
+import { renderRichText, storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+
+/* ---------- Helpers ---------- */
+const txt = (v) => (typeof v === 'string' ? v.trim() : '');
+const asset = (a) => (a && a.filename ? a : null);
+function link(l) {
+  if (!l) return '';
+  const raw = l.url || l.cached_url || '';
+  if (!raw) return '';
+  if (l.linktype === 'story') return raw.startsWith('/') ? raw : '/' + raw;
+  return raw;
+}
+function rt(field) {
+  if (!field) return '';
+  const html = renderRichText(field);
+  // vide si le richtext ne contient aucun texte réel (paragraphe vide, etc.)
+  return html && html.replace(/<[^>]*>/g, '').trim() ? html : '';
+}
+
+/* ---------- Champs ---------- */
+const nom = txt(blok.nom);
+const ville = txt(blok.ville);
+const accroche = txt(blok.accroche);
+const titreSeo = txt(blok.titre_seo);
+const heroTexte = txt(blok.hero_texte);
+const heroImg = asset(blok.hero_image);
+const reserveUrl = link(blok.lien_reservation);
+
+const adresse = txt(blok.adresse);
+const codePostal = txt(blok.code_postal);
+const telephone = txt(blok.telephone);
+const horaires = Array.isArray(blok.horaires) ? blok.horaires : [];
+const mapsUrl = link(blok.lien_maps);
+
+const expertiseTitre = txt(blok.expertise_titre);
+const expertiseHtml = rt(blok.expertise_texte);
+const expertiseImg = asset(blok.expertise_image);
+const expertiseUrl = link(blok.expertise_lien);
+
+const introHtml = rt(blok.intro_locale);
+
+const services = Array.isArray(blok.services_phares) ? blok.services_phares : [];
+
+const equipeTitre = txt(blok.equipe_titre); // l'équipe AUTO (membres rattachés) = étape 4
+
+const contenuLocalHtml = rt(blok.contenu_local);
+const faq = Array.isArray(blok.faq) ? blok.faq : [];
+
+const ctaTitre = txt(blok.cta_titre);
+
+/* h1 : piloté par l'éditeur via `titre_seo` (critique pour le SEO local).
+   Repli sur un dérivé UNIQUEMENT si le champ est laissé vide → jamais de H1 absent. */
+const heroH1 = titreSeo || (ville ? `Salon de coiffure à ${ville}` : nom);
+const telHref = telephone ? 'tel:' + telephone.replace(/[^0-9+]/g, '') : '';
+
+/* ---------- Flags d'affichage (masquage si vide) ---------- */
+const showNap = !!(adresse || codePostal || telephone || horaires.length || mapsUrl);
+const showExpertise = !!(expertiseTitre || expertiseHtml || expertiseImg);
+const showIntro = !!introHtml;
+const showServices = services.length > 0;
+const showContenuLocal = !!contenuLocalHtml;
+const showFaq = faq.length > 0;
+// Avis : volontairement masqué tant que la vraie source (Google/Trustpilot) n'est pas branchée (Phase 4/5).
+---
+
+<div {...storyblokEditable(blok)}>
+  <header class="site-header">
+    <a class="wordmark" href="#top">
+      Eric&nbsp;Di&nbsp;Martino
+      {ville && <span class="wordmark-sub">{ville}</span>}
+    </a>
+    {reserveUrl && <a class="btn btn-action btn-sm" href={reserveUrl}>Réserver</a>}
+  </header>
+
+  <main id="top">
+    <!-- 1. HERO -->
+    <section class="hero">
+      <div class="hero-copy reveal">
+        {ville && <p class="label">Salon de coiffure · {ville}</p>}
+        {accroche && <p class="editorial hero-editorial">{accroche}</p>}
+        <h1 class="h-seo hero-h1">{heroH1}</h1>
+        {heroTexte && <p class="lede hero-lede">{heroTexte}</p>}
+        <div class="hero-actions">
+          {reserveUrl && <a class="btn btn-action" href={reserveUrl}>Réserver une visite</a>}
+          <a class="btn btn-ghost" href="#salon">Découvrir le salon</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal" data-d="1">
+        <div class="frame frame-tall">
+          {heroImg && <img src={heroImg.filename} alt={heroImg.alt || ''} />}
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. INFOS PRATIQUES (NAP) -->
+    {showNap && (
+      <section class="nap-wrap" id="salon">
+        <div class="nap reveal">
+          <div class="nap-block nap-a">
+            <p class="label">Le salon</p>
+            {adresse && <p class="nap-line">{adresse}</p>}
+            {(codePostal || ville) && <p class="nap-line">{[codePostal, ville].filter(Boolean).join(' ')}</p>}
+            {mapsUrl && <a class="link-olive" href={mapsUrl} aria-label="Ouvrir l'itinéraire dans Google Maps">Itinéraire &rsaquo;</a>}
+          </div>
+          {horaires.length > 0 && (
+            <div class="nap-block nap-b">
+              <p class="label">Horaires</p>
+              <ul class="hours">
+                {horaires.map((h) => {
+                  const jour = txt(h.jour);
+                  const ferme = !!h.ferme;
+                  const o = txt(h.ouverture);
+                  const f = txt(h.fermeture);
+                  const val = ferme ? 'Fermé' : (o && f ? `${o} – ${f}` : (o || f || ''));
+                  return (
+                    <li class={ferme ? 'is-closed' : ''}><span>{jour}</span><span>{val}</span></li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+          <div class="nap-block nap-c">
+            <p class="label">Réservation</p>
+            <p class="nap-line">Sur rendez-vous</p>
+            {telHref && <a class="phone" href={telHref}>{telephone}</a>}
+            {reserveUrl && <a class="btn btn-action btn-sm nap-cta" href={reserveUrl}>Réserver en ligne</a>}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 3. EXPERTISE VISAGISTE -->
+    {showExpertise && (
+      <section class="split">
+        <div class="split-visual reveal">
+          <div class="frame">
+            {expertiseImg && <img src={expertiseImg.filename} alt={expertiseImg.alt || ''} />}
+          </div>
+        </div>
+        <div class="split-copy reveal" data-d="1">
+          <p class="label">Notre signature</p>
+          {expertiseTitre && <h2 class="h-seo">{expertiseTitre}</h2>}
+          {expertiseHtml && <div class="body rt" set:html={expertiseHtml} />}
+          {expertiseUrl && <a class="link-olive" href={expertiseUrl}>Découvrir la consultation &rsaquo;</a>}
+        </div>
+      </section>
+    )}
+
+    <!-- 4. INTRO LOCALE -->
+    {showIntro && (
+      <section class="intro-locale">
+        <div class="intro-text rt reveal" set:html={introHtml} />
+      </section>
+    )}
+
+    <!-- 5. SERVICES PHARES (répétable, layout alterné) -->
+    {showServices && services.map((s, i) => {
+      const t = txt(s.titre);
+      const tx = txt(s.texte);
+      const img = asset(s.image);
+      const u = link(s.lien);
+      const dark = !!s.sombre;
+      const reverse = i % 2 === 1;
+      const content = (
+        <Fragment>
+          <div class="split-visual reveal">
+            <div class={`frame frame-wide ${dark ? 'frame-dark' : ''}`}>
+              {img && <img src={img.filename} alt={img.alt || ''} />}
+            </div>
+          </div>
+          <div class="split-copy reveal" data-d="1">
+            {t && <h2 class="h-seo">{t}</h2>}
+            {tx && <p class="body">{tx}</p>}
+            {u && <a class={dark ? 'link-cream' : 'link-olive'} href={u}>En savoir plus &rsaquo;</a>}
+          </div>
+        </Fragment>
+      );
+      return dark ? (
+        <section class="service-dark">
+          <div class={`split ${reverse ? 'reverse' : ''}`}>{content}</div>
+        </section>
+      ) : (
+        <section class={`split ${reverse ? 'reverse' : ''}`}>{content}</section>
+      );
+    })}
+
+    <!-- 6. ÉQUIPE — AUTO (membres rattachés) : étape 4, non implémentée ici -->
+
+    <!-- 7. AVIS — masqué tant que la vraie source n'est pas branchée (Phase 4/5) -->
+
+    <!-- 8. CONTENU LOCAL SEO -->
+    {showContenuLocal && (
+      <section class="section local-seo">
+        <div class="rt reveal" set:html={contenuLocalHtml} />
+      </section>
+    )}
+
+    <!-- 9. FAQ -->
+    {showFaq && (
+      <section class="section faq">
+        <header class="section-head reveal">
+          <p class="label">FAQ</p>
+          <h2 class="h-seo">Questions fréquentes</h2>
+        </header>
+        <div class="faq-list reveal" data-d="1">
+          {faq.map((item) => {
+            const q = txt(item.question);
+            const r = rt(item.reponse);
+            return (
+              <details class="faq-item">
+                <summary>{q}<span class="faq-plus" aria-hidden="true"></span></summary>
+                {r && <div class="rt" set:html={r} />}
+              </details>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- 10. CTA FINAL -->
+    <section class="section cta" id="reserver">
+      <div class="cta-inner reveal">
+        <p class="editorial cta-title">{ctaTitre || 'Offrez-vous un vrai moment.'}</p>
+        {ville && <p class="lede cta-lede">Réservez votre visite à {ville}. Consultation comprise, sans supplément.</p>}
+        {reserveUrl && <a class="btn btn-action btn-lg" href={reserveUrl}>Réserver en ligne</a>}
+        {telHref && <p class="cta-phone">ou par téléphone — <a href={telHref}>{telephone}</a></p>}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-mark">Eric Di Martino</p>
+        {ville && <p class="footer-sub">{ville}</p>}
+      </div>
+      <div class="footer-meta">
+        {(adresse || codePostal || ville) && <p>{[adresse, [codePostal, ville].filter(Boolean).join(' ')].filter(Boolean).join(', ')}</p>}
+        <p>Sur rendez-vous</p>
+        {telHref && <p><a href={telHref}>{telephone}</a></p>}
+      </div>
+    </div>
+  </footer>
+</div>
+
+<style is:global>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #ffffff;
+    --cream: #f7f3ea;
+    --cream-deep: #efe8d8;
+    --ink: #26261f;
+    --muted: #807f70;
+    --olive: #6b6e4b;
+    --olive-deep: #4b4e34;
+    --espresso: #2a231d;
+    --terracotta: #bd6a4c;    /* ACTIONS ONLY */
+    --terracotta-deep: #a5573b;
+    --line: rgba(38, 38, 31, 0.10);
+    --line-light: rgba(247, 243, 234, 0.18);
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Poppins", -apple-system, system-ui, sans-serif;
+    --maxw: 1200px;
+    --gutter: clamp(1.25rem, 5vw, 4.5rem);
+    --section-y: clamp(4rem, 8vw, 7rem);
+    --radius: 2px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+
+  /* ============ BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; overflow-x: hidden;
+    background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-weight: 300;
+    font-size: clamp(1rem, 0.96rem + 0.3vw, 1.0625rem);
+    line-height: 1.75; letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  h1, h2 { margin: 0; font-weight: 400; }
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  /* ============ TYPE ============ */
+  .editorial {
+    font-family: var(--serif); font-weight: 340; font-optical-sizing: auto;
+    font-size: clamp(2.6rem, 1.5rem + 5.4vw, 5rem);
+    line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin: 0;
+  }
+  .h-seo {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);
+    line-height: 1.25; letter-spacing: -0.005em; color: var(--ink);
+    max-width: 22ch; margin: 0;
+  }
+  .ital { font-style: italic; font-weight: 330; color: var(--olive); }
+  .label {
+    font-family: var(--sans); font-weight: 600;
+    font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--olive); margin: 0 0 1.1rem;
+  }
+  .label-light { color: #d8c9a8; }
+  .lede {
+    font-size: clamp(1.05rem, 1rem + 0.5vw, 1.25rem); line-height: 1.6;
+    color: var(--ink); max-width: 36ch; margin: 1.4rem 0 0; font-weight: 300;
+  }
+  .body { color: var(--ink); max-width: 44ch; margin: 1.25rem 0 1.75rem; }
+  .body-light { color: rgba(247, 243, 234, 0.82); }
+
+  /* richtext : neutralise les marges des paragraphes générés */
+  .rt > :first-child { margin-top: 0; }
+  .rt > :last-child { margin-bottom: 0; }
+  .rt p { margin: 0 0 1rem; }
+  .rt a { color: var(--olive); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ============ LAYOUT ============ */
+  .section { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); }
+  .section-head { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+
+  /* ============ HEADER ============ */
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem var(--gutter);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .wordmark { font-family: var(--serif); font-size: 1.18rem; text-decoration: none; color: var(--ink); line-height: 1; }
+  .wordmark-sub { font-family: var(--sans); font-weight: 500; font-size: 0.6rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); display: block; margin-top: 0.35rem; }
+
+  /* ============ BUTTONS / LINKS ============ */
+  .btn {
+    --pad-y: 0.95rem; --pad-x: 1.9rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-weight: 500; font-size: 0.82rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: var(--pad-y) var(--pad-x); border-radius: var(--radius);
+    text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    transition: transform 0.45s var(--ease), background-color 0.45s, color 0.45s, box-shadow 0.45s, border-color 0.45s;
+  }
+  .btn-action { background: var(--terracotta); color: #fff; }
+  .btn-action:hover { background: var(--terracotta-deep); transform: translateY(-2px); box-shadow: 0 14px 30px -14px rgba(165, 87, 59, 0.6); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--olive); color: var(--olive); }
+  .btn-sm { --pad-y: 0.7rem; --pad-x: 1.3rem; font-size: 0.72rem; }
+  .btn-lg { --pad-y: 1.15rem; --pad-x: 2.6rem; font-size: 0.86rem; }
+
+  .link-olive, .link-cream {
+    font-family: var(--sans); font-weight: 500; font-size: 0.92rem;
+    text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px;
+    transition: border-color 0.4s, letter-spacing 0.4s;
+  }
+  .link-olive { color: var(--olive); }
+  .link-olive:hover { border-color: var(--olive); letter-spacing: 0.03em; }
+  .link-cream { color: var(--cream); }
+  .link-cream:hover { border-color: var(--cream); letter-spacing: 0.03em; }
+
+  /* ============ FRAMES (placeholders + images) ============ */
+  .frame {
+    position: relative; width: 100%; aspect-ratio: 4 / 3;
+    border-radius: var(--radius); overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 78% 12%, rgba(255,255,255,0.55), transparent 55%),
+      radial-gradient(130% 120% at 15% 95%, var(--olive) 0%, transparent 60%),
+      linear-gradient(150deg, var(--cream) 0%, var(--cream-deep) 55%, #d9d4bf 100%);
+    box-shadow: inset 0 0 0 1px var(--line);
+    transition: transform 0.9s var(--ease);
+  }
+  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .frame-tall { aspect-ratio: 4 / 5; }
+  .frame-wide { aspect-ratio: 3 / 2; }
+  .hero-visual:hover .frame,
+  .split-visual:hover .frame { transform: scale(1.015); }
+
+  /* ============ 1. HERO ============ */
+  .hero {
+    max-width: var(--maxw); margin-inline: auto;
+    padding: clamp(2rem, 6vw, 3.5rem) var(--gutter) var(--section-y);
+    display: grid; gap: clamp(2.25rem, 6vw, 3.5rem);
+  }
+  .hero-copy { align-self: center; }
+  .hero-editorial { margin-bottom: 1.6rem; }
+  .hero-h1 { color: var(--muted); font-weight: 380; max-width: 26ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2.5rem; }
+
+  /* ============ 2. NAP ============ */
+  .nap-wrap { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .nap { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); display: grid; gap: clamp(2rem, 5vw, 3rem); }
+  .nap-line { margin: 0.15rem 0; font-size: 1.06rem; }
+  .hours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-size: 0.98rem; }
+  .hours li:last-child { border-bottom: 0; }
+  .hours .is-closed { color: var(--muted); }
+  .phone { display: inline-block; margin: 0.3rem 0 1.3rem; font-family: var(--serif); font-size: 1.5rem; color: var(--ink); text-decoration: none; }
+  .nap-cta { display: inline-flex; }
+
+  /* ============ 3 & 5. SPLIT ============ */
+  .split { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  .split-copy { align-self: center; }
+
+  /* ============ SERVICE SOMBRE (plein cadre, esprit cocon) ============ */
+  .service-dark { background: var(--espresso); color: var(--cream); }
+  .service-dark .h-seo { color: rgba(247, 243, 234, 0.92); }
+  .service-dark .body { color: rgba(247, 243, 234, 0.82); }
+  .frame-dark {
+    background:
+      radial-gradient(120% 90% at 80% 10%, rgba(189, 106, 76, 0.28), transparent 55%),
+      linear-gradient(150deg, #3a302a 0%, #2a231d 60%, #1d1813 100%);
+    box-shadow: inset 0 0 0 1px var(--line-light);
+  }
+
+  /* ============ 4. INTRO LOCALE ============ */
+  .intro-locale { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); }
+  .intro-text {
+    font-family: var(--serif); font-weight: 340;
+    font-size: clamp(1.5rem, 1rem + 2.4vw, 2.4rem); line-height: 1.4;
+    letter-spacing: -0.01em; color: var(--ink); margin: 0; max-width: 20ch;
+  }
+
+  /* ============ CONTENU LOCAL SEO ============ */
+  .local-seo .rt { max-width: 62ch; margin-inline: auto; color: var(--ink); }
+
+  /* ============ 8. FAQ ============ */
+  .faq-list { border-top: 1px solid var(--line); max-width: 820px; }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-plus { position: relative; width: 16px; height: 16px; flex: none; }
+  .faq-plus::before, .faq-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+  .faq-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+  .faq-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+  .faq-item[open] .faq-plus::after { transform: scaleY(0); }
+  .faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
+  /* ============ 9. CTA ============ */
+  .cta-inner { background: var(--olive); color: #fff; border-radius: var(--radius); padding: clamp(3rem, 8vw, 6rem) var(--gutter); }
+  .cta-title { color: #fff; }
+  .cta-title .ital { color: var(--cream); }
+  .cta-lede { color: rgba(255,255,255,0.86); }
+  .cta .btn-action { margin-top: 2.4rem; }
+  .cta-phone { margin: 1.4rem 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+  .cta-phone a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ============ FOOTER ============ */
+  .site-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; gap: 2rem; }
+  .footer-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+  .footer-sub { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+  .footer-meta p { margin: 0.25rem 0; font-size: 0.92rem; color: var(--muted); }
+  .footer-meta a { color: var(--ink); text-decoration: none; }
+
+  /* ============ MOTION (scroll reveal) ============ */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); will-change: opacity, transform; }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+  .js .reveal[data-d="1"].is-in { transition-delay: 0.09s; }
+  .js .reveal[data-d="2"].is-in { transition-delay: 0.18s; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ============ RESPONSIVE ≥ 820px ============ */
+  @media (min-width: 820px) {
+    .hero {
+      grid-template-columns: 0.84fr 1.16fr; align-items: stretch;
+      min-height: calc(100svh - 64px); gap: clamp(2.5rem, 5vw, 5rem);
+      padding-top: clamp(2rem, 4vw, 3.5rem); padding-bottom: clamp(3rem, 6vw, 5rem);
+    }
+    .hero-copy { align-self: center; padding-right: clamp(1rem, 3vw, 3rem); padding-block: clamp(1rem, 4vw, 3rem); }
+    .hero-visual { margin-right: calc(50% - 50vw); align-self: stretch; display: flex; }
+    .hero-visual .frame { height: 100%; width: 100%; aspect-ratio: auto; min-height: 62vh; }
+
+    .nap { grid-template-columns: repeat(12, 1fr); }
+    .nap-a { grid-column: 1 / 5; }
+    .nap-b { grid-column: 6 / 9; margin-top: 2.5rem; }
+    .nap-c { grid-column: 10 / 13; }
+
+    .split { grid-template-columns: 1.05fr 0.95fr; }
+    .split-copy { padding-right: clamp(0rem, 4vw, 4rem); }
+    .split-visual { margin-top: clamp(1rem, 3vw, 2.5rem); }
+    .split.reverse .split-visual { order: 2; margin-top: 0; }
+    .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
+
+    .intro-locale .intro-text { margin-left: auto; margin-right: clamp(0rem, 6vw, 6rem); max-width: 16ch; }
+
+    .cta-lede { max-width: 40ch; }
+    .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
+  }
+</style>
+
+<script is:inline>
+  document.documentElement.classList.add("js");
+  // Révélations au scroll — IntersectionObserver léger, dégradation propre sans JS.
+  addEventListener("DOMContentLoaded", function () {
+    var els = document.querySelectorAll(".reveal");
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!("IntersectionObserver" in window) || reduce) {
+      els.forEach(function (e) { e.classList.add("is-in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function (e) { io.observe(e); });
+  });
+</script>

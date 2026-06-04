@@ -29,6 +29,12 @@
       "pos": 3,
       "display_name": "Lien",
       "description": "Vers la page dédiée du service (ex. /head-spa-grenoble)"
+    },
+    "sombre": {
+      "type": "boolean",
+      "pos": 4,
+      "display_name": "Affichage sombre",
+      "description": "Active un fond sombre (brun chaud, esprit cocon) pour ce service — ex. le head spa. Décoché = affichage clair par défaut."
     }
   }
 }

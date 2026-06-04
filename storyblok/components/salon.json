@@ -23,45 +23,57 @@
       "display_name": "Accroche",
       "description": "Phrase courte d'accroche affichée dans le hero"
     },
+    "titre_seo": {
+      "type": "text",
+      "pos": 3,
+      "display_name": "Titre SEO (H1)",
+      "description": "Titre principal H1 de la page — critique pour le SEO local (ex. « Coiffeur, coloriste & head spa à Grenoble »). Piloté par l'éditeur, ne pas laisser vide."
+    },
+    "hero_texte": {
+      "type": "textarea",
+      "pos": 4,
+      "display_name": "Texte d'introduction (hero)",
+      "description": "Phrase(s) sous le titre dans le hero (le « lede »). 1 à 2 lignes."
+    },
     "hero_image": {
       "type": "asset",
       "filetypes": ["images"],
-      "pos": 3,
+      "pos": 5,
       "display_name": "Image principale (hero)"
     },
     "hero_galerie": {
       "type": "multiasset",
       "filetypes": ["images"],
-      "pos": 4,
+      "pos": 6,
       "display_name": "Galerie hero (optionnel)",
       "description": "Plusieurs photos intégrées au hero. Laisser vide si non utilisé."
     },
     "lien_reservation": {
       "type": "multilink",
-      "pos": 5,
+      "pos": 7,
       "display_name": "Lien de réservation",
       "description": "URL de l'outil de réservation de ce salon"
     },
 
     "adresse": {
       "type": "text",
-      "pos": 6,
+      "pos": 8,
       "display_name": "Adresse",
       "description": "Rue + numéro"
     },
     "code_postal": {
       "type": "text",
-      "pos": 7,
+      "pos": 9,
       "display_name": "Code postal"
     },
     "telephone": {
       "type": "text",
-      "pos": 8,
+      "pos": 10,
       "display_name": "Téléphone"
     },
     "horaires": {
       "type": "bloks",
-      "pos": 9,
+      "pos": 11,
       "display_name": "Horaires (un bloc par jour)",
       "description": "Ajouter un bloc « Horaire — un jour » par jour de la semaine.",
       "restrict_components": true,
@@ -69,57 +81,57 @@
     },
     "geo_lat": {
       "type": "number",
-      "pos": 10,
+      "pos": 12,
       "display_name": "Latitude",
       "description": "Pour la carte et le schema (ex. 45.1885)"
     },
     "geo_lng": {
       "type": "number",
-      "pos": 11,
+      "pos": 13,
       "display_name": "Longitude",
       "description": "Pour la carte et le schema (ex. 5.7245)"
     },
     "lien_maps": {
       "type": "multilink",
-      "pos": 12,
+      "pos": 14,
       "display_name": "Lien Google Maps"
     },
 
     "expertise_titre": {
       "type": "text",
-      "pos": 13,
+      "pos": 15,
       "display_name": "Expertise — titre",
       "description": "Section consultation / visagiste (différenciateur)"
     },
     "expertise_texte": {
       "type": "richtext",
-      "pos": 14,
+      "pos": 16,
       "display_name": "Expertise — texte",
       "description": "Court. Valorise sans dupliquer la page dédiée."
     },
     "expertise_image": {
       "type": "asset",
       "filetypes": ["images"],
-      "pos": 15,
+      "pos": 17,
       "display_name": "Expertise — image"
     },
     "expertise_lien": {
       "type": "multilink",
-      "pos": 16,
+      "pos": 18,
       "display_name": "Expertise — lien",
       "description": "Vers /consultation-visagiste-coloriste"
     },
 
     "intro_locale": {
       "type": "richtext",
-      "pos": 17,
+      "pos": 19,
       "display_name": "Intro locale (unique)",
       "description": "Texte d'ancrage quartier/ville, UNIQUE par salon. Ne jamais dupliquer entre salons."
     },
 
     "services_phares": {
       "type": "bloks",
-      "pos": 18,
+      "pos": 20,
       "display_name": "Services phares (optionnel)",
       "description": "Bandes éditoriales. Vide = section masquée.",
       "restrict_components": true,
@@ -128,19 +140,19 @@
 
     "equipe_titre": {
       "type": "text",
-      "pos": 19,
+      "pos": 21,
       "display_name": "Équipe — titre de section (optionnel)",
       "description": "La liste des coiffeurs est AUTOMATIQUE (membres rattachés à ce salon). Ce champ ne sert qu'à personnaliser le titre."
     },
 
     "avis_actif": {
       "type": "boolean",
-      "pos": 20,
+      "pos": 22,
       "display_name": "Afficher la section avis"
     },
     "avis_source": {
       "type": "option",
-      "pos": 21,
+      "pos": 23,
       "display_name": "Source des avis",
       "description": "Avis branchés sur la vraie source — jamais saisis à la main.",
       "options": [
@@ -151,13 +163,13 @@
 
     "contenu_local": {
       "type": "richtext",
-      "pos": 22,
+      "pos": 24,
       "display_name": "Contenu local SEO (optionnel)",
       "description": "Texte SEO local complémentaire (carburant GEO)."
     },
     "faq": {
       "type": "bloks",
-      "pos": 23,
+      "pos": 25,
       "display_name": "FAQ (optionnel)",
       "description": "Questions/réponses. Peut absorber des prestations avec liens.",
       "restrict_components": true,
@@ -166,14 +178,14 @@
 
     "cta_titre": {
       "type": "text",
-      "pos": 24,
+      "pos": 26,
       "display_name": "CTA — titre (optionnel)",
       "description": "Sinon, un titre par défaut est utilisé. Réutilise le lien de réservation et le téléphone déjà saisis."
     },
 
     "seo": {
       "type": "bloks",
-      "pos": 25,
+      "pos": 27,
       "display_name": "SEO",
       "description": "Title / meta description / image de partage, propres à ce salon.",
       "restrict_components": true,

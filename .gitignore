@@ -25,3 +25,8 @@ logs/
 
 # Config locale Claude Code (par poste, non partagée)
 .claude/settings.local.json
+
+# Photos sources brutes (lourdes, prototype only) — JAMAIS commitées.
+# Les images du site viennent des assets Storyblok ; ces fichiers servent à
+# l'intégration/optimisation locale. Les dérivés optimisés seront gérés à part.
+public/PHOTO/

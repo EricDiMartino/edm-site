@@ -15,8 +15,10 @@ export default defineConfig({
 				// Espace hébergé en région UE (RGPD) — voir PROJECT_BRIEF §3.
 				region: 'eu',
 			},
-			// Les composants Storyblok seront mappés ici au fur et à mesure (Phase 3+).
-			components: {},
+			// Mapping nom de composant Storyblok → composant Astro (chemin relatif à src/).
+			components: {
+				salon: 'storyblok/Salon',
+			},
 		}),
 	],
 });

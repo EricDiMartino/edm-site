@@ -1,0 +1,50 @@
+---
+// Route page salon Grenoble — branchée sur Storyblok.
+// Le CONTENU et le DESIGN vivent dans le composant `Salon.astro` (mappé sur le
+// content-type `salon`). Ici : fetch de la story + <head>/SEO (champ `seo`).
+// Modèle destiné à être généralisé en route dynamique [...slug] pour les autres salons.
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const api = useStoryblokApi();
+const { data } = await api.get('cdn/stories/salon-de-coiffure/grenoble', {
+  version: 'draft',
+});
+const story = data.story;
+const blok = story.content;
+
+// --- SEO depuis le bloc `seo` (max 1), avec replis propres si non rempli ---
+const seo = Array.isArray(blok.seo) && blok.seo.length ? blok.seo[0] : {};
+const t = (v) => (typeof v === 'string' ? v.trim() : '');
+const seoTitle = t(seo.title) || t(blok.nom) || 'Salon de coiffure — Eric Di Martino';
+const seoDesc = t(seo.meta_description) || t(blok.accroche);
+const ogImage =
+  (seo.og_image && seo.og_image.filename) ||
+  (blok.hero_image && blok.hero_image.filename) ||
+  '';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- noindex global jusqu'à la bascule (cf. vercel.json / Phase 6) -->
+    <meta name="robots" content="noindex" />
+    <title>{seoTitle}</title>
+    {seoDesc && <meta name="description" content={seoDesc} />}
+    <meta property="og:title" content={seoTitle} />
+    {seoDesc && <meta property="og:description" content={seoDesc} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <StoryblokComponent blok={blok} />
+  </body>
+</html>
