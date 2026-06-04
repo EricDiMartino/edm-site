@@ -30,3 +30,6 @@ logs/
 # originals/ = bruts lourds ; optimized/ = dérivés WebP destinés à l'upload Storyblok.
 # Les images du site final vivent dans les assets Storyblok, pas dans le repo.
 photos-src/
+
+# Certificats HTTPS de dev (mkcert) — locaux, non commités
+certs/
