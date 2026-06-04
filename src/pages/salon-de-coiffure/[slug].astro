@@ -23,6 +23,22 @@ export async function getStaticPaths() {
 const { story } = Astro.props;
 const blok = story.content;
 
+// Équipe : membres rattachés à CE salon (relation membre_equipe.salon = uuid du salon).
+// Liste calculée → aucune saisie ; la section est masquée au rendu si vide.
+const sbApi = useStoryblokApi();
+let membres = [];
+try {
+  const { data: eq } = await sbApi.get('cdn/stories', {
+    version: 'draft',
+    content_type: 'membre_equipe',
+    filter_query: { salon: { in: story.uuid } },
+    per_page: 100,
+  });
+  membres = eq.stories ?? [];
+} catch {
+  membres = [];
+}
+
 // --- SEO depuis le bloc `seo` (max 1), avec replis propres si non rempli ---
 const seo = Array.isArray(blok.seo) && blok.seo.length ? blok.seo[0] : {};
 const t = (v) => (typeof v === 'string' ? v.trim() : '');
@@ -55,6 +71,6 @@ const ogImage =
     />
   </head>
   <body>
-    <StoryblokComponent blok={blok} />
+    <StoryblokComponent blok={blok} membres={membres} />
   </body>
 </html>
