@@ -24,6 +24,16 @@ function rt(field) {
   // vide si le richtext ne contient aucun texte réel (paragraphe vide, etc.)
   return html && html.replace(/<[^>]*>/g, '').trim() ? html : '';
 }
+/* Service d'images Storyblok : resize + WebP à la volée via l'URL (/m/).
+   N'altère que les assets Storyblok ; sert des dérivés légers (perf mobile / CWV). */
+function sbSrc(filename, w, { q = 80 } = {}) {
+  if (!filename) return '';
+  return `${filename}/m/${w}x0/filters:format(webp):quality(${q})`;
+}
+function sbSrcset(filename, widths, opts) {
+  if (!filename) return '';
+  return widths.map((w) => `${sbSrc(filename, w, opts)} ${w}w`).join(', ');
+}
 
 /* ---------- Champs ---------- */
 const nom = txt(blok.nom);
@@ -95,7 +105,17 @@ const showFaq = faq.length > 0;
       </div>
       <div class="hero-visual reveal" data-d="1">
         <div class="frame frame-tall">
-          {heroImg && <img src={heroImg.filename} alt={heroImg.alt || ''} />}
+          {heroImg && (
+            <img
+              src={sbSrc(heroImg.filename, 1280)}
+              srcset={sbSrcset(heroImg.filename, [640, 960, 1280, 1600, 2000])}
+              sizes="(min-width: 820px) 58vw, 100vw"
+              alt={heroImg.alt || ''}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          )}
         </div>
       </div>
     </section>
@@ -142,7 +162,16 @@ const showFaq = faq.length > 0;
       <section class="split">
         <div class="split-visual reveal">
           <div class="frame">
-            {expertiseImg && <img src={expertiseImg.filename} alt={expertiseImg.alt || ''} />}
+            {expertiseImg && (
+              <img
+                src={sbSrc(expertiseImg.filename, 1024)}
+                srcset={sbSrcset(expertiseImg.filename, [480, 768, 1024, 1280])}
+                sizes="(min-width: 820px) 48vw, 100vw"
+                alt={expertiseImg.alt || ''}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
           </div>
         </div>
         <div class="split-copy reveal" data-d="1">
@@ -173,7 +202,16 @@ const showFaq = faq.length > 0;
         <Fragment>
           <div class="split-visual reveal">
             <div class={`frame frame-wide ${dark ? 'frame-dark' : ''}`}>
-              {img && <img src={img.filename} alt={img.alt || ''} />}
+              {img && (
+                <img
+                  src={sbSrc(img.filename, 1024)}
+                  srcset={sbSrcset(img.filename, [480, 768, 1024, 1280])}
+                  sizes="(min-width: 820px) 48vw, 100vw"
+                  alt={img.alt || ''}
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
             </div>
           </div>
           <div class="split-copy reveal" data-d="1">
