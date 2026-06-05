@@ -30,6 +30,7 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
 const showChiffres = (salon.chiffres?.length ?? 0) > 0;
 const showAcces = (salon.acces?.length ?? 0) > 0;
 const showCitation = !!(salon.citation && salon.citation.texte);
+const showAvis = !!(salon.avis && salon.avis.items?.length);
 ---
 
 <div class="salon-page">
@@ -236,6 +237,28 @@ const showCitation = !!(salon.citation && salon.citation.texte);
               </li>
             );
           })}
+        </ul>
+      </section>
+    )}
+
+    <!-- 6b. AVIS (placeholder — vrais avis Google à brancher) -->
+    {showAvis && (
+      <section class="section reviews">
+        <header class="section-head reveal">
+          <p class="label">Avis</p>
+          <h2 class="h-seo">Ils en parlent mieux que nous</h2>
+          <p class="reviews-rating">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            {salon.avis!.note} / 5 · {salon.avis!.total} avis {salon.avis!.source}
+          </p>
+        </header>
+        <ul class="reviews-grid">
+          {salon.avis!.items.map((a) => (
+            <li class="review reveal">
+              <p class="review-quote">“{a.texte}”</p>
+              <p class="review-author">{a.auteur}{a.detail && <span> — {a.detail}</span>}</p>
+            </li>
+          ))}
         </ul>
       </section>
     )}
@@ -536,6 +559,16 @@ const showCitation = !!(salon.citation && salon.citation.texte);
   .team-name { font-family: var(--serif); font-size: 1.2rem; margin: 1rem 0 0.15rem; }
   .team-role { font-size: 0.85rem; color: var(--muted); margin: 0; letter-spacing: 0.02em; }
 
+  /* ============ AVIS ============ */
+  .reviews-rating { margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
+  .reviews-rating .stars { color: var(--terracotta); letter-spacing: 0.1em; margin-right: 0.4rem; }
+  .reviews-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.4rem, 4vw, 2.5rem); }
+  .review { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+  .review:first-child { border-top: 0; padding-top: 0; }
+  .review-quote { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: clamp(1.15rem, 1rem + 0.9vw, 1.4rem); line-height: 1.45; color: var(--ink); margin: 0 0 1rem; }
+  .review-author { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; margin: 0; }
+  .review-author span { color: var(--muted); font-weight: 300; }
+
   /* ============ FOOTER ============ */
   .site-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
   .footer-grid { display: grid; gap: 2rem; }
@@ -583,6 +616,9 @@ const showCitation = !!(salon.citation && salon.citation.texte);
     .cta-lede { max-width: 40ch; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
+    .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+    .review { border-top: 0; padding: 0; }
+    .reviews-grid .review + .review { border-left: 1px solid var(--line); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
   }
 
   /* Équipe : une seule rangée de 5 portraits sur grand écran */

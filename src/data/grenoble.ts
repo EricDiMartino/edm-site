@@ -41,6 +41,12 @@ export interface FaqItem {
   question: string;
   reponse: string;
 }
+export interface Avis {
+  note: string; // ex. "4,7"
+  total: number; // nombre d'avis
+  source: string; // ex. "Google"
+  items: { texte: string; auteur: string; detail?: string }[];
+}
 export interface ChiffreCle {
   valeur: string; // ex. "200", "4,7 ★"
   label: string; // ex. "m² d'espace"
@@ -75,6 +81,7 @@ export interface SalonData {
   equipePlaceholder?: ImageMetadata; // portrait de repli tant qu'un membre n'a pas sa photo
   equipe: Membre[];
   faq: FaqItem[];
+  avis?: Avis;
   ctaTitre?: string;
   seo: { title: string; description: string };
 }
@@ -182,6 +189,19 @@ export const grenoble: SalonData = {
     { prenom: 'Manon', specialite: 'Coiffeuse' },
     { prenom: 'Joanna', specialite: 'Head spa & soins' },
   ],
+
+  // Avis — PLACEHOLDER (témoignages fictifs). À remplacer par les vrais avis Google :
+  // note + total + items à brancher sur la source réelle (jamais codés en dur en prod, brief §7).
+  avis: {
+    note: '4,7',
+    total: 500,
+    source: 'Google',
+    items: [
+      { texte: 'Première fois que je ressors d’un salon en me sentant vraiment écoutée. La consultation change tout.', auteur: 'Marion B.', detail: 'Coupe & couleur' },
+      { texte: 'Le head spa est une parenthèse hors du temps. On revient autant pour le soin que pour le résultat.', auteur: 'Sophie L.', detail: 'Head spa' },
+      { texte: 'Accueil impeccable, geste précis, conseils justes. Un salon qui mérite sa réputation.', auteur: 'Julien R.', detail: 'Barbier' },
+    ],
+  },
 
   faq: [
     {
