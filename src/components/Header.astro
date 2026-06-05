@@ -13,6 +13,12 @@ interface Props {
 const { tel, reservationUrl, salons = [], current } = Astro.props;
 const telHref = tel ? 'tel:' + tel.replace(/[^0-9+]/g, '') : '';
 
+// Liste des salons (menu « Salons » + dropdown résa des pages neutres).
+const SALONS: SalonLink[] = [
+  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble' },
+  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot' },
+];
+
 const NAV = [
   { label: 'Salons', href: '/nos-salons-de-coiffure', key: 'salons' },
   { label: 'Prestations', href: '/prestations-coiffure', key: 'prestations' },
@@ -30,9 +36,16 @@ const NAV = [
   </a>
 
   <nav class="nav" aria-label="Navigation principale">
-    {NAV.map((item) => (
+    {NAV.map((item) => (item.key === 'salons' ? (
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-trigger" aria-current={current === 'salons' ? 'page' : undefined} aria-haspopup="true">Salons<span class="caret" aria-hidden="true"></span></button>
+        <ul class="nav-drop-list">
+          {SALONS.map((s) => (<li><a href={s.href}>{s.ville}</a></li>))}
+        </ul>
+      </div>
+    ) : (
       <a href={item.href} aria-current={current === item.key ? 'page' : undefined}>{item.label}</a>
-    ))}
+    )))}
   </nav>
 
   <div class="nav-actions">
@@ -52,9 +65,14 @@ const NAV = [
     <details class="m-menu">
       <summary class="m-toggle" aria-label="Ouvrir le menu"><span class="burger" aria-hidden="true"></span></summary>
       <nav class="m-nav" aria-label="Menu">
-        {NAV.map((item) => (
+        {NAV.map((item) => (item.key === 'salons' ? (
+          <div class="m-group">
+            <span class="m-group-label">Salons</span>
+            {SALONS.map((s) => (<a class="m-sub" href={s.href}>{s.ville}</a>))}
+          </div>
+        ) : (
           <a href={item.href} aria-current={current === item.key ? 'page' : undefined}>{item.label}</a>
-        ))}
+        )))}
       </nav>
     </details>
   </div>
@@ -129,6 +147,10 @@ const NAV = [
   }
   .m-nav a:last-child { border-bottom: 0; }
   .m-nav a[aria-current="page"] { color: var(--olive); }
+  /* Groupe « Salons » dans le menu mobile */
+  .m-group { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .m-group-label { display: block; font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin-bottom: 0.35rem; }
+  .m-sub { display: block; font-family: var(--sans); font-weight: 500; font-size: 0.98rem; color: var(--ink); text-decoration: none; padding: 0.45rem 0 0.45rem 0.9rem; }
 
   /* Barre d'action fixe mobile (Appeler + Réserver) */
   .nav-actions > .btn-action, .nav-actions > .resa-menu { display: none; } /* Réserver retiré du header en mobile */
@@ -164,5 +186,44 @@ const NAV = [
     .nav a:hover { color: var(--olive); }
     .nav a[aria-current="page"] { color: var(--olive); border-color: var(--olive); }
     .nav-tel { display: inline-block; }
+
+    /* Menu déroulant « Salons » (desktop) — survol + clavier (focus-within), sans JS */
+    .nav-drop { position: relative; }
+    .nav-drop-trigger {
+      display: inline-flex; align-items: center; cursor: pointer;
+      font-family: var(--sans); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.02em;
+      color: var(--ink); background: none; border: 0; border-bottom: 1px solid transparent;
+      padding: 0 0 3px; transition: color 0.3s, border-color 0.3s;
+    }
+    .caret {
+      width: 0; height: 0; margin-left: 0.4rem;
+      border-left: 3.5px solid transparent; border-right: 3.5px solid transparent;
+      border-top: 4px solid currentColor; opacity: 0.7;
+      transition: transform 0.3s var(--ease);
+    }
+    .nav-drop:hover .nav-drop-trigger, .nav-drop-trigger:focus-visible { color: var(--olive); }
+    .nav-drop-trigger[aria-current="page"] { color: var(--olive); border-color: var(--olive); }
+    .nav-drop:hover .caret, .nav-drop:focus-within .caret { transform: rotate(180deg); }
+
+    .nav-drop-list {
+      position: absolute; left: 50%; top: 100%; margin-top: 0.6rem; z-index: 60;
+      min-width: 12rem; padding: 0.5rem; list-style: none;
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: 0 20px 40px -20px rgba(38, 38, 31, 0.3);
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transform: translateX(-50%) translateY(6px);
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
+    }
+    .nav-drop-list::before { content: ""; position: absolute; left: 0; right: 0; top: -0.6rem; height: 0.6rem; } /* pont anti-hover-gap */
+    .nav-drop:hover .nav-drop-list, .nav-drop:focus-within .nav-drop-list {
+      opacity: 1; visibility: visible; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-drop-list a {
+      display: block; padding: 0.6rem 0.8rem; text-decoration: none; color: var(--ink);
+      font-family: var(--sans); font-weight: 500; font-size: 0.9rem; border-radius: var(--radius);
+      border: 0; letter-spacing: 0.02em;
+    }
+    .nav-drop-list a:hover { background: var(--cream); color: var(--olive); }
   }
 </style>
