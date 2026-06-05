@@ -248,20 +248,28 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
           <p class="label">Avis</p>
           <h2 class="h-seo">Ils en parlent mieux que nous</h2>
           <p class="reviews-rating">
-            <span class="stars" aria-hidden="true">★★★★★</span>
-            {salon.avis!.note} / 5 · {salon.avis!.total} avis {salon.avis!.source}
+            <span class="g-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg></span>
+            <strong>{salon.avis!.note}</strong> / 5 · {salon.avis!.total} avis {salon.avis!.source}
           </p>
-          {salon.avis!.url && (
-            <a class="link-olive" href={salon.avis!.url} target="_blank" rel="noopener">Voir les avis sur Google &rsaquo;</a>
-          )}
         </header>
         <ul class="reviews-grid">
-          {salon.avis!.items.map((a) => (
-            <li class="review reveal">
-              <p class="review-quote">“{a.texte}”</p>
-              <p class="review-author">{a.auteur}{a.detail && <span> — {a.detail}</span>}</p>
-            </li>
-          ))}
+          {salon.avis!.items.map((a) => {
+            const note = Math.round(a.rating ?? 5);
+            return (
+              <li class="review-card reveal">
+                <div class="review-top">
+                  <span class="review-avatar" aria-hidden="true">{a.auteur.charAt(0)}</span>
+                  <span class="review-meta">
+                    <span class="review-name">{a.auteur}</span>
+                    {a.detail && <span class="review-date">{a.detail}</span>}
+                  </span>
+                </div>
+                <span class="review-stars" aria-label={`${note} sur 5`}>{'★'.repeat(note)}<span class="star-empty">{'★'.repeat(5 - note)}</span></span>
+                <p class="review-text">{a.texte}</p>
+                {salon.avis!.url && <a class="review-link" href={salon.avis!.url} target="_blank" rel="noopener">Lire sur Google &rsaquo;</a>}
+              </li>
+            );
+          })}
         </ul>
       </section>
     )}
@@ -562,15 +570,33 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .team-name { font-family: var(--serif); font-size: 1.2rem; margin: 1rem 0 0.15rem; }
   .team-role { font-size: 0.85rem; color: var(--muted); margin: 0; letter-spacing: 0.02em; }
 
-  /* ============ AVIS ============ */
-  .reviews-rating { margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
-  .reviews-rating .stars { color: var(--terracotta); letter-spacing: 0.1em; margin-right: 0.4rem; }
-  .reviews-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.4rem, 4vw, 2.5rem); }
-  .review { padding: 1.5rem 0; border-top: 1px solid var(--line); }
-  .review:first-child { border-top: 0; padding-top: 0; }
-  .review-quote { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: clamp(1.15rem, 1rem + 0.9vw, 1.4rem); line-height: 1.45; color: var(--ink); margin: 0 0 1rem; }
-  .review-author { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; margin: 0; }
-  .review-author span { color: var(--muted); font-weight: 300; }
+  /* ============ AVIS (cartes Google) ============ */
+  .reviews-rating { display: flex; align-items: center; margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
+  .reviews-rating strong { font-weight: 600; color: var(--ink); margin-right: 0.3rem; }
+  .g-mark { display: inline-flex; margin-right: 0.5rem; }
+  .reviews-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+  .review-card {
+    background: var(--cream); border-radius: var(--radius);
+    padding: clamp(1.4rem, 4vw, 1.9rem);
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+  .review-top { display: flex; align-items: center; gap: 0.75rem; }
+  .review-avatar {
+    width: 2.5rem; height: 2.5rem; flex: none; display: grid; place-items: center;
+    border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px var(--line);
+    font-family: var(--serif); color: var(--olive); font-size: 1.05rem;
+  }
+  .review-meta { display: flex; flex-direction: column; line-height: 1.25; }
+  .review-name { font-weight: 500; font-size: 0.92rem; color: var(--ink); }
+  .review-date { font-size: 0.78rem; color: var(--muted); }
+  .review-stars { color: var(--terracotta); letter-spacing: 0.08em; font-size: 0.9rem; }
+  .review-stars .star-empty { color: rgba(38, 38, 31, 0.18); }
+  .review-text {
+    margin: 0; color: var(--ink); font-size: 0.95rem; line-height: 1.6;
+    display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .review-link { margin-top: auto; font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: var(--olive); text-decoration: none; }
+  .review-link:hover { text-decoration: underline; }
 
   /* ============ FOOTER ============ */
   .site-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
@@ -620,8 +646,6 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
     .reviews-grid { grid-template-columns: repeat(3, 1fr); }
-    .review { border-top: 0; padding: 0; }
-    .reviews-grid .review + .review { border-left: 1px solid var(--line); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
   }
 
   /* Équipe : une seule rangée de 5 portraits sur grand écran */
