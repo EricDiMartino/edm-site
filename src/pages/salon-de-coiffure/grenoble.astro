@@ -1,15 +1,16 @@
 ---
-// Page salon Grenoble — simple, statique, contenu en dur.
-// Données : src/data/grenoble.ts · Design : src/components/SalonPage.astro
+// Page salon Grenoble — Layout commun + données en dur + avis Google (build).
+import Layout from '../../components/Layout.astro';
 import SalonPage from '../../components/SalonPage.astro';
 import { grenoble } from '../../data/grenoble';
 import { getGoogleReviews } from '../../lib/places';
 
 const { seo } = grenoble;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(grenoble.heroImage.src, Astro.site).href;
 
-// Avis Google récupérés au build ; repli sur le placeholder si clé absente / erreur.
+// Avis Google récupérés au build ; repli placeholder si clé absente.
 const liveAvis = await getGoogleReviews(grenoble.googlePlaceId);
-// Synchronise le chiffre « avis » du bandeau sur la vraie note/total Google.
 const chiffres = liveAvis
   ? grenoble.chiffres?.map((c) =>
       /avis/i.test(c.label) ? { valeur: `${liveAvis.note}★`, label: `${liveAvis.total} avis Google` } : c,
@@ -22,11 +23,8 @@ const salon = liveAvis
       avis: { note: liveAvis.note, total: liveAvis.total, source: liveAvis.source, url: liveAvis.url, items: liveAvis.items },
     }
   : grenoble;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL(grenoble.heroImage.src, Astro.site).href;
 
-// Schema HairSalon (SEO local + GEO). aggregateRating OMIS volontairement :
-// à brancher sur les vrais avis Google/Trustpilot, jamais codé en dur (PROJECT_BRIEF §7).
+// Schema HairSalon (SEO local + GEO). aggregateRating uniquement depuis les vrais avis.
 const hairSalon = {
   '@context': 'https://schema.org',
   '@type': 'HairSalon',
@@ -45,7 +43,6 @@ const hairSalon = {
   ...(grenoble.geo && {
     geo: { '@type': 'GeoCoordinates', latitude: grenoble.geo.lat, longitude: grenoble.geo.lng },
   }),
-  // aggregateRating : UNIQUEMENT depuis les vrais avis Google (jamais codé en dur).
   ...(liveAvis && {
     aggregateRating: { '@type': 'AggregateRating', ratingValue: liveAvis.noteRaw, reviewCount: liveAvis.total },
   }),
@@ -70,39 +67,8 @@ const breadcrumb = {
 };
 ---
 
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- noindex global jusqu'à la bascule (cf. vercel.json / Phase 6) -->
-    <meta name="robots" content="noindex" />
-    <title>{seo.title}</title>
-    <meta name="description" content={seo.description} />
-    <link rel="canonical" href={canonical} />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="Eric Di Martino" />
-    <meta property="og:title" content={seo.title} />
-    <meta property="og:description" content={seo.description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={seo.title} />
-    <meta name="twitter:description" content={seo.description} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(hairSalon)} />
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
-  </head>
-  <body>
-    <SalonPage salon={salon} />
-  </body>
-</html>
+<Layout title={seo.title} description={seo.description} canonical={canonical} ogImage={ogImage}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(hairSalon)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <SalonPage salon={salon} />
+</Layout>
