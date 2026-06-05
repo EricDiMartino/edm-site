@@ -1,0 +1,140 @@
+// Données de contenu — page salon GRENOBLE.
+// Contenu EN DUR, séparé du design (src/components/SalonPage.astro).
+// → Modifier le contenu = éditer ce fichier. Le design ne bouge pas.
+// Les textes marqués « provisoire » sont des placeholders cohérents,
+// à remplacer par les vrais textes (étape 5 de la méthode page par page).
+
+import type { ImageMetadata } from 'astro';
+import hero from '../assets/salons/grenoble/hero.webp';
+import expertise from '../assets/salons/grenoble/expertise.webp';
+import headspa from '../assets/salons/grenoble/headspa.webp';
+import barbier from '../assets/salons/grenoble/barbier.webp';
+
+export interface Horaire {
+  jour: string;
+  valeur: string; // ex. "9h – 19h" ou "Fermé"
+  ferme?: boolean;
+}
+export interface ServicePhare {
+  titre: string;
+  texte: string;
+  image?: ImageMetadata;
+  lien?: string;
+  sombre?: boolean; // true = bande sombre (esprit cocon), ex. head spa
+}
+export interface Membre {
+  prenom: string;
+  specialite?: string;
+  photo?: ImageMetadata; // absent → initiale en repli
+}
+export interface FaqItem {
+  question: string;
+  reponse: string;
+}
+export interface SalonData {
+  nom: string;
+  ville: string;
+  accroche: string; // grande accroche éditoriale (hero)
+  titreSeo: string; // H1 descriptif (SEO local) — mesuré, jamais géant
+  heroTexte: string; // lede sous le H1
+  heroImage: ImageMetadata;
+  reservationUrl: string;
+  adresse: string;
+  codePostal: string;
+  telephone: string;
+  horaires: Horaire[];
+  mapsUrl?: string;
+  expertise?: { titre: string; texte: string; image?: ImageMetadata; lien?: string };
+  introLocale?: string; // texte d'ancrage local, unique au salon
+  services: ServicePhare[];
+  equipeTitre?: string;
+  equipe: Membre[];
+  faq: FaqItem[];
+  ctaTitre?: string;
+  seo: { title: string; description: string };
+}
+
+export const grenoble: SalonData = {
+  // — Réel (saisi) —
+  nom: 'Eric Di Martino',
+  ville: 'Grenoble',
+  accroche: "L'élégance, prise au mot.",
+  titreSeo: 'Coiffeur et coloriste visagiste à Grenoble',
+  adresse: '6 place Victor Hugo',
+  codePostal: '38000',
+  telephone: '04 76 46 07 04',
+  heroImage: hero,
+  reservationUrl: '#reserver', // TODO: remplacer par l'URL réelle de réservation
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=6+place+Victor+Hugo+38000+Grenoble',
+
+  horaires: [
+    { jour: 'Lundi', valeur: 'Fermé', ferme: true },
+    { jour: 'Mardi', valeur: '9h – 19h' },
+    { jour: 'Mercredi', valeur: '9h – 19h' },
+    { jour: 'Jeudi', valeur: '9h – 19h' },
+    { jour: 'Vendredi', valeur: '9h – 19h' },
+    { jour: 'Samedi', valeur: '9h – 18h' },
+    { jour: 'Dimanche', valeur: 'Fermé', ferme: true },
+  ],
+
+  // — Provisoire (textes placeholders cohérents) —
+  heroTexte:
+    'Coupe, couleur, head spa et barbier au cœur de Grenoble, place Victor Hugo. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+
+  expertise: {
+    titre: 'La consultation visagiste, avant chaque coupe',
+    texte:
+      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+    image: expertise,
+    lien: '/consultation-visagiste-coloriste',
+  },
+
+  introLocale:
+    'Place Victor Hugo, entre les platanes et les terrasses, notre salon grenoblois cultive une certaine idée du soin : celle du temps que l’on prend.',
+
+  services: [
+    {
+      titre: 'Head spa à Grenoble — le soin du cuir chevelu',
+      texte:
+        'Un rituel d’inspiration japonaise : massage, vapeur, soins ciblés. On respire, on relâche — le cheveu retrouve sa vitalité, l’esprit son calme.',
+      image: headspa,
+      lien: '/head-spa-grenoble',
+      sombre: true,
+    },
+    {
+      titre: 'Barbier à Grenoble, sur rendez-vous',
+      texte:
+        'Coupe, taille de barbe et entretien, avec la même exigence de précision et la même tranquillité. Discrètement, dans l’esprit de la maison.',
+      image: barbier,
+      lien: '#reserver',
+    },
+  ],
+
+  equipeTitre: 'Nos coiffeurs Artistes',
+  equipe: [
+    { prenom: 'Eva', specialite: 'Coloriste Visagiste' }, // photo à venir → initiale en repli
+  ],
+
+  faq: [
+    {
+      question: 'Faut-il prendre rendez-vous ?',
+      reponse:
+        'Oui, nous travaillons exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
+    },
+    {
+      question: 'En quoi consiste la consultation visagiste ?',
+      reponse:
+        'Un temps d’échange avant chaque prestation : morphologie, nature du cheveu, mode de vie. Elle oriente la coupe et la couleur pour un résultat facile à vivre.',
+    },
+    {
+      question: 'Proposez-vous le head spa à Grenoble ?',
+      reponse: 'Oui, dans un espace dédié — en soin seul ou en complément d’une prestation.',
+    },
+  ],
+
+  seo: {
+    title: 'Coiffeur & coloriste visagiste à Grenoble — Eric Di Martino',
+    description:
+      'Salon de coiffure haut de gamme à Grenoble, place Victor Hugo. Coupe, couleur, head spa et barbier sur rendez-vous, à partir d’une vraie consultation visagiste.',
+  },
+};
