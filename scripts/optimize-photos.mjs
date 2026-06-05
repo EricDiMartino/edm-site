@@ -30,6 +30,10 @@ async function walk(dir) {
 
 const mb = (b) => (b / 1048576).toFixed(1) + " Mo";
 
+// Slug SEO : minuscules, sans accents, alphanumérique + tirets.
+const slug = (s) =>
+  s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
 const files = (await walk(SRC)).sort();
 if (!files.length) {
   console.log(`Aucune image dans ${SRC}/`);
@@ -41,8 +45,12 @@ let totalIn = 0;
 let totalOut = 0;
 
 for (const f of files) {
-  const rel = relative(SRC, f);
-  const outPath = join(OUT, rel.replace(/\.(jpe?g|png)$/i, ".webp"));
+  // Renommage SEO automatique : eric-di-martino-<salon>-<photo>.webp, rangé par salon.
+  const seg = relative(SRC, f).split(/[\\/]/);
+  const top = slug(seg[0]); // dossier racine = salon/sujet
+  const base = slug(seg[seg.length - 1].replace(/\.[^.]+$/, ""));
+  const rel = `${top}/eric-di-martino-${top}-${base}.webp`;
+  const outPath = join(OUT, rel);
   await mkdir(dirname(outPath), { recursive: true });
   await sharp(f)
     .rotate() // applique l'orientation EXIF
