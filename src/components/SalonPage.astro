@@ -23,7 +23,7 @@ const cpVille = [salon.codePostal, salon.ville].filter(Boolean).join(' ');
 
 const showNap = !!(salon.adresse || salon.telephone || salon.horaires?.length || salon.mapsUrl);
 const showExpertise = !!(salon.expertise && (salon.expertise.titre || salon.expertise.texte || salon.expertise.image));
-const showIntro = !!salon.introLocale;
+const showMaison = !!(salon.maison && salon.maison.paragraphes?.length);
 const showServices = (salon.services?.length ?? 0) > 0;
 const showEquipe = (salon.equipe?.length ?? 0) > 0;
 const showFaq = (salon.faq?.length ?? 0) > 0;
@@ -46,7 +46,10 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
         {salon.heroTexte && <p class="lede hero-lede">{salon.heroTexte}</p>}
         <div class="hero-actions">
           <a class="btn btn-action" href={salon.reservationUrl}>Réserver une visite</a>
-          <a class="btn btn-ghost" href="#salon">Découvrir le salon</a>
+          <a class="btn btn-ghost btn-video" href="#salon" aria-label="Découvrir le salon en vidéo">
+            <svg class="play-ico" width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+            Découvrir le salon
+          </a>
         </div>
       </div>
       <div class="hero-visual reveal" data-d="1">
@@ -139,13 +142,6 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
       </section>
     )}
 
-    <!-- 4. INTRO LOCALE -->
-    {showIntro && (
-      <section class="intro-locale">
-        <p class="intro-text reveal">{salon.introLocale}</p>
-      </section>
-    )}
-
     <!-- 5. SERVICES PHARES (layout alterné ; sombre = esprit cocon, plus riche) -->
     {showServices && salon.services.map((s, i) => {
       const reverse = i % 2 === 1;
@@ -173,7 +169,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
           <div class="split-copy reveal" data-d="1">
             {s.eyebrow && <p class={`label ${s.sombre ? 'label-light' : ''}`}>{s.eyebrow}</p>}
             {s.titre && (s.sombre
-              ? <h2 class="service-title" set:html={s.titre.replace(/ à (.+)$/, ' à&nbsp;<em>$1</em>')} />
+              ? <h2 class="h-seo" set:html={s.titre.replace(/ à (.+)$/, ' à&nbsp;<em>$1</em>')} />
               : <h2 class="h-seo">{s.titre}</h2>
             )}
             {s.texte && <p class={`body ${s.sombre ? 'body-light' : ''}`}>{s.texte}</p>}
@@ -198,6 +194,36 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
         <section class={`split ${reverse ? 'reverse' : ''}`}>{content}</section>
       );
     })}
+
+    <!-- 5a. NOTRE MAISON (à propos local — SEO/GEO) -->
+    {showMaison && (
+      <section class="section maison">
+        <header class="section-head reveal">
+          <p class="label">{salon.maison!.eyebrow}</p>
+          <h2 class="h-seo">{salon.maison!.titre}</h2>
+        </header>
+        <div class="maison-grid">
+          <div class="maison-text reveal">
+            {salon.maison!.paragraphes.map((p, i) => <p class={i === 0 ? 'dropcap' : ''}>{p}</p>)}
+            {salon.maison!.lien && (
+              <a class="link-arrow link-olive" href={salon.maison!.lien.href}>
+                {salon.maison!.lien.label}<span class="arrow" aria-hidden="true">→</span>
+              </a>
+            )}
+          </div>
+          <div class="maison-visual reveal" data-d="1">
+            <div class="frame map-frame">
+              <iframe
+                title={`Carte — ${salon.nom}, ${salon.ville}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(' '))}&z=15&output=embed`}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- 5b. CITATION SIGNATURE -->
     {showCitation && (
@@ -227,7 +253,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
                       src={photo}
                       widths={PORTRAIT_WIDTHS}
                       sizes="(min-width: 1000px) 18vw, (min-width: 820px) 30vw, 45vw"
-                      alt={m.prenom}
+                      alt={`${m.prenom}${m.specialite ? ', ' + m.specialite : ''} — Eric Di Martino ${salon.ville}`}
                       loading="lazy"
                     />
                   )}
@@ -367,10 +393,11 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   }
   .h-seo {
     font-family: var(--serif); font-weight: 400;
-    font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);
-    line-height: 1.25; letter-spacing: -0.005em; color: var(--ink);
-    max-width: 22ch; margin: 0;
+    font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem);
+    line-height: 1.18; letter-spacing: -0.01em; color: var(--ink);
+    max-width: 24ch; margin: 0;
   }
+  .h-seo em { font-style: italic; font-weight: 360; color: var(--olive); }
   .ital { font-style: italic; font-weight: 330; color: var(--olive); }
   .label {
     display: inline-flex; align-items: center; gap: 0.75rem;
@@ -414,6 +441,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-ghost:hover { border-color: var(--olive); color: var(--olive); }
   .btn-sm { --pad-y: 0.7rem; --pad-x: 1.3rem; font-size: 0.72rem; }
+  .btn-video { gap: 0.6rem; }
+  .btn-video .play-ico { border: 1px solid currentColor; border-radius: 50%; padding: 3px; width: 11px; height: 11px; box-sizing: content-box; flex: none; }
   .btn-lg { --pad-y: 1.15rem; --pad-x: 2.6rem; font-size: 0.86rem; }
 
   .link-olive, .link-cream {
@@ -486,6 +515,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   /* ============ SERVICE SOMBRE (plein cadre, esprit cocon) ============ */
   .service-dark { background: var(--espresso); color: var(--cream); }
   .service-dark .h-seo { color: rgba(247, 243, 234, 0.92); }
+  .service-dark .h-seo em { color: #d8a98a; }
   .service-dark .body { color: rgba(247, 243, 234, 0.82); }
   .frame-dark {
     background:
@@ -493,13 +523,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
       linear-gradient(150deg, #3a302a 0%, #2a231d 60%, #1d1813 100%);
     box-shadow: inset 0 0 0 1px var(--line-light);
   }
-  /* Service enrichi (titre éditorial, liste de points, badge prix, lien fléché) */
-  .service-title {
-    font-family: var(--serif); font-weight: 360;
-    font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem);
-    line-height: 1.06; letter-spacing: -0.015em; color: var(--cream); margin: 0;
-  }
-  .service-title em { font-style: italic; font-weight: 330; color: #d8a98a; }
+  /* Service enrichi (liste de points, badge prix, lien fléché) */
   .points { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem 1.5rem; margin: 1.6rem 0 2rem; max-width: 30rem; }
   .points li { position: relative; padding-left: 1.3rem; font-size: 0.92rem; color: inherit; }
   .points li::before { content: "—"; position: absolute; left: 0; opacity: 0.55; }
@@ -514,13 +538,13 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .link-arrow .arrow { transition: transform 0.4s var(--ease); }
   .link-arrow:hover .arrow { transform: translateX(5px); }
 
-  /* ============ 4. INTRO LOCALE ============ */
-  .intro-locale { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); }
-  .intro-text {
-    font-family: var(--serif); font-weight: 340;
-    font-size: clamp(1.5rem, 1rem + 2.4vw, 2.4rem); line-height: 1.4;
-    letter-spacing: -0.01em; color: var(--ink); margin: 0; max-width: 20ch;
-  }
+  /* ============ NOTRE MAISON (à propos) ============ */
+  .maison-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  .maison-text p { margin: 0 0 1.1rem; max-width: 48ch; color: var(--ink); }
+  .maison-text p:last-of-type { margin-bottom: 1.6rem; }
+  .maison-text .dropcap::first-letter { float: left; font-family: var(--serif); font-size: 3.6rem; line-height: 0.78; padding: 0.15rem 0.6rem 0 0; color: var(--olive); }
+  .map-frame { aspect-ratio: 4 / 3; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
   /* ============ FAQ ============ */
   .faq-list { border-top: 1px solid var(--line); max-width: 820px; }
@@ -640,7 +664,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .split.reverse .split-visual { order: 2; margin-top: 0; }
     .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
 
-    .intro-locale .intro-text { margin-left: auto; margin-right: clamp(0rem, 6vw, 6rem); max-width: 16ch; }
+    .maison-grid { grid-template-columns: 0.95fr 1.05fr; }
+    .maison-visual { margin-top: clamp(0.5rem, 2vw, 1.5rem); }
 
     .cta-lede { max-width: 40ch; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }

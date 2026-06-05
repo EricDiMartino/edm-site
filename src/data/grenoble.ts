@@ -77,7 +77,14 @@ export interface SalonData {
   chiffres?: ChiffreCle[];
   citation?: { texte: string; auteur: string };
   expertise?: { titre: string; texte: string; image?: ImageMetadata; lien?: string };
-  introLocale?: string; // texte d'ancrage local, unique au salon
+  maison?: {
+    numero?: string; // ex. "01"
+    eyebrow: string;
+    titre: string; // titre éditorial (contient le mot-clé local)
+    paragraphes: string[]; // texte local riche (SEO/GEO)
+    lien?: { label: string; href: string };
+    image?: ImageMetadata; // sinon panneau placeholder
+  };
   services: ServicePhare[];
   equipeTitre?: string;
   equipePlaceholder?: ImageMetadata; // portrait de repli tant qu'un membre n'a pas sa photo
@@ -150,8 +157,17 @@ export const grenoble: SalonData = {
     lien: '/consultation-visagiste-coloriste',
   },
 
-  introLocale:
-    'Place Victor Hugo, entre les platanes et les terrasses, notre salon grenoblois cultive une certaine idée du soin : celle du temps que l’on prend.',
+  // Bloc « Notre maison » — texte local PROVISOIRE (porteur SEO/GEO : Grenoble, centre-ville, services).
+  maison: {
+    numero: '01',
+    eyebrow: 'Notre maison',
+    titre: 'Le salon de Grenoble.',
+    paragraphes: [
+      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle — un écrin pensé pour que le geste prime.',
+      'Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+    ],
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+  },
 
   services: [
     {
