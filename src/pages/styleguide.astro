@@ -1,0 +1,130 @@
+---
+// Styleguide INTERNE — référence charte (couleurs, typo, composants).
+// noindex : pour nous, pas pour Google. Pas listée dans la nav.
+const marque = [
+  { nom: 'Olive', hex: '#81806C', token: '--olive', usage: 'Marque : eyebrows, liens, bande CTA' },
+  { nom: 'Terracotta', hex: '#C25510', token: '--terracotta', usage: 'Actions (boutons) — normal' },
+  { nom: 'Brique', hex: '#B0392A', token: '--terracotta-deep', usage: 'Actions — survol' },
+  { nom: 'Anthracite', hex: '#31302E', token: '--ink', usage: 'Texte & logo' },
+  { nom: 'Crème', hex: '#F7F3EA', token: '--cream', usage: 'Fonds doux, cartes' },
+  { nom: 'Blanc', hex: '#FFFFFF', token: '--bg', usage: 'Fond principal' },
+  { nom: 'Espresso', hex: '#2A231D', token: '--espresso', usage: 'Moment sombre (head spa)' },
+];
+const semantiques = [
+  { nom: 'Success', hex: '#6B7A4F', usage: 'Confirmation rendez-vous' },
+  { nom: 'Warning', hex: '#B8862A', usage: 'Disponibilités limitées' },
+  { nom: 'Error', hex: '#8B3A2E', usage: 'Champs invalides' },
+  { nom: 'Info', hex: '#4A5C66', usage: 'Encadrés & tooltips' },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Styleguide — Eric Di Martino (interne)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Poppins:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="sg-head">
+      <p class="mono kicker">Styleguide interne · noindex</p>
+      <h1>Eric Di Martino — système de design</h1>
+      <p class="lede">Référence charte. Police titres : <strong>Fraunces</strong> (substitut HV&nbsp;Preston) · texte : <strong>Poppins</strong> (substitut Coco&nbsp;Gothic).</p>
+    </header>
+
+    <section class="sg-section">
+      <h2 class="mono">Couleurs · marque</h2>
+      <div class="swatches">
+        {marque.map((c) => (
+          <article class="sw">
+            <div class="sw-chip" style={`background:${c.hex}`}></div>
+            <div class="sw-meta">
+              <p class="sw-name">{c.nom}</p>
+              <p class="mono sw-hex">{c.hex}</p>
+              {c.token && <p class="mono sw-token">{c.token}</p>}
+              <p class="sw-usage">{c.usage}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="sg-section">
+      <h2 class="mono">Couleurs · sémantiques (formulaires)</h2>
+      <div class="swatches">
+        {semantiques.map((c) => (
+          <article class="sw">
+            <div class="sw-chip" style={`background:${c.hex}`}></div>
+            <div class="sw-meta">
+              <p class="sw-name">{c.nom}</p>
+              <p class="mono sw-hex">{c.hex}</p>
+              <p class="sw-usage">{c.usage}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="sg-section">
+      <h2 class="mono">Typographie</h2>
+      <div class="type-row"><span class="mono type-tag">editorial (accroche)</span><p class="t-editorial">L'élégance, prise au mot.</p></div>
+      <div class="type-row"><span class="mono type-tag">h-seo (titre section)</span><p class="t-hseo">Coiffeur &amp; coloriste visagiste à Grenoble</p></div>
+      <div class="type-row"><span class="mono type-tag">label (eyebrow)</span><p class="t-label">Notre signature</p></div>
+      <div class="type-row"><span class="mono type-tag">lede</span><p class="t-lede">Une coiffure pensée pour vous, à partir d'une vraie consultation.</p></div>
+      <div class="type-row"><span class="mono type-tag">body</span><p class="t-body">Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation.</p></div>
+    </section>
+
+    <section class="sg-section">
+      <h2 class="mono">Boutons &amp; liens</h2>
+      <div class="btns">
+        <button class="btn btn-action">Réserver</button>
+        <button class="btn btn-action btn-hover">Réserver (survol)</button>
+        <button class="btn btn-ghost">Découvrir le salon</button>
+        <a class="t-link" href="#">Découvrir la consultation →</a>
+      </div>
+      <p class="mono note">Terracotta réservé aux actions. Survol = brique.</p>
+    </section>
+
+    <style is:global>
+      :root {
+        --olive: #81806c; --terracotta: #c25510; --terracotta-deep: #b0392a;
+        --ink: #31302e; --cream: #f7f3ea; --line: rgba(38, 38, 31, 0.12);
+        --serif: "Fraunces", Georgia, serif; --sans: "Poppins", system-ui, sans-serif; --mono: "IBM Plex Mono", monospace;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #ece8e1; color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.6; padding: clamp(1.5rem, 5vw, 4rem); }
+      .mono { font-family: var(--mono); }
+      .kicker { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin: 0 0 1rem; }
+      .sg-head { max-width: 70rem; margin: 0 auto 3rem; }
+      .sg-head h1 { font-family: var(--serif); font-weight: 380; font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.8rem); margin: 0 0 1rem; }
+      .lede { max-width: 50ch; color: #4a4940; }
+      .sg-section { max-width: 70rem; margin: 0 auto 3.5rem; }
+      .sg-section > h2 { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--olive); border-top: 1px solid var(--line); padding-top: 1rem; margin: 0 0 1.5rem; }
+      .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+      .sw { background: #fff; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+      .sw-chip { height: 120px; }
+      .sw-meta { padding: 1rem 1.1rem 1.2rem; }
+      .sw-name { font-family: var(--serif); font-size: 1.2rem; margin: 0 0 0.5rem; }
+      .sw-hex, .sw-token { font-size: 0.8rem; color: #6a695f; margin: 0.1rem 0; }
+      .sw-usage { font-size: 0.82rem; color: #4a4940; margin: 0.6rem 0 0; }
+      .type-row { display: grid; gap: 0.4rem; padding: 1.25rem 0; border-top: 1px solid var(--line); }
+      .type-tag { font-size: 0.7rem; color: #8a897c; }
+      .t-editorial { font-family: var(--serif); font-weight: 340; font-size: clamp(2.3rem, 1.6rem + 3.4vw, 4.25rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0; }
+      .t-hseo { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem); line-height: 1.18; letter-spacing: -0.01em; margin: 0; }
+      .t-label { font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); margin: 0; }
+      .t-lede { font-size: 1.2rem; max-width: 36ch; margin: 0; }
+      .t-body { max-width: 44ch; margin: 0; }
+      .btns { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+      .btn { font-family: var(--sans); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.95rem 1.9rem; border-radius: 2px; border: 1px solid transparent; cursor: pointer; }
+      .btn-action { background: var(--terracotta); color: #fff; }
+      .btn-action.btn-hover { background: var(--terracotta-deep); }
+      .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+      .t-link { font-family: var(--sans); font-weight: 500; font-size: 0.92rem; color: var(--olive); text-decoration: none; border-bottom: 1px solid var(--olive); padding-bottom: 2px; }
+      .note { font-size: 0.78rem; color: #6a695f; margin-top: 1.25rem; }
+    </style>
+  </body>
+</html>
