@@ -30,3 +30,6 @@ logs/
 # originals/ = bruts lourds ; optimized/ = dérivés WebP. Les images utilisées sont
 # copiées dans src/assets/ (versionnées) ; les bruts restent hors du repo.
 photos-src/
+
+# Config preview locale
+.claude/launch.json
