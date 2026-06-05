@@ -545,7 +545,8 @@ const PREST_ICONS: Record<string, string> = {
   }
   .reviews-grid {
     display: flex; gap: clamp(1rem, 3vw, 1.5rem);
-    overflow-x: auto; scroll-snap-type: x mandatory;
+    overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
     padding-bottom: 0.75rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent;
   }
   .reviews-grid::-webkit-scrollbar { height: 6px; }
