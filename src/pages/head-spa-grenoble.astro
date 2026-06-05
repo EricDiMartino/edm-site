@@ -3,7 +3,6 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { headSpa as h } from '../data/head-spa';
-import { grenoble } from '../data/grenoble';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const telHref = 'tel:' + h.telephone.replace(/[^0-9+]/g, '');
@@ -61,11 +60,8 @@ const heroMeta = [
   { label: 'Adresse', valeur: `${h.lieu.adresse}, ${h.ville}` },
   { label: 'Horaires', valeur: heroHoraires },
 ];
-// Carte OpenStreetMap (sans clé, framable). Google bloque désormais l'embed sans la Maps Embed API.
-const geo = grenoble.geo!;
-const dLng = 0.006, dLat = 0.003;
-const bbox = `${geo.lng - dLng},${geo.lat - dLat},${geo.lng + dLng},${geo.lat + dLat}`;
-const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${geo.lat},${geo.lng}`;
+// Carte Google (même embed que les pages salon).
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adresse, h.lieu.codePostal, h.ville].filter(Boolean).join(', '))}&z=16&output=embed`;
 ---
 
 <Layout title={h.seo.title} description={h.seo.description} canonical={canonical}>
