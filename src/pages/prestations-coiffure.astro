@@ -1,0 +1,226 @@
+---
+// HUB Prestations — /prestations-coiffure. Vue d'ensemble + maillage. Aucun prix en dur.
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { prestations as p } from '../data/prestations';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
+const salonsNav = [
+  { ville: grenoble.ville, href: '/salon-de-coiffure/grenoble' },
+  { ville: montbonnot.ville, href: '/salon-de-coiffure/montbonnot' },
+  { ville: voiron.ville, href: '/salon-de-coiffure/voiron' },
+  { ville: aixLesBains.ville, href: '/salon-de-coiffure/aix-les-bains' },
+];
+const areaServed = [...new Set(SALONS.flatMap((s) => s.areaServed ?? []))];
+
+// Icônes filaires (trait olive) pour les cartes.
+const PREST_ICONS: Record<string, string> = {
+  scissors: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 18M8.1 15.9 20 6"/>',
+  drop: '<path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11z"/>',
+  leaf: '<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-7 11-9"/>',
+  strands: '<path d="M7 4c0 6-2 10 0 16"/><path d="M12 4c0 6 2 10 0 16"/><path d="M17 4c0 6-2 10 0 16"/>',
+  spa: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
+  ring: '<circle cx="9.5" cy="14.5" r="5.5"/><circle cx="14.5" cy="14.5" r="5.5"/>',
+};
+
+// Schema Service : provider = 4 salons, areaServed = villes + communes. Prix volontairement omis.
+const service = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Coiffure',
+  name: 'Prestations de coiffure — Eric Di Martino',
+  description: p.seo.description,
+  url: canonical,
+  areaServed,
+  provider: SALONS.map((s) => ({
+    '@type': 'HairSalon',
+    name: `Eric Di Martino — ${s.ville}`,
+    telephone: s.telephone,
+    address: { '@type': 'PostalAddress', streetAddress: s.adresse, postalCode: s.codePostal, addressLocality: s.ville, addressCountry: 'FR' },
+  })),
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Prestations', item: canonical },
+  ],
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.reponse } })),
+};
+---
+
+<Layout title={p.seo.title} description={p.seo.description} canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(service)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <Header salons={salonsNav} current="prestations" />
+
+  <main>
+    <!-- HERO -->
+    <section class="section pr-hero">
+      <div class="reveal">
+        <p class="label">{p.hero.eyebrow}</p>
+        <h1 class="editorial pr-h1">{p.hero.titre} <em class="ital">{p.hero.titreEm}</em></h1>
+        <p class="lede pr-lede">{p.hero.lede}</p>
+        <p class="pr-meta">{p.hero.meta}</p>
+        <div class="pr-actions">
+          <a class="btn btn-action" href={p.reservationUrl}>Réserver</a>
+          <a class="btn btn-ghost" href="#consultation">La consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSULTATION -->
+    <section class="section pr-split" id="consultation">
+      <div class="pr-split-visual reveal"><div class="frame"></div></div>
+      <div class="pr-split-copy reveal" data-d="1">
+        <p class="label">{p.consultation.eyebrow}</p>
+        <h2 class="h-seo">{p.consultation.titre}</h2>
+        {p.consultation.paragraphes.map((t) => <p class="body">{t}</p>)}
+        <a class="link-arrow link-olive" href={p.consultation.lien.href}>{p.consultation.lien.label}<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- CARTES PRESTATIONS -->
+    <section class="section pr-cards-sec">
+      <header class="section-head reveal">
+        <p class="label">{p.cartesTitre}</p>
+        <h2 class="h-seo">Coupe, couleur, soin — et bien plus</h2>
+      </header>
+      <ul class="pr-cards reveal" data-d="1">
+        {p.cartes.map((c) => (
+          <li>
+            <a class="pr-card" href={c.lien}>
+              <svg class="pr-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={PREST_ICONS[c.icon] ?? PREST_ICONS.leaf} />
+              <h3 class="pr-card-titre">{c.titre}</h3>
+              <p class="pr-card-texte">{c.texte}</p>
+              <span class="pr-card-link">{c.lienLabel ?? 'Découvrir'}<span class="arrow" aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="pr-cards-note">Les tarifs varient selon le salon et la longueur — le prix exact s’affiche à la réservation.</p>
+    </section>
+
+    <!-- DANS NOS SALONS (maillage) -->
+    <section class="section pr-salons">
+      <div class="pr-salons-inner reveal">
+        <p class="label">{p.salons.eyebrow}</p>
+        <h2 class="h-seo">{p.salons.titre}</h2>
+        <p class="body">{p.salons.texte}</p>
+        <ul class="pr-salons-list">
+          {salonsNav.map((s) => (<li><a class="link-olive" href={s.href}>{s.ville}</a></li>))}
+        </ul>
+        <a class="link-arrow link-olive" href={p.salons.lien.href}>{p.salons.lien.label}<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section pr-faq">
+      <header class="section-head reveal">
+        <p class="label">FAQ</p>
+        <h2 class="h-seo">Avant de réserver</h2>
+      </header>
+      <div class="pr-faq-list reveal" data-d="1">
+        {p.faq.map((f) => (
+          <details class="pr-faq-item">
+            <summary>{f.question}<span class="pr-plus" aria-hidden="true"></span></summary>
+            <div class="rt"><p>{f.reponse}</p></div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section pr-cta" id="reserver">
+      <div class="pr-cta-inner reveal">
+        <p class="editorial pr-cta-title">{p.ctaTitre}</p>
+        <p class="lede pr-cta-lede">{p.ctaTexte}</p>
+        <a class="btn btn-action btn-lg" href={p.reservationUrl}>Réserver en ligne</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pr-footer">
+    <p class="pr-foot-mark">Eric Di Martino</p>
+    <p class="pr-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .pr-h1 { max-width: 16ch; }
+    .pr-lede { max-width: 52ch; }
+    .pr-meta { margin: 1.2rem 0 0; font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .pr-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+
+    /* Consultation split */
+    .pr-split { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+    .pr-split-visual .frame { aspect-ratio: 4 / 3; }
+    .pr-split-copy .body { margin: 1rem 0; }
+    .pr-split-copy .body + .body { margin-top: 0; }
+
+    /* Cartes */
+    .pr-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+    .pr-card { display: flex; flex-direction: column; height: 100%; padding: clamp(1.5rem, 4vw, 2rem); background: #fff; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); transition: transform 0.5s var(--ease), box-shadow 0.5s, border-color 0.5s; }
+    .pr-card:hover { transform: translateY(-4px); box-shadow: 0 24px 44px -28px rgba(38, 38, 31, 0.4); border-color: var(--olive); }
+    .pr-card-ico { width: 30px; height: 30px; color: var(--terracotta); margin-bottom: 1.2rem; }
+    .pr-card-titre { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin: 0 0 0.6rem; }
+    .pr-card-texte { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.4rem; }
+    .pr-card-link { margin-top: auto; display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-weight: 500; font-size: 0.88rem; color: var(--olive); }
+    .pr-card .arrow { transition: transform 0.4s var(--ease); }
+    .pr-card:hover .arrow { transform: translateX(5px); }
+    .pr-cards-note { margin: clamp(1.5rem, 4vw, 2.25rem) 0 0; font-size: 0.85rem; color: var(--muted); }
+
+    /* Salons (maillage) */
+    .pr-salons { background: var(--cream); max-width: none; }
+    .pr-salons-inner { max-width: var(--maxw); margin-inline: auto; }
+    .pr-salons-list { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: 1.4rem 0 1.6rem; padding: 0; list-style: none; }
+    .pr-salons-list a { font-family: var(--serif); font-size: 1.15rem; }
+
+    /* FAQ */
+    .pr-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
+    .pr-faq-item { border-bottom: 1px solid var(--line); }
+    .pr-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+    .pr-faq-item summary::-webkit-details-marker { display: none; }
+    .pr-plus { position: relative; width: 16px; height: 16px; flex: none; }
+    .pr-plus::before, .pr-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+    .pr-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+    .pr-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+    .pr-faq-item[open] .pr-plus::after { transform: scaleY(0); }
+    .pr-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
+    /* CTA */
+    .pr-cta { padding-left: 0; padding-right: 0; }
+    .pr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 6rem) var(--gutter); text-align: center; }
+    .pr-cta-title { color: #fff; }
+    .pr-cta-lede { color: rgba(255, 255, 255, 0.86); margin-left: auto; margin-right: auto; }
+    .pr-cta .btn-action { margin-top: 2.2rem; }
+
+    /* Footer */
+    .pr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .pr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .pr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 640px) {
+      .pr-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 820px) {
+      .pr-split { grid-template-columns: 0.95fr 1.05fr; }
+      .pr-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .pr-cta-inner { border-radius: var(--radius); }
+    }
+    @media (min-width: 1000px) {
+      .pr-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</Layout>
