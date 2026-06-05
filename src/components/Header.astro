@@ -1,0 +1,100 @@
+---
+// En-tête / navigation — site-wide, réutilisable.
+// Comportement résa dynamique :
+//  - pages salon / expertise : tél du salon + lien de résa direct (props tel + reservationUrl)
+//  - pages neutres : pas de tél ; bouton « Réserver » → menu déroulant des salons (prop salons)
+interface SalonLink { ville: string; href: string }
+interface Props {
+  tel?: string; // affiché + cliquable si fourni
+  reservationUrl?: string; // résa directe (pages salon/expertise)
+  salons?: SalonLink[]; // pages neutres → dropdown
+  current?: string; // clé de l'onglet actif
+}
+const { tel, reservationUrl, salons = [], current } = Astro.props;
+const telHref = tel ? 'tel:' + tel.replace(/[^0-9+]/g, '') : '';
+
+const NAV = [
+  { label: 'Salons', href: '/nos-salons-de-coiffure', key: 'salons' },
+  { label: 'Prestations', href: '/prestations-coiffure', key: 'prestations' },
+  { label: 'Head spa', href: '/head-spa-grenoble', key: 'headspa' },
+  { label: 'Notre histoire', href: '/nos-valeurs', key: 'histoire' },
+  { label: 'Blog', href: '/actualites', key: 'blog' },
+  { label: 'Carrières', href: '/nous-rejoindre', key: 'carrieres' },
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/">
+    <span class="brand-name">Eric&nbsp;Di&nbsp;Martino</span>
+    <span class="brand-sub">Salon de coiffure</span>
+  </a>
+
+  <nav class="nav" aria-label="Navigation principale">
+    {NAV.map((item) => (
+      <a href={item.href} aria-current={current === item.key ? 'page' : undefined}>{item.label}</a>
+    ))}
+  </nav>
+
+  <div class="nav-actions">
+    {telHref && <a class="nav-tel" href={telHref}>{tel}</a>}
+    {reservationUrl ? (
+      <a class="btn btn-action btn-sm" href={reservationUrl}>Réserver</a>
+    ) : (
+      <details class="resa-menu">
+        <summary class="btn btn-action btn-sm">Réserver</summary>
+        <ul class="resa-list">
+          {salons.map((s) => (
+            <li><a href={s.href}>{s.ville}</a></li>
+          ))}
+        </ul>
+      </details>
+    )}
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1rem var(--gutter);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { text-decoration: none; color: var(--ink); line-height: 1; flex: none; }
+  .brand-name { display: block; font-family: var(--serif); font-size: 1.15rem; }
+  .brand-sub { display: block; margin-top: 0.3rem; font-family: var(--sans); font-weight: 500; font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); }
+  .nav { display: none; }
+  .nav-actions { display: flex; align-items: center; gap: 1.1rem; }
+  .nav-tel { display: none; font-family: var(--sans); font-size: 0.84rem; color: var(--ink); text-decoration: none; }
+  .nav-tel:hover { color: var(--olive); }
+
+  /* Dropdown résa (pages neutres) — <details>, sans JS */
+  .resa-menu { position: relative; }
+  .resa-menu > summary { list-style: none; cursor: pointer; }
+  .resa-menu > summary::-webkit-details-marker { display: none; }
+  .resa-list {
+    position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 60;
+    min-width: 14rem; margin: 0; padding: 0.5rem; list-style: none;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: 0 20px 40px -20px rgba(38, 38, 31, 0.3);
+  }
+  .resa-list a {
+    display: block; padding: 0.6rem 0.8rem; text-decoration: none; color: var(--ink);
+    font-family: var(--sans); font-size: 0.9rem; border-radius: var(--radius);
+  }
+  .resa-list a:hover { background: var(--cream); color: var(--olive); }
+
+  @media (min-width: 820px) {
+    .site-header { display: grid; grid-template-columns: auto 1fr auto; gap: 2rem; }
+    .nav { display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(0.9rem, 2.1vw, 2.1rem); }
+    .nav a {
+      font-family: var(--sans); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.02em;
+      text-decoration: none; color: var(--ink); border-bottom: 1px solid transparent;
+      padding-bottom: 3px; transition: color 0.3s, border-color 0.3s;
+    }
+    .nav a:hover { color: var(--olive); }
+    .nav a[aria-current="page"] { color: var(--olive); border-color: var(--olive); }
+    .nav-tel { display: inline-block; }
+  }
+</style>

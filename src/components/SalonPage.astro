@@ -4,6 +4,7 @@
 // Images optimisées au build via astro:assets (responsive + WebP/AVIF) — remplace
 // l'ancien service d'images Storyblok, on garde le gain CWV.
 import { Image } from 'astro:assets';
+import Header from './Header.astro';
 import type { SalonData } from '../data/grenoble';
 
 interface Props {
@@ -15,16 +16,6 @@ const { salon } = Astro.props;
 const HERO_WIDTHS = [640, 960, 1280, 1696];
 const SPLIT_WIDTHS = [480, 768];
 const PORTRAIT_WIDTHS = [240, 360, 480];
-
-// Navigation principale (site-wide). Cibles = URLs canoniques du brief (pages à venir).
-const NAV = [
-  { label: 'Salons', href: '/nos-salons-de-coiffure', current: true },
-  { label: 'Prestations', href: '/prestations-coiffure' },
-  { label: 'Head spa', href: '/head-spa-grenoble' },
-  { label: 'Notre histoire', href: '/nos-valeurs' },
-  { label: 'Blog', href: '/actualites' },
-  { label: 'Carrières', href: '/nous-rejoindre' },
-];
 
 const heroH1 = salon.titreSeo || (salon.ville ? `Salon de coiffure à ${salon.ville}` : salon.nom);
 const telHref = salon.telephone ? 'tel:' + salon.telephone.replace(/[^0-9+]/g, '') : '';
@@ -42,21 +33,7 @@ const showCitation = !!(salon.citation && salon.citation.texte);
 ---
 
 <div class="salon-page">
-  <header class="site-header">
-    <a class="brand" href="/">
-      <span class="brand-name">Eric&nbsp;Di&nbsp;Martino</span>
-      <span class="brand-sub">Salon de coiffure</span>
-    </a>
-    <nav class="nav" aria-label="Navigation principale">
-      {NAV.map((item) => (
-        <a href={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>
-      ))}
-    </nav>
-    <div class="nav-actions">
-      {telHref && <a class="nav-tel" href={telHref}>{salon.telephone}</a>}
-      <a class="btn btn-action btn-sm" href={salon.reservationUrl}>Réserver</a>
-    </div>
-  </header>
+  <Header tel={salon.telephone} reservationUrl={salon.reservationUrl} current="salons" />
 
   <main id="top">
     <!-- 1. HERO -->
@@ -386,22 +363,7 @@ const showCitation = !!(salon.citation && salon.citation.texte);
   .section { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); }
   .section-head { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
 
-  /* ============ HEADER ============ */
-  .site-header {
-    position: sticky; top: 0; z-index: 50;
-    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
-    padding: 1rem var(--gutter);
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: saturate(140%) blur(12px);
-    border-bottom: 1px solid var(--line);
-  }
-  .brand { text-decoration: none; color: var(--ink); line-height: 1; flex: none; }
-  .brand-name { display: block; font-family: var(--serif); font-size: 1.15rem; }
-  .brand-sub { display: block; margin-top: 0.3rem; font-family: var(--sans); font-weight: 500; font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); }
-  .nav { display: none; } /* mobile : masquée (logo + Réserver suffisent) */
-  .nav-actions { display: flex; align-items: center; gap: 1.1rem; }
-  .nav-tel { display: none; font-family: var(--sans); font-size: 0.84rem; color: var(--ink); text-decoration: none; }
-  .nav-tel:hover { color: var(--olive); }
+  /* (header/nav → composant Header.astro) */
 
   /* ============ BUTTONS / LINKS ============ */
   .btn {
@@ -594,18 +556,6 @@ const showCitation = !!(salon.citation && salon.citation.texte);
 
   /* ============ RESPONSIVE ≥ 820px ============ */
   @media (min-width: 820px) {
-    /* Navigation complète : logo · liens centrés · tél + Réserver */
-    .site-header { display: grid; grid-template-columns: auto 1fr auto; gap: 2rem; }
-    .nav { display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(0.9rem, 2.1vw, 2.1rem); }
-    .nav a {
-      font-family: var(--sans); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.02em;
-      text-decoration: none; color: var(--ink); border-bottom: 1px solid transparent;
-      padding-bottom: 3px; transition: color 0.3s, border-color 0.3s;
-    }
-    .nav a:hover { color: var(--olive); }
-    .nav a[aria-current="page"] { color: var(--olive); border-color: var(--olive); }
-    .nav-tel { display: inline-block; }
-
     .hero {
       grid-template-columns: 0.84fr 1.16fr; align-items: stretch;
       /* Plein écran sous le header. min-height (PAS height) → si le texte ou l'image

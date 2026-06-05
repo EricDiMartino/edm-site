@@ -14,8 +14,11 @@ import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp
 
 export interface Horaire {
   jour: string;
-  valeur: string; // ex. "9h – 19h" ou "Fermé"
+  valeur: string; // ex. "9h – 19h" ou "Fermé" (affichage)
   ferme?: boolean;
+  jourEn?: string; // jour en anglais pour le schema (Monday…)
+  opens?: string; // "09:00" — pour openingHoursSpecification
+  closes?: string; // "19:00"
 }
 export interface ServicePhare {
   titre: string;
@@ -59,6 +62,9 @@ export interface SalonData {
   telephone: string;
   horaires: Horaire[];
   mapsUrl?: string;
+  geo?: { lat: number; lng: number };
+  priceRange?: string; // ex. "€€€" (schema)
+  areaServed?: string[]; // communes desservies (GEO local)
   acces?: Acces[];
   chiffres?: ChiffreCle[];
   citation?: { texte: string; auteur: string };
@@ -87,14 +93,19 @@ export const grenoble: SalonData = {
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=6+place+Victor+Hugo+38000+Grenoble',
 
   horaires: [
-    { jour: 'Lundi', valeur: 'Fermé', ferme: true },
-    { jour: 'Mardi', valeur: '9h – 19h' },
-    { jour: 'Mercredi', valeur: '9h – 19h' },
-    { jour: 'Jeudi', valeur: '9h – 19h' },
-    { jour: 'Vendredi', valeur: '9h – 19h' },
-    { jour: 'Samedi', valeur: '9h – 18h' },
-    { jour: 'Dimanche', valeur: 'Fermé', ferme: true },
+    { jour: 'Lundi', valeur: 'Fermé', ferme: true, jourEn: 'Monday' },
+    { jour: 'Mardi', valeur: '9h – 19h', jourEn: 'Tuesday', opens: '09:00', closes: '19:00' },
+    { jour: 'Mercredi', valeur: '9h – 19h', jourEn: 'Wednesday', opens: '09:00', closes: '19:00' },
+    { jour: 'Jeudi', valeur: '9h – 19h', jourEn: 'Thursday', opens: '09:00', closes: '19:00' },
+    { jour: 'Vendredi', valeur: '9h – 19h', jourEn: 'Friday', opens: '09:00', closes: '19:00' },
+    { jour: 'Samedi', valeur: '9h – 18h', jourEn: 'Saturday', opens: '09:00', closes: '18:00' },
+    { jour: 'Dimanche', valeur: 'Fermé', ferme: true, jourEn: 'Sunday' },
   ],
+
+  // Geo/SEO local. Coordonnées place Victor Hugo (à affiner). areaServed = GEO local.
+  geo: { lat: 45.1909, lng: 5.7263 },
+  priceRange: '€€€',
+  areaServed: ['Grenoble', 'Meylan', 'Saint-Martin-d’Hères', 'La Tronche', 'Échirolles'],
 
   // Badges d'accès (section infos pratiques) — détails PROVISOIRES à ajuster.
   acces: [
