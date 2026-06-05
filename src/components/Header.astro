@@ -40,9 +40,12 @@ const NAV = [
   <nav class="nav" aria-label="Navigation principale">
     {NAV.map((item) => (item.key === 'salons' ? (
       <div class="nav-drop">
-        <button type="button" class="nav-drop-trigger" aria-current={current === 'salons' ? 'page' : undefined} aria-haspopup="true">Salons<span class="caret" aria-hidden="true"></span></button>
+        <a href="/nos-salons-de-coiffure" class="nav-drop-trigger" aria-current={current === 'salons' ? 'page' : undefined} aria-haspopup="true">Salons<span class="caret" aria-hidden="true"></span></a>
         <ul class="nav-drop-list">
-          {SALONS.map((s) => (<li><a href={s.href}>{s.ville}</a></li>))}
+          {SALONS.map((s) => (
+            <li><a href={s.href}><span>{s.ville}</span><span class="nav-drop-arrow" aria-hidden="true">→</span></a></li>
+          ))}
+          <li class="nav-drop-all"><a href="/nos-salons-de-coiffure">Tous nos salons<span class="nav-drop-arrow" aria-hidden="true">→</span></a></li>
         </ul>
       </div>
     ) : (
@@ -69,7 +72,7 @@ const NAV = [
       <nav class="m-nav" aria-label="Menu">
         {NAV.map((item) => (item.key === 'salons' ? (
           <div class="m-group">
-            <span class="m-group-label">Salons</span>
+            <a class="m-group-label" href="/nos-salons-de-coiffure" aria-current={current === 'salons' ? 'page' : undefined}>Salons</a>
             {SALONS.map((s) => (<a class="m-sub" href={s.href}>{s.ville}</a>))}
           </div>
         ) : (
@@ -151,7 +154,7 @@ const NAV = [
   .m-nav a[aria-current="page"] { color: var(--olive); }
   /* Groupe « Salons » dans le menu mobile */
   .m-group { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
-  .m-group-label { display: block; font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin-bottom: 0.35rem; }
+  .m-group-label { display: block; font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin-bottom: 0.35rem; text-decoration: none; }
   .m-sub { display: block; font-family: var(--sans); font-weight: 500; font-size: 0.98rem; color: var(--ink); text-decoration: none; padding: 0.45rem 0 0.45rem 0.9rem; }
 
   /* Barre d'action fixe mobile (Appeler + Réserver) */
@@ -194,7 +197,7 @@ const NAV = [
     /* Menu déroulant « Salons » (desktop) — survol + clavier (focus-within), sans JS */
     .nav-drop { position: relative; display: inline-flex; align-items: center; }
     .nav-drop-trigger {
-      display: inline-flex; align-items: center; cursor: pointer;
+      display: inline-flex; align-items: center; cursor: pointer; text-decoration: none;
       font-family: var(--sans); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.02em;
       color: var(--ink); background: none; border: 0; border-bottom: 1px solid transparent;
       padding: 0 0 3px; transition: color 0.3s, border-color 0.3s;
@@ -210,24 +213,31 @@ const NAV = [
     .nav-drop:hover .caret, .nav-drop:focus-within .caret { transform: rotate(180deg); }
 
     .nav-drop-list {
-      position: absolute; left: 50%; top: 100%; margin-top: 0.6rem; z-index: 60;
-      min-width: 12rem; padding: 0.5rem; list-style: none;
+      position: absolute; left: 50%; top: 100%; margin-top: 0.85rem; z-index: 60;
+      min-width: 15rem; padding: 0.6rem; list-style: none;
       background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-      box-shadow: 0 20px 40px -20px rgba(38, 38, 31, 0.3);
+      box-shadow: 0 24px 50px -24px rgba(38, 38, 31, 0.35);
       opacity: 0; visibility: hidden; pointer-events: none;
-      transform: translateX(-50%) translateY(6px);
+      transform: translateX(-50%) translateY(8px);
       transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
     }
-    .nav-drop-list::before { content: ""; position: absolute; left: 0; right: 0; top: -0.6rem; height: 0.6rem; } /* pont anti-hover-gap */
+    .nav-drop-list::before { content: ""; position: absolute; left: 0; right: 0; top: -0.85rem; height: 0.85rem; } /* pont anti-hover-gap */
+    .nav-drop-list::after { content: ""; position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 10px; height: 10px; background: #fff; border-left: 1px solid var(--line); border-top: 1px solid var(--line); } /* repère vers le déclencheur */
     .nav-drop:hover .nav-drop-list, .nav-drop:focus-within .nav-drop-list {
       opacity: 1; visibility: visible; pointer-events: auto;
       transform: translateX(-50%) translateY(0);
     }
     .nav-drop-list a {
-      display: block; padding: 0.6rem 0.8rem; text-decoration: none; color: var(--ink);
-      font-family: var(--sans); font-weight: 500; font-size: 0.9rem; border-radius: var(--radius);
-      border: 0; letter-spacing: 0.02em;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.7rem 1rem; text-decoration: none; color: var(--ink);
+      font-family: var(--sans); font-weight: 500; font-size: 0.92rem; border-radius: var(--radius);
+      border: 0; letter-spacing: 0.02em; transition: background-color 0.25s, color 0.25s;
     }
     .nav-drop-list a:hover { background: var(--cream); color: var(--olive); }
+    .nav-drop-arrow { color: var(--olive); opacity: 0; transform: translateX(-6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease); }
+    .nav-drop-list a:hover .nav-drop-arrow { opacity: 1; transform: none; }
+    .nav-drop-all { margin-top: 0.35rem; border-top: 1px solid var(--line); padding-top: 0.35rem; }
+    .nav-drop-all a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--olive); }
+    .nav-drop-all .nav-drop-arrow { opacity: 1; transform: none; }
   }
 </style>
