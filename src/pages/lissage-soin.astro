@@ -1,0 +1,17 @@
+---
+import Layout from '../components/Layout.astro';
+import PrestationPage from '../components/PrestationPage.astro';
+import { lissage as data } from '../data/prestation-lissage';
+import { buildPrestationSchemas } from '../lib/prestations-shared';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const NOM = 'Lissage & soins';
+const { service, breadcrumb, faqSchema } = buildPrestationSchemas(data, canonical, NOM, Astro.site);
+---
+
+<Layout title={data.seo.title} description={data.seo.description} canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(service)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+  <PrestationPage data={data} />
+</Layout>
