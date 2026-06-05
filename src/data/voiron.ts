@@ -79,6 +79,19 @@ export const voiron: SalonData = {
   // Pas de service « signature » sur Voiron.
   services: [],
 
+  // Prestations complémentaires (grille) — textes PROVISOIRES, éditables.
+  prestations: {
+    eyebrow: 'Aussi au salon',
+    titre: 'Bien plus qu’une coupe,',
+    titreEm: 'tout un savoir-faire',
+    texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
+    items: [
+      { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
+    ],
+  },
+
   equipeTitre: 'Notre équipe',
   equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
   // Prénoms réels (site). Spécialités non communiquées → omises pour l'instant.

@@ -56,6 +56,12 @@ export interface Acces {
   label: string; // ex. "Parking" — affiché dans le badge
   detail?: string; // précision (provisoire) ; affichée en infobulle
 }
+export interface Prestation {
+  titre: string;
+  texte: string;
+  caption?: string; // petite légende en capitales (sous le filet)
+  icon?: string; // clé d'icône : extensions | mariage | coaching | soin (défaut : soin)
+}
 export interface SalonData {
   nom: string;
   ville: string;
@@ -86,6 +92,13 @@ export interface SalonData {
     image?: ImageMetadata; // sinon panneau placeholder
   };
   services: ServicePhare[];
+  prestations?: {
+    eyebrow?: string;
+    titre: string;
+    titreEm?: string; // tail mis en valeur (italique)
+    texte?: string; // lede sous le titre
+    items: Prestation[];
+  };
   equipeTitre?: string;
   equipePlaceholder?: ImageMetadata; // portrait de repli tant qu'un membre n'a pas sa photo
   equipe: Membre[];
@@ -196,6 +209,19 @@ export const grenoble: SalonData = {
       lienLabel: 'Prendre rendez-vous',
     },
   ],
+
+  // Prestations complémentaires (grille) — textes PROVISOIRES, éditables par salon.
+  prestations: {
+    eyebrow: 'Aussi au salon',
+    titre: 'Bien plus qu’une coupe,',
+    titreEm: 'tout un savoir-faire',
+    texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
+    items: [
+      { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
+    ],
+  },
 
   equipeTitre: 'Nos coiffeurs Artistes',
   equipePlaceholder, // image IA provisoire, utilisée pour tous tant qu'il n'y a pas de vrai portrait

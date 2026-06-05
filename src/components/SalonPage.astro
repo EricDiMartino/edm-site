@@ -31,6 +31,15 @@ const showChiffres = (salon.chiffres?.length ?? 0) > 0;
 const showAcces = (salon.acces?.length ?? 0) > 0;
 const showCitation = !!(salon.citation && salon.citation.texte);
 const showAvis = !!(salon.avis && salon.avis.items?.length);
+const showPrestations = !!(salon.prestations && salon.prestations.items?.length);
+
+// Icônes filaires (trait terracotta) pour la grille de prestations.
+const PREST_ICONS: Record<string, string> = {
+  extensions: '<path d="M7 4c0 6-2 10 0 16"/><path d="M12 4c0 6 2 10 0 16"/><path d="M17 4c0 6-2 10 0 16"/>',
+  mariage: '<circle cx="9.5" cy="14.5" r="5.5"/><circle cx="14.5" cy="14.5" r="5.5"/>',
+  coaching: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
+  soin: '<path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11z"/>',
+};
 ---
 
 <div class="salon-page">
@@ -194,6 +203,27 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
         <section class={`split ${reverse ? 'reverse' : ''}`}>{content}</section>
       );
     })}
+
+    <!-- 5bis. PRESTATIONS COMPLÉMENTAIRES (grille) -->
+    {showPrestations && (
+      <section class="section prestations">
+        <header class="prest-head reveal">
+          {salon.prestations!.eyebrow && <p class="label">{salon.prestations!.eyebrow}</p>}
+          <h2 class="h-seo">{salon.prestations!.titre}{salon.prestations!.titreEm && (<Fragment> <em>{salon.prestations!.titreEm}</em></Fragment>)}</h2>
+          {salon.prestations!.texte && <p class="lede prest-lede">{salon.prestations!.texte}</p>}
+        </header>
+        <div class="prest-grid reveal" data-d="1">
+          {salon.prestations!.items.map((p) => (
+            <article class="prest-card">
+              <svg class="prest-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={PREST_ICONS[p.icon ?? 'soin'] ?? PREST_ICONS.soin} />
+              <h3 class="prest-title">{p.titre}</h3>
+              <p class="prest-text">{p.texte}</p>
+              {p.caption && <Fragment><span class="prest-div" aria-hidden="true"></span><p class="prest-cap">{p.caption}</p></Fragment>}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- 5a. NOTRE MAISON (à propos local — SEO/GEO) -->
     {showMaison && (
@@ -410,6 +440,19 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   }
   .price-amount { display: block; font-family: var(--serif); font-size: 1.55rem; line-height: 1; }
   .price-detail { display: block; margin-top: 0.3rem; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  /* ============ PRESTATIONS COMPLÉMENTAIRES (grille) ============ */
+  .prest-head { text-align: center; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
+  .prest-head .label { display: block; }
+  .prest-head .h-seo { max-width: 22ch; margin: 0 auto; }
+  .prest-lede { margin-left: auto; margin-right: auto; max-width: 52ch; color: var(--muted); }
+  .prest-grid { display: grid; border-top: 1px solid var(--line); }
+  .prest-card { padding: clamp(2rem, 5vw, 2.75rem) 0; border-bottom: 1px solid var(--line); }
+  .prest-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: clamp(1.1rem, 3vw, 1.75rem); }
+  .prest-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); line-height: 1.2; margin: 0 0 0.75rem; color: var(--ink); }
+  .prest-text { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.6; max-width: 34ch; }
+  .prest-div { display: block; height: 1px; background: var(--line); margin: 1.5rem 0 1rem; }
+  .prest-cap { margin: 0; font-family: var(--sans); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
   /* ============ NOTRE MAISON / carte ============ */
   .maison-copy { max-width: 64ch; }
   .maison-p { margin: 0 0 1rem; }
@@ -547,6 +590,13 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .maison-map { margin-top: 0; aspect-ratio: 4 / 3; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
+
+    /* Prestations : 3 colonnes séparées par un filet, eyebrow centré (double tiret) */
+    .prest-head .label { display: inline-flex; justify-content: center; }
+    .prest-head .label::after { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.5; flex: none; }
+    .prest-grid { grid-template-columns: repeat(3, 1fr); }
+    .prest-card { padding: clamp(2.25rem, 3vw, 3rem) clamp(1.5rem, 3vw, 2.5rem); border-bottom: 0; border-left: 1px solid var(--line); }
+    .prest-card:first-child { border-left: 0; padding-left: 0; }
   }
 
   /* Équipe : une seule rangée de 5 portraits sur grand écran */
