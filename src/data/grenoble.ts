@@ -20,6 +20,11 @@ export interface ServicePhare {
   texte: string;
   image?: ImageMetadata;
   lien?: string;
+  lienLabel?: string; // libellé du lien (défaut « En savoir plus »)
+  eyebrow?: string; // petit sur-titre en capitales
+  points?: string[]; // liste courte de bénéfices (puces)
+  prix?: string; // ex. "89 €" (badge sur l'image)
+  prixDetail?: string; // ex. "1h · soin signature"
   sombre?: boolean; // true = bande sombre (esprit cocon), ex. head spa
 }
 export interface Membre {
@@ -126,19 +131,26 @@ export const grenoble: SalonData = {
 
   services: [
     {
-      titre: 'Head spa à Grenoble — le soin du cuir chevelu',
+      eyebrow: 'Signature exclusive',
+      titre: 'Head spa à Grenoble',
       texte:
-        'Un rituel d’inspiration japonaise : massage, vapeur, soins ciblés. On respire, on relâche — le cheveu retrouve sa vitalité, l’esprit son calme.',
+        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage du cuir chevelu, vapeur tiède et soin profond — pour un cheveu apaisé, un esprit relâché.',
+      points: ['Diagnostic capillaire', 'Massage 20 minutes', 'Soin sur-mesure', 'Brushing inclus'],
+      prix: '89 €',
+      prixDetail: '1h · soin signature',
       image: headspa,
       lien: '/head-spa-grenoble',
+      lienLabel: 'Découvrir le head spa',
       sombre: true,
     },
     {
+      eyebrow: 'Au masculin',
       titre: 'Barbier à Grenoble, sur rendez-vous',
       texte:
         'Coupe, taille de barbe et entretien, avec la même exigence de précision et la même tranquillité. Discrètement, dans l’esprit de la maison.',
       image: barbier,
       lien: '#reserver',
+      lienLabel: 'Prendre rendez-vous',
     },
   ],
 
