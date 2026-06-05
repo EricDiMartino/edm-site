@@ -119,6 +119,15 @@ export const headSpa = {
     { question: 'Peut-on le combiner avec une coupe ou une couleur ?', reponse: 'Oui, le Head Spa s’intègre parfaitement avant une coupe ou une couleur. Précisez-le à la réservation : nous adaptons le planning pour enchaîner les soins sans rupture.' },
   ],
 
+  // Instagram du salon de Grenoble (lien + sameAs schema). Galerie = placeholders provisoires.
+  instagram: {
+    eyebrow: 'Sur Instagram',
+    titre: 'Le rituel, en images',
+    texte: 'Coulisses de la cabine, avant/après et instants suspendus — suivez le quotidien du salon.',
+    handle: '@salon_eric_di_martino_grenoble',
+    url: 'https://www.instagram.com/salon_eric_di_martino_grenoble/',
+  },
+
   cta: {
     eyebrow: 'Prêt·e à respirer ?',
     titre: 'Une heure pour vous',

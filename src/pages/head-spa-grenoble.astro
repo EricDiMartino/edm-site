@@ -24,6 +24,7 @@ const provider = {
   name: `Eric Di Martino — ${h.ville}`,
   telephone: h.telephone,
   address: { '@type': 'PostalAddress', streetAddress: h.lieu.adresse, postalCode: h.lieu.codePostal, addressLocality: h.ville, addressCountry: 'FR' },
+  sameAs: [h.instagram.url],
 };
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -232,6 +233,23 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
       </div>
     </section>
 
+    <!-- INSTAGRAM -->
+    <section class="hs-sec hs-band">
+      <header class="hs-sec-head hs-center reveal">
+        <p class="hs-eyebrow">{h.instagram.eyebrow}</p>
+        <h2 class="hs-h2">{h.instagram.titre}</h2>
+        <p class="hs-sec-intro">{h.instagram.texte}</p>
+      </header>
+      <div class="hs-ig reveal" data-d="1">
+        {Array.from({ length: 6 }).map(() => (
+          <a class="hs-ig-shot" href={h.instagram.url} target="_blank" rel="noopener" aria-label={`Voir ${h.instagram.handle} sur Instagram`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg>
+          </a>
+        ))}
+      </div>
+      <p class="hs-ig-follow reveal"><a class="hs-link" href={h.instagram.url} target="_blank" rel="noopener">Suivre {h.instagram.handle} →</a></p>
+    </section>
+
     <!-- CTA -->
     <section class="hs-cta" id="reserver">
       <div class="reveal">
@@ -370,6 +388,15 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         linear-gradient(150deg, #3a2f26 0%, #261e17 60%, #19130d 100%); }
     .hs-shot figcaption { position: absolute; left: 1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-muted); }
 
+    /* Instagram */
+    .hs-ig { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 2vw, 0.9rem); }
+    .hs-ig-shot { position: relative; aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden; display: grid; place-items: center; color: var(--hs-muted); box-shadow: inset 0 0 0 1px var(--hs-line);
+      background: radial-gradient(120% 90% at 70% 20%, rgba(207, 157, 114, 0.18), transparent 55%), linear-gradient(150deg, #33281f 0%, #211a13 65%, #15100a 100%); transition: color 0.3s; }
+    .hs-ig-shot svg { width: 26px; height: 26px; opacity: 0.7; transition: opacity 0.3s, transform 0.4s var(--ease); }
+    .hs-ig-shot:hover { color: var(--hs-copper); }
+    .hs-ig-shot:hover svg { opacity: 1; transform: scale(1.1); }
+    .hs-ig-follow { text-align: center; margin: clamp(1.5rem, 4vw, 2.25rem) 0 0; }
+
     /* Lieu */
     .hs-place { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
     .hs-place-visual { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; box-shadow: inset 0 0 0 1px var(--hs-line);
@@ -433,6 +460,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
       .hs-shot-0 { grid-column: span 2; grid-row: span 2; }
       .hs-place { grid-template-columns: 1fr 1fr; }
       .hs-intro-grid { grid-template-columns: 1.2fr 0.8fr; }
+      .hs-ig { grid-template-columns: repeat(6, 1fr); }
     }
   </style>
 </Layout>
