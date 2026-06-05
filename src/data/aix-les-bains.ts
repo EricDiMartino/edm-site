@@ -1,0 +1,109 @@
+// Données de contenu — page salon AIX-LES-BAINS.
+// Même design que Grenoble (src/components/SalonPage.astro), version sobre :
+// PAS de service « signature » (services: []), juste coiffure + consultation visagiste.
+// Textes marqués « provisoire » = placeholders cohérents (étape 5 : vrais textes).
+// Images : réutilisent PROVISOIREMENT les visuels Grenoble.
+
+import type { SalonData } from './grenoble';
+import hero from '../assets/salons/grenoble/hero.webp'; // PROVISOIRE
+import expertise from '../assets/salons/grenoble/expertise.webp'; // PROVISOIRE
+import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
+
+export const aixLesBains: SalonData = {
+  // — Réel (saisi / vérifié sur Google) —
+  nom: 'Eric Di Martino',
+  ville: 'Aix-les-Bains',
+  accroche: "L'élégance, prise au mot.",
+  titreSeo: 'Coiffeur et coloriste visagiste à Aix-les-Bains',
+  adresse: '433 boulevard Président Wilson',
+  codePostal: '73100',
+  telephone: '04 79 35 03 31',
+  heroImage: hero,
+  reservationUrl: '#reserver', // TODO: URL réelle de réservation
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=433+boulevard+President+Wilson+73100+Aix-les-Bains',
+
+  horaires: [
+    { jour: 'Lundi', valeur: 'Fermé', ferme: true, jourEn: 'Monday' },
+    { jour: 'Mardi', valeur: '9h – 19h', jourEn: 'Tuesday', opens: '09:00', closes: '19:00' },
+    { jour: 'Mercredi', valeur: '9h – 19h', jourEn: 'Wednesday', opens: '09:00', closes: '19:00' },
+    { jour: 'Jeudi', valeur: '9h – 19h', jourEn: 'Thursday', opens: '09:00', closes: '19:00' },
+    { jour: 'Vendredi', valeur: '9h – 19h', jourEn: 'Friday', opens: '09:00', closes: '19:00' },
+    { jour: 'Samedi', valeur: '9h – 18h', jourEn: 'Saturday', opens: '09:00', closes: '18:00' },
+    { jour: 'Dimanche', valeur: 'Fermé', ferme: true, jourEn: 'Sunday' },
+  ],
+
+  geo: { lat: 45.6877887, lng: 5.9098819 }, // fiche Google Aix-les-Bains
+  priceRange: '€€€',
+  areaServed: ['Aix-les-Bains', 'Grésy-sur-Aix', 'Mouxy', 'Drumettaz-Clarafond', 'Le Bourget-du-Lac', 'Chambéry'],
+  googlePlaceId: 'ChIJQ3cxzqSgi0cRw4n61YLpKnA', // Salon Eric Di Martino Aix-les-Bains (4,6★ · 235 avis)
+
+  acces: [
+    { label: 'Parking', detail: 'Stationnement à proximité' },
+    { label: 'Bord du lac', detail: 'Boulevard Président Wilson' },
+    { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
+  ],
+
+  chiffres: [
+    { valeur: '3', label: 'artistes' },
+    { valeur: '4,6 ★', label: '235 avis Google' },
+    { valeur: 'Mar–Sam', label: 'sur rendez-vous' },
+  ],
+
+  citation: {
+    texte: 'On ne coiffe pas une tête, on dessine un visage.',
+    auteur: 'Eric Di Martino',
+  },
+
+  heroTexte:
+    'Coupe, couleur et consultation visagiste à Aix-les-Bains, boulevard Président Wilson. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+
+  expertise: {
+    titre: 'La consultation visagiste, avant chaque coupe',
+    texte:
+      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+    image: expertise,
+    lien: '/consultation-visagiste-coloriste',
+  },
+
+  maison: {
+    numero: '01',
+    eyebrow: 'Notre maison',
+    titre: 'Le salon d’Aix-les-Bains.',
+    paragraphes: [
+      'Boulevard Président Wilson, à Aix-les-Bains, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu.',
+      'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+    ],
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+  },
+
+  // Pas de service « signature » sur Aix-les-Bains.
+  services: [],
+
+  equipeTitre: 'Notre équipe',
+  equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
+  // Prénoms + spécialités réels (site).
+  equipe: [
+    { prenom: 'Laura' },
+    { prenom: 'Fanny', specialite: 'Artiste Visagiste' },
+    { prenom: 'Jenna', specialite: 'Artiste complète' },
+  ],
+
+  faq: [
+    {
+      question: 'Faut-il prendre rendez-vous ?',
+      reponse:
+        'Oui, nous travaillons exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
+    },
+    {
+      question: 'En quoi consiste la consultation visagiste ?',
+      reponse:
+        'Un temps d’échange avant chaque prestation : morphologie, nature du cheveu, mode de vie. Elle oriente la coupe et la couleur pour un résultat facile à vivre.',
+    },
+  ],
+
+  seo: {
+    title: 'Coiffeur & coloriste visagiste à Aix-les-Bains — Eric Di Martino',
+    description:
+      'Salon de coiffure haut de gamme à Aix-les-Bains, boulevard Président Wilson. Coupe, couleur et consultation visagiste sur rendez-vous.',
+  },
+};
