@@ -78,7 +78,6 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
   <div class="headspa">
     <!-- HERO -->
     <section class="hs-hero">
-      <span class="hs-photo-tag" aria-hidden="true">Photo · cabine head spa Grenoble</span>
       <div class="hs-hero-inner">
         <div class="hs-hero-copy reveal">
           <p class="hs-eyebrow">{h.hero.eyebrow}</p>
@@ -110,13 +109,13 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
         <h2 class="hs-h2">{h.intro.titre}</h2>
       </header>
       <div class="hs-intro-grid">
-        <blockquote class="hs-quote reveal">
+        <div class="hs-prose reveal">
+          {h.intro.paragraphes.map((p) => <p>{p}</p>)}
+        </div>
+        <blockquote class="hs-quote reveal" data-d="1">
           <p>{h.intro.citation.texte}</p>
           <cite>{h.intro.citation.auteur}</cite>
         </blockquote>
-        <div class="hs-prose reveal" data-d="1">
-          {h.intro.paragraphes.map((p) => <p>{p}</p>)}
-        </div>
       </div>
     </section>
 
@@ -130,11 +129,13 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
       <ol class="hs-steps">
         {h.deroule.etapes.map((e) => (
           <li class="hs-step reveal">
-            <span class="hs-step-num">{e.num}</span>
-            <div class="hs-step-body">
-              <h3>{e.titre}</h3>
-              <p>{e.texte}</p>
-            </div>
+            <input type="checkbox" id={`hs-step-${e.num}`} class="hs-step-toggle" />
+            <label class="hs-step-head" for={`hs-step-${e.num}`}>
+              <span class="hs-step-num">{e.num}</span>
+              <span class="hs-step-title">{e.titre}</span>
+              <span class="hs-step-chev" aria-hidden="true"></span>
+            </label>
+            <p class="hs-step-text">{e.texte}</p>
           </li>
         ))}
       </ol>
@@ -291,16 +292,11 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
     .hs-hero {
       position: relative; overflow: hidden;
       min-height: calc(100svh - var(--header-h));
-      display: flex; align-items: flex-end;
-      padding: clamp(3rem, 10vw, 7rem) var(--gutter) clamp(3rem, 7vw, 5rem);
+      display: flex; align-items: center;
+      padding: clamp(3rem, 8vw, 5.5rem) var(--gutter);
       background:
         radial-gradient(120% 80% at 75% 18%, rgba(207, 157, 114, 0.18), transparent 55%),
         linear-gradient(160deg, #2a2119 0%, #1d1813 55%, #161109 100%);
-    }
-    .hs-photo-tag {
-      position: absolute; top: clamp(1rem, 3vw, 2rem); right: var(--gutter);
-      font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--hs-muted); border: 1px solid var(--hs-line); border-radius: var(--radius); padding: 0.5rem 0.9rem;
     }
     .hs-hero-inner { width: 100%; max-width: var(--maxw); margin-inline: auto; display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
     .hs-display {
@@ -333,12 +329,17 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
     .hs-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.25; color: #fdfbf7; margin: 0; }
     .hs-quote cite { display: block; margin-top: 1rem; font-family: var(--sans); font-style: normal; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-copper); }
 
-    /* II — étapes (grille compacte) */
+    /* II — étapes (mobile : repliables ; desktop : tout visible) */
     .hs-steps { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--hs-line); }
-    .hs-step { display: grid; grid-template-columns: auto 1fr; gap: clamp(0.85rem, 3vw, 1.4rem); padding: clamp(1.1rem, 3vw, 1.5rem) 0; border-bottom: 1px solid var(--hs-line); align-items: start; }
-    .hs-step-num { font-family: var(--serif); font-size: 1.3rem; color: var(--hs-copper); line-height: 1.25; }
-    .hs-step-body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem); color: #fdfbf7; margin: 0; }
-    .hs-step-body p { margin: 0.4rem 0 0; color: var(--hs-muted); font-size: 0.92rem; line-height: 1.55; max-width: 46ch; }
+    .hs-step { padding: clamp(0.9rem, 3vw, 1.3rem) 0; border-bottom: 1px solid var(--hs-line); }
+    .hs-step-toggle { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .hs-step-head { display: flex; align-items: baseline; gap: 0.85rem; cursor: pointer; }
+    .hs-step-num { font-family: var(--serif); font-size: 1.3rem; color: var(--hs-copper); line-height: 1.2; flex: none; }
+    .hs-step-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem); color: #fdfbf7; flex: 1; }
+    .hs-step-chev { flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--hs-copper); transition: transform 0.3s var(--ease); align-self: center; }
+    .hs-step-toggle:checked ~ .hs-step-head .hs-step-chev { transform: rotate(180deg); }
+    .hs-step-text { margin: 0; max-height: 0; overflow: hidden; opacity: 0; color: var(--hs-muted); font-size: 0.92rem; line-height: 1.55; padding-left: 2.15rem; transition: max-height 0.4s var(--ease), opacity 0.3s, margin 0.4s; }
+    .hs-step-toggle:checked ~ .hs-step-text { max-height: 18rem; opacity: 1; margin-top: 0.6rem; }
 
     /* Bienfaits */
     .hs-benefits { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--hs-line); }
@@ -422,7 +423,10 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
       .hs-hero-inner { grid-template-columns: 1.5fr 0.9fr; align-items: end; gap: clamp(2.5rem, 5vw, 5rem); }
       .hs-hero-side { align-self: end; }
       .hs-steps { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 5vw, 4rem); border-top: 0; }
-      .hs-step { grid-template-columns: 3rem 1fr; border-bottom: 0; border-top: 1px solid var(--hs-line); padding: clamp(1.25rem, 2.5vw, 1.75rem) 0; }
+      .hs-step { border-bottom: 0; border-top: 1px solid var(--hs-line); padding: clamp(1.25rem, 2.5vw, 1.75rem) 0; }
+      .hs-step-head { cursor: default; }
+      .hs-step-chev { display: none; }
+      .hs-step-text { max-height: none; opacity: 1; overflow: visible; margin-top: 0.5rem; }
       .hs-benefits { grid-template-columns: repeat(3, 1fr); }
       .hs-benefit { padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.5rem); border-bottom: 0; border-left: 1px solid var(--hs-line); }
       .hs-benefit:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
@@ -432,7 +436,7 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&l
       .hs-gallery { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; }
       .hs-shot-0 { grid-column: span 2; grid-row: span 2; }
       .hs-place { grid-template-columns: 1fr 1fr; }
-      .hs-intro-grid { grid-template-columns: 0.8fr 1.2fr; }
+      .hs-intro-grid { grid-template-columns: 1.2fr 0.8fr; }
     }
   </style>
 </Layout>
