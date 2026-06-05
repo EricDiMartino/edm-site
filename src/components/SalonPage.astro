@@ -637,6 +637,10 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
 
   /* ============ RESPONSIVE ≥ 820px ============ */
   @media (min-width: 820px) {
+    /* tiret devant les eyebrows — desktop uniquement */
+    .label { display: inline-flex; align-items: center; gap: 0.75rem; }
+    .label::before { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.5; flex: none; }
+
     .hero {
       grid-template-columns: 0.84fr 1.16fr; align-items: stretch;
       /* Plein écran sous le header. min-height (PAS height) → si le texte ou l'image
@@ -660,7 +664,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
 
     .cta-lede { max-width: 40ch; }
-    .maison-map { aspect-ratio: 21 / 7; }
+    .maison { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+    .maison-map { margin-top: 0; aspect-ratio: 4 / 3; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
     .reviews-grid { grid-template-columns: repeat(3, 1fr); }
