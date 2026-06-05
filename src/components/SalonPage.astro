@@ -197,18 +197,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
 
     <!-- 5a. NOTRE MAISON (à propos local — SEO/GEO) -->
     {showMaison && (
-      <section class="split reverse">
-        <div class="split-visual reveal">
-          <div class="frame map-frame">
-            <iframe
-              title={`Carte — ${salon.nom}, ${salon.ville}`}
-              src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(' '))}&z=15&output=embed`}
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
-        <div class="split-copy reveal" data-d="1">
+      <section class="section maison">
+        <div class="maison-copy reveal">
           <p class="label">{salon.maison!.eyebrow}</p>
           <h2 class="h-seo">{salon.maison!.titre}</h2>
           {salon.maison!.paragraphes.map((p) => <p class="body maison-p">{p}</p>)}
@@ -217,6 +207,16 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
               {salon.maison!.lien.label}<span class="arrow" aria-hidden="true">→</span>
             </a>
           )}
+        </div>
+        <div class="maison-map reveal" data-d="1">
+          <iframe
+            title={`Carte — ${salon.nom}, ${salon.ville}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(', '))}&z=16&output=embed`}
+            width="100%"
+            height="100%"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </section>
     )}
@@ -346,13 +346,15 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     --bg: #ffffff;
     --cream: #f7f3ea;
     --cream-deep: #efe8d8;
-    --ink: #26261f;
+    --ink: #31302e;           /* anthracite (charte) — texte & logo */
     --muted: #807f70;
-    --olive: #6b6e4b;
-    --olive-deep: #4b4e34;
+    --olive: #81806c;         /* olive de marque (charte) */
+    --olive-deep: #5e5d4d;
     --espresso: #2a231d;
-    --terracotta: #bd6a4c;    /* ACTIONS ONLY */
-    --terracotta-deep: #a5573b;
+    --terracotta: #a96613;    /* cuivre (charte) — ACTIONS ONLY */
+    --terracotta-deep: #8a5310;
+    /* sémantiques (formulaires/messages, charte) */
+    --c-success: #6b7a4f; --c-warning: #b8862a; --c-error: #8b3a2e; --c-info: #4a5c66;
     --line: rgba(38, 38, 31, 0.10);
     --line-light: rgba(247, 243, 234, 0.18);
     --serif: "Fraunces", Georgia, "Times New Roman", serif;
@@ -396,12 +398,10 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .h-seo em { font-style: italic; font-weight: 360; color: var(--olive); }
   .ital { font-style: italic; font-weight: 330; color: var(--olive); }
   .label {
-    display: inline-flex; align-items: center; gap: 0.75rem;
     font-family: var(--sans); font-weight: 600;
     font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase;
     color: var(--olive); margin: 0 0 1.1rem;
   }
-  .label::before { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.5; flex: none; }
   .label-light { color: #d8c9a8; }
   .lede {
     font-size: clamp(1.05rem, 1rem + 0.5vw, 1.25rem); line-height: 1.6;
@@ -486,7 +486,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .hours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-size: 0.98rem; }
   .hours li:last-child { border-bottom: 0; }
   .hours .is-closed { color: var(--muted); }
-  .phone { display: inline-block; margin: 0.3rem 0 1.3rem; font-family: var(--serif); font-size: 1.5rem; color: var(--ink); text-decoration: none; }
+  .phone { display: block; margin: 0.3rem 0 1.3rem; font-family: var(--serif); font-size: 1.5rem; color: var(--ink); text-decoration: none; }
   .nap-cta { display: inline-flex; }
 
   /* ============ 1b. CHIFFRES-CLÉS (réassurance) ============ */
@@ -535,10 +535,11 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .link-arrow:hover .arrow { transform: translateX(5px); }
 
   /* ============ NOTRE MAISON / carte ============ */
+  .maison-copy { max-width: 64ch; }
   .maison-p { margin: 0 0 1rem; }
   .maison-p:last-of-type { margin-bottom: 1.6rem; }
-  .map-frame { aspect-ratio: 4 / 3; }
-  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .maison-map { margin-top: clamp(2rem, 5vw, 3rem); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: inset 0 0 0 1px var(--line); }
+  .maison-map iframe { display: block; width: 100%; height: 100%; border: 0; }
 
   /* ============ FAQ ============ */
   .faq-list { border-top: 1px solid var(--line); max-width: 820px; }
@@ -659,6 +660,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
 
     .cta-lede { max-width: 40ch; }
+    .maison-map { aspect-ratio: 21 / 7; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
     .reviews-grid { grid-template-columns: repeat(3, 1fr); }
