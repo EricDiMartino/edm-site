@@ -120,6 +120,8 @@ export const voiron: SalonData = {
     },
   ],
 
+  instagram: { handle: '@salon_eric_di_martino_voiron', url: 'https://www.instagram.com/salon_eric_di_martino_voiron/' },
+
   seo: {
     title: 'Coiffeur & coloriste visagiste à Voiron — Eric Di Martino',
     description:

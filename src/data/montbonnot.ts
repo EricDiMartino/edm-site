@@ -137,6 +137,8 @@ export const montbonnot: SalonData = {
     },
   ],
 
+  instagram: { handle: '@salon_ericdimartino_montbonnot', url: 'https://www.instagram.com/salon_ericdimartino_montbonnot/' },
+
   seo: {
     title: 'Coiffeur & coloriste visagiste à Montbonnot — Eric Di Martino',
     description:

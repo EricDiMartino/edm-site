@@ -47,6 +47,7 @@ const hairSalon = {
     aggregateRating: { '@type': 'AggregateRating', ratingValue: liveAvis.noteRaw, reviewCount: liveAvis.total },
   }),
   areaServed: aixLesBains.areaServed,
+  ...(aixLesBains.instagram && { sameAs: [aixLesBains.instagram.url] }),
   openingHoursSpecification: aixLesBains.horaires
     .filter((h) => h.opens && h.closes && h.jourEn)
     .map((h) => ({

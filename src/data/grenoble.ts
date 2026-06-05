@@ -105,6 +105,7 @@ export interface SalonData {
   faq: FaqItem[];
   avis?: Avis;
   ctaTitre?: string;
+  instagram?: { handle: string; url: string };
   seo: { title: string; description: string };
 }
 
@@ -264,6 +265,8 @@ export const grenoble: SalonData = {
       reponse: 'Oui, dans un espace dédié — en soin seul ou en complément d’une prestation.',
     },
   ],
+
+  instagram: { handle: '@salon_eric_di_martino_grenoble', url: 'https://www.instagram.com/salon_eric_di_martino_grenoble/' },
 
   seo: {
     title: 'Coiffeur & coloriste visagiste à Grenoble — Eric Di Martino',

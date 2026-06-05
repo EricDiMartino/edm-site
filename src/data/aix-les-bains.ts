@@ -114,6 +114,8 @@ export const aixLesBains: SalonData = {
     },
   ],
 
+  instagram: { handle: '@salon_ericdimartino_aix', url: 'https://www.instagram.com/salon_ericdimartino_aix/' },
+
   seo: {
     title: 'Coiffeur & coloriste visagiste à Aix-les-Bains — Eric Di Martino',
     description:

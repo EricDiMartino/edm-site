@@ -47,6 +47,7 @@ const hairSalon = {
     aggregateRating: { '@type': 'AggregateRating', ratingValue: liveAvis.noteRaw, reviewCount: liveAvis.total },
   }),
   areaServed: grenoble.areaServed,
+  ...(grenoble.instagram && { sameAs: [grenoble.instagram.url] }),
   openingHoursSpecification: grenoble.horaires
     .filter((h) => h.opens && h.closes && h.jourEn)
     .map((h) => ({
