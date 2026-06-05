@@ -19,6 +19,7 @@ export const consultation = {
     endpoint: '', // TODO: URL du formulaire (Formspree / GoHighLevel / webhook)
   },
 
+  // Hero page NORMALE (descriptif, reliée depuis Prestations).
   hero: {
     eyebrow: 'Consultation visagiste',
     titre: 'Trouvez la coupe et la couleur qui vous vont',
@@ -26,6 +27,18 @@ export const consultation = {
     lede:
       '30 minutes en tête-à-tête avec un visagiste confirmé : bilan, diagnostic et préconisations sur-mesure. Sans engagement.',
   },
+
+  // Hero LP ADS (mots forts, offre toujours active).
+  heroLP: {
+    titre: 'Changez de tête.',
+    titreEm: 'Pour de vrai.',
+    lede:
+      '30 minutes avec un visagiste expert : bilan, diagnostic et plan d’action clair pour vos cheveux. Offert, sans engagement — nos experts vous rappellent.',
+    points: ['100 % offert', 'Sans engagement', 'Par un visagiste expert', 'Places limitées'],
+  },
+
+  // Champ « Salon » du formulaire (routage du lead vers le bon salon).
+  salonOptions: ['Grenoble', 'Montbonnot', 'Voiron', 'Aix-les-Bains'],
 
   inclus: {
     titre: 'Ce que comprend votre consultation',

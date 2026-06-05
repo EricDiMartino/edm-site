@@ -1,0 +1,206 @@
+---
+// LANDING PAGE ADS — Consultation offerte. Offre TOUJOURS active, mots forts, sans nav.
+// noindex (trafic payant uniquement, pas d'indexation pour éviter le duplicate).
+import Layout from '../components/Layout.astro';
+import { consultation as c } from '../data/consultation';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+import { getGoogleReviews } from '../lib/places';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
+const o = c.offre;
+const hasDate = !!o.date && !o.date.includes('définir');
+const ribbon = `${o.quantite} consultations offertes${hasDate ? ` — jusqu’au ${o.date}` : ''} · places limitées`;
+
+const live = (await Promise.all(SALONS.map((s) => getGoogleReviews(s.googlePlaceId, 1)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getGoogleReviews>>>[];
+const totalAvis = live.reduce((sum, a) => sum + (a.total || 0), 0);
+const avgNote = totalAvis ? live.reduce((sum, a) => sum + (a.noteRaw || 0) * (a.total || 0), 0) / totalAvis : null;
+const noteAffiche = avgNote ? avgNote.toFixed(1).replace('.', ',') : null;
+const totalArrondi = totalAvis ? Math.floor(totalAvis / 100) * 100 : 0;
+---
+
+<Layout title="Consultation visagiste offerte — Eric Di Martino" description={c.seo.description} canonical={canonical} noindex={true}>
+  <div class="lp">
+    <div class="lp-ribbon">{ribbon}</div>
+
+    <header class="lp-header">
+      <a class="lp-brand" href="/">
+        <span class="lp-brand-name">Eric&nbsp;Di&nbsp;Martino</span>
+        <span class="lp-brand-sub">Salon de coiffure</span>
+      </a>
+      <a class="btn btn-action btn-sm" href="#form">J’en profite</a>
+    </header>
+
+    <main>
+      <section class="lp-hero">
+        <div class="lp-hero-copy reveal">
+          <p class="lp-badge">{o.quantite} consultations offertes</p>
+          <h1 class="editorial lp-h1">{c.heroLP.titre} <em>{c.heroLP.titreEm}</em></h1>
+          <p class="lede lp-lede">{c.heroLP.lede}</p>
+          <ul class="lp-ticks">
+            {c.heroLP.points.map((p) => <li>{p}</li>)}
+          </ul>
+          <p class="lp-trust">
+            {noteAffiche ? <><strong>★ {noteAffiche}</strong> · {totalArrondi}+ avis Google</> : <>Avis 5★ sur Google</>}
+            <span class="lp-trust-sep">·</span> 4 salons en Isère &amp; Savoie
+          </p>
+        </div>
+
+        <div class="lp-form-card reveal" data-d="1" id="form">
+          <h2 class="lp-form-titre">Je veux ma consultation offerte</h2>
+          <p class="lp-form-sub">{c.form.sousTitre}</p>
+          <form class="lp-form" action={c.form.endpoint || '#'} method="POST">
+            <div class="lp-row">
+              <label>Prénom<input type="text" name="prenom" required autocomplete="given-name" /></label>
+              <label>Nom<input type="text" name="nom" required autocomplete="family-name" /></label>
+            </div>
+            <label>Téléphone<input type="tel" name="telephone" required autocomplete="tel" /></label>
+            <label>Salon le plus proche
+              <select name="salon" required>
+                <option value="" disabled selected>Choisissez votre salon…</option>
+                {c.salonOptions.map((s) => <option value={s}>{s}</option>)}
+              </select>
+            </label>
+            <label>Votre envie ?<textarea name="envie" rows="2" placeholder="Coupe, couleur, lissage…"></textarea></label>
+            <button class="btn btn-action btn-lg lp-form-submit" type="submit">{c.form.submit}</button>
+            <p class="lp-form-rgpd">{c.form.rgpd}</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section lp-inclus">
+        <header class="section-head reveal">
+          <p class="label">Inclus · offert</p>
+          <h2 class="h-seo">{c.inclus.titre}</h2>
+          <p class="lp-duree">{c.inclus.duree}</p>
+        </header>
+        <ul class="lp-inclus-grid reveal" data-d="1">
+          {c.inclus.items.map((i) => (<li class="lp-inclus-item"><h3>{i.titre}</h3><p>{i.texte}</p></li>))}
+        </ul>
+      </section>
+
+      <section class="section lp-etapes">
+        <header class="section-head reveal">
+          <p class="label">Simple &amp; rapide</p>
+          <h2 class="h-seo">{c.etapes.titre}</h2>
+        </header>
+        <ol class="lp-etapes-list reveal" data-d="1">
+          {c.etapes.items.map((e) => (<li class="lp-etape"><span class="lp-etape-num">{e.num}</span><div><h3>{e.titre}</h3><p>{e.texte}</p></div></li>))}
+        </ol>
+        <div class="lp-mid-cta reveal"><a class="btn btn-action btn-lg" href="#form">Je profite de l’offre</a></div>
+      </section>
+
+      <section class="section lp-faq">
+        <header class="section-head reveal">
+          <p class="label">FAQ</p>
+          <h2 class="h-seo">Vous vous demandez…</h2>
+        </header>
+        <div class="lp-faq-list reveal" data-d="1">
+          {c.faq.map((f) => (
+            <details class="lp-faq-item">
+              <summary>{f.question}<span class="lp-plus" aria-hidden="true"></span></summary>
+              <div class="rt"><p>{f.reponse}</p></div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="section lp-cta">
+        <div class="lp-cta-inner reveal">
+          <p class="editorial lp-cta-title">{c.ctaFinal.titre}</p>
+          <p class="lede lp-cta-lede">{o.quantite} consultations offertes · places limitées. {c.ctaFinal.texte}</p>
+          <a class="btn btn-action btn-lg" href="#form">{c.form.submit}</a>
+          {noteAffiche && <p class="lp-cta-trust">★ {noteAffiche} · {totalArrondi}+ avis Google</p>}
+        </div>
+      </section>
+    </main>
+
+    <footer class="lp-footer">
+      <p class="lp-foot-mark">Eric Di Martino</p>
+      <p class="lp-foot-sub">Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+      <p class="lp-foot-legal"><a href="/mentions-legales">Mentions légales</a></p>
+    </footer>
+  </div>
+
+  <style>
+    .lp-ribbon { background: var(--terracotta); color: #fff; text-align: center; font-family: var(--sans); font-weight: 600; font-size: 0.84rem; letter-spacing: 0.03em; padding: 0.65rem 1rem; }
+    .lp-header { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem var(--gutter); background: rgba(255,255,255,0.92); backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid var(--line); }
+    .lp-brand { text-decoration: none; color: var(--ink); line-height: 1; }
+    .lp-brand-name { display: block; font-family: var(--serif); font-size: 1.15rem; }
+    .lp-brand-sub { display: block; margin-top: 0.3rem; font-family: var(--sans); font-weight: 500; font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); }
+
+    .lp-hero { max-width: var(--maxw); margin-inline: auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+    .lp-badge { display: inline-block; font-family: var(--sans); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--terracotta); border-radius: 999px; padding: 0.45rem 1rem; margin: 0 0 1.1rem; }
+    .lp-h1 { max-width: 14ch; }
+    .lp-h1 em { font-style: italic; color: var(--olive); }
+    .lp-lede { max-width: 46ch; }
+    .lp-ticks { display: grid; gap: 0.5rem 1.5rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+    .lp-ticks li { position: relative; padding-left: 1.6rem; font-size: 0.95rem; font-weight: 500; }
+    .lp-ticks li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; border-left: 1.5px solid var(--terracotta); border-bottom: 1.5px solid var(--terracotta); transform: rotate(-45deg) translateY(-2px); }
+    .lp-trust { margin: 1.6rem 0 0; font-size: 0.86rem; color: var(--muted); }
+    .lp-trust strong { color: var(--ink); }
+    .lp-trust-sep { margin: 0 0.5rem; opacity: 0.5; }
+
+    .lp-form-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.25rem); box-shadow: 0 30px 60px -36px rgba(38,38,31,0.4); }
+    .lp-form-titre { font-family: var(--serif); font-weight: 400; font-size: 1.55rem; margin: 0 0 0.5rem; }
+    .lp-form-sub { color: var(--muted); font-size: 0.92rem; margin: 0 0 1.4rem; }
+    .lp-form { display: grid; gap: 0.9rem; }
+    .lp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .lp-form label { display: grid; gap: 0.35rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.02em; color: var(--ink); }
+    .lp-form input, .lp-form textarea, .lp-form select { font-family: var(--sans); font-size: 0.95rem; padding: 0.7rem 0.85rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); color: var(--ink); width: 100%; }
+    .lp-form input:focus, .lp-form textarea:focus, .lp-form select:focus { outline: none; border-color: var(--olive); }
+    .lp-form-submit { width: 100%; margin-top: 0.3rem; }
+    .lp-form-rgpd { font-size: 0.72rem; color: var(--muted); margin: 0.2rem 0 0; text-align: center; }
+
+    .lp-duree { margin: 0.8rem 0 0; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--olive); }
+    .lp-inclus-grid { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem,3vw,1.5rem); }
+    .lp-inclus-item { background: var(--cream); border-radius: var(--radius); padding: clamp(1.3rem,3vw,1.7rem); }
+    .lp-inclus-item h3 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; margin: 0 0 0.4rem; }
+    .lp-inclus-item p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+
+    .lp-etapes-list { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .lp-etape { display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.25rem; padding: clamp(1.1rem,3vw,1.6rem) 0; border-bottom: 1px solid var(--line); align-items: start; }
+    .lp-etape-num { font-family: var(--serif); font-size: 1.5rem; color: var(--terracotta); line-height: 1.1; }
+    .lp-etape h3 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; margin: 0 0 0.3rem; }
+    .lp-etape p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+    .lp-mid-cta { margin-top: clamp(2rem,5vw,3rem); }
+
+    .lp-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
+    .lp-faq-item { border-bottom: 1px solid var(--line); }
+    .lp-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+    .lp-faq-item summary::-webkit-details-marker { display: none; }
+    .lp-plus { position: relative; width: 16px; height: 16px; flex: none; }
+    .lp-plus::before, .lp-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+    .lp-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+    .lp-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+    .lp-faq-item[open] .lp-plus::after { transform: scaleY(0); }
+    .lp-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
+    .lp-cta { padding-left: 0; padding-right: 0; }
+    .lp-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,5.5rem) var(--gutter); text-align: center; }
+    .lp-cta-title { color: #fff; }
+    .lp-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 44ch; }
+    .lp-cta .btn-action { margin-top: 2rem; }
+    .lp-cta-trust { margin: 1.2rem 0 0; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+
+    .lp-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(2.5rem,5vw,3.5rem) var(--gutter); border-top: 1px solid var(--line); text-align: center; }
+    .lp-foot-mark { font-family: var(--serif); font-size: 1.3rem; margin: 0; }
+    .lp-foot-sub { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+    .lp-foot-legal { margin: 0.8rem 0 0; font-size: 0.8rem; }
+    .lp-foot-legal a { color: var(--muted); }
+
+    @media (min-width: 820px) {
+      .lp-hero { grid-template-columns: 1.1fr 0.9fr; gap: clamp(2.5rem,5vw,4.5rem); padding-top: clamp(3rem,6vw,5rem); }
+      .lp-hero-copy { align-self: center; }
+      .lp-ticks { grid-template-columns: 1fr 1fr; }
+      .lp-inclus-grid { grid-template-columns: repeat(4, 1fr); }
+      .lp-etapes-list { grid-template-columns: repeat(3, 1fr); column-gap: clamp(2rem,4vw,3rem); border-top: 0; }
+      .lp-etape { border-bottom: 0; border-top: 1px solid var(--line); }
+      .lp-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .lp-cta-inner { border-radius: var(--radius); }
+    }
+  </style>
+</Layout>
