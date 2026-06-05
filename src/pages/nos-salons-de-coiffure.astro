@@ -1,0 +1,156 @@
+---
+// Page liste des salons — 4 cards (photo hero + infos), pilotée par les données.
+import { Image } from 'astro:assets';
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+import { getGoogleReviews } from '../lib/places';
+
+const liste = [
+  { data: grenoble, href: '/salon-de-coiffure/grenoble' },
+  { data: montbonnot, href: '/salon-de-coiffure/montbonnot' },
+  { data: voiron, href: '/salon-de-coiffure/voiron' },
+  { data: aixLesBains, href: '/salon-de-coiffure/aix-les-bains' },
+];
+
+// Note Google récupérée au build (rating + total) — repli silencieux si clé absente.
+const salons = await Promise.all(
+  liste.map(async (s) => ({ ...s, avis: await getGoogleReviews(s.data.googlePlaceId, 1) })),
+);
+
+const CARD_WIDTHS = [480, 768, 960];
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const salonsNav = liste.map((s) => ({ ville: s.data.ville, href: s.href }));
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Salons', item: canonical },
+  ],
+};
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: salons.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${s.data.nom} — ${s.data.ville}`,
+    url: new URL(s.href, Astro.site).href,
+  })),
+};
+---
+
+<Layout
+  title="Nos salons de coiffure — Eric Di Martino"
+  description="Les salons Eric Di Martino : Grenoble, Montbonnot, Voiron et Aix-les-Bains. Coupe, couleur et consultation visagiste sur rendez-vous."
+  canonical={canonical}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(itemList)} slot="head" />
+
+  <Header salons={salonsNav} current="salons" />
+
+  <main>
+    <section class="section">
+      <header class="section-head reveal">
+        <p class="label">Nos adresses</p>
+        <h1 class="h-seo">Les salons Eric&nbsp;Di&nbsp;Martino</h1>
+        <p class="lede">Quatre salons en Isère et en Savoie. Même exigence partout : une coiffure pensée pour vous, à partir d’une vraie consultation.</p>
+      </header>
+
+      <ul class="salons-grid">
+        {salons.map((s, i) => {
+          const d = s.data;
+          const telHref = d.telephone ? 'tel:' + d.telephone.replace(/[^0-9+]/g, '') : '';
+          return (
+            <li class="salon-card reveal" data-d={i % 2 === 1 ? '1' : undefined}>
+              <a class="card-media" href={s.href} aria-label={`Découvrir le salon de ${d.ville}`}>
+                <Image
+                  src={d.heroImage}
+                  widths={CARD_WIDTHS}
+                  sizes="(min-width: 820px) 46vw, 100vw"
+                  alt={`Salon Eric Di Martino — ${d.ville}`}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                />
+              </a>
+              <div class="card-body">
+                <div class="card-head">
+                  <h2 class="card-ville">{d.ville}</h2>
+                  {s.avis && (
+                    <p class="card-rating">
+                      <span class="card-stars" aria-hidden="true">★</span>
+                      <strong>{s.avis.note}</strong>
+                      <span class="card-rating-sub">· {s.avis.total} avis Google</span>
+                    </p>
+                  )}
+                </div>
+
+                <div class="card-nap">
+                  <p class="card-addr">
+                    {d.adresse}, {d.codePostal} {d.ville}
+                    {d.mapsUrl && <> · <a class="link-olive" href={d.mapsUrl}>Itinéraire ›</a></>}
+                  </p>
+                  {telHref && <p><a class="card-tel" href={telHref}>{d.telephone}</a></p>}
+                </div>
+
+                <ul class="card-hours" aria-label={`Horaires — ${d.ville}`}>
+                  {d.horaires.map((h) => (
+                    <li class={h.ferme ? 'is-closed' : ''}><span>{h.jour.slice(0, 3)}</span><span>{h.valeur}</span></li>
+                  ))}
+                </ul>
+
+                <div class="card-actions">
+                  <a class="link-arrow link-olive" href={s.href}>Découvrir le salon<span class="arrow" aria-hidden="true">→</span></a>
+                  <a class="btn btn-action btn-sm" href={s.href}>Réserver</a>
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-mark">Eric Di Martino</p>
+    <p class="footer-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .salons-grid { display: grid; gap: clamp(1.5rem, 4vw, 2.25rem); margin-top: clamp(2rem, 5vw, 3rem); padding: 0; list-style: none; }
+    .salon-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .card-media { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: linear-gradient(150deg, var(--cream), var(--cream-deep)); }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+    .card-media:hover img { transform: scale(1.03); }
+    .card-body { display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.4rem, 4vw, 1.9rem); flex: 1; }
+    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .card-ville { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem); line-height: 1; }
+    .card-rating { display: inline-flex; align-items: baseline; gap: 0.35rem; margin: 0; font-size: 0.86rem; color: var(--muted); }
+    .card-stars { color: var(--terracotta); }
+    .card-rating strong { color: var(--ink); font-weight: 600; }
+    .card-rating-sub { font-size: 0.8rem; }
+    .card-nap { font-size: 0.92rem; line-height: 1.55; }
+    .card-nap p { margin: 0; }
+    .card-addr { color: var(--ink); }
+    .card-tel { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+    .card-tel:hover { color: var(--olive); }
+    .card-hours { display: grid; grid-template-columns: 1fr 1fr; gap: 0.15rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+    .card-hours li { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.82rem; color: var(--ink); }
+    .card-hours .is-closed { color: var(--muted); }
+    .card-hours span:first-child { color: var(--muted); }
+    .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 0.5rem; }
+
+    .site-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .footer-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .footer-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 820px) {
+      .salons-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</Layout>
