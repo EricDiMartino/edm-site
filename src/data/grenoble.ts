@@ -9,6 +9,8 @@ import hero from '../assets/salons/grenoble/hero.webp';
 import expertise from '../assets/salons/grenoble/expertise.webp';
 import headspa from '../assets/salons/grenoble/headspa.webp';
 import barbier from '../assets/salons/grenoble/barbier.webp';
+// Portrait d'équipe PROVISOIRE (image IA) — sera remplacé par les vrais portraits.
+import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp';
 
 export interface Horaire {
   jour: string;
@@ -64,6 +66,7 @@ export interface SalonData {
   introLocale?: string; // texte d'ancrage local, unique au salon
   services: ServicePhare[];
   equipeTitre?: string;
+  equipePlaceholder?: ImageMetadata; // portrait de repli tant qu'un membre n'a pas sa photo
   equipe: Membre[];
   faq: FaqItem[];
   ctaTitre?: string;
@@ -148,6 +151,9 @@ export const grenoble: SalonData = {
       titre: 'Barbier à Grenoble, sur rendez-vous',
       texte:
         'Coupe, taille de barbe et entretien, avec la même exigence de précision et la même tranquillité. Discrètement, dans l’esprit de la maison.',
+      points: ['Coupe & coiffage', 'Taille de barbe', 'Contours nets', 'Serviette chaude'],
+      prix: 'dès 28 €',
+      prixDetail: '30 min',
       image: barbier,
       lien: '#reserver',
       lienLabel: 'Prendre rendez-vous',
@@ -155,7 +161,8 @@ export const grenoble: SalonData = {
   ],
 
   equipeTitre: 'Nos coiffeurs Artistes',
-  // Équipe — données en dur. `photo` absente → initiale en repli (vraies photos plus tard).
+  equipePlaceholder, // image IA provisoire, utilisée pour tous tant qu'il n'y a pas de vrai portrait
+  // Équipe — données en dur. `photo` absente → portrait placeholder (vraies photos plus tard).
   // Spécialités PROVISOIRES (sauf Eva, déjà connue), à ajuster.
   equipe: [
     { prenom: 'Eva', specialite: 'Coloriste Visagiste' },
