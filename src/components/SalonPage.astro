@@ -539,7 +539,7 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .link-arrow:hover .arrow { transform: translateX(5px); }
 
   /* ============ NOTRE MAISON (à propos) ============ */
-  .maison-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  .maison-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
   .maison-text p { margin: 0 0 1.1rem; max-width: 48ch; color: var(--ink); }
   .maison-text p:last-of-type { margin-bottom: 1.6rem; }
   .maison-text .dropcap::first-letter { float: left; font-family: var(--serif); font-size: 3.6rem; line-height: 0.78; padding: 0.15rem 0.6rem 0 0; color: var(--olive); }
@@ -665,7 +665,6 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
 
     .maison-grid { grid-template-columns: 0.95fr 1.05fr; }
-    .maison-visual { margin-top: clamp(0.5rem, 2vw, 1.5rem); }
 
     .cta-lede { max-width: 40ch; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
