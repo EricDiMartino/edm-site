@@ -3,6 +3,7 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { headSpa as h } from '../data/head-spa';
+import { grenoble } from '../data/grenoble';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const telHref = 'tel:' + h.telephone.replace(/[^0-9+]/g, '');
@@ -57,10 +58,14 @@ const heroHoraires = h.lieu.horaires
   .map((x) => `${jourCourt[x.jour] ?? x.jour} ${x.valeur.replace(/ /g, '')}`)
   .join(' · ');
 const heroMeta = [
-  ...h.hero.meta.slice(0, 2), // Durée, À partir de
   { label: 'Adresse', valeur: `${h.lieu.adresse}, ${h.ville}` },
   { label: 'Horaires', valeur: heroHoraires },
 ];
+// Carte OpenStreetMap (sans clé, framable). Google bloque désormais l'embed sans la Maps Embed API.
+const geo = grenoble.geo!;
+const dLng = 0.006, dLat = 0.003;
+const bbox = `${geo.lng - dLng},${geo.lat - dLat},${geo.lng + dLng},${geo.lat + dLat}`;
+const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${geo.lat},${geo.lng}`;
 ---
 
 <Layout title={h.seo.title} description={h.seo.description} canonical={canonical}>
@@ -81,14 +86,13 @@ const heroMeta = [
           <p class="hs-lede">{h.hero.lede}</p>
           <div class="hs-actions">
             <a class="btn btn-action btn-lg" href={h.reservationUrl}>Réserver mon rituel</a>
-            <a class="btn hs-ghost" href="#rituel">Découvrir le rituel ↓</a>
+            <a class="btn hs-ghost btn-video" href="#rituel">
+              <svg class="play-ico" width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+              Découvrir le rituel
+            </a>
           </div>
         </div>
         <div class="hs-hero-side reveal" data-d="1">
-          <blockquote class="hs-hero-quote">
-            <p>{h.intro.citation.texte}</p>
-            <cite>{h.intro.citation.auteur}</cite>
-          </blockquote>
           <ul class="hs-meta">
             {heroMeta.map((m) => (
               <li><span class="hs-meta-label">{m.label}</span><span class="hs-meta-val">{m.valeur}</span></li>
@@ -105,8 +109,14 @@ const heroMeta = [
         <p class="hs-eyebrow">{h.intro.eyebrow}</p>
         <h2 class="hs-h2">{h.intro.titre}</h2>
       </header>
-      <div class="hs-prose reveal" data-d="1">
-        {h.intro.paragraphes.map((p) => <p>{p}</p>)}
+      <div class="hs-intro-grid">
+        <blockquote class="hs-quote reveal">
+          <p>{h.intro.citation.texte}</p>
+          <cite>{h.intro.citation.auteur}</cite>
+        </blockquote>
+        <div class="hs-prose reveal" data-d="1">
+          {h.intro.paragraphes.map((p) => <p>{p}</p>)}
+        </div>
       </div>
     </section>
 
@@ -122,7 +132,7 @@ const heroMeta = [
           <li class="hs-step reveal">
             <span class="hs-step-num">{e.num}</span>
             <div class="hs-step-body">
-              <div class="hs-step-top"><h3>{e.titre}</h3><span class="hs-step-duree">{e.duree}</span></div>
+              <h3>{e.titre}</h3>
               <p>{e.texte}</p>
             </div>
           </li>
@@ -188,7 +198,9 @@ const heroMeta = [
     <!-- LIEU -->
     <section class="hs-sec hs-band">
       <div class="hs-place">
-        <div class="hs-place-visual reveal"><span class="hs-shot-cap">Façade · Salon Grenoble</span></div>
+        <div class="hs-place-visual reveal">
+          <iframe title="Carte — Salon Grenoble" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <div class="hs-place-copy reveal" data-d="1">
           <p class="hs-eyebrow">{h.lieu.eyebrow}</p>
           <h2 class="hs-h2">{h.lieu.titre}</h2>
@@ -312,21 +324,21 @@ const heroMeta = [
     .hs-hero-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.5rem); line-height: 1.3; color: #fdfbf7; margin: 0; }
     .hs-hero-quote cite { display: block; margin-top: 0.8rem; font-family: var(--sans); font-style: normal; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-copper); }
 
-    /* I — prose + citation */
+    /* I — citation (à gauche) + prose */
+    .hs-intro-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
     .hs-prose { max-width: 60ch; }
     .hs-prose p { margin: 0 0 1.1rem; color: var(--hs-cream); }
-    .hs-quote { margin: clamp(2.5rem, 6vw, 4rem) 0 0; padding-left: clamp(1rem, 3vw, 2rem); border-left: 2px solid var(--hs-copper); max-width: 40ch; }
+    .hs-prose p:last-child { margin-bottom: 0; }
+    .hs-quote { margin: 0; padding-left: clamp(1rem, 3vw, 2rem); border-left: 2px solid var(--hs-copper); max-width: 36ch; }
     .hs-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.25; color: #fdfbf7; margin: 0; }
     .hs-quote cite { display: block; margin-top: 1rem; font-family: var(--sans); font-style: normal; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-copper); }
 
-    /* II — étapes */
-    .hs-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hs-line); }
-    .hs-step { display: grid; grid-template-columns: auto 1fr; gap: clamp(1rem, 4vw, 2.5rem); padding: clamp(1.5rem, 4vw, 2.25rem) 0; border-bottom: 1px solid var(--hs-line); }
-    .hs-step-num { font-family: var(--serif); font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.4rem); color: var(--hs-copper); line-height: 1; }
-    .hs-step-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .hs-step-top h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1rem + 0.7vw, 1.5rem); color: #fdfbf7; margin: 0; }
-    .hs-step-duree { font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hs-muted); }
-    .hs-step-body p { margin: 0.6rem 0 0; color: var(--hs-muted); max-width: 60ch; }
+    /* II — étapes (grille compacte) */
+    .hs-steps { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--hs-line); }
+    .hs-step { display: grid; grid-template-columns: auto 1fr; gap: clamp(0.85rem, 3vw, 1.4rem); padding: clamp(1.1rem, 3vw, 1.5rem) 0; border-bottom: 1px solid var(--hs-line); align-items: start; }
+    .hs-step-num { font-family: var(--serif); font-size: 1.3rem; color: var(--hs-copper); line-height: 1.25; }
+    .hs-step-body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem); color: #fdfbf7; margin: 0; }
+    .hs-step-body p { margin: 0.4rem 0 0; color: var(--hs-muted); font-size: 0.92rem; line-height: 1.55; max-width: 46ch; }
 
     /* Bienfaits */
     .hs-benefits { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--hs-line); }
@@ -363,10 +375,11 @@ const heroMeta = [
 
     /* Lieu */
     .hs-place { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
-    .hs-place-visual { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--hs-line);
+    .hs-place-visual { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; box-shadow: inset 0 0 0 1px var(--hs-line);
       background:
         radial-gradient(120% 90% at 70% 20%, rgba(207, 157, 114, 0.2), transparent 55%),
         linear-gradient(150deg, #34291f 0%, #211a13 65%, #15100a 100%); }
+    .hs-place-visual iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
     .hs-shot-cap { position: absolute; left: 1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-muted); }
     .hs-place-name { font-family: var(--serif); font-size: 1.35rem; color: #fdfbf7; margin: 1.2rem 0 0.3rem; }
     .hs-place-addr { color: var(--hs-cream); margin: 0; line-height: 1.6; }
@@ -408,8 +421,8 @@ const heroMeta = [
     @media (min-width: 820px) {
       .hs-hero-inner { grid-template-columns: 1.5fr 0.9fr; align-items: end; gap: clamp(2.5rem, 5vw, 5rem); }
       .hs-hero-side { align-self: end; }
-      .hs-steps { border-top: 0; }
-      .hs-step { grid-template-columns: 5rem 1fr; }
+      .hs-steps { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 5vw, 4rem); border-top: 0; }
+      .hs-step { grid-template-columns: 3rem 1fr; border-bottom: 0; border-top: 1px solid var(--hs-line); padding: clamp(1.25rem, 2.5vw, 1.75rem) 0; }
       .hs-benefits { grid-template-columns: repeat(3, 1fr); }
       .hs-benefit { padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.5rem); border-bottom: 0; border-left: 1px solid var(--hs-line); }
       .hs-benefit:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
@@ -419,6 +432,7 @@ const heroMeta = [
       .hs-gallery { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; }
       .hs-shot-0 { grid-column: span 2; grid-row: span 2; }
       .hs-place { grid-template-columns: 1fr 1fr; }
+      .hs-intro-grid { grid-template-columns: 0.8fr 1.2fr; }
     }
   </style>
 </Layout>
