@@ -178,6 +178,16 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
           </article>
         ))}
       </div>
+      {h.tarifs.extras && (
+        <div class="hs-extras-wrap reveal">
+          <ul class="hs-extras">
+            {h.tarifs.extras.map((e) => (
+              <li><span class="hs-extra-name">{e.nom}</span><span class="hs-extra-detail">{e.detail}</span><span class="hs-extra-price">{e.prix}</span></li>
+            ))}
+          </ul>
+          <p class="hs-extras-note">Duo et cures sur réservation téléphonique — <a href={telHref}>{h.telephone}</a>.</p>
+        </div>
+      )}
     </section>
 
     <!-- L'ATMOSPHÈRE -->
@@ -379,6 +389,14 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     .hs-plan-points li { position: relative; padding-left: 1.5rem; font-size: 0.92rem; color: var(--hs-cream); }
     .hs-plan-points li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-left: 1px solid var(--hs-copper); border-bottom: 1px solid var(--hs-copper); transform: rotate(-45deg) translateY(-2px); }
     .hs-plan .btn { margin-top: auto; }
+    .hs-extras-wrap { max-width: 46rem; margin: clamp(1.75rem, 4vw, 2.5rem) auto 0; }
+    .hs-extras { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hs-line); }
+    .hs-extras li { display: flex; align-items: baseline; gap: 0.75rem 1rem; flex-wrap: wrap; padding: 0.9rem 0; border-bottom: 1px solid var(--hs-line); }
+    .hs-extra-name { font-family: var(--serif); font-size: 1.1rem; color: #fdfbf7; }
+    .hs-extra-detail { flex: 1; font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hs-muted); }
+    .hs-extra-price { font-family: var(--serif); font-size: 1.1rem; color: var(--hs-copper); }
+    .hs-extras-note { text-align: center; margin: 1.2rem 0 0; font-size: 0.85rem; color: var(--hs-muted); }
+    .hs-extras-note a { color: #fdfbf7; text-decoration: underline; text-underline-offset: 3px; }
 
     /* Galerie */
     .hs-gallery { display: grid; grid-template-columns: 1fr; gap: clamp(0.75rem, 2vw, 1rem); }

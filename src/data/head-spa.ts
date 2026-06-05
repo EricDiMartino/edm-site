@@ -22,8 +22,8 @@ export const headSpa = {
     lede:
       "Un soin du cuir chevelu d'inspiration japonaise. Vapeur tiède, massage crânien, rituels d'huiles précieuses — un voyage sensoriel pour relâcher le mental et révéler la beauté du cheveu.",
     meta: [
-      { label: 'Durée', valeur: '45 min – 1h45' },
-      { label: 'À partir de', valeur: '65 €' },
+      { label: 'Durée', valeur: '1h15 – 2h30' },
+      { label: 'À partir de', valeur: '120 €' },
       { label: 'Lieu', valeur: 'Salon Grenoble' },
     ],
   },
@@ -35,7 +35,7 @@ export const headSpa = {
     titre: 'Le Head Spa, c’est quoi ?',
     paragraphes: [
       'Né dans les salons de Tokyo, le Head Spa est le pendant capillaire du massage shiatsu — un soin profond du cuir chevelu, traité comme on traite la peau du visage.',
-      'Il associe diagnostic du cuir chevelu, vapeur d’eau tiède, exfoliation aux huiles essentielles et massage crânien lent. Un soin technique, mais une expérience avant tout sensorielle : on s’allonge, on ferme les yeux, et on disparaît une heure entière.',
+      'Il associe diagnostic du cuir chevelu, vapeur d’eau tiède, exfoliation aux huiles essentielles et massage crânien lent. Un soin technique, mais une expérience avant tout sensorielle : on s’allonge, on ferme les yeux, et on disparaît, le temps d’un rituel.',
       'Inspiré des rituels japonais et adapté aux cuirs chevelus européens, il est pratiqué exclusivement dans la cabine dédiée du salon de Grenoble.',
     ],
     citation: {
@@ -48,7 +48,7 @@ export const headSpa = {
   deroule: {
     numero: 'II',
     eyebrow: 'Le déroulé',
-    titre: 'Cinq étapes, une heure entière pour soi',
+    titre: 'Cinq étapes, un vrai moment pour soi',
     intro:
       'Chaque rituel suit le même protocole, transmis par notre maître coiffeur. La durée totale varie selon la formule choisie — l’enchaînement reste le même.',
     etapes: [
@@ -81,12 +81,18 @@ export const headSpa = {
     eyebrow: 'Tarifs & formules',
     titre: 'Trois rituels, une seule attention',
     intro:
-      'De la séance découverte au rituel haute couture — choisissez la durée qui correspond à votre besoin. Tous nos rituels sont pratiqués par des praticiennes formées par Eric Di Martino.',
+      'Du rituel d’éveil à l’expérience signature — choisissez le rituel qui vous correspond. Brushing inclus dans chaque rituel.',
     formules: [
-      { badge: 'Première fois', nom: 'Découverte', prix: '65', duree: '45 min', points: ['Diagnostic du cuir chevelu', 'Vapeur tiède', 'Massage crânien 15 min', 'Shampooing & rinçage'] },
-      { badge: 'Le plus choisi', nom: 'Signature', prix: '89', duree: '1h15', highlight: true, points: ['Diagnostic complet à la loupe', 'Vapeur tiède d’eau de source', 'Exfoliation aux huiles précieuses', 'Massage crânien shiatsu 20 min', 'Soin nourrissant haute couture', 'Tisane de fin de soin'] },
-      { badge: 'Avec brushing', nom: 'Luxe', prix: '139', duree: '1h45', points: ['Le rituel Signature complet', 'Massage cervicales & épaules 15 min', 'Brushing personnalisé', 'Coffret retour à la maison', 'Plage horaire dédiée (sans attente)'] },
+      { badge: 'L’éveil', nom: 'Rituel Éveil', prix: '180', duree: '2h', points: ['Diagnostic du cuir chevelu', 'Vapeur tiède', 'Massage crânien', 'Brushing inclus'] },
+      { badge: 'Le plus complet', nom: 'Rituel Signature', prix: '220', duree: '2h30', highlight: true, points: ['Diagnostic complet à la loupe', 'Vapeur d’eau de source', 'Exfoliation aux huiles précieuses', 'Massage crânien shiatsu', 'Soin nourrissant', 'Brushing inclus'] },
+      { badge: 'Au masculin', nom: 'Rituel Homme', prix: '120', duree: '1h15', points: ['Diagnostic personnalisé', 'Soins ciblés', 'Massage relaxant', 'Brushing inclus'] },
     ] as HsFormule[],
+    // Duo & cures (réservation par téléphone — 04 76 46 07 04)
+    extras: [
+      { nom: 'Rituel Duo Éveil', prix: 'dès 350 €', detail: '2h · à deux' },
+      { nom: 'Cure 6 mois — Éveil', prix: '450 €', detail: 'Éveil + brushing' },
+      { nom: 'Cure 12 mois — Éveil', prix: '900 €', detail: 'Éveil + brushing' },
+    ],
   },
 
   // L'atmosphère (galerie — cadres dégradés provisoires en attendant les vraies photos)
