@@ -31,6 +31,14 @@ export interface FaqItem {
   question: string;
   reponse: string;
 }
+export interface ChiffreCle {
+  valeur: string; // ex. "200", "4,7 ★"
+  label: string; // ex. "m² d'espace"
+}
+export interface Acces {
+  label: string; // ex. "Parking" — affiché dans le badge
+  detail?: string; // précision (provisoire) ; affichée en infobulle
+}
 export interface SalonData {
   nom: string;
   ville: string;
@@ -44,6 +52,9 @@ export interface SalonData {
   telephone: string;
   horaires: Horaire[];
   mapsUrl?: string;
+  acces?: Acces[];
+  chiffres?: ChiffreCle[];
+  citation?: { texte: string; auteur: string };
   expertise?: { titre: string; texte: string; image?: ImageMetadata; lien?: string };
   introLocale?: string; // texte d'ancrage local, unique au salon
   services: ServicePhare[];
@@ -76,6 +87,27 @@ export const grenoble: SalonData = {
     { jour: 'Samedi', valeur: '9h – 18h' },
     { jour: 'Dimanche', valeur: 'Fermé', ferme: true },
   ],
+
+  // Badges d'accès (section infos pratiques) — détails PROVISOIRES à ajuster.
+  acces: [
+    { label: 'Parking', detail: 'Parking Lafayette à 2 min' },
+    { label: 'Tramway', detail: 'Tram A & B — arrêt Victor Hugo' },
+    { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
+  ],
+
+  // Chiffres-clés (bandeau réassurance). « 200 m² » = salon flagship Grenoble.
+  // 4,7 ★ · 500 avis : PROVISOIRE — à brancher sur les vrais avis Google plus tard.
+  chiffres: [
+    { valeur: '5', label: 'artistes' },
+    { valeur: '200', label: 'm² d’espace' },
+    { valeur: '4,7 ★', label: '500 avis Google' },
+  ],
+
+  // Citation signature d'Eric — texte PROVISOIRE.
+  citation: {
+    texte: 'On ne coiffe pas une tête, on dessine un visage.',
+    auteur: 'Eric Di Martino',
+  },
 
   // — Provisoire (textes placeholders cohérents) —
   heroTexte:
@@ -111,8 +143,14 @@ export const grenoble: SalonData = {
   ],
 
   equipeTitre: 'Nos coiffeurs Artistes',
+  // Équipe — données en dur. `photo` absente → initiale en repli (vraies photos plus tard).
+  // Spécialités PROVISOIRES (sauf Eva, déjà connue), à ajuster.
   equipe: [
-    { prenom: 'Eva', specialite: 'Coloriste Visagiste' }, // photo à venir → initiale en repli
+    { prenom: 'Eva', specialite: 'Coloriste Visagiste' },
+    { prenom: 'Philippe', specialite: 'Coiffeur Artiste' },
+    { prenom: 'Coralie', specialite: 'Coloriste' },
+    { prenom: 'Manon', specialite: 'Coiffeuse' },
+    { prenom: 'Joanna', specialite: 'Head spa & soins' },
   ],
 
   faq: [

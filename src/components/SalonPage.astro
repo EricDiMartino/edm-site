@@ -26,6 +26,9 @@ const showIntro = !!salon.introLocale;
 const showServices = (salon.services?.length ?? 0) > 0;
 const showEquipe = (salon.equipe?.length ?? 0) > 0;
 const showFaq = (salon.faq?.length ?? 0) > 0;
+const showChiffres = (salon.chiffres?.length ?? 0) > 0;
+const showAcces = (salon.acces?.length ?? 0) > 0;
+const showCitation = !!(salon.citation && salon.citation.texte);
 ---
 
 <div class="salon-page">
@@ -64,6 +67,20 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
       </div>
     </section>
 
+    <!-- 1b. CHIFFRES-CLÉS (réassurance) -->
+    {showChiffres && (
+      <section class="stats">
+        <ul class="stats-grid reveal">
+          {salon.chiffres!.map((c) => (
+            <li class="stat">
+              <span class="stat-value">{c.valeur}</span>
+              <span class="stat-label">{c.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
     <!-- 2. INFOS PRATIQUES (NAP) -->
     {showNap && (
       <section class="nap-wrap" id="salon">
@@ -73,6 +90,13 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
             {salon.adresse && <p class="nap-line">{salon.adresse}</p>}
             {cpVille && <p class="nap-line">{cpVille}</p>}
             {salon.mapsUrl && <a class="link-olive" href={salon.mapsUrl} aria-label="Ouvrir l'itinéraire dans Google Maps">Itinéraire &rsaquo;</a>}
+            {showAcces && (
+              <ul class="acces" aria-label="Accès">
+                {salon.acces!.map((a) => (
+                  <li class="acces-badge" title={a.detail}>{a.label}</li>
+                ))}
+              </ul>
+            )}
           </div>
           {salon.horaires.length > 0 && (
             <div class="nap-block nap-b">
@@ -159,6 +183,16 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
         <section class={`split ${reverse ? 'reverse' : ''}`}>{content}</section>
       );
     })}
+
+    <!-- 5b. CITATION SIGNATURE -->
+    {showCitation && (
+      <section class="signature">
+        <blockquote class="reveal">
+          <p class="signature-quote">{salon.citation!.texte}</p>
+          <p class="signature-author">{salon.citation!.auteur}</p>
+        </blockquote>
+      </section>
+    )}
 
     <!-- 6. ÉQUIPE — grands portraits ronds ; masquée si vide -->
     {showEquipe && (
@@ -251,6 +285,7 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
     --section-y: clamp(4rem, 8vw, 7rem);
     --radius: 2px;
     --ease: cubic-bezier(.2, .7, .2, 1);
+    --header-h: 4.2rem; /* hauteur approx. du header sticky → soustraite du hero plein écran */
   }
 
   /* ============ BASE ============ */
@@ -382,6 +417,21 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
   .phone { display: inline-block; margin: 0.3rem 0 1.3rem; font-family: var(--serif); font-size: 1.5rem; color: var(--ink); text-decoration: none; }
   .nap-cta { display: inline-flex; }
 
+  /* ============ 1b. CHIFFRES-CLÉS (réassurance) ============ */
+  .stats { max-width: var(--maxw); margin-inline: auto; padding: clamp(2.5rem, 5vw, 3.75rem) var(--gutter); border-bottom: 1px solid var(--line); }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 4vw, 2.5rem); }
+  .stat { text-align: center; }
+  .stat-value { display: block; font-family: var(--serif); font-weight: 380; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); line-height: 1; color: var(--ink); }
+  .stat-label { display: block; margin-top: 0.55rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+  /* ============ BADGES D'ACCÈS (NAP) ============ */
+  .acces { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
+  .acces-badge {
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--olive-deep); background: var(--cream);
+    border: 1px solid var(--line); border-radius: 999px; padding: 0.35rem 0.75rem;
+  }
+
   /* ============ 3 & 5. SPLIT ============ */
   .split { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
   .split-copy { align-self: center; }
@@ -426,6 +476,19 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
   .cta-phone { margin: 1.4rem 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8); }
   .cta-phone a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
 
+  /* ============ 5b. CITATION SIGNATURE ============ */
+  .signature { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); text-align: center; }
+  .signature blockquote { margin: 0; }
+  .signature-quote {
+    font-family: var(--serif); font-weight: 340; font-style: italic;
+    font-size: clamp(1.8rem, 1.1rem + 3.2vw, 3.2rem); line-height: 1.18; letter-spacing: -0.01em;
+    color: var(--ink); max-width: 20ch; margin: 0 auto;
+  }
+  .signature-author {
+    margin: 1.6rem 0 0; font-family: var(--sans); font-weight: 600;
+    font-size: 0.76rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--olive);
+  }
+
   /* ============ ÉQUIPE (grands portraits ronds) ============ */
   .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 4vw, 2.5rem); }
   .team-card { text-align: center; }
@@ -464,7 +527,9 @@ const showFaq = (salon.faq?.length ?? 0) > 0;
   @media (min-width: 820px) {
     .hero {
       grid-template-columns: 0.84fr 1.16fr; align-items: stretch;
-      min-height: calc(100svh - 64px); gap: clamp(2.5rem, 5vw, 5rem);
+      /* Plein écran sous le header. min-height (PAS height) → si le texte ou l'image
+         dépasse la hauteur d'écran, le hero grandit naturellement, jamais de troncature. */
+      min-height: calc(100svh - var(--header-h)); gap: clamp(2.5rem, 5vw, 5rem);
       padding-top: clamp(2rem, 4vw, 3.5rem); padding-bottom: clamp(3rem, 6vw, 5rem);
     }
     .hero-copy { align-self: center; padding-right: clamp(1rem, 3vw, 3rem); padding-block: clamp(1rem, 4vw, 3rem); }
