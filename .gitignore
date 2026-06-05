@@ -9,7 +9,7 @@ node_modules/
 *-debug.log*
 logs/
 
-# Variables d'environnement (jamais commitées — tokens Storyblok, etc.)
+# Variables d'environnement (jamais commitées — tokens, clés API, etc.)
 .env
 .env.*.local
 .env.production
@@ -27,9 +27,6 @@ logs/
 .claude/settings.local.json
 
 # Dossier de travail photo (hors public/ pour ne pas alourdir le build) — JAMAIS commité.
-# originals/ = bruts lourds ; optimized/ = dérivés WebP destinés à l'upload Storyblok.
-# Les images du site final vivent dans les assets Storyblok, pas dans le repo.
+# originals/ = bruts lourds ; optimized/ = dérivés WebP. Les images utilisées sont
+# copiées dans src/assets/ (versionnées) ; les bruts restent hors du repo.
 photos-src/
-
-# Certificats HTTPS de dev (mkcert) — locaux, non commités
-certs/
