@@ -22,7 +22,7 @@ export interface LiveAvis {
   items: { texte: string; auteur: string; detail?: string; rating?: number }[];
 }
 
-export async function getGoogleReviews(placeId?: string, max = 3): Promise<LiveAvis | null> {
+export async function getGoogleReviews(placeId?: string, max = 6): Promise<LiveAvis | null> {
   const key = getKey();
   if (!placeId || !key) return null;
   try {
@@ -38,12 +38,15 @@ export async function getGoogleReviews(placeId?: string, max = 3): Promise<LiveA
       total: r.user_ratings_total ?? 0,
       source: 'Google',
       url: r.url,
-      items: (r.reviews ?? []).slice(0, max).map((rev: any) => ({
-        texte: rev.text,
-        auteur: rev.author_name,
-        detail: rev.relative_time_description,
-        rating: rev.rating,
-      })),
+      items: (r.reviews ?? [])
+        .filter((rev: any) => rev.rating === 5) // uniquement les 5 étoiles
+        .slice(0, max)
+        .map((rev: any) => ({
+          texte: rev.text,
+          auteur: rev.author_name,
+          detail: rev.relative_time_description,
+          rating: rev.rating,
+        })),
     };
   } catch {
     return null;

@@ -594,7 +594,14 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .reviews-rating { display: flex; align-items: center; margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
   .reviews-rating strong { font-weight: 600; color: var(--ink); margin-right: 0.3rem; }
   .g-mark { display: inline-flex; margin-right: 0.5rem; }
-  .reviews-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+  .reviews-grid {
+    display: flex; gap: clamp(1rem, 3vw, 1.5rem);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 0.75rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+  }
+  .reviews-grid::-webkit-scrollbar { height: 6px; }
+  .reviews-grid::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+  .review-card { flex: 0 0 clamp(260px, 80%, 340px); scroll-snap-align: start; }
   .review-card {
     background: var(--cream); border-radius: var(--radius);
     padding: clamp(1.4rem, 4vw, 1.9rem);
@@ -671,7 +678,6 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .maison-map { margin-top: 0; aspect-ratio: 4 / 3; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
-    .reviews-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   /* Équipe : une seule rangée de 5 portraits sur grand écran */
