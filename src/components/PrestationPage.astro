@@ -1,0 +1,219 @@
+---
+// Composant réutilisable — page d'une prestation. Contenu via prop `data`.
+// Design clair (système). Dupliquer = créer un nouveau fichier de données.
+import Header from './Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import type { PrestationData } from '../lib/prestations-shared';
+
+interface Props { data: PrestationData }
+const { data } = Astro.props;
+
+const showVariantes = !!data.variantes?.items?.length;
+const showBenefices = !!data.benefices?.items?.length;
+const showMaillage = !!data.maillage?.items?.length;
+
+// Icônes filaires (trait terracotta) pour les bénéfices.
+const ICONS: Record<string, string> = {
+  leaf: '<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-7 11-9"/>',
+  sparkle: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
+  drop: '<path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11z"/>',
+  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  hand: '<path d="M9 11V5a1.5 1.5 0 0 1 3 0v6M12 11V4a1.5 1.5 0 0 1 3 0v7M15 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 14a1.6 1.6 0 0 1 2.5-2l1 1.2V6a1.5 1.5 0 0 1 3 0v5"/>',
+};
+---
+
+<Header salons={salonsNav} current="prestations" />
+
+<main>
+  <!-- HERO -->
+  <section class="section pp-hero">
+    <div class="reveal">
+      <p class="label">{data.hero.eyebrow}</p>
+      <h1 class="editorial pp-h1">{data.hero.titre}</h1>
+      <p class="lede pp-lede">{data.hero.lede}</p>
+      {data.hero.meta && <p class="pp-meta">{data.hero.meta}</p>}
+      <div class="pp-actions">
+        <a class="btn btn-action" href={data.reservationUrl}>Réserver</a>
+        <a class="btn btn-ghost" href="/prestations-coiffure">Toutes les prestations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO (split) -->
+  <section class="section pp-split">
+    <div class="pp-split-visual reveal"><div class="frame"></div></div>
+    <div class="pp-split-copy reveal" data-d="1">
+      <p class="label">{data.intro.eyebrow}</p>
+      <h2 class="h-seo">{data.intro.titre}</h2>
+      {data.intro.paragraphes.map((t) => <p class="body">{t}</p>)}
+      {data.intro.lien && <a class="link-arrow link-olive" href={data.intro.lien.href}>{data.intro.lien.label}<span class="arrow" aria-hidden="true">→</span></a>}
+    </div>
+  </section>
+
+  <!-- VARIANTES (techniques) -->
+  {showVariantes && (
+    <section class="section pp-variantes">
+      <header class="section-head reveal">
+        <p class="label">{data.variantes!.eyebrow}</p>
+        <h2 class="h-seo">{data.variantes!.titre}</h2>
+        {data.variantes!.intro && <p class="lede pp-var-intro">{data.variantes!.intro}</p>}
+      </header>
+      <ul class="pp-var-list reveal" data-d="1">
+        {data.variantes!.items.map((v) => (
+          <li class="pp-var">
+            <h3 class="pp-var-nom">{v.nom}</h3>
+            <p class="pp-var-texte">{v.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <!-- BÉNÉFICES -->
+  {showBenefices && (
+    <section class="section pp-benefices">
+      <header class="section-head hp-center reveal">
+        <p class="label">{data.benefices!.eyebrow}</p>
+        <h2 class="h-seo">{data.benefices!.titre}</h2>
+      </header>
+      <div class="pp-ben-grid reveal" data-d="1">
+        {data.benefices!.items.map((b) => (
+          <article class="pp-ben">
+            <svg class="pp-ben-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[b.icon] ?? ICONS.leaf} />
+            <h3 class="pp-ben-titre">{b.titre}</h3>
+            <p class="pp-ben-texte">{b.texte}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- DANS NOS 4 SALONS -->
+  <section class="section pp-salons">
+    <div class="pp-salons-inner reveal">
+      <p class="label">Où en profiter</p>
+      <h2 class="h-seo">Dans nos quatre salons</h2>
+      <p class="body">À Grenoble, Montbonnot, Voiron et Aix-les-Bains — et dans tout le bassin Isère et Savoie. Le tarif exact s’affiche à la réservation, salon par salon.</p>
+      <ul class="pp-salons-list">
+        {salonsNav.map((s) => (<li><a class="link-olive" href={s.href}>{s.ville}</a></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section pp-faq">
+    <header class="section-head reveal">
+      <p class="label">FAQ</p>
+      <h2 class="h-seo">Bon à savoir</h2>
+    </header>
+    <div class="pp-faq-list reveal" data-d="1">
+      {data.faq.map((f) => (
+        <details class="pp-faq-item">
+          <summary>{f.question}<span class="pp-plus" aria-hidden="true"></span></summary>
+          <div class="rt"><p>{f.reponse}</p></div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section pp-cta" id="reserver">
+    <div class="pp-cta-inner reveal">
+      <p class="editorial pp-cta-title">{data.cta.titre}</p>
+      <p class="lede pp-cta-lede">{data.cta.texte}</p>
+      <a class="btn btn-action btn-lg" href={data.reservationUrl}>Réserver en ligne</a>
+    </div>
+  </section>
+
+  <!-- MAILLAGE prestations liées -->
+  {showMaillage && (
+    <section class="section pp-related">
+      <p class="label reveal">{data.maillage!.titre}</p>
+      <ul class="pp-related-list reveal" data-d="1">
+        {data.maillage!.items.map((m) => (
+          <li><a class="link-arrow link-olive" href={m.href}>{m.titre}<span class="arrow" aria-hidden="true">→</span></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</main>
+
+<footer class="pp-footer">
+  <p class="pp-foot-mark">Eric Di Martino</p>
+  <p class="pp-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+</footer>
+
+<style>
+  .pp-h1 { max-width: 18ch; }
+  .pp-lede { max-width: 52ch; }
+  .pp-meta { margin: 1.2rem 0 0; font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .pp-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+
+  /* Intro split */
+  .pp-split { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  .pp-split-visual .frame { aspect-ratio: 4 / 3; }
+  .pp-split-copy .body { margin: 1rem 0; }
+  .pp-split-copy .body + .body { margin-top: 0; }
+
+  /* Variantes (techniques) */
+  .pp-var-intro { max-width: 56ch; }
+  .pp-var-list { list-style: none; margin: clamp(1rem, 3vw, 2rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+  .pp-var { padding: clamp(1.1rem, 3vw, 1.6rem) 0; border-bottom: 1px solid var(--line); }
+  .pp-var-nom { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem); margin: 0 0 0.5rem; color: var(--ink); }
+  .pp-var-texte { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin: 0; max-width: 60ch; }
+
+  /* Bénéfices */
+  .hp-center { text-align: center; }
+  .hp-center .label { display: block; }
+  .hp-center .h-seo { margin-inline: auto; }
+  .pp-ben-grid { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+  .pp-ben { padding: clamp(1.75rem, 4vw, 2.5rem) 0; border-bottom: 1px solid var(--line); }
+  .pp-ben-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: 1.1rem; }
+  .pp-ben-titre { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; margin: 0 0 0.6rem; color: var(--ink); }
+  .pp-ben-texte { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin: 0; max-width: 36ch; }
+
+  /* Salons (maillage) */
+  .pp-salons { background: var(--cream); max-width: none; }
+  .pp-salons-inner { max-width: var(--maxw); margin-inline: auto; }
+  .pp-salons-list { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+  .pp-salons-list a { font-family: var(--serif); font-size: 1.15rem; }
+
+  /* FAQ */
+  .pp-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
+  .pp-faq-item { border-bottom: 1px solid var(--line); }
+  .pp-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+  .pp-faq-item summary::-webkit-details-marker { display: none; }
+  .pp-plus { position: relative; width: 16px; height: 16px; flex: none; }
+  .pp-plus::before, .pp-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+  .pp-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+  .pp-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+  .pp-faq-item[open] .pp-plus::after { transform: scaleY(0); }
+  .pp-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
+  /* CTA */
+  .pp-cta { padding-left: 0; padding-right: 0; }
+  .pp-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 6rem) var(--gutter); text-align: center; }
+  .pp-cta-title { color: #fff; }
+  .pp-cta-lede { color: rgba(255, 255, 255, 0.86); margin-left: auto; margin-right: auto; }
+  .pp-cta .btn-action { margin-top: 2.2rem; }
+
+  /* Maillage prestations */
+  .pp-related-list { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+
+  /* Footer */
+  .pp-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+  .pp-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+  .pp-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+  @media (min-width: 820px) {
+    .pp-split { grid-template-columns: 0.95fr 1.05fr; }
+    .pp-var-list { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 5vw, 4rem); border-top: 0; }
+    .pp-var { border-bottom: 0; border-top: 1px solid var(--line); }
+    .pp-ben-grid { grid-template-columns: repeat(3, 1fr); }
+    .pp-ben { border-bottom: 0; border-left: 1px solid var(--line); padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.5rem); }
+    .pp-ben:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+    .pp-ben:nth-child(n + 4) { border-top: 1px solid var(--line); }
+    .pp-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+    .pp-cta-inner { border-radius: var(--radius); }
+  }
+</style>
