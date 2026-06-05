@@ -3,8 +3,25 @@
 // Données : src/data/grenoble.ts · Design : src/components/SalonPage.astro
 import SalonPage from '../../components/SalonPage.astro';
 import { grenoble } from '../../data/grenoble';
+import { getGoogleReviews } from '../../lib/places';
 
 const { seo } = grenoble;
+
+// Avis Google récupérés au build ; repli sur le placeholder si clé absente / erreur.
+const liveAvis = await getGoogleReviews(grenoble.googlePlaceId);
+// Synchronise le chiffre « avis » du bandeau sur la vraie note/total Google.
+const chiffres = liveAvis
+  ? grenoble.chiffres?.map((c) =>
+      /avis/i.test(c.label) ? { valeur: `${liveAvis.note}★`, label: `${liveAvis.total} avis Google` } : c,
+    )
+  : grenoble.chiffres;
+const salon = liveAvis
+  ? {
+      ...grenoble,
+      chiffres,
+      avis: { note: liveAvis.note, total: liveAvis.total, source: liveAvis.source, url: liveAvis.url, items: liveAvis.items },
+    }
+  : grenoble;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(grenoble.heroImage.src, Astro.site).href;
 
@@ -27,6 +44,10 @@ const hairSalon = {
   },
   ...(grenoble.geo && {
     geo: { '@type': 'GeoCoordinates', latitude: grenoble.geo.lat, longitude: grenoble.geo.lng },
+  }),
+  // aggregateRating : UNIQUEMENT depuis les vrais avis Google (jamais codé en dur).
+  ...(liveAvis && {
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: liveAvis.noteRaw, reviewCount: liveAvis.total },
   }),
   areaServed: grenoble.areaServed,
   openingHoursSpecification: grenoble.horaires
@@ -82,6 +103,6 @@ const breadcrumb = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
   </head>
   <body>
-    <SalonPage salon={grenoble} />
+    <SalonPage salon={salon} />
   </body>
 </html>

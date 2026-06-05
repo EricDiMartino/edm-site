@@ -45,7 +45,8 @@ export interface Avis {
   note: string; // ex. "4,7"
   total: number; // nombre d'avis
   source: string; // ex. "Google"
-  items: { texte: string; auteur: string; detail?: string }[];
+  url?: string; // lien fiche Google (attribution)
+  items: { texte: string; auteur: string; detail?: string; rating?: number }[];
 }
 export interface ChiffreCle {
   valeur: string; // ex. "200", "4,7 ★"
@@ -71,6 +72,7 @@ export interface SalonData {
   geo?: { lat: number; lng: number };
   priceRange?: string; // ex. "€€€" (schema)
   areaServed?: string[]; // communes desservies (GEO local)
+  googlePlaceId?: string; // pour fetch des avis Google au build
   acces?: Acces[];
   chiffres?: ChiffreCle[];
   citation?: { texte: string; auteur: string };
@@ -113,6 +115,7 @@ export const grenoble: SalonData = {
   geo: { lat: 45.1909, lng: 5.7263 },
   priceRange: '€€€',
   areaServed: ['Grenoble', 'Meylan', 'Saint-Martin-d’Hères', 'La Tronche', 'Échirolles'],
+  googlePlaceId: 'ChIJ0Uu6VYT0ikcRBPdnb7f5mLc',
 
   // Badges d'accès (section infos pratiques) — détails PROVISOIRES à ajuster.
   acces: [

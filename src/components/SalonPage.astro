@@ -251,6 +251,9 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
             <span class="stars" aria-hidden="true">★★★★★</span>
             {salon.avis!.note} / 5 · {salon.avis!.total} avis {salon.avis!.source}
           </p>
+          {salon.avis!.url && (
+            <a class="link-olive" href={salon.avis!.url} target="_blank" rel="noopener">Voir les avis sur Google &rsaquo;</a>
+          )}
         </header>
         <ul class="reviews-grid">
           {salon.avis!.items.map((a) => (
