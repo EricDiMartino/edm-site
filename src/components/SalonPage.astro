@@ -351,8 +351,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     --olive: #81806c;         /* olive de marque (charte) */
     --olive-deep: #5e5d4d;
     --espresso: #2a231d;
-    --terracotta: #a96613;    /* cuivre (charte) — ACTIONS ONLY */
-    --terracotta-deep: #8a5310;
+    --terracotta: #c25510;    /* terracotta (action) — normal */
+    --terracotta-deep: #b0392a; /* brique — survol */
     /* sémantiques (formulaires/messages, charte) */
     --c-success: #6b7a4f; --c-warning: #b8862a; --c-error: #8b3a2e; --c-info: #4a5c66;
     --line: rgba(38, 38, 31, 0.10);
@@ -554,7 +554,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
   .faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
   /* ============ CTA ============ */
-  .cta-inner { background: var(--olive); color: #fff; border-radius: var(--radius); padding: clamp(3rem, 8vw, 6rem) var(--gutter); }
+  .cta { padding-left: 0; padding-right: 0; } /* mobile : CTA pleine largeur */
+  .cta-inner { background: var(--olive); color: #fff; border-radius: 0; padding: clamp(3rem, 8vw, 6rem) var(--gutter); }
   .cta-title { color: #fff; }
   .cta-title .ital { color: var(--cream); }
   .cta-lede { color: rgba(255,255,255,0.86); }
@@ -664,6 +665,8 @@ const showAvis = !!(salon.avis && salon.avis.items?.length);
     .split.reverse .split-copy { order: 1; padding-right: 0; padding-left: clamp(0rem, 4vw, 4rem); }
 
     .cta-lede { max-width: 40ch; }
+    .cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+    .cta-inner { border-radius: var(--radius); }
     .maison { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
     .maison-map { margin-top: 0; aspect-ratio: 4 / 3; }
     .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
