@@ -20,6 +20,7 @@ export const aixLesBains: SalonData = {
   telephone: '04 79 35 03 31',
   heroImage: hero,
   reservationUrl: '#reserver', // TODO: URL réelle de réservation
+  planityKey: '-Mb6Bi_k1N3O517DT9yI', // widget White-Label Planity (clé publique)
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=433+boulevard+President+Wilson+73100+Aix-les-Bains',
 
   horaires: [

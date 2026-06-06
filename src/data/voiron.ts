@@ -20,6 +20,7 @@ export const voiron: SalonData = {
   telephone: '04 76 07 82 30',
   heroImage: hero,
   reservationUrl: '#reserver', // TODO: URL réelle de réservation
+  planityKey: '-L7OgePoi82iJeECJYDN', // widget White-Label Planity (clé publique)
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=29+avenue+du+8+Mai+1945+38500+Voiron',
 
   horaires: [

@@ -21,6 +21,7 @@ export const montbonnot: SalonData = {
   telephone: '04 76 51 29 93',
   heroImage: hero,
   reservationUrl: '#reserver', // TODO: URL réelle de réservation
+  planityKey: '-MkDNk8IahEaZLYEklvg', // widget White-Label Planity (clé publique)
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=1435+avenue+de+l%27Europe+38330+Montbonnot',
 
   horaires: [

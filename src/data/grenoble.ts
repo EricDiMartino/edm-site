@@ -70,6 +70,7 @@ export interface SalonData {
   heroTexte: string; // lede sous le H1
   heroImage: ImageMetadata;
   reservationUrl: string;
+  planityKey?: string; // clé établissement Planity (widget White-Label)
   adresse: string;
   codePostal: string;
   telephone: string;
@@ -120,6 +121,7 @@ export const grenoble: SalonData = {
   telephone: '04 76 46 07 04',
   heroImage: hero,
   reservationUrl: '#reserver', // TODO: remplacer par l'URL réelle de réservation
+  planityKey: '-M2E_c9IB-StXRRzP_6T', // widget White-Label Planity (clé publique)
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=6+place+Victor+Hugo+38000+Grenoble',
 
   horaires: [
