@@ -43,7 +43,7 @@ const PREST_ICONS: Record<string, string> = {
 };
 ---
 
-<div class="salon-page">
+<div class="salon-page" data-planity={salon.planityKey}>
   <Header tel={salon.telephone} reservationUrl={salon.reservationUrl} current="salons" />
 
   <main id="top">

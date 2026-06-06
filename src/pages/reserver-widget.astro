@@ -1,0 +1,57 @@
+---
+// Hôte du widget Planity White-Label — chargé dans l'iframe de la modale.
+// Chaque salon = un contexte isolé (sa propre clé) → pas de conflit window.planity,
+// pas de ré-init : on change juste l'URL de l'iframe. noindex.
+// Params : ?key=<clé établissement> &color=<hex> &cat=<catégories séparées par des virgules>
+const { searchParams } = Astro.url;
+const key = searchParams.get('key') || '';
+const color = searchParams.get('color') || '#c25510';
+const cat = searchParams.get('cat') || '';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Réservation</title>
+    <style>
+      :root { --bk-accent: #c25510; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body { font-family: "Poppins", -apple-system, system-ui, sans-serif; color: #31302e; padding: 16px; }
+      .pl-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; padding: 4rem 1rem; }
+      .pl-loader p { font-size: 0.95rem; color: #807f70; margin: 0; }
+      .pl-spin { width: 42px; height: 42px; border: 4px solid var(--bk-accent); border-bottom-color: transparent; border-radius: 50%; animation: pl-rot 1s linear infinite; }
+      @keyframes pl-rot { to { transform: rotate(360deg); } }
+      #planity-appointment { max-width: 860px; margin: 0 auto; }
+      .planity_appointment_step_wrapper { width: 100%; }
+      /* masque le titre "Prendre rendez-vous" injecté par Planity (best-effort) */
+      .css-1u1908p { display: none; }
+    </style>
+  </head>
+  <body>
+    <div id="planity-loader" class="pl-loader"><div class="pl-spin"></div><p>Chargement des prestations…</p></div>
+    <div id="planity-appointment" data-key={key} data-color={color} data-cat={cat}></div>
+
+    <script is:inline>
+      (function () {
+        var c = document.getElementById('planity-appointment');
+        if (!c.dataset.key) return;
+        window.planity = { key: c.dataset.key, primaryColor: c.dataset.color || '#c25510', container: c };
+        window.planity.options = { onServiceAdd: function () { window.scrollTo(0, 0); } };
+        if (c.dataset.cat) {
+          window.planity.options.serviceSetsWhitelist = c.dataset.cat.split(',').map(function (s) { return s.trim(); });
+        }
+        var loader = document.getElementById('planity-loader');
+        var obs = new MutationObserver(function () {
+          if (c.childNodes.length && loader) { loader.style.display = 'none'; }
+        });
+        obs.observe(c, { childList: true, subtree: true });
+      })();
+    </script>
+    <script is:inline src="https://d2skjte8udjqxw.cloudfront.net/widget/production/polyfills.latest.js"></script>
+    <script is:inline src="https://d2skjte8udjqxw.cloudfront.net/widget/production/app.latest.js"></script>
+  </body>
+</html>

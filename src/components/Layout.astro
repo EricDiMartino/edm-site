@@ -2,6 +2,7 @@
 // Layout de base — <head> commun + système de design + reveal au scroll.
 // noindex par défaut (pré-lancement) ; passer noindex={false} à la bascule (Phase 6).
 import '../styles/system.css';
+import BookingModal from './BookingModal.astro';
 
 interface Props {
   title: string;
@@ -41,6 +42,7 @@ const { title, description, canonical, ogImage, ogType = 'website', noindex = tr
   </head>
   <body>
     <slot />
+    <BookingModal />
     <script is:inline>
       document.documentElement.classList.add("js");
       addEventListener("DOMContentLoaded", function () {

@@ -1,0 +1,94 @@
+---
+// Modale de réservation Planity — incluse dans Layout (présente sur toutes les pages).
+// Déclenchée par tout lien `a[href="#reserver"]` ou élément `[data-reserve]`.
+//  - salon connu (ancêtre [data-planity]) → ouvre directement le widget du salon.
+//  - salon inconnu (pages neutres) → affiche le sélecteur de salon.
+// Catégorie optionnelle via [data-cat] (serviceSetsWhitelist).
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+
+const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: s.ville, key: s.planityKey }));
+---
+
+<dialog id="booking-modal" class="bk" aria-label="Réservation en ligne">
+  <button type="button" class="bk-close" id="bk-close" aria-label="Fermer">&times;</button>
+  <div class="bk-picker" id="bk-picker" data-cat="">
+    <p class="bk-picker-eyebrow">Réservation</p>
+    <p class="bk-picker-title">Dans quel salon souhaitez-vous venir ?</p>
+    <div class="bk-picker-btns">
+      {SALONS.map((s) => (<button type="button" class="bk-salon" data-key={s.key}>{s.ville}</button>))}
+    </div>
+  </div>
+  <iframe class="bk-frame" id="bk-frame" title="Réservation en ligne" loading="lazy"></iframe>
+</dialog>
+
+<script is:inline>
+  (function () {
+    var dlg = document.getElementById('booking-modal');
+    if (!dlg) return;
+    var frame = document.getElementById('bk-frame');
+    var picker = document.getElementById('bk-picker');
+
+    function load(key, cat) {
+      if (!key) return;
+      var url = '/reserver-widget?key=' + encodeURIComponent(key);
+      if (cat) url += '&cat=' + encodeURIComponent(cat);
+      frame.src = url;
+      frame.style.display = 'block';
+      picker.style.display = 'none';
+    }
+    function open(key, cat) {
+      if (key) {
+        load(key, cat);
+      } else {
+        picker.setAttribute('data-cat', cat || '');
+        picker.style.display = 'flex';
+        frame.style.display = 'none';
+        frame.removeAttribute('src');
+      }
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function close() {
+      if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open');
+    }
+
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest && e.target.closest('a[href="#reserver"], [data-reserve]');
+      if (!t) return;
+      e.preventDefault();
+      var ctx = t.closest('[data-planity]');
+      var key = ctx ? ctx.getAttribute('data-planity') : '';
+      var catEl = t.closest('[data-cat]');
+      var cat = (t.getAttribute('data-cat')) || (catEl ? catEl.getAttribute('data-cat') : '') || '';
+      open(key, cat);
+    });
+
+    picker.querySelectorAll('.bk-salon').forEach(function (b) {
+      b.addEventListener('click', function () { load(b.getAttribute('data-key'), picker.getAttribute('data-cat') || ''); });
+    });
+
+    document.getElementById('bk-close').addEventListener('click', close);
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+    dlg.addEventListener('close', function () { frame.removeAttribute('src'); document.documentElement.style.overflow = ''; });
+  })();
+</script>
+
+<style is:global>
+  .bk { width: min(960px, 94vw); max-width: 94vw; height: 88vh; max-height: 88vh; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px -30px rgba(20, 16, 12, 0.55); }
+  .bk::backdrop { background: rgba(20, 16, 12, 0.62); backdrop-filter: blur(3px); }
+  .bk-close { position: absolute; top: 0.5rem; right: 0.6rem; z-index: 3; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.9); color: #31302e; font-size: 1.7rem; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.4); }
+  .bk-close:hover { color: #c25510; }
+  .bk-frame { width: 100%; height: 100%; border: 0; display: none; }
+  .bk-picker { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; height: 100%; padding: 2.5rem 1.5rem; text-align: center; }
+  .bk-picker-eyebrow { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: #81806c; margin: 0; }
+  .bk-picker-title { font-family: "Fraunces", Georgia, serif; font-weight: 400; font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem); color: #31302e; margin: 0.4rem 0 1.6rem; max-width: 18ch; }
+  .bk-picker-btns { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; }
+  .bk-salon { font-family: "Poppins", system-ui, sans-serif; font-weight: 500; font-size: 0.95rem; color: #fff; background: #31302e; border: 0; border-radius: 999px; padding: 0.8rem 1.6rem; cursor: pointer; transition: background-color 0.25s; }
+  .bk-salon:hover { background: #c25510; }
+  @media (max-width: 640px) {
+    .bk { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+  }
+</style>

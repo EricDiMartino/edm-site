@@ -105,15 +105,11 @@ const breadcrumb = {
       </header>
       <div class="cv-tabs reveal" role="tablist">
         {SALONS.map((s, i) => (
-          <button type="button" class="cv-tab" data-src={s.reservationUrl} data-tel={s.telephone} data-href={s.href} aria-selected={i === 0 ? 'true' : 'false'}>{s.ville}</button>
+          <button type="button" class="cv-tab" data-key={s.planityKey} aria-selected={i === 0 ? 'true' : 'false'}>{s.ville}</button>
         ))}
       </div>
       <div class="cv-stage reveal" data-d="1">
         <iframe id="cv-frame" title="Réservation en ligne" loading="lazy"></iframe>
-        <p class="cv-note" id="cv-note">
-          Réservation en ligne bientôt disponible pour ce salon. Appelez-nous : <a id="cv-note-tel" href="#"></a>
-          <span class="cv-note-sep"> · </span><a id="cv-note-link" class="link-olive" href="#">Voir le salon →</a>
-        </p>
       </div>
     </section>
 
@@ -143,20 +139,10 @@ const breadcrumb = {
     (function () {
       var tabs = document.querySelectorAll('.cv-tab');
       var frame = document.getElementById('cv-frame');
-      var note = document.getElementById('cv-note');
-      var tel = document.getElementById('cv-note-tel');
-      var link = document.getElementById('cv-note-link');
       function select(tab) {
         tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
-        var src = tab.getAttribute('data-src') || '';
-        var t = tab.getAttribute('data-tel') || '';
-        if (src.indexOf('http') === 0) {
-          frame.src = src; frame.style.display = 'block'; note.style.display = 'none';
-        } else {
-          frame.removeAttribute('src'); frame.style.display = 'none'; note.style.display = 'block';
-          tel.textContent = t; tel.href = 'tel:' + t.replace(/[^0-9+]/g, '');
-          link.href = tab.getAttribute('data-href') || '#';
-        }
+        var key = tab.getAttribute('data-key') || '';
+        if (key) frame.src = '/reserver-widget?key=' + encodeURIComponent(key);
       }
       tabs.forEach(function (t) { t.addEventListener('click', function () { select(t); }); });
       if (tabs.length) select(tabs[0]);
@@ -187,11 +173,8 @@ const breadcrumb = {
     .cv-tab { font-family: var(--sans); font-weight: 500; font-size: 0.9rem; letter-spacing: 0.02em; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.6rem 1.3rem; cursor: pointer; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
     .cv-tab:hover { border-color: var(--olive); color: var(--olive); }
     .cv-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .cv-stage { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--cream); min-height: 420px; display: flex; }
-    #cv-frame { width: 100%; min-height: 620px; border: 0; display: none; }
-    .cv-note { margin: auto; padding: 2rem; text-align: center; color: var(--muted); font-size: 0.95rem; }
-    .cv-note a { color: var(--ink); font-weight: 500; }
-    .cv-note-sep { opacity: 0.5; }
+    .cv-stage { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--cream); }
+    #cv-frame { width: 100%; min-height: 680px; border: 0; display: block; }
 
     /* FAQ */
     .cv-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
