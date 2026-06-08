@@ -1,0 +1,120 @@
+---
+// Blog — index /actualites. Liste auto depuis la Content Collection "blog".
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import { getCollection } from 'astro:content';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const posts = (await getCollection('blog', (e) => !e.data.draft)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const cats = [...new Set(posts.map((p) => p.data.category))];
+const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Journal', item: canonical },
+  ],
+};
+---
+
+<Layout title="Le journal — conseils coiffure & actualités | Eric Di Martino" description="Conseils soin du cheveu, focus prestations et actualités des salons Eric Di Martino à Grenoble, Montbonnot, Voiron et Aix-les-Bains." canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <link slot="head" rel="alternate" type="application/rss+xml" title="Eric Di Martino — Le journal" href={new URL('/rss.xml', Astro.site).href} />
+
+  <Header salons={salonsNav} current="blog" />
+
+  <main>
+    <section class="section jr-hero">
+      <div class="reveal">
+        <p class="label">Le journal</p>
+        <h1 class="editorial jr-h1">Conseils &amp; <em class="ital">actualités</em></h1>
+        <p class="lede jr-lede">Soin du cheveu, focus prestations et coulisses de nos salons — pour prendre soin de vos cheveux, même entre deux rendez-vous.</p>
+      </div>
+    </section>
+
+    <section class="section jr-list">
+      {cats.length > 1 && (
+        <div class="jr-filters reveal" role="tablist" aria-label="Filtrer par catégorie">
+          <button type="button" class="jr-filter" data-cat="*" aria-pressed="true">Tout</button>
+          {cats.map((c) => (<button type="button" class="jr-filter" data-cat={c} aria-pressed="false">{c}</button>))}
+        </div>
+      )}
+
+      {posts.length === 0 ? (
+        <p class="jr-empty">Les premiers articles arrivent très bientôt.</p>
+      ) : (
+        <ul class="jr-grid reveal" data-d="1">
+          {posts.map((p) => (
+            <li class="jr-card" data-category={p.data.category}>
+              <a class="jr-card-link" href={`/actualites/${p.id}`}>
+                <span class="jr-card-media" style={p.data.cover ? `background-image:url(${p.data.cover})` : undefined}></span>
+                <span class="jr-card-body">
+                  <span class="jr-card-cat">{p.data.category}</span>
+                  <span class="jr-card-date">{fmtDate(p.data.date)}</span>
+                  <h2 class="jr-card-titre">{p.data.title}</h2>
+                  <span class="jr-card-excerpt">{p.data.description}</span>
+                  <span class="jr-card-more">Lire<span class="arrow" aria-hidden="true">→</span></span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </main>
+
+  <footer class="jr-footer">
+    <p class="jr-foot-mark">Eric Di Martino</p>
+    <p class="jr-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <script is:inline>
+    (function () {
+      var btns = document.querySelectorAll('.jr-filter');
+      var cards = document.querySelectorAll('.jr-card');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var c = b.getAttribute('data-cat');
+          btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+          cards.forEach(function (card) { card.style.display = (c === '*' || card.getAttribute('data-category') === c) ? '' : 'none'; });
+        });
+      });
+    })();
+  </script>
+
+  <style>
+    .jr-h1 { max-width: 16ch; }
+    .jr-h1 em { font-style: italic; color: var(--olive); }
+    .jr-lede { max-width: 52ch; }
+
+    .jr-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+    .jr-filter { font-family: var(--sans); font-weight: 500; font-size: 0.84rem; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 1.1rem; cursor: pointer; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+    .jr-filter:hover { border-color: var(--olive); color: var(--olive); }
+    .jr-filter[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .jr-empty { color: var(--muted); }
+    .jr-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1.5rem, 4vw, 2.25rem); }
+    .jr-card-link { display: flex; flex-direction: column; height: 100%; text-decoration: none; color: var(--ink); }
+    .jr-card-media { display: block; aspect-ratio: 3 / 2; border-radius: var(--radius); overflow: hidden; background-color: var(--cream); background-size: cover; background-position: center;
+      background-image: radial-gradient(120% 90% at 78% 12%, rgba(255,255,255,0.5), transparent 55%), linear-gradient(150deg, var(--cream) 0%, var(--cream-deep) 60%, #d9d4bf 100%); }
+    .jr-card-body { display: flex; flex-direction: column; flex: 1; padding-top: 1.1rem; }
+    .jr-card-cat { font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); }
+    .jr-card-date { font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; }
+    .jr-card-titre { font-family: var(--serif); font-weight: 400; font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.6rem); line-height: 1.2; margin: 0.5rem 0 0; }
+    .jr-card-excerpt { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin: 0.6rem 0 1rem; }
+    .jr-card-more { margin-top: auto; display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-weight: 500; font-size: 0.88rem; color: var(--olive); }
+    .jr-card .arrow { transition: transform 0.4s var(--ease); }
+    .jr-card-link:hover .jr-card-titre { color: var(--olive); }
+    .jr-card-link:hover .arrow { transform: translateX(5px); }
+
+    .jr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .jr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .jr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 640px) { .jr-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .jr-grid { grid-template-columns: repeat(3, 1fr); } }
+  </style>
+</Layout>

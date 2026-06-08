@@ -1,0 +1,159 @@
+---
+// Page article — /actualites/<slug>. Rendu Markdown + Article/FAQPage/Breadcrumb.
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import { salonsNav } from '../../lib/prestations-shared';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (e) => !e.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const canonical = new URL(`/actualites/${post.id}`, Astro.site).href;
+const fmtDate = (date: Date) => date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const words = post.body ? post.body.trim().split(/\s+/).length : 0;
+const lecture = Math.max(1, Math.round(words / 200));
+
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
+  author: { '@type': 'Person', name: d.author },
+  publisher: { '@type': 'Organization', name: 'Eric Di Martino' },
+  articleSection: d.category,
+  mainEntityOfPage: canonical,
+  ...(d.cover && { image: new URL(d.cover, Astro.site).href }),
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Journal', item: new URL('/actualites', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: d.title, item: canonical },
+  ],
+};
+const faqSchema = d.faq.length
+  ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
+  : null;
+---
+
+<Layout title={`${d.title} | Eric Di Martino`} description={d.description} canonical={canonical} ogType="article" ogImage={d.cover ? new URL(d.cover, Astro.site).href : undefined}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(article)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  {faqSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />}
+
+  <Header salons={salonsNav} current="blog" />
+
+  <main class="ar">
+    <article>
+      <header class="ar-head reveal">
+        <p class="ar-meta"><a class="ar-cat" href="/actualites">{d.category}</a><span class="ar-sep">·</span>{fmtDate(d.date)}<span class="ar-sep">·</span>{lecture} min de lecture</p>
+        <h1 class="ar-title">{d.title}</h1>
+        <p class="ar-lede lede">{d.description}</p>
+      </header>
+
+      {d.cover && <div class="ar-cover reveal" style={`background-image:url(${d.cover})`}></div>}
+
+      <div class="ar-body rt reveal" data-d="1">
+        <Content />
+      </div>
+
+      {d.faq.length > 0 && (
+        <section class="ar-faq reveal">
+          <h2 class="h-seo">Questions fréquentes</h2>
+          <div class="ar-faq-list">
+            {d.faq.map((f) => (
+              <details class="ar-faq-item">
+                <summary>{f.question}<span class="ar-plus" aria-hidden="true"></span></summary>
+                <div class="rt"><p>{f.answer}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {d.related.length > 0 && (
+        <aside class="ar-related reveal">
+          <p class="label">À voir aussi</p>
+          <ul>
+            {d.related.map((r) => (<li><a class="link-arrow link-olive" href={r.href}>{r.titre}<span class="arrow" aria-hidden="true">→</span></a></li>))}
+          </ul>
+        </aside>
+      )}
+    </article>
+
+    <div class="ar-back reveal"><a class="link-olive" href="/actualites">‹ Tous les articles</a></div>
+  </main>
+
+  <section class="section ar-cta">
+    <div class="ar-cta-inner reveal">
+      <p class="editorial ar-cta-title">Envie de passer à l'action ?</p>
+      <p class="lede ar-cta-lede">Réservez votre consultation dans le salon de votre choix.</p>
+      <a class="btn btn-action btn-lg" href="#reserver">Réserver</a>
+    </div>
+  </section>
+
+  <footer class="ar-footer">
+    <p class="ar-foot-mark">Eric Di Martino</p>
+    <p class="ar-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .ar { max-width: 768px; margin-inline: auto; padding: clamp(2.5rem, 6vw, 4rem) var(--gutter) 0; }
+    .ar-meta { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin: 0 0 1rem; }
+    .ar-cat { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.7rem; color: var(--olive); text-decoration: none; }
+    .ar-sep { margin: 0 0.5rem; opacity: 0.5; }
+    .ar-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0; }
+    .ar-lede { margin-top: 1.1rem; }
+    .ar-cover { aspect-ratio: 3 / 2; border-radius: var(--radius); background: var(--cream); background-size: cover; background-position: center; margin: clamp(1.75rem, 4vw, 2.5rem) 0; box-shadow: inset 0 0 0 1px var(--line); }
+    .ar-body { margin-top: clamp(1.5rem, 4vw, 2.25rem); font-size: 1.05rem; }
+    .ar-body :global(h2) { font-family: var(--serif); font-weight: 400; font-size: clamp(1.4rem, 1.2rem + 1vw, 1.85rem); margin: 2.2rem 0 0.8rem; color: var(--ink); }
+    .ar-body :global(h3) { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; margin: 1.8rem 0 0.6rem; }
+    .ar-body :global(p) { margin: 0 0 1.15rem; line-height: 1.75; }
+    .ar-body :global(ul) { margin: 0 0 1.3rem; padding-left: 1.2rem; list-style: disc; }
+    .ar-body :global(li) { margin: 0.35rem 0; line-height: 1.7; }
+    .ar-body :global(a) { color: var(--olive); text-decoration: underline; text-underline-offset: 3px; }
+    .ar-body :global(strong) { font-weight: 500; }
+    .ar-body :global(blockquote) { margin: 1.5rem 0; padding-left: 1.25rem; border-left: 2px solid var(--olive); font-style: italic; color: var(--olive-deep); }
+
+    .ar-faq { max-width: 768px; margin: clamp(2.5rem, 6vw, 4rem) auto 0; }
+    .ar-faq-list { border-top: 1px solid var(--line); margin-top: 1.25rem; }
+    .ar-faq-item { border-bottom: 1px solid var(--line); }
+    .ar-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+    .ar-faq-item summary::-webkit-details-marker { display: none; }
+    .ar-plus { position: relative; width: 16px; height: 16px; flex: none; }
+    .ar-plus::before, .ar-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+    .ar-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+    .ar-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+    .ar-faq-item[open] .ar-plus::after { transform: scaleY(0); }
+    .ar-faq-item .rt { margin: 0 0 1.3rem; color: var(--muted); }
+
+    .ar-related { max-width: 768px; margin: clamp(2.5rem, 6vw, 3.5rem) auto 0; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+    .ar-related ul { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.9rem 2rem; }
+    .ar-back { max-width: 768px; margin: clamp(2rem, 5vw, 3rem) auto 0; padding: 0 var(--gutter); }
+    .ar-back a { text-decoration: none; }
+
+    .ar-cta { padding-left: 0; padding-right: 0; margin-top: clamp(3rem, 7vw, 5rem); }
+    .ar-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 5rem) var(--gutter); text-align: center; }
+    .ar-cta-title { color: #fff; }
+    .ar-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
+    .ar-cta .btn-action { margin-top: 1.9rem; }
+
+    .ar-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .ar-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .ar-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 820px) {
+      .ar-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .ar-cta-inner { border-radius: var(--radius); }
+    }
+  </style>
+</Layout>
