@@ -1,0 +1,194 @@
+---
+// Page "Notre histoire" — /nos-valeurs (cible nav). Objectif référencement (marque + GEO).
+// Basée sur le contenu du site actuel + sources web. Dates patrimoniales à confirmer par Eric.
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const timeline = [
+  { annee: '1921', texte: 'Le salon Alexandre ouvre à Grenoble, au lendemain de la Première Guerre mondiale. C’est l’un des plus anciens salons de coiffure de la ville — et de France.' },
+  { annee: '1973', texte: 'À 13 ans, Eric Di Martino fait ses premiers pas dans le métier, le temps d’un remplacement de Noël. Le salon est alors tenu par son père et son associé, Maurice Fort.' },
+  { annee: "Aujourd'hui", texte: 'Artiste visagiste depuis plus de vingt ans, Eric incarne la cinquième génération et fait grandir la maison : quatre salons en Isère et en Savoie, et une académie.' },
+  { annee: '2026', texte: 'Le salon flagship « Alexandre by Eric Di Martino » s’installe place Victor Hugo à Grenoble — head spa et barbier, dans la continuité d’un siècle de savoir-faire.' },
+];
+
+const piliers = [
+  { titre: 'La consultation visagiste', texte: 'Notre signature : avant chaque coupe ou couleur, un diagnostic fondé sur le mode de vie, la santé du cheveu et la géométrie du visage.', icon: 'eye' },
+  { titre: 'La transmission', texte: 'Eric transmet son savoir aux coiffeurs, en salon comme en formation, via notre académie — pour que l’exigence se partage.', icon: 'book' },
+  { titre: 'Un métier qui évolue', texte: '« Je n’ai jamais cessé de réinventer mon art » : un siècle d’héritage, mais des gestes et des styles résolument actuels.', icon: 'sparkle' },
+];
+
+const engagements = [
+  { titre: 'Art & créativité', texte: 'L’excellence en coiffure va de pair avec une conscience sociale et environnementale.', icon: 'sparkle' },
+  { titre: 'Maladie & chevelure', texte: 'Un accompagnement bienveillant et discret des personnes touchées par la maladie (cancer, alopécie), avec des associations.', icon: 'heart' },
+  { titre: 'Partenariats éthiques', texte: 'Gestion des déchets, emballages, sélection responsable des produits : une démarche au quotidien.', icon: 'leaf' },
+];
+
+const ICONS: Record<string, string> = {
+  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2zM20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/>',
+  sparkle: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
+  heart: '<path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z"/>',
+  leaf: '<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-7 11-9"/>',
+};
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Eric Di Martino',
+  url: new URL('/', Astro.site).href,
+  foundingDate: '1921',
+  description: "Maison de coiffure héritière du salon Alexandre (Grenoble, 1921). Spécialiste de la consultation visagiste, quatre salons en Isère et Savoie.",
+  areaServed: ['Grenoble', 'Montbonnot-Saint-Martin', 'Voiron', 'Aix-les-Bains', 'Isère', 'Savoie'],
+  sameAs: [
+    'https://www.instagram.com/salon_eric_di_martino_grenoble/',
+    'https://www.instagram.com/salon_ericdimartino_montbonnot/',
+    'https://www.instagram.com/salon_eric_di_martino_voiron/',
+    'https://www.instagram.com/salon_ericdimartino_aix/',
+    'https://www.facebook.com/salonericdimartino/',
+  ],
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Notre histoire', item: canonical },
+  ],
+};
+---
+
+<Layout title="Notre histoire — coiffeur depuis 1921 à Grenoble | Eric Di Martino" description="L'histoire de la maison Eric Di Martino : héritière du salon Alexandre (Grenoble, 1921), cinquième génération, spécialiste de la consultation visagiste. Quatre salons en Isère et Savoie." canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+
+  <Header salons={salonsNav} current="histoire" />
+
+  <main>
+    <section class="section nv-hero">
+      <div class="reveal">
+        <p class="label">Notre histoire</p>
+        <h1 class="editorial nv-h1">Cinq générations de <em class="ital">coiffeurs</em>.</h1>
+        <p class="lede nv-lede">De l’un des plus anciens salons de Grenoble — le salon Alexandre, fondé en 1921 — aux quatre salons Eric Di Martino d’aujourd’hui, c’est la même exigence qui se transmet : révéler chaque visage.</p>
+      </div>
+    </section>
+
+    <section class="section nv-time">
+      <header class="section-head reveal">
+        <p class="label">L'héritage</p>
+        <h2 class="h-seo">Un siècle de savoir-faire</h2>
+      </header>
+      <ol class="nv-timeline reveal" data-d="1">
+        {timeline.map((t) => (
+          <li class="nv-milestone">
+            <span class="nv-annee">{t.annee}</span>
+            <p class="nv-texte">{t.texte}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section nv-quote">
+      <blockquote class="reveal">
+        <p class="nv-quote-text">Je n’ai jamais cessé de réinventer mon art, en y introduisant un style glamour et décontracté.</p>
+        <cite class="nv-quote-author">Eric Di Martino — Artiste visagiste</cite>
+      </blockquote>
+    </section>
+
+    <section class="section nv-piliers-sec">
+      <header class="section-head reveal">
+        <p class="label">Ce qui nous guide</p>
+        <h2 class="h-seo">Notre manière de faire</h2>
+      </header>
+      <ul class="nv-grid reveal" data-d="1">
+        {piliers.map((p) => (
+          <li class="nv-card">
+            <svg class="nv-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[p.icon] ?? ICONS.sparkle} />
+            <h3>{p.titre}</h3>
+            <p>{p.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section nv-engage-sec">
+      <header class="section-head reveal">
+        <p class="label">Nos engagements</p>
+        <h2 class="h-seo">Une coiffure qui prend ses responsabilités</h2>
+      </header>
+      <ul class="nv-grid reveal" data-d="1">
+        {engagements.map((e) => (
+          <li class="nv-card">
+            <svg class="nv-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[e.icon] ?? ICONS.leaf} />
+            <h3>{e.titre}</h3>
+            <p>{e.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section nv-cta">
+      <div class="nv-cta-inner reveal">
+        <p class="editorial nv-cta-title">Venez écrire la suite avec nous.</p>
+        <p class="lede nv-cta-lede">Découvrez nos salons, nos prestations, ou réservez votre consultation visagiste.</p>
+        <div class="nv-cta-links">
+          <a class="btn btn-action" href="#reserver">Réserver</a>
+          <a class="link-arrow link-cream" href="/nos-salons-de-coiffure">Nos salons<span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow link-cream" href="/prestations-coiffure">Nos prestations<span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="nv-footer">
+    <p class="nv-foot-mark">Eric Di Martino</p>
+    <p class="nv-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .nv-h1 { max-width: 16ch; }
+    .nv-h1 em { font-style: italic; color: var(--olive); }
+    .nv-lede { max-width: 54ch; }
+
+    /* Timeline */
+    .nv-timeline { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); }
+    .nv-milestone { display: grid; grid-template-columns: 1fr; gap: 0.4rem; padding: clamp(1.4rem,3.5vw,2rem) 0; border-bottom: 1px solid var(--line); }
+    .nv-annee { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem,1.2rem+1.4vw,2.2rem); color: var(--terracotta); line-height: 1; }
+    .nv-texte { color: var(--ink); margin: 0; max-width: 60ch; }
+
+    /* Citation */
+    .nv-quote { text-align: center; }
+    .nv-quote blockquote { margin: 0; }
+    .nv-quote-text { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: clamp(1.6rem,1.1rem+2.4vw,2.8rem); line-height: 1.2; color: var(--ink); max-width: 22ch; margin: 0 auto; }
+    .nv-quote-author { display: block; margin-top: 1.4rem; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--olive); }
+
+    /* Grilles (piliers / engagements) */
+    .nv-grid { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem,3vw,1.5rem); }
+    .nv-card { padding: clamp(1.4rem,3vw,1.9rem); border: 1px solid var(--line); border-radius: var(--radius); }
+    .nv-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: 1rem; }
+    .nv-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; margin: 0 0 0.5rem; }
+    .nv-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+
+    /* CTA */
+    .nv-cta { padding-left: 0; padding-right: 0; }
+    .nv-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,5.5rem) var(--gutter); text-align: center; }
+    .nv-cta-title { color: #fff; }
+    .nv-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 44ch; }
+    .nv-cta-links { display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; align-items: center; justify-content: center; margin-top: 2rem; }
+
+    .nv-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem,6vw,4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .nv-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .nv-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 720px) {
+      .nv-milestone { grid-template-columns: 8rem 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: baseline; }
+      .nv-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 820px) {
+      .nv-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .nv-cta-inner { border-radius: var(--radius); }
+    }
+  </style>
+</Layout>
