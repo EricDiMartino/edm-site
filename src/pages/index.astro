@@ -1,17 +1,394 @@
 ---
+// PAGE D'ACCUEIL — vitrine + SEO racine. Hero (accès salons) → consultation →
+// prestations → deux signatures (head spa + beauté du regard) → avis → engagements → journal → CTA.
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+import { getGoogleReviews } from '../lib/places';
+import { getCollection } from 'astro:content';
 
+const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
+const accesSalons = [
+  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble', desc: 'Flagship · head spa & barbier', dot: 'var(--terracotta)' },
+  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot', desc: 'Beauté du regard · Isère', dot: 'var(--olive)' },
+  { ville: 'Aix-les-Bains', href: '/salon-de-coiffure/aix-les-bains', desc: 'Bord du lac · Savoie', dot: 'var(--c-info)' },
+  { ville: 'Voiron', href: '/salon-de-coiffure/voiron', desc: 'Pays Voironnais · Isère', dot: 'var(--olive-deep)' },
+];
+
+// Avis Google cumulés + quelques 5★.
+const live = (await Promise.all(SALONS.map((s) => getGoogleReviews(s.googlePlaceId, 3)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getGoogleReviews>>>[];
+const totalAvis = live.reduce((s, a) => s + (a.total || 0), 0);
+const avgNote = totalAvis ? live.reduce((s, a) => s + (a.noteRaw || 0) * (a.total || 0), 0) / totalAvis : null;
+const note = avgNote ? avgNote.toFixed(1).replace('.', ',') : null;
+const totalArrondi = totalAvis ? Math.floor(totalAvis / 100) * 100 : 0;
+const avisItems = live.flatMap((a) => a.items).slice(0, 3);
+
+// Derniers articles.
+const posts = (await getCollection('blog', (e) => !e.data.draft)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
+const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const prestations = [
+  { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste', icon: 'scissors' },
+  { titre: 'Coloration & balayage', href: '/coloration-balayage', icon: 'drop' },
+  { titre: 'Lissage & soins', href: '/lissage-soin', icon: 'leaf' },
+  { titre: 'Extensions', href: '/extension-cheveux-grenoble', icon: 'strands' },
+];
+const ICONS: Record<string, string> = {
+  scissors: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 18M8.1 15.9 20 6"/>',
+  drop: '<path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11z"/>',
+  leaf: '<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-7 11-9"/>',
+  strands: '<path d="M7 4c0 6-2 10 0 16"/><path d="M12 4c0 6 2 10 0 16"/><path d="M17 4c0 6-2 10 0 16"/>',
+};
+
+const canonical = new URL('/', Astro.site).href;
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Eric Di Martino',
+  url: canonical,
+  description: 'Salons de coiffure visagistes à Grenoble, Montbonnot, Voiron et Aix-les-Bains. Coupe, couleur, soin, head spa et beauté du regard, à partir d’une vraie consultation.',
+  areaServed: ['Grenoble', 'Montbonnot-Saint-Martin', 'Voiron', 'Aix-les-Bains', 'Isère', 'Savoie'],
+  ...(note && { aggregateRating: { '@type': 'AggregateRating', ratingValue: avgNote!.toFixed(1), reviewCount: totalAvis } }),
+  sameAs: [
+    'https://www.instagram.com/salon_eric_di_martino_grenoble/',
+    'https://www.facebook.com/salonericdimartino/',
+  ],
+};
+const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Eric Di Martino', url: canonical };
 ---
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>edm-site — scaffold</title>
-	</head>
-	<body>
-		<h1>edm-site — scaffold Astro OK</h1>
-	</body>
-</html>
+<Layout
+  title="Coiffeur & coloriste visagiste — Grenoble, Isère & Savoie | Eric Di Martino"
+  description="Salons Eric Di Martino : coiffeurs coloristes visagistes à Grenoble, Montbonnot, Voiron et Aix-les-Bains. Coupe, couleur, soin, head spa, beauté du regard — sur rendez-vous, à partir d’une vraie consultation."
+  canonical={canonical}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(org)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(website)} slot="head" />
+
+  <Header salons={salonsNav} current="accueil" />
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="section hm-hero">
+      <div class="hm-hero-copy reveal">
+        <p class="label">Quatre salons en Isère &amp; Savoie</p>
+        <h1 class="editorial hm-h1">L'art du <em>cheveu</em>,<br />au plus près de <em>chez vous</em>.</h1>
+        <p class="lede hm-lede">Coloristes visagistes, soins capillaires, beauté du regard, head spa. Quatre adresses, une exigence — celle de vous voir partir radieux·se.</p>
+        <div class="hm-actions">
+          <a class="btn btn-action" data-reserve href="#reserver">Choisir mon salon →</a>
+          <a class="btn btn-ghost" href="/prestations-coiffure">Voir les prestations</a>
+        </div>
+        {note && <p class="hm-trust"><strong>★ {note}</strong> · {totalArrondi}+ avis Google</p>}
+      </div>
+      <div class="hm-acces reveal" data-d="1">
+        <div class="hm-acces-head"><span>Accès rapide</span><span>4 salons</span></div>
+        <ul class="hm-acces-list">
+          {accesSalons.map((s) => (
+            <li>
+              <a href={s.href}>
+                <span class="hm-dot" style={`background:${s.dot}`}></span>
+                <span class="hm-acces-txt"><span class="hm-acces-ville">{s.ville}</span><span class="hm-acces-desc">{s.desc}</span></span>
+                <span class="hm-acces-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- 2. LA CONSULTATION (pilier) -->
+    <section class="section hm-conseil">
+      <div class="hm-conseil-copy reveal">
+        <p class="label">Notre signature</p>
+        <h2 class="h-seo">La consultation, avant tout</h2>
+        <p class="body">Chaque coupe, chaque couleur commence par une consultation visagiste : le temps du diagnostic — mode de vie, géométrie du visage, nature du cheveu et du cuir chevelu. C’est de là que tout découle.</p>
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <ul class="hm-piliers reveal" data-d="1">
+        <li><span class="hm-pilier-n">01</span><p>Votre mode de vie</p></li>
+        <li><span class="hm-pilier-n">02</span><p>La géométrie de votre visage</p></li>
+        <li><span class="hm-pilier-n">03</span><p>La santé de votre cheveu</p></li>
+      </ul>
+    </section>
+
+    <!-- 3. PRESTATIONS (aperçu) -->
+    <section class="section hm-presta">
+      <header class="section-head hm-presta-head reveal">
+        <div>
+          <p class="label">Nos prestations</p>
+          <h2 class="h-seo">Coupe, couleur, soin — pensés pour vous</h2>
+        </div>
+        <a class="link-arrow link-olive hm-presta-all" href="/prestations-coiffure">Toutes les prestations<span class="arrow" aria-hidden="true">→</span></a>
+      </header>
+      <ul class="hm-presta-grid reveal" data-d="1">
+        {prestations.map((p) => (
+          <li>
+            <a class="hm-presta-card" href={p.href}>
+              <svg class="hm-presta-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[p.icon]} />
+              <span class="hm-presta-titre">{p.titre}</span>
+              <span class="hm-presta-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 4. DEUX SIGNATURES (sombre) -->
+    <section class="hm-signatures">
+      <div class="hm-sig-inner">
+        <header class="hm-sig-head reveal">
+          <p class="hm-sig-eyebrow">Exclusivités</p>
+          <h2 class="hm-sig-title">Deux signatures <em>uniques</em>.</h2>
+          <p class="hm-sig-lede">Au-delà des prestations classiques, deux rituels développés en exclusivité — chacun ancré dans un de nos salons.</p>
+          <a class="hm-sig-all" href="/prestations-coiffure">Toutes les prestations →</a>
+        </header>
+        <div class="hm-sig-cards">
+          <a class="hm-sig-card reveal" href="/head-spa-grenoble">
+            <p class="hm-sig-cat">Rituel cuir chevelu</p>
+            <h3 class="hm-sig-name">Head <em>Spa</em></h3>
+            <p class="hm-sig-text">Un soin venu du Japon — vapeur tiède, massage crânien, huiles précieuses. Un moment suspendu pour relâcher la tête et sublimer le cheveu.</p>
+            <span class="hm-sig-foot"><span class="hm-sig-salon">Salon Grenoble</span><span class="hm-sig-go">Découvrir →</span></span>
+          </a>
+          <a class="hm-sig-card reveal" data-d="1" href="/salon-de-coiffure/montbonnot">
+            <p class="hm-sig-cat">Cils &amp; sourcils</p>
+            <h3 class="hm-sig-name">Beauté du <em>regard</em></h3>
+            <p class="hm-sig-text">Rehaussement et extensions de cils, teinture, restructuration des sourcils — pour intensifier le regard, dans le même esprit d’exigence.</p>
+            <span class="hm-sig-foot"><span class="hm-sig-salon">Salon Montbonnot</span><span class="hm-sig-go">Découvrir →</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. AVIS -->
+    {avisItems.length > 0 && (
+      <section class="section hm-avis">
+        <header class="section-head reveal">
+          <p class="label">Avis</p>
+          <h2 class="h-seo">Ils en parlent mieux que nous</h2>
+          {note && <p class="hm-avis-note"><strong>★ {note}</strong> / 5 · {totalArrondi}+ avis Google cumulés</p>}
+        </header>
+        <ul class="hm-avis-grid reveal" data-d="1">
+          {avisItems.map((a) => (
+            <li class="hm-avis-card">
+              <span class="hm-avis-stars" aria-hidden="true">★★★★★</span>
+              <p class="hm-avis-text">{a.texte}</p>
+              <p class="hm-avis-auteur">{a.auteur}{a.detail ? ` · ${a.detail}` : ''}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- 6. ENGAGEMENTS (teaser) -->
+    <section class="section hm-engage">
+      <div class="hm-engage-inner reveal">
+        <div>
+          <p class="label">Nos valeurs</p>
+          <h2 class="h-seo">Une coiffure engagée</h2>
+          <p class="body">Santé du cheveu d’abord, accompagnement des personnes touchées par le cancer, recyclage des cheveux et produits vegan.</p>
+          <a class="link-arrow link-olive" href="/nos-valeurs">Nos engagements<span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+        <ul class="hm-engage-chips">
+          <li>Vegan & cruelty-free</li>
+          <li>Cheveux recyclés · Capillum</li>
+          <li>Accompagnement cancer</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. JOURNAL -->
+    {posts.length > 0 && (
+      <section class="section hm-journal">
+        <header class="section-head hm-presta-head reveal">
+          <div>
+            <p class="label">Le journal</p>
+            <h2 class="h-seo">Conseils &amp; actualités</h2>
+          </div>
+          <a class="link-arrow link-olive hm-presta-all" href="/actualites">Tous les articles<span class="arrow" aria-hidden="true">→</span></a>
+        </header>
+        <ul class="hm-journal-grid reveal" data-d="1">
+          {posts.map((p) => (
+            <li>
+              <a class="hm-jr-card" href={`/actualites/${p.id}`}>
+                <span class="hm-jr-media"></span>
+                <span class="hm-jr-cat">{p.data.category}</span>
+                <span class="hm-jr-date">{fmtDate(p.data.date)}</span>
+                <span class="hm-jr-titre">{p.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- 8. CTA -->
+    <section class="section hm-cta" id="reserver">
+      <div class="hm-cta-inner reveal">
+        <p class="editorial hm-cta-title">Offrez-vous un vrai moment.</p>
+        <p class="lede hm-cta-lede">Réservez votre visite dans le salon de votre choix — consultation comprise.</p>
+        <a class="btn btn-action btn-lg" data-reserve href="#reserver">Réserver</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="hm-footer">
+    <div class="hm-footer-grid">
+      <div class="hm-footer-brand">
+        <p class="hm-footer-mark">Eric Di Martino</p>
+        <p class="hm-footer-tag">Coiffeur coloriste visagiste · Isère &amp; Savoie</p>
+      </div>
+      <nav class="hm-footer-col" aria-label="Salons">
+        <p class="hm-footer-h">Salons</p>
+        {salonsNav.map((s) => (<a href={s.href}>{s.ville}</a>))}
+      </nav>
+      <nav class="hm-footer-col" aria-label="Prestations">
+        <p class="hm-footer-h">Prestations</p>
+        <a href="/prestations-coiffure">Toutes les prestations</a>
+        <a href="/coloration-balayage">Coloration & balayage</a>
+        <a href="/head-spa-grenoble">Head spa</a>
+        <a href="/consultation-visagiste-coloriste">Consultation</a>
+      </nav>
+      <nav class="hm-footer-col" aria-label="La maison">
+        <p class="hm-footer-h">La maison</p>
+        <a href="/nos-valeurs">Nos valeurs</a>
+        <a href="/actualites">Le journal</a>
+        <a href="/nous-rejoindre">Nous rejoindre</a>
+        <a href="/mentions-legales">Mentions légales</a>
+      </nav>
+    </div>
+    <div class="hm-footer-bottom">
+      <p>© Eric Di Martino — Tous droits réservés.</p>
+      <ul class="hm-footer-social">
+        <li><a href="https://www.instagram.com/salon_eric_di_martino_grenoble/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/salonericdimartino/" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <style>
+    /* ===== HERO ===== */
+    .hm-hero { display: grid; gap: clamp(2.5rem, 6vw, 4rem); align-items: center; padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+    .hm-h1 { margin: 0 0 1.3rem; max-width: 13ch; }
+    .hm-h1 em { font-style: italic; color: var(--terracotta); }
+    .hm-lede { max-width: 46ch; }
+    .hm-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+    .hm-trust { margin: 1.4rem 0 0; font-size: 0.9rem; color: var(--muted); }
+    .hm-trust strong { color: var(--ink); font-weight: 600; }
+    .hm-acces { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 1.9rem); }
+    .hm-acces-head { display: flex; justify-content: space-between; font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
+    .hm-acces-list { list-style: none; margin: 0; padding: 0; }
+    .hm-acces-list a { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: padding-left 0.3s var(--ease); }
+    .hm-acces-list li:last-child a { border-bottom: 0; }
+    .hm-acces-list a:hover { padding-left: 0.4rem; }
+    .hm-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+    .hm-acces-txt { flex: 1; display: flex; flex-direction: column; }
+    .hm-acces-ville { font-family: var(--serif); font-size: 1.25rem; }
+    .hm-acces-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+    .hm-acces-arrow { color: var(--olive); transition: transform 0.3s var(--ease); }
+    .hm-acces-list a:hover .hm-acces-arrow { transform: translateX(4px); }
+
+    /* ===== CONSULTATION ===== */
+    .hm-conseil { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }
+    .hm-conseil-copy .body { margin: 1.1rem 0 1.6rem; }
+    .hm-piliers { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+    .hm-piliers li { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 1.25rem; background: var(--cream); border-radius: var(--radius); }
+    .hm-pilier-n { font-family: var(--serif); color: var(--terracotta); font-size: 1.1rem; }
+    .hm-piliers p { margin: 0; font-family: var(--serif); font-size: 1.15rem; color: var(--ink); }
+
+    /* ===== PRESTATIONS ===== */
+    .hm-presta-head { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .hm-presta-all { white-space: nowrap; }
+    .hm-presta-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.75rem, 2vw, 1.25rem); }
+    .hm-presta-card { display: flex; flex-direction: column; gap: 0.7rem; height: 100%; padding: clamp(1.3rem, 3vw, 1.75rem); background: #fff; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); transition: transform 0.5s var(--ease), border-color 0.5s, box-shadow 0.5s; }
+    .hm-presta-card:hover { transform: translateY(-4px); border-color: var(--olive); box-shadow: 0 24px 44px -28px rgba(38,38,31,0.4); }
+    .hm-presta-ico { width: 26px; height: 26px; color: var(--terracotta); }
+    .hm-presta-titre { font-family: var(--serif); font-size: 1.2rem; }
+    .hm-presta-arrow { color: var(--olive); margin-top: auto; transition: transform 0.4s var(--ease); }
+    .hm-presta-card:hover .hm-presta-arrow { transform: translateX(5px); }
+
+    /* ===== DEUX SIGNATURES (sombre) ===== */
+    .hm-signatures { background: var(--espresso); color: rgba(247,243,234,0.9); padding: clamp(3.5rem, 8vw, 6.5rem) var(--gutter); }
+    .hm-sig-inner { max-width: var(--maxw); margin-inline: auto; }
+    .hm-sig-head { margin-bottom: clamp(2rem, 5vw, 3rem); }
+    .hm-sig-eyebrow { font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: #cf9d72; margin: 0 0 1rem; }
+    .hm-sig-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); line-height: 1.1; color: #fdfbf7; margin: 0; }
+    .hm-sig-title em { font-style: italic; color: #cf9d72; }
+    .hm-sig-lede { color: rgba(247,243,234,0.6); max-width: 52ch; margin: 1rem 0 1.2rem; }
+    .hm-sig-all { font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: #cf9d72; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+    .hm-sig-all:hover { border-color: #cf9d72; }
+    .hm-sig-cards { display: grid; gap: clamp(1rem, 3vw, 1.5rem); }
+    .hm-sig-card { display: flex; flex-direction: column; padding: clamp(1.75rem, 4vw, 2.5rem); border: 1px solid rgba(247,243,234,0.13); border-radius: var(--radius); text-decoration: none; color: inherit; min-height: 300px; transition: background-color 0.5s, border-color 0.5s;
+      background: radial-gradient(120% 90% at 80% 8%, rgba(207,157,114,0.14), transparent 55%); }
+    .hm-sig-card:hover { background: rgba(207,157,114,0.08); border-color: #cf9d72; }
+    .hm-sig-cat { font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: #cf9d72; margin: 0 0 0.8rem; }
+    .hm-sig-name { font-family: var(--serif); font-weight: 330; font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem); color: #fdfbf7; margin: 0 0 0.9rem; }
+    .hm-sig-name em { font-style: italic; color: #cf9d72; }
+    .hm-sig-text { color: rgba(247,243,234,0.72); margin: 0; max-width: 42ch; }
+    .hm-sig-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1.6rem; border-top: 1px solid rgba(247,243,234,0.13); }
+    .hm-sig-salon { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,243,234,0.6); }
+    .hm-sig-go { font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: #fdfbf7; }
+
+    /* ===== AVIS ===== */
+    .hm-avis-note { display: flex; align-items: center; gap: 0.4rem; margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
+    .hm-avis-note strong { color: var(--terracotta); }
+    .hm-avis-grid { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem,3vw,1.5rem); }
+    .hm-avis-card { background: var(--cream); border-radius: var(--radius); padding: clamp(1.4rem,3vw,1.9rem); display: flex; flex-direction: column; gap: 0.7rem; }
+    .hm-avis-stars { color: var(--terracotta); letter-spacing: 0.1em; font-size: 0.85rem; }
+    .hm-avis-text { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .hm-avis-auteur { margin: auto 0 0; font-size: 0.82rem; color: var(--muted); }
+
+    /* ===== ENGAGEMENTS ===== */
+    .hm-engage-inner { background: var(--cream); border-radius: var(--radius); padding: clamp(2rem, 5vw, 3.25rem); display: grid; gap: 1.75rem; align-items: center; }
+    .hm-engage-inner .body { margin: 1rem 0 1.4rem; }
+    .hm-engage-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .hm-engage-chips li { font-family: var(--sans); font-weight: 500; font-size: 0.74rem; letter-spacing: 0.04em; color: var(--olive-deep); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.5rem 1rem; }
+
+    /* ===== JOURNAL ===== */
+    .hm-journal-grid { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem,3vw,2rem); }
+    .hm-jr-card { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); }
+    .hm-jr-media { aspect-ratio: 3/2; border-radius: var(--radius); background: linear-gradient(150deg, var(--cream), var(--cream-deep)); box-shadow: inset 0 0 0 1px var(--line); }
+    .hm-jr-cat { font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); margin-top: 1rem; }
+    .hm-jr-date { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+    .hm-jr-titre { font-family: var(--serif); font-size: 1.3rem; line-height: 1.25; margin-top: 0.4rem; }
+    .hm-jr-card:hover .hm-jr-titre { color: var(--olive); }
+
+    /* ===== CTA ===== */
+    .hm-cta { padding-left: 0; padding-right: 0; }
+    .hm-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,6rem) var(--gutter); text-align: center; }
+    .hm-cta-title { color: #fff; }
+    .hm-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
+    .hm-cta .btn-action { margin-top: 2.2rem; }
+
+    /* ===== FOOTER ===== */
+    .hm-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem,6vw,4.5rem) var(--gutter) 2.5rem; border-top: 1px solid var(--line); }
+    .hm-footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    .hm-footer-mark { font-family: var(--serif); font-size: 1.5rem; margin: 0; }
+    .hm-footer-tag { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--olive); margin: 0.5rem 0 0; }
+    .hm-footer-col { display: flex; flex-direction: column; }
+    .hm-footer-h { font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.9rem; }
+    .hm-footer-col a { font-size: 0.92rem; color: var(--ink); text-decoration: none; padding: 0.3rem 0; }
+    .hm-footer-col a:hover { color: var(--olive); }
+    .hm-footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: clamp(2rem,5vw,3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); }
+    .hm-footer-social { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+    .hm-footer-social a { color: var(--muted); text-decoration: none; }
+    .hm-footer-social a:hover { color: var(--olive); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 820px) {
+      .hm-hero { grid-template-columns: 1.15fr 0.85fr; }
+      .hm-conseil { grid-template-columns: 1.1fr 0.9fr; }
+      .hm-sig-cards { grid-template-columns: 1fr 1fr; }
+      .hm-avis-grid { grid-template-columns: repeat(3, 1fr); }
+      .hm-engage-inner { grid-template-columns: 1.2fr 0.8fr; }
+      .hm-journal-grid { grid-template-columns: repeat(3, 1fr); }
+      .hm-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .hm-cta-inner { border-radius: var(--radius); }
+      .hm-footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; }
+    }
+  </style>
+</Layout>
