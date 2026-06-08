@@ -38,6 +38,8 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
       frame.src = url;
       frame.style.display = 'block';
       picker.style.display = 'none';
+      dlg.classList.add('is-frame');
+      dlg.classList.remove('is-picker');
     }
     function open(key, cat) {
       if (key) {
@@ -47,6 +49,8 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
         picker.style.display = 'flex';
         frame.style.display = 'none';
         frame.removeAttribute('src');
+        dlg.classList.add('is-picker');
+        dlg.classList.remove('is-frame');
       }
       if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
       document.documentElement.style.overflow = 'hidden';
@@ -88,7 +92,11 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
   .bk-picker-btns { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; }
   .bk-salon { font-family: "Poppins", system-ui, sans-serif; font-weight: 500; font-size: 0.95rem; color: #fff; background: #31302e; border: 0; border-radius: 999px; padding: 0.8rem 1.6rem; cursor: pointer; transition: background-color 0.25s; }
   .bk-salon:hover { background: #c25510; }
+  /* Choix du salon = petite modale (l'iframe reste en grand) */
+  .bk.is-picker { width: min(440px, 92vw); max-width: 92vw; height: auto; max-height: 88vh; border-radius: 16px; }
+  .bk.is-picker .bk-picker { height: auto; padding: 2.75rem 1.5rem 2.25rem; }
   @media (max-width: 640px) {
     .bk { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+    .bk.is-picker { width: 92vw; max-width: 92vw; height: auto; max-height: 88dvh; border-radius: 16px; }
   }
 </style>
