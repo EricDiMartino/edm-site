@@ -1,12 +1,25 @@
 ---
 // Hôte du widget Planity White-Label — chargé dans l'iframe de la modale.
-// Chaque salon = un contexte isolé (sa propre clé) → pas de conflit window.planity,
-// pas de ré-init : on change juste l'URL de l'iframe. noindex.
-// Params : ?key=<clé établissement> &color=<hex> &cat=<catégories séparées par des virgules>
-const { searchParams } = Astro.url;
-const key = searchParams.get('key') || '';
-const color = searchParams.get('color') || '#c25510';
-const cat = searchParams.get('cat') || '';
+// Site STATIQUE → les paramètres d'URL sont lus CÔTÉ CLIENT (location.search),
+// puis on injecte les scripts Planity. Chaque salon = contexte isolé (sa clé).
+// Params : ?key=<clé> &color=<hex> &cat=<catégories,séparées,par,virgules> &demo (aperçu)
+// noindex.
+
+// Contenu factice pour l'aperçu (?demo) — rendu masqué, affiché par JS.
+const demoGroups = [
+  { titre: 'Consultation visagiste', items: [
+    { nom: 'Consultation Transformation (Coupe + Technique)', duree: '30 min', prix: '30 €' },
+    { nom: 'Consultation extensions', duree: '30 min', prix: '30 €' },
+  ] },
+  { titre: 'Femme — Coupe & coiffage', items: [
+    { nom: 'Shampooing + Coupe + Coiffage + soin', duree: '45 min', prix: '74 €' },
+    { nom: 'Brushing — cheveux longs', duree: '40 min', prix: '47 €' },
+  ] },
+  { titre: 'Couleur', items: [
+    { nom: 'Coloration racine + Coupe Coiffage', duree: '2h10', prix: 'dès 109 €' },
+    { nom: 'Balayage signature · Gloss + soin & coiffage', duree: '3h40', prix: 'dès 180 €' },
+  ] },
+];
 ---
 
 <!doctype html>
@@ -27,31 +40,69 @@ const cat = searchParams.get('cat') || '';
       @keyframes pl-rot { to { transform: rotate(360deg); } }
       #planity-appointment { max-width: 860px; margin: 0 auto; }
       .planity_appointment_step_wrapper { width: 100%; }
-      /* masque le titre "Prendre rendez-vous" injecté par Planity (best-effort) */
-      .css-1u1908p { display: none; }
+      .css-1u1908p { display: none; } /* masque le titre Planity (best-effort) */
+      /* ---- aperçu (mock) ---- */
+      .demo { max-width: 760px; margin: 0 auto; }
+      .demo-banner { background: #f7f3ea; border: 1px solid rgba(38,38,31,0.1); border-radius: 4px; padding: 0.7rem 1rem; font-size: 0.8rem; color: #807f70; text-align: center; margin-bottom: 1.75rem; }
+      .demo-h { font-family: "Fraunces", Georgia, serif; font-weight: 400; font-size: 1.5rem; margin: 0 0 1.4rem; }
+      .demo-cat { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #81806c; margin: 1.6rem 0 0.4rem; }
+      .demo-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.95rem 0; border-bottom: 1px solid rgba(38,38,31,0.1); }
+      .demo-nom { font-size: 0.98rem; color: #31302e; }
+      .demo-duree { font-size: 0.82rem; color: #807f70; margin-top: 0.15rem; }
+      .demo-row-r { display: flex; align-items: center; gap: 1rem; flex: none; }
+      .demo-prix { font-family: "Fraunces", Georgia, serif; font-size: 1.05rem; color: #31302e; }
+      .demo-choisir { font-family: "Poppins", system-ui, sans-serif; font-weight: 500; font-size: 0.8rem; color: #fff; background: #c25510; border: 0; border-radius: 4px; padding: 0.55rem 1.1rem; cursor: pointer; }
     </style>
   </head>
   <body>
     <div id="planity-loader" class="pl-loader"><div class="pl-spin"></div><p>Chargement des prestations…</p></div>
-    <div id="planity-appointment" data-key={key} data-color={color} data-cat={cat}></div>
+    <div id="planity-appointment"></div>
+
+    <div id="demo-root" hidden>
+      <div class="demo">
+        <p class="demo-banner">Aperçu du module — en ligne, le vrai planning Planity s'affiche ici.</p>
+        <h2 class="demo-h">Prendre rendez-vous</h2>
+        {demoGroups.map((g) => (
+          <div>
+            <p class="demo-cat">{g.titre}</p>
+            {g.items.map((it) => (
+              <div class="demo-row">
+                <div><div class="demo-nom">{it.nom}</div><div class="demo-duree">{it.duree}</div></div>
+                <div class="demo-row-r"><span class="demo-prix">{it.prix}</span><button class="demo-choisir" type="button">Choisir</button></div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
 
     <script is:inline>
       (function () {
-        var c = document.getElementById('planity-appointment');
-        if (!c.dataset.key) return;
-        window.planity = { key: c.dataset.key, primaryColor: c.dataset.color || '#c25510', container: c };
-        window.planity.options = { onServiceAdd: function () { window.scrollTo(0, 0); } };
-        if (c.dataset.cat) {
-          window.planity.options.serviceSetsWhitelist = c.dataset.cat.split(',').map(function (s) { return s.trim(); });
-        }
+        var qs = new URLSearchParams(location.search);
         var loader = document.getElementById('planity-loader');
-        var obs = new MutationObserver(function () {
-          if (c.childNodes.length && loader) { loader.style.display = 'none'; }
-        });
+        if (qs.has('demo')) {
+          loader.style.display = 'none';
+          document.getElementById('demo-root').hidden = false;
+          return;
+        }
+        var key = qs.get('key') || '';
+        if (!key) { loader.querySelector('p').textContent = 'Aucun salon sélectionné.'; return; }
+        var c = document.getElementById('planity-appointment');
+        window.planity = { key: key, primaryColor: qs.get('color') || '#c25510', container: c };
+        window.planity.options = { onServiceAdd: function () { window.scrollTo(0, 0); } };
+        var cat = qs.get('cat');
+        if (cat) window.planity.options.serviceSetsWhitelist = cat.split(',').map(function (s) { return s.trim(); });
+        var obs = new MutationObserver(function () { if (c.childNodes.length) loader.style.display = 'none'; });
         obs.observe(c, { childList: true, subtree: true });
+        var s1 = document.createElement('script');
+        s1.src = 'https://d2skjte8udjqxw.cloudfront.net/widget/production/polyfills.latest.js';
+        s1.onload = function () {
+          var s2 = document.createElement('script');
+          s2.src = 'https://d2skjte8udjqxw.cloudfront.net/widget/production/app.latest.js';
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s1);
       })();
     </script>
-    <script is:inline src="https://d2skjte8udjqxw.cloudfront.net/widget/production/polyfills.latest.js"></script>
-    <script is:inline src="https://d2skjte8udjqxw.cloudfront.net/widget/production/app.latest.js"></script>
   </body>
 </html>
