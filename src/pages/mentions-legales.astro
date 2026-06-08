@@ -1,0 +1,108 @@
+---
+// Mentions légales + données personnelles (RGPD). Requis pour les campagnes Ads.
+// Les champs juridiques inconnus sont marqués [À COMPLÉTER] — à remplir par Eric.
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
+---
+
+<Layout title="Mentions légales — Eric Di Martino" description="Mentions légales et politique de confidentialité du site Eric Di Martino." canonical={canonical}>
+  <Header salons={salonsNav} current={undefined} />
+
+  <main class="legal">
+    <header class="legal-head reveal">
+      <p class="label">Informations légales</p>
+      <h1 class="h-seo">Mentions légales</h1>
+      <p class="legal-maj">Dernière mise à jour : <mark class="legal-todo">[à compléter]</mark></p>
+    </header>
+
+    <div class="legal-body rt reveal" data-d="1">
+      <h2>Éditeur du site</h2>
+      <p>
+        Le site <strong>ericdimartino.com</strong> est édité par <mark class="legal-todo">[À COMPLÉTER : raison sociale et forme juridique]</mark>,
+        dont le siège social est situé <mark class="legal-todo">[À COMPLÉTER : adresse du siège]</mark>.
+      </p>
+      <p>
+        SIRET : <mark class="legal-todo">[à compléter]</mark> · RCS : <mark class="legal-todo">[à compléter]</mark> ·
+        Capital social : <mark class="legal-todo">[à compléter]</mark> · TVA intracommunautaire : <mark class="legal-todo">[à compléter]</mark>.
+      </p>
+      <p>Téléphone : 04&nbsp;76&nbsp;46&nbsp;07&nbsp;04 — E-mail : <a href="mailto:contact@ericdimartino.com">contact@ericdimartino.com</a></p>
+
+      <h2>Directeur de la publication</h2>
+      <p><mark class="legal-todo">[À COMPLÉTER : nom du directeur de la publication]</mark> (Eric Di Martino).</p>
+
+      <h2>Nos établissements</h2>
+      <ul>
+        {SALONS.map((s) => (
+          <li><strong>{s.ville}</strong> — {s.adresse}, {s.codePostal} {s.ville} · {s.telephone}</li>
+        ))}
+      </ul>
+
+      <h2>Hébergement</h2>
+      <p>
+        Le site est hébergé par <strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis —
+        <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus du site (textes, visuels, logo, identité visuelle) est la propriété d'Eric Di Martino,
+        sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation
+        écrite préalable est interdite.
+      </p>
+
+      <h2>Données personnelles (RGPD)</h2>
+      <p>
+        Les informations saisies dans nos formulaires (prénom, nom, téléphone, message) sont utilisées uniquement pour
+        vous recontacter au sujet de votre demande (consultation, rendez-vous). Elles ne sont ni revendues ni cédées à des tiers.
+      </p>
+      <p>Durée de conservation : <mark class="legal-todo">[à compléter, ex. 12 mois après le dernier contact]</mark>.</p>
+      <p>
+        Conformément au Règlement général sur la protection des données (RGPD), vous disposez d'un droit d'accès, de
+        rectification, d'opposition et de suppression de vos données. Pour l'exercer, écrivez à
+        <a href="mailto:contact@ericdimartino.com">contact@ericdimartino.com</a>.
+      </p>
+      <p>
+        La réservation en ligne est opérée par notre partenaire <strong>Planity</strong>
+        (<a href="https://www.planity.com" target="_blank" rel="noopener">planity.com</a>) ; sa propre politique de
+        confidentialité s'applique au parcours de prise de rendez-vous.
+      </p>
+
+      <h2>Cookies &amp; mesure d'audience</h2>
+      <p>
+        <mark class="legal-todo">[À COMPLÉTER selon les outils utilisés : mesure d'audience, pixels publicitaires Google/Meta.
+        Préciser la finalité et le recueil du consentement.]</mark>
+      </p>
+
+      <h2>Crédits</h2>
+      <p>Conception &amp; développement : <mark class="legal-todo">[à compléter]</mark>.</p>
+    </div>
+  </main>
+
+  <footer class="legal-footer">
+    <p class="legal-foot-mark">Eric Di Martino</p>
+    <p class="legal-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .legal { max-width: 768px; margin-inline: auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+    .legal-head { margin-bottom: clamp(2rem, 5vw, 3rem); }
+    .legal-maj { margin: 1rem 0 0; font-size: 0.85rem; color: var(--muted); }
+    .legal-body h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); color: var(--ink); margin: 2.4rem 0 0.6rem; }
+    .legal-body p { margin: 0 0 1rem; color: var(--ink); }
+    .legal-body ul { margin: 0 0 1rem; padding-left: 1.1rem; list-style: disc; }
+    .legal-body li { margin: 0.3rem 0; }
+    .legal-body a { color: var(--olive); text-decoration: underline; text-underline-offset: 3px; }
+    .legal-todo { background: rgba(194, 85, 16, 0.12); color: var(--terracotta); padding: 0.05rem 0.35rem; border-radius: 3px; font-weight: 500; }
+    .legal-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter); border-top: 1px solid var(--line); text-align: center; }
+    .legal-foot-mark { font-family: var(--serif); font-size: 1.3rem; margin: 0; }
+    .legal-foot-sub { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+  </style>
+</Layout>
