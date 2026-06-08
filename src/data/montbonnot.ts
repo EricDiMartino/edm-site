@@ -91,8 +91,8 @@ export const montbonnot: SalonData = {
         'Rehaussement et extensions de cils, teinture des cils et des sourcils, restructuration des sourcils : un regard intensifié et sur-mesure, dans le même esprit d’exigence que nos prestations coiffure.',
       points: ['Rehaussement de cils', 'Extensions de cils', 'Teinture cils & sourcils', 'Restructuration sourcils'],
       image: undefined, // pas de visuel dédié → cadre dégradé (à remplacer par une vraie photo)
-      lien: '#reserver',
-      lienLabel: 'Prendre rendez-vous',
+      lien: '/beaute-du-regard-montbonnot',
+      lienLabel: 'Découvrir la beauté du regard',
     },
   ],
 

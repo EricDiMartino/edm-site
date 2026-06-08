@@ -1,0 +1,279 @@
+---
+// Page BEAUTÉ DU REGARD — Montbonnot. Thème clair (design system). Signature
+// esthétique du salon de Montbonnot (Audrey, artiste du regard).
+// Contenu repris du site actuel (/salon-esthetique). Aucun prix (cohérent site).
+// Réservation routée Montbonnot via [data-planity] (BookingModal global).
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import { montbonnot as m } from '../data/montbonnot';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
+const cpVille = `${m.codePostal} ${m.ville}`;
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([m.adresse, m.codePostal, m.ville].join(', '))}&z=16&output=embed`;
+
+// Les 4 univers (repris du site actuel : Sourcils · Cils · Maquillage permanent · Grain de beauté).
+const ICONS: Record<string, string> = {
+  brow: '<path d="M3 13c3-4 7-6 12-6 3 0 5 .8 6 1.6"/><path d="M5 11.5c2.5-1.4 5-2 7.5-2"/>',
+  eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 7l1.5 2M20 7l-1.5 2M12 4.5V7"/>',
+  pen: '<path d="M14 4l6 6L9 21l-5 1 1-5z"/><path d="M12 6l6 6"/>',
+  spark: '<circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
+};
+const univers = [
+  { titre: 'Sourcils', icon: 'brow', texte: 'Restructuration, épilation et teinture : des sourcils redessinés selon la ligne de votre visage. La structure qui change tout un regard.' },
+  { titre: 'Cils', icon: 'eye', texte: 'Rehaussement (lash lift), teinture et extensions : des cils plus longs, recourbés et intenses — au naturel ou plus affirmés.' },
+  { titre: 'Maquillage permanent', icon: 'pen', texte: 'Sourcils, ligne des yeux, lèvres : un maquillage semi-permanent durable et parfaitement dessiné, par une spécialiste de la technique.' },
+  { titre: 'Grain de beauté', icon: 'spark', texte: 'La touche finale : un grain de beauté dessiné avec précision pour souligner et sublimer le regard.' },
+];
+
+const faq = [
+  { question: 'Où se déroulent les prestations beauté du regard ?', reponse: `Au salon Eric Di Martino de Montbonnot, ${m.adresse}, ${cpVille}, sur rendez-vous avec Audrey, notre artiste du regard.` },
+  { question: 'Peut-on combiner beauté du regard et coiffure ?', reponse: 'Oui : vous pouvez réserver une prestation du regard seule, ou en complément d’un rendez-vous coiffure dans le même salon.' },
+  { question: 'Proposez-vous le paiement en plusieurs fois ?', reponse: 'Oui, le paiement en 3 ou 4 fois est possible sur les prestations beauté du regard.' },
+  { question: 'Faut-il un échange avant un maquillage permanent ?', reponse: 'Oui. Chaque maquillage permanent commence par un temps d’échange pour définir la forme, la teinte et valider ensemble le rendu souhaité.' },
+];
+
+// Schémas SEO / GEO
+const provider = {
+  '@type': 'BeautySalon',
+  name: `Eric Di Martino — ${m.ville}`,
+  telephone: m.telephone,
+  address: { '@type': 'PostalAddress', streetAddress: m.adresse, postalCode: m.codePostal, addressLocality: m.ville, addressCountry: 'FR' },
+  sameAs: [m.instagram.url],
+};
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Beauté du regard',
+  name: 'Beauté du regard — cils, sourcils, maquillage permanent',
+  description: 'Rehaussement et extensions de cils, restructuration et teinture des sourcils, maquillage permanent à Montbonnot.',
+  url: canonical,
+  areaServed: m.areaServed,
+  provider,
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.reponse } })),
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Beauté du regard', item: canonical },
+  ],
+};
+
+const seo = {
+  title: 'Beauté du regard à Montbonnot — cils, sourcils, maquillage permanent | Eric Di Martino',
+  description: 'Beauté du regard à Montbonnot : rehaussement et extensions de cils, sourcils, teinture, maquillage permanent. Sur rendez-vous avec Audrey, artiste du regard, au salon Eric Di Martino.',
+};
+---
+
+<Layout title={seo.title} description={seo.description} canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+
+  <Header tel={m.telephone} reservationUrl="#reserver" salons={salonsNav} />
+
+  <main class="bdr" data-planity={m.planityKey}>
+    <!-- HERO -->
+    <section class="section bdr-hero">
+      <div class="bdr-hero-copy reveal">
+        <p class="label">{m.ville} · L'artiste du regard</p>
+        <h1 class="editorial bdr-h1">La beauté du <em class="ital">regard</em>.</h1>
+        <p class="lede bdr-lede">Sourcils redessinés, cils intensifiés, maquillage permanent : à Montbonnot, Audrey sublime votre regard avec la même exigence que nos prestations coiffure — toujours à partir de votre visage.</p>
+        <div class="bdr-actions">
+          <a class="btn btn-action" href="#reserver" data-reserve>Prendre rendez-vous</a>
+          <a class="btn btn-ghost" href="#univers">Voir les prestations</a>
+        </div>
+      </div>
+      <aside class="bdr-hero-panel reveal" data-d="1">
+        <p class="bdr-panel-eyebrow">En pratique</p>
+        <ul class="bdr-panel-list">
+          <li><span>Salon</span><span>Montbonnot</span></li>
+          <li><span>Adresse</span><span>{m.adresse}</span></li>
+          <li><span>Téléphone</span><a href={telHref}>{m.telephone}</a></li>
+          <li><span>Paiement</span><span>3× ou 4×</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- APPROCHE -->
+    <section class="section bdr-approche">
+      <div class="bdr-approche-copy reveal">
+        <p class="label">Notre approche</p>
+        <h2 class="h-seo">Le regard, prolongement du visage</h2>
+        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque prestation, Audrey prend le temps du diagnostic — pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- LES 4 UNIVERS -->
+    <section class="section bdr-univers" id="univers">
+      <header class="section-head reveal">
+        <p class="label">Nos prestations</p>
+        <h2 class="h-seo">Quatre savoir-faire au service du regard</h2>
+      </header>
+      <ul class="bdr-grid reveal" data-d="1">
+        {univers.map((u) => (
+          <li class="bdr-card">
+            <svg class="bdr-card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[u.icon]} />
+            <h3 class="bdr-card-titre">{u.titre}</h3>
+            <p class="bdr-card-texte">{u.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- AUDREY -->
+    <section class="section bdr-praticienne">
+      <figure class="bdr-portrait reveal" aria-hidden="true"><figcaption>Audrey</figcaption></figure>
+      <div class="bdr-praticienne-copy reveal" data-d="1">
+        <p class="label">La praticienne</p>
+        <h2 class="h-seo">Audrey, artiste du regard</h2>
+        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard, pour un résultat naturel et durable.</p>
+        <a class="link-arrow link-olive" href={m.instagram.url} target="_blank" rel="noopener">Voir son travail sur Instagram<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- LIEU -->
+    <section class="section bdr-lieu">
+      <div class="bdr-lieu-visual reveal">
+        <iframe title={`Carte — Salon ${m.ville}`} src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="bdr-lieu-copy reveal" data-d="1">
+        <p class="label">Le lieu</p>
+        <h2 class="h-seo">Au salon de Montbonnot</h2>
+        <p class="bdr-lieu-addr">{m.adresse}<br />{cpVille}</p>
+        <ul class="bdr-hours">
+          {m.horaires.map((hr) => (
+            <li class={hr.ferme ? 'is-closed' : ''}><span>{hr.jour}</span><span>{hr.valeur}</span></li>
+          ))}
+        </ul>
+        <p class="bdr-lieu-note">Paiement en 3× ou 4× · sur rendez-vous</p>
+        <div class="bdr-lieu-links">
+          <a class="link-arrow link-olive" href="/salon-de-coiffure/montbonnot">Découvrir le salon<span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow link-olive" href={m.mapsUrl} target="_blank" rel="noopener">Itinéraire<span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section bdr-faq-sec">
+      <header class="section-head reveal">
+        <p class="label">Questions fréquentes</p>
+        <h2 class="h-seo">Avant de réserver</h2>
+      </header>
+      <div class="bdr-faq reveal" data-d="1">
+        {faq.map((f) => (
+          <details class="bdr-faq-item">
+            <summary>{f.question}<span class="bdr-plus" aria-hidden="true"></span></summary>
+            <div class="rt"><p>{f.reponse}</p></div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section bdr-cta" id="reserver">
+      <div class="bdr-cta-inner reveal">
+        <p class="editorial bdr-cta-title">Sublimez votre regard.</p>
+        <p class="lede bdr-cta-lede">Rendez-vous avec Audrey, au salon de Montbonnot.</p>
+        <a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a>
+        <p class="bdr-cta-tel">ou par téléphone — <a href={telHref}>{m.telephone}</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bdr-footer">
+    <p class="bdr-foot-mark">Eric Di Martino</p>
+    <p class="bdr-foot-sub">Beauté du regard · Salon de Montbonnot · {m.adresse}, {cpVille}</p>
+  </footer>
+
+  <style>
+    .bdr em.ital { font-style: italic; color: var(--olive); }
+
+    /* HERO */
+    .bdr-hero { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+    .bdr-h1 { max-width: 14ch; }
+    .bdr-lede { max-width: 52ch; margin-top: 1.1rem; }
+    .bdr-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+    .bdr-hero-panel { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2rem); }
+    .bdr-panel-eyebrow { font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive); margin: 0 0 0.6rem; }
+    .bdr-panel-list { list-style: none; margin: 0; padding: 0; }
+    .bdr-panel-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+    .bdr-panel-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .bdr-panel-list span:first-child { font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .bdr-panel-list span:last-child, .bdr-panel-list a { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); text-align: right; text-decoration: none; }
+    .bdr-panel-list a:hover { color: var(--terracotta); }
+
+    /* APPROCHE */
+    .bdr-approche { border-top: 1px solid var(--line); }
+    .bdr-approche-copy { max-width: 60ch; }
+    .bdr-approche-copy .body { margin: 1.1rem 0 1.4rem; }
+
+    /* UNIVERS */
+    .bdr-univers { border-top: 1px solid var(--line); }
+    .bdr-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+    .bdr-card { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.6rem, 4vw, 2.1rem); }
+    .bdr-card-ico { width: 30px; height: 30px; color: var(--terracotta); margin-bottom: 1.1rem; }
+    .bdr-card-titre { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; color: var(--ink); margin: 0 0 0.6rem; }
+    .bdr-card-texte { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+
+    /* PRATICIENNE */
+    .bdr-praticienne { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }
+    .bdr-portrait { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; margin: 0; box-shadow: inset 0 0 0 1px var(--line);
+      background: radial-gradient(120% 90% at 75% 15%, rgba(194,85,16,0.14), transparent 55%), linear-gradient(150deg, var(--cream) 0%, var(--cream-deep) 60%, #d9d4bf 100%); }
+    .bdr-portrait figcaption { position: absolute; left: 1.1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive-deep); }
+    .bdr-praticienne-copy .body { margin: 1.1rem 0 1.4rem; max-width: 48ch; }
+
+    /* LIEU */
+    .bdr-lieu { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }
+    .bdr-lieu-visual { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); background: var(--cream); }
+    .bdr-lieu-visual iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+    .bdr-lieu-addr { color: var(--ink); margin: 1rem 0 0; line-height: 1.6; }
+    .bdr-hours { list-style: none; margin: 1.3rem 0 0; padding: 0; max-width: 22rem; }
+    .bdr-hours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+    .bdr-hours .is-closed { color: var(--muted); }
+    .bdr-lieu-note { margin: 1.2rem 0 0; font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--olive-deep); }
+    .bdr-lieu-links { display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; margin-top: 1.5rem; }
+
+    /* FAQ */
+    .bdr-faq-sec { border-top: 1px solid var(--line); }
+    .bdr-faq { border-top: 1px solid var(--line); max-width: 820px; margin-top: 1.25rem; }
+    .bdr-faq-item { border-bottom: 1px solid var(--line); }
+    .bdr-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+    .bdr-faq-item summary::-webkit-details-marker { display: none; }
+    .bdr-plus { position: relative; width: 16px; height: 16px; flex: none; }
+    .bdr-plus::before, .bdr-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+    .bdr-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+    .bdr-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+    .bdr-faq-item[open] .bdr-plus::after { transform: scaleY(0); }
+    .bdr-faq-item .rt { margin: 0 0 1.3rem; color: var(--muted); }
+
+    /* CTA */
+    .bdr-cta { padding-left: 0; padding-right: 0; }
+    .bdr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 5rem) var(--gutter); text-align: center; }
+    .bdr-cta-title { color: #fff; }
+    .bdr-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
+    .bdr-cta .btn-action { margin-top: 1.9rem; }
+    .bdr-cta-tel { margin: 1.3rem 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+    .bdr-cta-tel a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* FOOTER */
+    .bdr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .bdr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .bdr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 640px) { .bdr-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 820px) {
+      .bdr-hero { grid-template-columns: 1.2fr 0.8fr; align-items: end; }
+      .bdr-praticienne { grid-template-columns: 0.8fr 1fr; }
+      .bdr-lieu { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</Layout>
