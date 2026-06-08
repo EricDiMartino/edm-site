@@ -59,6 +59,14 @@ const org = {
   ],
 };
 const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Eric Di Martino', url: canonical };
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Eric Di Martino — show coiffure',
+  description: "Eric Di Martino en démonstration : la coiffure des candidates lors d'une élection de Miss Isère et Miss France.",
+  thumbnailUrl: new URL('/edm-show-poster.jpg', Astro.site).href,
+  contentUrl: new URL('/edm-show.mp4', Astro.site).href,
+};
 ---
 
 <Layout
@@ -68,6 +76,7 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'E
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(org)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(website)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(videoSchema)} slot="head" />
 
   <Header salons={salonsNav} current="accueil" />
 
@@ -80,7 +89,6 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'E
         <p class="lede hm-lede">Coloristes visagistes, soins capillaires, beauté du regard, head spa. Quatre adresses, une exigence — celle de vous voir partir radieux·se.</p>
         <div class="hm-actions">
           <a class="btn btn-action" href="/consultation-visagiste-coloriste">Découvrir la consultation</a>
-          <a class="btn btn-ghost" href="/prestations-coiffure">Voir les prestations</a>
         </div>
         {note && <p class="hm-trust"><strong>★ {note}</strong> · {totalArrondi}+ avis Google</p>}
       </div>
@@ -98,6 +106,20 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'E
           ))}
         </ul>
       </div>
+    </section>
+
+    <!-- 1.5 VIDÉO -->
+    <section class="section hm-video">
+      <header class="hm-video-head reveal">
+        <p class="label">En images</p>
+        <h2 class="h-seo">Du salon à la scène</h2>
+        <p class="body hm-video-lede">Eric Di Martino en démonstration : la coiffure des candidates d'une élection de Miss Isère et Miss France — le même geste, la même exigence qu'en salon.</p>
+      </header>
+      <figure class="hm-video-frame reveal" data-d="1">
+        <video controls preload="none" playsinline poster="/edm-show-poster.jpg">
+          <source src="/edm-show.mp4" type="video/mp4" />
+        </video>
+      </figure>
     </section>
 
     <!-- 2. LA CONSULTATION (pilier) -->
@@ -291,6 +313,13 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'E
     .hm-acces-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
     .hm-acces-arrow { color: var(--olive); transition: transform 0.3s var(--ease); }
     .hm-acces-list a:hover .hm-acces-arrow { transform: translateX(4px); }
+
+    /* ===== VIDÉO ===== */
+    .hm-video { border-top: 1px solid var(--line); }
+    .hm-video-head { max-width: 60ch; }
+    .hm-video-lede { margin-top: 0.9rem; color: var(--muted); }
+    .hm-video-frame { margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; }
+    .hm-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--espresso); border-radius: var(--radius); box-shadow: 0 24px 60px -28px rgba(42,35,29,0.45); }
 
     /* ===== CONSULTATION ===== */
     .hm-conseil { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }

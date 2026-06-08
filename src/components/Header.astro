@@ -83,7 +83,7 @@ const NAV = [
   </div>
 </header>
 
-{(telHref || reservationUrl) && (
+{(telHref || reservationUrl || salons.length > 0) && (
   <div class="m-actionbar">
     {telHref && (
       <a class="m-act m-act-call" href={telHref}>
@@ -91,7 +91,11 @@ const NAV = [
         Appeler
       </a>
     )}
-    {reservationUrl && <a class="m-act m-act-book" href={reservationUrl}>Réserver</a>}
+    {reservationUrl ? (
+      <a class="m-act m-act-book" href={reservationUrl}>Réserver</a>
+    ) : (
+      <a class="m-act m-act-book" href="#reserver" data-reserve>Réserver</a>
+    )}
   </div>
 )}
 
