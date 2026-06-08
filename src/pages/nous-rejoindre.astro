@@ -1,0 +1,168 @@
+---
+// Page Carrières — Nous rejoindre. Marque employeur + postes ouverts + candidature.
+// Sans information de salaire ni d'horaires (choix éditorial).
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import { salonsNav } from '../lib/prestations-shared';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const EMAIL = 'contact@ericdimartino.com';
+
+const atouts = [
+  { titre: 'Formation continue', texte: 'Formation tout au long de l’année + accès à notre académie interne, Academy Leader.', icon: 'book' },
+  { titre: 'Évolution réelle', texte: 'Une trajectoire claire : coiffeur, manager, formateur, puis associé ou partenariat.', icon: 'arrow' },
+  { titre: 'Cadre premium', texte: 'Quatre salons haut de gamme, une spécialité reconnue : la consultation visagiste.', icon: 'sparkle' },
+  { titre: 'Avantages', texte: 'Mutuelle d’entreprise, participation aux frais de transport, réductions sur les prestations.', icon: 'heart' },
+];
+
+const postes = [
+  {
+    titre: 'Coiffeur·se confirmé·e',
+    contrat: 'CDI',
+    lieu: 'Nos 4 salons — Grenoble, Montbonnot, Voiron, Aix-les-Bains',
+    missions: ['Coupe, couleur et techniques capillaires', 'Conseil client personnalisé — notre signature', 'Polyvalence sur l’ensemble des prestations'],
+    profil: 'CAP minimum et 2 ans d’expérience en salon, à l’aise en coupe comme en couleur, orienté conseil et envie de progresser.',
+  },
+  {
+    titre: 'Manager de salon',
+    contrat: 'CDI',
+    lieu: 'Grenoble',
+    missions: ['Piloter l’équipe : planning, recrutement, montée en compétences', 'Gérer le salon (chiffre d’affaires, marge, stocks)', 'Garantir les standards et l’expérience Eric Di Martino', 'Continuer à exercer la coiffure'],
+    profil: 'Coiffeur·se confirmé·e avec une vraie envie de basculer vers le management et la gestion, structuré·e, dans une vision long terme (associariat ou franchise).',
+  },
+];
+
+const ICONS: Record<string, string> = {
+  book: '<path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2zM20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/>',
+  arrow: '<path d="M12 20V5M6 11l6-6 6 6"/>',
+  sparkle: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
+  heart: '<path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z"/>',
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Nous rejoindre', item: canonical },
+  ],
+};
+---
+
+<Layout title="Nous rejoindre — Carrières | Eric Di Martino" description="Rejoignez les salons Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains) : formation continue, évolution vers le management et le partenariat, cadre premium. Postes en CDI." canonical={canonical}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+
+  <Header salons={salonsNav} current="carrieres" />
+
+  <main>
+    <section class="section nr-hero">
+      <div class="reveal">
+        <p class="label">Carrières</p>
+        <h1 class="editorial nr-h1">Rejoignez la <em class="ital">maison</em>.</h1>
+        <p class="lede nr-lede">Quatre salons haut de gamme en Isère et Savoie, une académie interne et une vraie trajectoire d’évolution. On recrute les talents qui veulent progresser.</p>
+        <div class="nr-actions">
+          <a class="btn btn-action" href="#postes">Voir les postes</a>
+          <a class="btn btn-ghost" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature spontanée')}`}>Candidature spontanée</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section nr-why">
+      <header class="section-head reveal">
+        <p class="label">Pourquoi nous</p>
+        <h2 class="h-seo">Ce qu’on offre vraiment</h2>
+      </header>
+      <ul class="nr-atouts reveal" data-d="1">
+        {atouts.map((a) => (
+          <li class="nr-atout">
+            <svg class="nr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[a.icon] ?? ICONS.sparkle} />
+            <h3>{a.titre}</h3>
+            <p>{a.texte}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section nr-postes" id="postes">
+      <header class="section-head reveal">
+        <p class="label">Postes ouverts</p>
+        <h2 class="h-seo">On recrute</h2>
+      </header>
+      <ul class="nr-poste-list reveal" data-d="1">
+        {postes.map((p) => (
+          <li class="nr-poste">
+            <div class="nr-poste-head">
+              <h3 class="nr-poste-titre">{p.titre}</h3>
+              <span class="nr-poste-contrat">{p.contrat}</span>
+            </div>
+            <p class="nr-poste-lieu">{p.lieu}</p>
+            <p class="nr-poste-label">Missions</p>
+            <ul class="nr-poste-points">{p.missions.map((m) => <li>{m}</li>)}</ul>
+            <p class="nr-poste-label">Profil</p>
+            <p class="nr-poste-profil">{p.profil}</p>
+            <a class="btn btn-action btn-sm nr-poste-cta" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature — ' + p.titre)}`}>Postuler</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section nr-cta">
+      <div class="nr-cta-inner reveal">
+        <p class="editorial nr-cta-title">Pas le poste qu’il vous faut ?</p>
+        <p class="lede nr-cta-lede">Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils.</p>
+        <a class="btn btn-action btn-lg" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature spontanée')}`}>Postuler par e-mail</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="nr-footer">
+    <p class="nr-foot-mark">Eric Di Martino</p>
+    <p class="nr-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
+  </footer>
+
+  <style>
+    .nr-h1 { max-width: 14ch; }
+    .nr-lede { max-width: 50ch; }
+    .nr-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+
+    .nr-atouts { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem,3vw,1.5rem); }
+    .nr-atout { background: var(--cream); border-radius: var(--radius); padding: clamp(1.4rem,3vw,1.9rem); }
+    .nr-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: 1rem; }
+    .nr-atout h3 { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; margin: 0 0 0.4rem; }
+    .nr-atout p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+
+    .nr-poste-list { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem,3vw,1.75rem); }
+    .nr-poste { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.6rem,4vw,2.25rem); }
+    .nr-poste-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+    .nr-poste-titre { font-family: var(--serif); font-weight: 400; font-size: clamp(1.35rem,1.1rem+0.8vw,1.7rem); margin: 0; }
+    .nr-poste-contrat { font-family: var(--sans); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); background: var(--cream); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; flex: none; }
+    .nr-poste-lieu { color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 1.4rem; }
+    .nr-poste-label { font-family: var(--sans); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--olive); margin: 1.2rem 0 0.5rem; }
+    .nr-poste-points { margin: 0; padding-left: 1.1rem; list-style: disc; }
+    .nr-poste-points li { color: var(--ink); font-size: 0.95rem; line-height: 1.55; margin: 0.2rem 0; }
+    .nr-poste-profil { color: var(--ink); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+    .nr-poste-cta { margin-top: 1.6rem; }
+
+    .nr-cta { padding-left: 0; padding-right: 0; }
+    .nr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,5.5rem) var(--gutter); text-align: center; }
+    .nr-cta-title { color: #fff; }
+    .nr-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 42ch; }
+    .nr-cta .btn-action { margin-top: 2rem; }
+
+    .nr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem,6vw,4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+    .nr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+    .nr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    @media (min-width: 640px) {
+      .nr-atouts { grid-template-columns: repeat(2, 1fr); }
+      .nr-poste-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1000px) {
+      .nr-atouts { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (min-width: 820px) {
+      .nr-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
+      .nr-cta-inner { border-radius: var(--radius); }
+    }
+  </style>
+</Layout>
