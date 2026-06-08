@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const EMAIL = 'contact@ericdimartino.com';
+const FORM_ENDPOINT = ''; // TODO: endpoint candidatures (Formspree / GoHighLevel)
 
 const atouts = [
   { titre: 'Formation continue', texte: 'Formation tout au long de l’année + accès à notre académie interne, Academy Leader.', icon: 'book' },
@@ -62,7 +62,7 @@ const breadcrumb = {
         <p class="lede nr-lede">Quatre salons haut de gamme en Isère et Savoie, une académie interne et une vraie trajectoire d’évolution. On recrute les talents qui veulent progresser.</p>
         <div class="nr-actions">
           <a class="btn btn-action" href="#postes">Voir les postes</a>
-          <a class="btn btn-ghost" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature spontanée')}`}>Candidature spontanée</a>
+          <button type="button" class="btn btn-ghost" data-apply data-poste="Candidature spontanée">Candidature spontanée</button>
         </div>
       </div>
     </section>
@@ -100,7 +100,7 @@ const breadcrumb = {
             <ul class="nr-poste-points">{p.missions.map((m) => <li>{m}</li>)}</ul>
             <p class="nr-poste-label">Profil</p>
             <p class="nr-poste-profil">{p.profil}</p>
-            <a class="btn btn-action btn-sm nr-poste-cta" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature — ' + p.titre)}`}>Postuler</a>
+            <button type="button" class="btn btn-action btn-sm nr-poste-cta" data-apply data-poste={p.titre}>Postuler</button>
           </li>
         ))}
       </ul>
@@ -110,7 +110,7 @@ const breadcrumb = {
       <div class="nr-cta-inner reveal">
         <p class="editorial nr-cta-title">Pas le poste qu’il vous faut ?</p>
         <p class="lede nr-cta-lede">Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils.</p>
-        <a class="btn btn-action btn-lg" href={`mailto:${EMAIL}?subject=${encodeURIComponent('Candidature spontanée')}`}>Postuler par e-mail</a>
+        <button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button>
       </div>
     </section>
   </main>
@@ -119,6 +119,57 @@ const breadcrumb = {
     <p class="nr-foot-mark">Eric Di Martino</p>
     <p class="nr-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
   </footer>
+
+  <dialog id="apply-modal" class="apply" aria-label="Candidature">
+    <button type="button" class="apply-close" id="apply-close" aria-label="Fermer">&times;</button>
+    <div class="apply-body">
+      <p class="label">Candidature</p>
+      <h2 class="apply-title">Postuler chez Eric Di Martino</h2>
+      <form class="apply-form" action={FORM_ENDPOINT || '#'} method="POST" enctype="multipart/form-data">
+        <div class="apply-row">
+          <label>Prénom<input type="text" name="prenom" required autocomplete="given-name" /></label>
+          <label>Nom<input type="text" name="nom" required autocomplete="family-name" /></label>
+        </div>
+        <div class="apply-row">
+          <label>E-mail<input type="email" name="email" required autocomplete="email" /></label>
+          <label>Téléphone<input type="tel" name="telephone" required autocomplete="tel" /></label>
+        </div>
+        <label>Poste
+          <select id="apply-poste" name="poste">
+            <option>Coiffeur·se confirmé·e</option>
+            <option>Manager de salon</option>
+            <option>Candidature spontanée</option>
+          </select>
+        </label>
+        <label>CV <span class="apply-opt">— PDF, optionnel</span><input type="file" name="cv" accept=".pdf,.doc,.docx" /></label>
+        <label>Message <span class="apply-opt">— optionnel</span><textarea name="message" rows="3" placeholder="Quelques mots sur vous…"></textarea></label>
+        <button class="btn btn-action btn-lg apply-submit" type="submit">Envoyer ma candidature</button>
+        <p class="apply-rgpd">Vos données servent uniquement au traitement de votre candidature.</p>
+      </form>
+    </div>
+  </dialog>
+
+  <script is:inline>
+    (function () {
+      var dlg = document.getElementById('apply-modal');
+      if (!dlg) return;
+      var sel = document.getElementById('apply-poste');
+      function open(poste) {
+        if (poste && sel) { for (var i = 0; i < sel.options.length; i++) { if (sel.options[i].value === poste) { sel.selectedIndex = i; break; } } }
+        if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+        document.documentElement.style.overflow = 'hidden';
+      }
+      function close() { if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open'); }
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest && e.target.closest('[data-apply]');
+        if (!t) return; e.preventDefault();
+        open(t.getAttribute('data-poste') || '');
+      });
+      document.getElementById('apply-close').addEventListener('click', close);
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+      dlg.addEventListener('close', function () { document.documentElement.style.overflow = ''; });
+    })();
+  </script>
 
   <style>
     .nr-h1 { max-width: 14ch; }
@@ -152,6 +203,24 @@ const breadcrumb = {
     .nr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem,6vw,4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
     .nr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
     .nr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+
+    /* Modale candidature */
+    .apply { width: min(560px, 94vw); max-width: 94vw; max-height: 90vh; padding: 0; border: 0; border-radius: 4px; overflow: auto; background: #fff; box-shadow: 0 40px 90px -30px rgba(20, 16, 12, 0.55); }
+    .apply::backdrop { background: rgba(20, 16, 12, 0.62); backdrop-filter: blur(3px); }
+    .apply-close { position: absolute; top: 0.5rem; right: 0.6rem; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.9); color: var(--ink); font-size: 1.7rem; line-height: 1; cursor: pointer; }
+    .apply-close:hover { color: var(--terracotta); }
+    .apply-body { padding: clamp(1.75rem, 4vw, 2.5rem); }
+    .apply-title { font-family: var(--serif); font-weight: 400; font-size: 1.55rem; margin: 0.3rem 0 0; }
+    .apply-form { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+    .apply-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .apply-form label { display: grid; gap: 0.35rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.02em; color: var(--ink); }
+    .apply-opt { color: var(--muted); font-weight: 400; }
+    .apply-form input, .apply-form textarea, .apply-form select { font-family: var(--sans); font-size: 0.95rem; padding: 0.7rem 0.85rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); color: var(--ink); width: 100%; }
+    .apply-form input[type="file"] { padding: 0.5rem; font-size: 0.85rem; }
+    .apply-form input:focus, .apply-form textarea:focus, .apply-form select:focus { outline: none; border-color: var(--olive); }
+    .apply-submit { width: 100%; margin-top: 0.3rem; }
+    .apply-rgpd { font-size: 0.72rem; color: var(--muted); margin: 0.2rem 0 0; text-align: center; }
+    @media (max-width: 560px) { .apply { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; } }
 
     @media (min-width: 640px) {
       .nr-atouts { grid-template-columns: repeat(2, 1fr); }
