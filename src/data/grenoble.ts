@@ -120,7 +120,7 @@ export const grenoble: SalonData = {
   codePostal: '38000',
   telephone: '04 76 46 07 04',
   heroImage: hero,
-  reservationUrl: '#reserver', // TODO: remplacer par l'URL réelle de réservation
+  reservationUrl: '#reserver', // déclenche la modale Planity (salon résolu via planityKey, voir BookingModal.astro)
   planityKey: '-M2E_c9IB-StXRRzP_6T', // widget White-Label Planity (clé publique)
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=6+place+Victor+Hugo+38000+Grenoble',
 

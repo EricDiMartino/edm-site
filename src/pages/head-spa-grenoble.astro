@@ -308,7 +308,6 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     .hs-center { text-align: center; }
     .hs-center .hs-eyebrow, .hs-center .hs-h2 { margin-inline: auto; }
     .hs-center .hs-eyebrow::after { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.6; }
-    .hs-num { display: block; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--hs-copper); margin-bottom: 0.6rem; }
     .hs-sec-intro { color: var(--hs-muted); max-width: 56ch; margin: 1.1rem 0 0; }
     .hs-center .hs-sec-intro { margin-inline: auto; }
 
@@ -340,9 +339,6 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     .hs-meta-tel { text-decoration: none; transition: color 0.3s; }
     .hs-meta-tel:hover { color: var(--hs-copper); }
     .hs-hero-side { display: flex; flex-direction: column; gap: clamp(1.75rem, 4vw, 2.5rem); }
-    .hs-hero-quote { margin: 0; padding-left: 1rem; border-left: 2px solid var(--hs-copper); }
-    .hs-hero-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 1rem + 0.8vw, 1.5rem); line-height: 1.3; color: #fdfbf7; margin: 0; }
-    .hs-hero-quote cite { display: block; margin-top: 0.8rem; font-family: var(--sans); font-style: normal; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-copper); }
 
     /* I — citation (à gauche) + prose */
     .hs-intro-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
@@ -422,7 +418,6 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         radial-gradient(120% 90% at 70% 20%, rgba(207, 157, 114, 0.2), transparent 55%),
         linear-gradient(150deg, #34291f 0%, #211a13 65%, #15100a 100%); }
     .hs-place-visual iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
-    .hs-shot-cap { position: absolute; left: 1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-muted); }
     .hs-place-name { font-family: var(--serif); font-size: 1.35rem; color: #fdfbf7; margin: 1.2rem 0 0.3rem; }
     .hs-place-addr { color: var(--hs-cream); margin: 0; line-height: 1.6; }
     .hs-hours { list-style: none; margin: 1.4rem 0 0; padding: 0; max-width: 22rem; }

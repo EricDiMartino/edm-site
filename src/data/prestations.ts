@@ -13,7 +13,7 @@ export interface PrestationCarte {
 }
 
 export const prestations = {
-  reservationUrl: '#reserver', // TODO: URL réelle de réservation (widget)
+  reservationUrl: '#reserver', // modale Planity : pages sans planityKey -> sélecteur de salon (voir BookingModal.astro)
 
   hero: {
     eyebrow: 'Prestations',

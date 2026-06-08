@@ -4,7 +4,7 @@ import type { PrestationData } from '../lib/prestations-shared';
 
 export const coloration: PrestationData = {
   serviceType: 'Coloration capillaire',
-  reservationUrl: '#reserver', // TODO: URL réelle (widget)
+  reservationUrl: '#reserver', // modale Planity : pages sans planityKey -> sélecteur de salon (voir BookingModal.astro)
 
   hero: {
     eyebrow: 'Couleur',
