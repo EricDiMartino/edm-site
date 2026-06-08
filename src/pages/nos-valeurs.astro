@@ -1,29 +1,37 @@
 ---
-// Page "Nos valeurs / engagements" — /nos-valeurs. Objectif référencement + marque.
-// Visagisme & santé du cheveu, engagement cancer, environnement (Capillum),
-// produits engagés (Authentic Beauty Concept).
+// Page "Nos valeurs / engagements" — /nos-valeurs. Référencement + marque.
+// Visagisme & santé du cheveu · engagement cancer (mis en avant) · environnement
+// (Capillum) · produits engagés (Authentic Beauty Concept) · FAQ (GEO).
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const EMAIL = 'contact@ericdimartino.com';
 
+// Engagements environnement / produits (le cancer a son bloc dédié au-dessus).
 const engagements = [
   {
-    titre: 'Aux côtés des personnes touchées par le cancer',
-    texte: 'La maladie et ses traitements bouleversent le rapport aux cheveux. Nous accueillons les personnes concernées avec écoute et discrétion, et les accompagnons sur la perte, la repousse et les solutions adaptées — dans un cadre bienveillant.',
-    icon: 'heart',
-  },
-  {
     titre: 'Le recyclage des cheveux, avec Capillum',
-    texte: 'Plutôt que de finir à la poubelle, les cheveux coupés dans nos salons sont collectés et valorisés par Capillum, la première filière française de recyclage du cheveu : paillage pour l’agriculture, boudins dépolluants (qui absorbent les hydrocarbures), et recherche médicale.',
+    texte: 'Plutôt que de finir à la poubelle, les cheveux coupés dans nos salons sont collectés et valorisés par Capillum, la première filière française de recyclage du cheveu : paillage pour l’agriculture, boudins dépolluants (qui absorbent les hydrocarbures) et recherche médicale.',
     icon: 'leaf',
+    lien: { label: 'capillum.fr', href: 'https://www.capillum.fr' },
+    chips: ['Cheveux recyclés', 'Zéro déchet'],
   },
   {
     titre: 'Des produits engagés — Authentic Beauty Concept',
-    texte: 'Nous travaillons avec Authentic Beauty Concept : des soins professionnels vegan, sans sulfates ni silicones, certifiés cruelty-free (PETA, Vegan Society). De belles formules, plus respectueuses du cheveu comme de la planète.',
+    texte: 'Nous travaillons avec Authentic Beauty Concept : des soins professionnels vegan, sans sulfates ni silicones, certifiés cruelty-free. De belles formules, plus respectueuses du cheveu comme de la planète.',
     icon: 'sparkle',
+    lien: { label: 'authenticbeautyconcept.fr', href: 'https://www.authenticbeautyconcept.fr' },
+    chips: ['Vegan Society', 'PETA — cruelty-free', 'Sans sulfate ni silicone'],
   },
+];
+
+const faq = [
+  { question: 'Vos produits sont-ils vegan ?', reponse: 'Oui : nous travaillons avec Authentic Beauty Concept, des soins vegan, sans sulfates ni silicones et certifiés cruelty-free (PETA, Vegan Society).' },
+  { question: 'Que deviennent les cheveux coupés en salon ?', reponse: 'Ils sont collectés et recyclés par Capillum, la première filière française de recyclage du cheveu : paillage agricole, dépollution (absorption des hydrocarbures) et recherche médicale.' },
+  { question: 'Accompagnez-vous les personnes en traitement (cancer) ?', reponse: 'Oui. Nous accueillons les personnes concernées avec écoute et discrétion, et les accompagnons sur la perte, la repousse et les solutions adaptées. Écrivez-nous ou appelez le salon, nous prenons le temps.' },
+  { question: 'Qu’est-ce que le visagisme ?', reponse: 'Avant chaque coupe ou couleur, un diagnostic : mode de vie, géométrie du visage et état réel du cheveu et du cuir chevelu. C’est lui qui oriente le résultat.' },
 ];
 
 const ICONS: Record<string, string> = {
@@ -55,11 +63,17 @@ const breadcrumb = {
     { '@type': 'ListItem', position: 2, name: 'Nos valeurs', item: canonical },
   ],
 };
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.reponse } })),
+};
 ---
 
 <Layout title="Nos valeurs — une coiffure engagée | Eric Di Martino" description="Les engagements des salons Eric Di Martino : santé du cheveu et visagisme, accompagnement des personnes touchées par le cancer, recyclage des cheveux avec Capillum, produits vegan Authentic Beauty Concept." canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Header salons={salonsNav} current="histoire" />
 
@@ -69,6 +83,11 @@ const breadcrumb = {
         <p class="label">Nos valeurs</p>
         <h1 class="editorial nv-h1">Une coiffure <em class="ital">engagée</em>.</h1>
         <p class="lede nv-lede">Chez Eric Di Martino, la beauté ne se sépare pas du soin : la santé du cheveu d’abord, l’accompagnement des plus fragiles, et des choix responsables — du produit jusqu’au recyclage.</p>
+        <ul class="nv-tags">
+          <li>Vegan & cruelty-free</li>
+          <li>Cheveux recyclés</li>
+          <li>Santé du cheveu</li>
+        </ul>
       </div>
     </section>
 
@@ -84,11 +103,22 @@ const breadcrumb = {
       </div>
     </section>
 
-    <!-- Nos engagements -->
+    <!-- Engagement solidaire — bloc mis en avant -->
+    <section class="section nv-cancer-sec">
+      <div class="nv-cancer reveal">
+        <svg class="nv-cancer-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS.heart} />
+        <p class="label">Engagement solidaire</p>
+        <h2 class="h-seo nv-cancer-h">Aux côtés des personnes touchées par le cancer</h2>
+        <p class="nv-cancer-text">La maladie et ses traitements bouleversent le rapport aux cheveux. Nous accueillons les personnes concernées avec <strong>écoute et discrétion</strong>, et les accompagnons sur la perte, la repousse et les solutions adaptées — sans rendez-vous précipité, dans un cadre bienveillant. <mark class="nv-todo">[à compléter : association partenaire]</mark></p>
+        <p class="nv-cancer-contact">Pour en parler, en toute discrétion : <a href={`mailto:${EMAIL}?subject=${encodeURIComponent('Accompagnement')}`}>{EMAIL}</a> ou directement au salon.</p>
+      </div>
+    </section>
+
+    <!-- Environnement & produits -->
     <section class="section nv-engage-sec">
       <header class="section-head reveal">
-        <p class="label">Nos engagements</p>
-        <h2 class="h-seo">Une beauté qui prend ses responsabilités</h2>
+        <p class="label">Environnement &amp; produits</p>
+        <h2 class="h-seo">Des choix responsables, au quotidien</h2>
       </header>
       <ul class="nv-engage reveal" data-d="1">
         {engagements.map((e) => (
@@ -97,10 +127,30 @@ const breadcrumb = {
             <div class="nv-eng-body">
               <h3>{e.titre}</h3>
               <p>{e.texte}</p>
+              <div class="nv-eng-proof">
+                {e.chips.map((c) => <span class="nv-chip">{c}</span>)}
+                <a class="nv-eng-link" href={e.lien.href} target="_blank" rel="noopener">{e.lien.label} ↗</a>
+              </div>
             </div>
           </li>
         ))}
       </ul>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section nv-faq-sec">
+      <header class="section-head reveal">
+        <p class="label">FAQ</p>
+        <h2 class="h-seo">Vous vous demandez…</h2>
+      </header>
+      <div class="nv-faq reveal" data-d="1">
+        {faq.map((f) => (
+          <details class="nv-faq-item">
+            <summary>{f.question}<span class="nv-plus" aria-hidden="true"></span></summary>
+            <div class="rt"><p>{f.reponse}</p></div>
+          </details>
+        ))}
+      </div>
     </section>
 
     <section class="section nv-cta">
@@ -125,6 +175,8 @@ const breadcrumb = {
     .nv-h1 { max-width: 14ch; }
     .nv-h1 em { font-style: italic; color: var(--olive); }
     .nv-lede { max-width: 54ch; }
+    .nv-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+    .nv-tags li { font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive-deep); background: var(--cream); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem; }
 
     /* Approche (split) */
     .nv-split { display: grid; gap: clamp(2rem,5vw,3.5rem); align-items: center; }
@@ -132,12 +184,40 @@ const breadcrumb = {
     .nv-split-copy .body { margin: 1rem 0; }
     .nv-split-copy .body + .body { margin-top: 0; }
 
-    /* Engagements */
+    /* Bloc cancer (mis en avant) */
+    .nv-cancer-sec { max-width: none; background: var(--cream); }
+    .nv-cancer { max-width: 760px; margin-inline: auto; text-align: center; }
+    .nv-cancer-ico { width: 34px; height: 34px; color: var(--terracotta); margin: 0 auto 1.1rem; }
+    .nv-cancer .label { display: block; }
+    .nv-cancer-h { margin: 0.4rem auto 1.2rem; max-width: 20ch; }
+    .nv-cancer-text { color: var(--ink); font-size: 1.05rem; line-height: 1.7; margin: 0 auto; max-width: 60ch; }
+    .nv-cancer-text strong { font-weight: 500; }
+    .nv-cancer-contact { margin: 1.4rem auto 0; font-size: 0.95rem; color: var(--muted); }
+    .nv-cancer-contact a { color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+    .nv-todo { background: rgba(194,85,16,0.12); color: var(--terracotta); padding: 0.05rem 0.35rem; border-radius: 3px; font-weight: 500; font-size: 0.85em; }
+
+    /* Engagements environnement/produits */
     .nv-engage { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); }
     .nv-eng { display: grid; grid-template-columns: auto 1fr; gap: clamp(1rem,3vw,1.75rem); padding: clamp(1.5rem,4vw,2.25rem) 0; border-bottom: 1px solid var(--line); align-items: start; }
     .nv-eng-ico { width: 30px; height: 30px; color: var(--terracotta); flex: none; margin-top: 0.2rem; }
     .nv-eng-body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.25rem,1.1rem+0.6vw,1.55rem); margin: 0 0 0.5rem; color: var(--ink); }
     .nv-eng-body p { color: var(--muted); font-size: 0.98rem; line-height: 1.65; margin: 0; max-width: 64ch; }
+    .nv-eng-proof { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; margin-top: 1rem; }
+    .nv-chip { font-family: var(--sans); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--olive-deep); background: var(--cream); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.7rem; }
+    .nv-eng-link { font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: var(--olive); text-decoration: none; border-bottom: 1px solid transparent; }
+    .nv-eng-link:hover { border-color: var(--olive); }
+
+    /* FAQ */
+    .nv-faq { border-top: 1px solid var(--line); max-width: 820px; }
+    .nv-faq-item { border-bottom: 1px solid var(--line); }
+    .nv-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+    .nv-faq-item summary::-webkit-details-marker { display: none; }
+    .nv-plus { position: relative; width: 16px; height: 16px; flex: none; }
+    .nv-plus::before, .nv-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+    .nv-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+    .nv-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+    .nv-faq-item[open] .nv-plus::after { transform: scaleY(0); }
+    .nv-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
     /* CTA */
     .nv-cta { padding-left: 0; padding-right: 0; }
