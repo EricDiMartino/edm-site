@@ -1,37 +1,35 @@
 ---
-// Page "Notre histoire" — /nos-valeurs (cible nav). Objectif référencement (marque + GEO).
-// Basée sur le contenu du site actuel + sources web. Dates patrimoniales à confirmer par Eric.
+// Page "Nos valeurs / engagements" — /nos-valeurs. Objectif référencement + marque.
+// Visagisme & santé du cheveu, engagement cancer, environnement (Capillum),
+// produits engagés (Authentic Beauty Concept).
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
-const timeline = [
-  { annee: '1921', texte: 'Le salon Alexandre ouvre à Grenoble, au lendemain de la Première Guerre mondiale. C’est l’un des plus anciens salons de coiffure de la ville — et de France.' },
-  { annee: '1973', texte: 'À 13 ans, Eric Di Martino fait ses premiers pas dans le métier, le temps d’un remplacement de Noël. Le salon est alors tenu par son père et son associé, Maurice Fort.' },
-  { annee: "Aujourd'hui", texte: 'Artiste visagiste depuis plus de vingt ans, Eric incarne la cinquième génération et fait grandir la maison : quatre salons en Isère et en Savoie, et une académie.' },
-  { annee: '2026', texte: 'Le salon flagship « Alexandre by Eric Di Martino » s’installe place Victor Hugo à Grenoble — head spa et barbier, dans la continuité d’un siècle de savoir-faire.' },
-];
-
-const piliers = [
-  { titre: 'La consultation visagiste', texte: 'Notre signature : avant chaque coupe ou couleur, un diagnostic fondé sur le mode de vie, la santé du cheveu et la géométrie du visage.', icon: 'eye' },
-  { titre: 'La transmission', texte: 'Eric transmet son savoir aux coiffeurs, en salon comme en formation, via notre académie — pour que l’exigence se partage.', icon: 'book' },
-  { titre: 'Un métier qui évolue', texte: '« Je n’ai jamais cessé de réinventer mon art » : un siècle d’héritage, mais des gestes et des styles résolument actuels.', icon: 'sparkle' },
-];
-
 const engagements = [
-  { titre: 'Art & créativité', texte: 'L’excellence en coiffure va de pair avec une conscience sociale et environnementale.', icon: 'sparkle' },
-  { titre: 'Maladie & chevelure', texte: 'Un accompagnement bienveillant et discret des personnes touchées par la maladie (cancer, alopécie), avec des associations.', icon: 'heart' },
-  { titre: 'Partenariats éthiques', texte: 'Gestion des déchets, emballages, sélection responsable des produits : une démarche au quotidien.', icon: 'leaf' },
+  {
+    titre: 'Aux côtés des personnes touchées par le cancer',
+    texte: 'La maladie et ses traitements bouleversent le rapport aux cheveux. Nous accueillons les personnes concernées avec écoute et discrétion, et les accompagnons sur la perte, la repousse et les solutions adaptées — dans un cadre bienveillant.',
+    icon: 'heart',
+  },
+  {
+    titre: 'Le recyclage des cheveux, avec Capillum',
+    texte: 'Plutôt que de finir à la poubelle, les cheveux coupés dans nos salons sont collectés et valorisés par Capillum, la première filière française de recyclage du cheveu : paillage pour l’agriculture, boudins dépolluants (qui absorbent les hydrocarbures), et recherche médicale.',
+    icon: 'leaf',
+  },
+  {
+    titre: 'Des produits engagés — Authentic Beauty Concept',
+    texte: 'Nous travaillons avec Authentic Beauty Concept : des soins professionnels vegan, sans sulfates ni silicones, certifiés cruelty-free (PETA, Vegan Society). De belles formules, plus respectueuses du cheveu comme de la planète.',
+    icon: 'sparkle',
+  },
 ];
 
 const ICONS: Record<string, string> = {
-  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
-  book: '<path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2zM20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/>',
-  sparkle: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
   heart: '<path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z"/>',
   leaf: '<path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-7 11-9"/>',
+  sparkle: '<path d="M12 3l1.9 5.6L20 10l-6.1 1.4L12 17l-1.9-5.6L4 10l6.1-1.4z"/>',
 };
 
 const organization = {
@@ -39,8 +37,7 @@ const organization = {
   '@type': 'Organization',
   name: 'Eric Di Martino',
   url: new URL('/', Astro.site).href,
-  foundingDate: '1921',
-  description: "Maison de coiffure héritière du salon Alexandre (Grenoble, 1921). Spécialiste de la consultation visagiste, quatre salons en Isère et Savoie.",
+  description: 'Salons de coiffure visagistes engagés : santé du cheveu, accompagnement des personnes touchées par le cancer, recyclage des cheveux (Capillum) et produits vegan (Authentic Beauty Concept).',
   areaServed: ['Grenoble', 'Montbonnot-Saint-Martin', 'Voiron', 'Aix-les-Bains', 'Isère', 'Savoie'],
   sameAs: [
     'https://www.instagram.com/salon_eric_di_martino_grenoble/',
@@ -55,12 +52,12 @@ const breadcrumb = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
-    { '@type': 'ListItem', position: 2, name: 'Notre histoire', item: canonical },
+    { '@type': 'ListItem', position: 2, name: 'Nos valeurs', item: canonical },
   ],
 };
 ---
 
-<Layout title="Notre histoire — coiffeur depuis 1921 à Grenoble | Eric Di Martino" description="L'histoire de la maison Eric Di Martino : héritière du salon Alexandre (Grenoble, 1921), cinquième génération, spécialiste de la consultation visagiste. Quatre salons en Isère et Savoie." canonical={canonical}>
+<Layout title="Nos valeurs — une coiffure engagée | Eric Di Martino" description="Les engagements des salons Eric Di Martino : santé du cheveu et visagisme, accompagnement des personnes touchées par le cancer, recyclage des cheveux avec Capillum, produits vegan Authentic Beauty Concept." canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
 
@@ -69,61 +66,38 @@ const breadcrumb = {
   <main>
     <section class="section nv-hero">
       <div class="reveal">
-        <p class="label">Notre histoire</p>
-        <h1 class="editorial nv-h1">Cinq générations de <em class="ital">coiffeurs</em>.</h1>
-        <p class="lede nv-lede">De l’un des plus anciens salons de Grenoble — le salon Alexandre, fondé en 1921 — aux quatre salons Eric Di Martino d’aujourd’hui, c’est la même exigence qui se transmet : révéler chaque visage.</p>
+        <p class="label">Nos valeurs</p>
+        <h1 class="editorial nv-h1">Une coiffure <em class="ital">engagée</em>.</h1>
+        <p class="lede nv-lede">Chez Eric Di Martino, la beauté ne se sépare pas du soin : la santé du cheveu d’abord, l’accompagnement des plus fragiles, et des choix responsables — du produit jusqu’au recyclage.</p>
       </div>
     </section>
 
-    <section class="section nv-time">
-      <header class="section-head reveal">
-        <p class="label">L'héritage</p>
-        <h2 class="h-seo">Un siècle de savoir-faire</h2>
-      </header>
-      <ol class="nv-timeline reveal" data-d="1">
-        {timeline.map((t) => (
-          <li class="nv-milestone">
-            <span class="nv-annee">{t.annee}</span>
-            <p class="nv-texte">{t.texte}</p>
-          </li>
-        ))}
-      </ol>
+    <!-- Notre approche : visagisme & santé du cheveu -->
+    <section class="section nv-split">
+      <div class="nv-split-visual reveal"><div class="frame"></div></div>
+      <div class="nv-split-copy reveal" data-d="1">
+        <p class="label">Notre approche</p>
+        <h2 class="h-seo">Le cheveu, d’abord en bonne santé</h2>
+        <p class="body">Notre signature, c’est le visagisme : avant chaque coupe ou couleur, un diagnostic — mode de vie, géométrie du visage, et surtout l’état réel du cheveu et du cuir chevelu.</p>
+        <p class="body">Parce qu’une belle coiffure part d’un cheveu sain, nous privilégions les gestes et les soins qui respectent la fibre, et nous vous conseillons une routine adaptée à la maison.</p>
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">La consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
+      </div>
     </section>
 
-    <section class="section nv-quote">
-      <blockquote class="reveal">
-        <p class="nv-quote-text">Je n’ai jamais cessé de réinventer mon art, en y introduisant un style glamour et décontracté.</p>
-        <cite class="nv-quote-author">Eric Di Martino — Artiste visagiste</cite>
-      </blockquote>
-    </section>
-
-    <section class="section nv-piliers-sec">
-      <header class="section-head reveal">
-        <p class="label">Ce qui nous guide</p>
-        <h2 class="h-seo">Notre manière de faire</h2>
-      </header>
-      <ul class="nv-grid reveal" data-d="1">
-        {piliers.map((p) => (
-          <li class="nv-card">
-            <svg class="nv-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[p.icon] ?? ICONS.sparkle} />
-            <h3>{p.titre}</h3>
-            <p>{p.texte}</p>
-          </li>
-        ))}
-      </ul>
-    </section>
-
+    <!-- Nos engagements -->
     <section class="section nv-engage-sec">
       <header class="section-head reveal">
         <p class="label">Nos engagements</p>
-        <h2 class="h-seo">Une coiffure qui prend ses responsabilités</h2>
+        <h2 class="h-seo">Une beauté qui prend ses responsabilités</h2>
       </header>
-      <ul class="nv-grid reveal" data-d="1">
+      <ul class="nv-engage reveal" data-d="1">
         {engagements.map((e) => (
-          <li class="nv-card">
-            <svg class="nv-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[e.icon] ?? ICONS.leaf} />
-            <h3>{e.titre}</h3>
-            <p>{e.texte}</p>
+          <li class="nv-eng">
+            <svg class="nv-eng-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[e.icon] ?? ICONS.leaf} />
+            <div class="nv-eng-body">
+              <h3>{e.titre}</h3>
+              <p>{e.texte}</p>
+            </div>
           </li>
         ))}
       </ul>
@@ -131,8 +105,8 @@ const breadcrumb = {
 
     <section class="section nv-cta">
       <div class="nv-cta-inner reveal">
-        <p class="editorial nv-cta-title">Venez écrire la suite avec nous.</p>
-        <p class="lede nv-cta-lede">Découvrez nos salons, nos prestations, ou réservez votre consultation visagiste.</p>
+        <p class="editorial nv-cta-title">Une beauté qui a du sens.</p>
+        <p class="lede nv-cta-lede">Réservez votre consultation — on prend soin de vos cheveux, vraiment.</p>
         <div class="nv-cta-links">
           <a class="btn btn-action" href="#reserver">Réserver</a>
           <a class="link-arrow link-cream" href="/nos-salons-de-coiffure">Nos salons<span class="arrow" aria-hidden="true">→</span></a>
@@ -148,28 +122,22 @@ const breadcrumb = {
   </footer>
 
   <style>
-    .nv-h1 { max-width: 16ch; }
+    .nv-h1 { max-width: 14ch; }
     .nv-h1 em { font-style: italic; color: var(--olive); }
     .nv-lede { max-width: 54ch; }
 
-    /* Timeline */
-    .nv-timeline { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); }
-    .nv-milestone { display: grid; grid-template-columns: 1fr; gap: 0.4rem; padding: clamp(1.4rem,3.5vw,2rem) 0; border-bottom: 1px solid var(--line); }
-    .nv-annee { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem,1.2rem+1.4vw,2.2rem); color: var(--terracotta); line-height: 1; }
-    .nv-texte { color: var(--ink); margin: 0; max-width: 60ch; }
+    /* Approche (split) */
+    .nv-split { display: grid; gap: clamp(2rem,5vw,3.5rem); align-items: center; }
+    .nv-split-visual .frame { aspect-ratio: 4 / 3; }
+    .nv-split-copy .body { margin: 1rem 0; }
+    .nv-split-copy .body + .body { margin-top: 0; }
 
-    /* Citation */
-    .nv-quote { text-align: center; }
-    .nv-quote blockquote { margin: 0; }
-    .nv-quote-text { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: clamp(1.6rem,1.1rem+2.4vw,2.8rem); line-height: 1.2; color: var(--ink); max-width: 22ch; margin: 0 auto; }
-    .nv-quote-author { display: block; margin-top: 1.4rem; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--olive); }
-
-    /* Grilles (piliers / engagements) */
-    .nv-grid { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1rem,3vw,1.5rem); }
-    .nv-card { padding: clamp(1.4rem,3vw,1.9rem); border: 1px solid var(--line); border-radius: var(--radius); }
-    .nv-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: 1rem; }
-    .nv-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; margin: 0 0 0.5rem; }
-    .nv-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+    /* Engagements */
+    .nv-engage { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); }
+    .nv-eng { display: grid; grid-template-columns: auto 1fr; gap: clamp(1rem,3vw,1.75rem); padding: clamp(1.5rem,4vw,2.25rem) 0; border-bottom: 1px solid var(--line); align-items: start; }
+    .nv-eng-ico { width: 30px; height: 30px; color: var(--terracotta); flex: none; margin-top: 0.2rem; }
+    .nv-eng-body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.25rem,1.1rem+0.6vw,1.55rem); margin: 0 0 0.5rem; color: var(--ink); }
+    .nv-eng-body p { color: var(--muted); font-size: 0.98rem; line-height: 1.65; margin: 0; max-width: 64ch; }
 
     /* CTA */
     .nv-cta { padding-left: 0; padding-right: 0; }
@@ -182,11 +150,8 @@ const breadcrumb = {
     .nv-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
     .nv-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
 
-    @media (min-width: 720px) {
-      .nv-milestone { grid-template-columns: 8rem 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: baseline; }
-      .nv-grid { grid-template-columns: repeat(3, 1fr); }
-    }
     @media (min-width: 820px) {
+      .nv-split { grid-template-columns: 0.95fr 1.05fr; }
       .nv-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
       .nv-cta-inner { border-radius: var(--radius); }
     }
