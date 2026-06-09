@@ -66,8 +66,8 @@ const faqSchema = d.faq.length
           <h2 class="h-seo">Questions fréquentes</h2>
           <div class="ar-faq-list">
             {d.faq.map((f) => (
-              <details class="ar-faq-item">
-                <summary>{f.question}<span class="ar-plus" aria-hidden="true"></span></summary>
+              <details class="faq-item">
+                <summary>{f.question}<span class="faq-plus" aria-hidden="true"></span></summary>
                 <div class="rt"><p>{f.answer}</p></div>
               </details>
             ))}
@@ -112,15 +112,6 @@ const faqSchema = d.faq.length
 
     .ar-faq { max-width: 768px; margin: clamp(2.5rem, 6vw, 4rem) auto 0; }
     .ar-faq-list { border-top: 1px solid var(--line); margin-top: 1.25rem; }
-    .ar-faq-item { border-bottom: 1px solid var(--line); }
-    .ar-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
-    .ar-faq-item summary::-webkit-details-marker { display: none; }
-    .ar-plus { position: relative; width: 16px; height: 16px; flex: none; }
-    .ar-plus::before, .ar-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
-    .ar-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
-    .ar-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
-    .ar-faq-item[open] .ar-plus::after { transform: scaleY(0); }
-    .ar-faq-item .rt { margin: 0 0 1.3rem; color: var(--muted); }
 
     .ar-related { max-width: 768px; margin: clamp(2.5rem, 6vw, 3.5rem) auto 0; padding-top: 1.75rem; border-top: 1px solid var(--line); }
     .ar-related ul { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.9rem 2rem; }

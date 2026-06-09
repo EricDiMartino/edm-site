@@ -166,8 +166,8 @@ const seo = {
       </header>
       <div class="bdr-faq reveal" data-d="1">
         {faq.map((f) => (
-          <details class="bdr-faq-item">
-            <summary>{f.question}<span class="bdr-plus" aria-hidden="true"></span></summary>
+          <details class="faq-item">
+            <summary>{f.question}<span class="faq-plus" aria-hidden="true"></span></summary>
             <div class="rt"><p>{f.reponse}</p></div>
           </details>
         ))}
@@ -231,15 +231,6 @@ const seo = {
     /* FAQ */
     .bdr-faq-sec { border-top: 1px solid var(--line); }
     .bdr-faq { border-top: 1px solid var(--line); max-width: 820px; margin-top: 1.25rem; }
-    .bdr-faq-item { border-bottom: 1px solid var(--line); }
-    .bdr-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
-    .bdr-faq-item summary::-webkit-details-marker { display: none; }
-    .bdr-plus { position: relative; width: 16px; height: 16px; flex: none; }
-    .bdr-plus::before, .bdr-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
-    .bdr-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
-    .bdr-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
-    .bdr-faq-item[open] .bdr-plus::after { transform: scaleY(0); }
-    .bdr-faq-item .rt { margin: 0 0 1.3rem; color: var(--muted); }
 
     /* CTA */
 

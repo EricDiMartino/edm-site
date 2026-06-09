@@ -110,8 +110,8 @@ const ICONS: Record<string, string> = {
     </header>
     <div class="pp-faq-list reveal" data-d="1">
       {data.faq.map((f) => (
-        <details class="pp-faq-item">
-          <summary>{f.question}<span class="pp-plus" aria-hidden="true"></span></summary>
+        <details class="faq-item">
+          <summary>{f.question}<span class="faq-plus" aria-hidden="true"></span></summary>
           <div class="rt"><p>{f.reponse}</p></div>
         </details>
       ))}
@@ -173,15 +173,6 @@ const ICONS: Record<string, string> = {
 
   /* FAQ */
   .pp-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
-  .pp-faq-item { border-bottom: 1px solid var(--line); }
-  .pp-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
-  .pp-faq-item summary::-webkit-details-marker { display: none; }
-  .pp-plus { position: relative; width: 16px; height: 16px; flex: none; }
-  .pp-plus::before, .pp-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
-  .pp-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
-  .pp-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
-  .pp-faq-item[open] .pp-plus::after { transform: scaleY(0); }
-  .pp-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
   /* CTA */
 

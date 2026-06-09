@@ -149,6 +149,20 @@ ul { margin: 0; padding: 0; list-style: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
+/* ---------- ACCORDÉON FAQ (item — partagé, thème clair) ---------- */
+/* Apparence canonique d'un item de FAQ. Le conteneur (.X-faq / .faq-list :
+   bordure, max-width) reste propre à chaque page. La FAQ du head spa garde
+   son thème sombre dédié. */
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-plus { position: relative; width: 16px; height: 16px; flex: none; }
+.faq-plus::before, .faq-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
+.faq-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
+.faq-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+.faq-item[open] .faq-plus::after { transform: scaleY(0); }
+.faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
 /* ---------- RESPONSIVE (≥ breakpoint) ---------- */
 @media (min-width: 820px) {
   /* tiret devant les eyebrows — desktop uniquement */

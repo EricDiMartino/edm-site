@@ -485,15 +485,6 @@ const PREST_ICONS: Record<string, string> = {
 
   /* ============ FAQ ============ */
   .faq-list { border-top: 1px solid var(--line); max-width: 820px; }
-  .faq-item { border-bottom: 1px solid var(--line); }
-  .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-plus { position: relative; width: 16px; height: 16px; flex: none; }
-  .faq-plus::before, .faq-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
-  .faq-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
-  .faq-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
-  .faq-item[open] .faq-plus::after { transform: scaleY(0); }
-  .faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
   /* ============ CTA ============ */
   .cta { padding-left: 0; padding-right: 0; } /* mobile : CTA pleine largeur */

@@ -115,8 +115,8 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       </header>
       <div class="cv-faq-list reveal" data-d="1">
         {c.faq.map((f) => (
-          <details class="cv-faq-item">
-            <summary>{f.question}<span class="cv-plus" aria-hidden="true"></span></summary>
+          <details class="faq-item">
+            <summary>{f.question}<span class="faq-plus" aria-hidden="true"></span></summary>
             <div class="rt"><p>{f.reponse}</p></div>
           </details>
         ))}
@@ -169,15 +169,6 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
 
     /* FAQ */
     .cv-faq-list { border-top: 1px solid var(--line); max-width: 820px; }
-    .cv-faq-item { border-bottom: 1px solid var(--line); }
-    .cv-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; list-style: none; font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.6vw, 1.3rem); color: var(--ink); }
-    .cv-faq-item summary::-webkit-details-marker { display: none; }
-    .cv-plus { position: relative; width: 16px; height: 16px; flex: none; }
-    .cv-plus::before, .cv-plus::after { content: ""; position: absolute; background: var(--olive); transition: transform 0.4s var(--ease); }
-    .cv-plus::before { top: 7px; left: 0; width: 16px; height: 1.5px; }
-    .cv-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
-    .cv-faq-item[open] .cv-plus::after { transform: scaleY(0); }
-    .cv-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
 
     @media (min-width: 640px) {
