@@ -7,6 +7,7 @@ import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 import { montbonnot as m } from '../data/montbonnot';
+import { buildBreadcrumb } from '../lib/schema';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
@@ -57,14 +58,7 @@ const faqSchema = {
   '@type': 'FAQPage',
   mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.reponse } })),
 };
-const breadcrumb = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
-    { '@type': 'ListItem', position: 2, name: 'Beauté du regard', item: canonical },
-  ],
-};
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Beauté du regard', item: canonical }]);
 
 const seo = {
   title: 'Beauté du regard à Montbonnot — cils, sourcils, maquillage permanent | Eric Di Martino',

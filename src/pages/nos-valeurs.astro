@@ -5,6 +5,7 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
+import { buildBreadcrumb } from '../lib/schema';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const EMAIL = 'contact@ericdimartino.com';
@@ -55,14 +56,7 @@ const organization = {
     'https://www.facebook.com/salonericdimartino/',
   ],
 };
-const breadcrumb = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
-    { '@type': 'ListItem', position: 2, name: 'Nos valeurs', item: canonical },
-  ],
-};
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Nos valeurs', item: canonical }]);
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',

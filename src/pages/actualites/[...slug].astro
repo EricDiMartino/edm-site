@@ -4,6 +4,7 @@ import Layout from '../../components/Layout.astro';
 import Header from '../../components/Header.astro';
 import { salonsNav } from '../../lib/prestations-shared';
 import { getCollection, render } from 'astro:content';
+import { buildBreadcrumb } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', (e) => !e.data.draft);
@@ -31,15 +32,7 @@ const article = {
   mainEntityOfPage: canonical,
   ...(d.cover && { image: new URL(d.cover, Astro.site).href }),
 };
-const breadcrumb = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
-    { '@type': 'ListItem', position: 2, name: 'Journal', item: new URL('/actualites', Astro.site).href },
-    { '@type': 'ListItem', position: 3, name: d.title, item: canonical },
-  ],
-};
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Journal', item: new URL('/actualites', Astro.site).href }, { name: d.title, item: canonical }]);
 const faqSchema = d.faq.length
   ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
   : null;

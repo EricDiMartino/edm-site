@@ -7,6 +7,7 @@ import { grenoble } from '../data/grenoble';
 import { montbonnot } from '../data/montbonnot';
 import { voiron } from '../data/voiron';
 import { aixLesBains } from '../data/aix-les-bains';
+import { buildBreadcrumb } from '../lib/schema';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
@@ -44,14 +45,7 @@ const service = {
     address: { '@type': 'PostalAddress', streetAddress: s.adresse, postalCode: s.codePostal, addressLocality: s.ville, addressCountry: 'FR' },
   })),
 };
-const breadcrumb = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: new URL('/', Astro.site).href },
-    { '@type': 'ListItem', position: 2, name: 'Prestations', item: canonical },
-  ],
-};
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Prestations', item: canonical }]);
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
