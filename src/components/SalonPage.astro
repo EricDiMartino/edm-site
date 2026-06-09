@@ -5,6 +5,8 @@
 // l'ancien service d'images Storyblok, on garde le gain CWV.
 import { Image } from 'astro:assets';
 import Header from './Header.astro';
+import TrioConsult from './TrioConsult.astro';
+import { defaultTrioConsult } from '../data/trio-consult';
 import type { SalonData } from '../data/grenoble';
 
 interface Props {
@@ -151,6 +153,9 @@ const PREST_ICONS: Record<string, string> = {
         </div>
       </section>
     )}
+
+    <!-- 4. TRIO CONSULTATION (offre d'ancrage — consultation au centre) -->
+    <TrioConsult data={salon.trioConsult ?? defaultTrioConsult} />
 
     <!-- 5. SERVICES PHARES (layout alterné ; sombre = esprit cocon, plus riche) -->
     {showServices && salon.services.map((s, i) => {

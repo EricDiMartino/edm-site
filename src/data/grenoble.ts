@@ -5,6 +5,7 @@
 // à remplacer par les vrais textes (étape 5 de la méthode page par page).
 
 import type { ImageMetadata } from 'astro';
+import type { TrioConsultData } from './trio-consult';
 import hero from '../assets/salons/grenoble/hero.webp';
 import expertise from '../assets/salons/grenoble/expertise.webp';
 import headspa from '../assets/salons/grenoble/headspa.webp';
@@ -106,6 +107,7 @@ export interface SalonData {
   faq: FaqItem[];
   avis?: Avis;
   ctaTitre?: string;
+  trioConsult?: TrioConsultData; // bloc trio consultation (surcharge ; sinon défaut partagé)
   instagram?: { handle: string; url: string };
   seo: { title: string; description: string };
 }

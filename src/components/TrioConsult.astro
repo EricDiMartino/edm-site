@@ -1,0 +1,100 @@
+---
+// Bloc TRIO — consultation au centre (offre d'ancrage). Thème CLAIR, design
+// system EDM. Données via `data` (src/data/trio-consult.ts) — prix jamais en dur.
+// CTA → modale Planity (data-reserve) ; le salon est résolu par [data-planity].
+import type { TrioConsultData } from '../data/trio-consult';
+interface Props {
+  data: TrioConsultData;
+}
+const { data } = Astro.props;
+---
+
+<section class="trio">
+  <header class="trio-head reveal">
+    <p class="trio-kicker">{data.kicker}</p>
+    <h2 class="trio-title">{data.titre}</h2>
+    <p class="trio-sub">{data.sous}</p>
+  </header>
+
+  <div class="trio-grid reveal" data-d="1">
+    {data.cards.map((c) => (
+      <article class={`trio-card ${c.featured ? 'is-featured' : ''}`}>
+        <span class="trio-badge">{c.badge}</span>
+        <h3 class="trio-name">{c.name}</h3>
+        <p class="trio-price">
+          {c.prefix && <span class="trio-prefix">{c.prefix}</span>}
+          <span class="trio-amount">{c.price}</span>
+          <span class="trio-cur">€</span>
+          {c.meta && <span class="trio-meta">{c.meta}</span>}
+        </p>
+        {c.offer && (
+          <p class="trio-offer">
+            <span class="trio-offer-spark" aria-hidden="true">✦</span>
+            <span class="trio-offer-txt">{c.offer.label}</span>
+            <s>{c.offer.strike}</s>
+          </p>
+        )}
+        <ul class="trio-list">
+          {c.points.map((p) => (
+            <li class={p.muted ? 'is-muted' : ''}>
+              {p.gift ? <span class="trio-gift">{p.texte}</span> : p.texte}
+            </li>
+          ))}
+        </ul>
+        <a class={`btn trio-cta ${c.featured ? 'btn-action' : 'btn-ghost'}`} href="#reserver" data-reserve>{c.cta}</a>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .trio { max-width: var(--maxw); margin-inline: auto; padding: clamp(3.5rem, 8vw, 6rem) var(--gutter); }
+
+  /* En-tête */
+  .trio-head { text-align: center; max-width: 42rem; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
+  .trio-kicker { font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--olive); margin: 0 0 1rem; }
+  .trio-kicker::before, .trio-kicker::after { content: ""; display: inline-block; width: 1.75rem; height: 1px; background: currentColor; vertical-align: middle; margin: 0 0.9rem; opacity: 0.6; }
+  .trio-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.8rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 0.9rem; }
+  .trio-sub { font-size: 0.98rem; line-height: 1.6; color: var(--muted); margin: 0; }
+
+  /* Grille */
+  .trio-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.5rem); grid-template-columns: 1fr; align-items: center; }
+
+  /* Carte */
+  .trio-card { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(2rem, 4vw, 2.5rem); }
+  .trio-badge { align-self: flex-start; font-family: var(--sans); font-weight: 600; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--olive); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem; margin-bottom: 1.5rem; }
+  .trio-name { font-family: var(--serif); font-weight: 400; font-size: 1.55rem; line-height: 1.1; color: var(--ink); margin: 0 0 0.9rem; }
+  .trio-price { display: flex; align-items: baseline; gap: 0.35rem; margin: 0 0 1.4rem; }
+  .trio-prefix { font-size: 0.9rem; color: var(--muted); }
+  .trio-amount { font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 2rem + 2vw, 3.4rem); line-height: 1; color: var(--ink); }
+  .trio-cur { font-family: var(--serif); font-size: 1.3rem; color: var(--terracotta); }
+  .trio-meta { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-left: 0.25rem; }
+
+  /* Bandeau "consultation offerte" */
+  .trio-offer { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1.5rem; padding: 0.7rem 0.9rem; border-radius: 8px; background: rgba(194, 85, 16, 0.07); border: 1px solid rgba(194, 85, 16, 0.3); }
+  .trio-offer-spark { color: var(--terracotta); font-size: 0.7rem; }
+  .trio-offer-txt { font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); }
+  .trio-offer s { color: var(--muted); opacity: 0.7; font-size: 0.8rem; }
+
+  /* Puces */
+  .trio-list { list-style: none; padding: 0; margin: 0 0 1.9rem; flex: 1; }
+  .trio-list li { position: relative; padding: 0.6rem 0 0.6rem 1.6rem; font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid var(--line); }
+  .trio-list li:last-child { border-bottom: none; }
+  .trio-list li::before { content: ""; position: absolute; left: 2px; top: 0.95rem; width: 8px; height: 8px; border-right: 1.6px solid var(--terracotta); border-bottom: 1.6px solid var(--terracotta); transform: rotate(45deg); }
+  .trio-list li.is-muted { color: var(--muted); }
+  .trio-gift { color: var(--terracotta); font-weight: 600; }
+
+  .trio-cta { display: block; width: 100%; text-align: center; margin-top: auto; }
+
+  /* Carte vedette (centrale, plus haute) */
+  .trio-card.is-featured { border-color: var(--terracotta); box-shadow: 0 24px 60px -34px rgba(42, 35, 29, 0.45); }
+  .trio-card.is-featured .trio-badge { position: absolute; top: -0.8rem; left: 50%; transform: translateX(-50%); margin: 0; background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+
+  @media (min-width: 880px) {
+    .trio-grid { grid-template-columns: repeat(3, 1fr); }
+    .trio-card.is-featured { padding: clamp(2.75rem, 4vw, 3.4rem) clamp(2rem, 4vw, 2.5rem); }
+  }
+  @media (max-width: 879px) {
+    .trio-card.is-featured { order: -1; }
+  }
+</style>
