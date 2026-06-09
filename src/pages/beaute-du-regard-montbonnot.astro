@@ -9,6 +9,7 @@ import { salonsNav } from '../lib/prestations-shared';
 import { montbonnot as m } from '../data/montbonnot';
 import { buildBreadcrumb } from '../lib/schema';
 import SiteFooter from '../components/SiteFooter.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
@@ -174,14 +175,7 @@ const seo = {
     </section>
 
     <!-- CTA -->
-    <section class="section bdr-cta" id="reserver">
-      <div class="bdr-cta-inner reveal">
-        <p class="editorial bdr-cta-title">Sublimez votre regard.</p>
-        <p class="lede bdr-cta-lede">Rendez-vous avec Audrey, au salon de Montbonnot.</p>
-        <a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a>
-        <p class="bdr-cta-tel">ou par téléphone — <a href={telHref}>{m.telephone}</a></p>
-      </div>
-    </section>
+    <CtaBlock id="reserver" title="Sublimez votre regard." lede="Rendez-vous avec Audrey, au salon de Montbonnot."><a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a><p class="cta-band-tel">ou par téléphone — <a href={telHref}>{m.telephone}</a></p></CtaBlock>
   </main>
 
   <SiteFooter sub={`Beauté du regard · Salon de Montbonnot · ${m.adresse}, ${cpVille}`} />
@@ -248,13 +242,6 @@ const seo = {
     .bdr-faq-item .rt { margin: 0 0 1.3rem; color: var(--muted); }
 
     /* CTA */
-    .bdr-cta { padding-left: 0; padding-right: 0; }
-    .bdr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 5rem) var(--gutter); text-align: center; }
-    .bdr-cta-title { color: #fff; }
-    .bdr-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
-    .bdr-cta .btn-action { margin-top: 1.9rem; }
-    .bdr-cta-tel { margin: 1.3rem 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8); }
-    .bdr-cta-tel a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
 
     /* FOOTER */
 

@@ -6,6 +6,7 @@ import { salonsNav } from '../../lib/prestations-shared';
 import { getCollection, render } from 'astro:content';
 import { buildBreadcrumb } from '../../lib/schema';
 import SiteFooter from '../../components/SiteFooter.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', (e) => !e.data.draft);
@@ -87,13 +88,7 @@ const faqSchema = d.faq.length
     <div class="ar-back reveal"><a class="link-olive" href="/actualites">‹ Tous les articles</a></div>
   </main>
 
-  <section class="section ar-cta">
-    <div class="ar-cta-inner reveal">
-      <p class="editorial ar-cta-title">Envie de passer à l'action ?</p>
-      <p class="lede ar-cta-lede">Réservez votre consultation dans le salon de votre choix.</p>
-      <a class="btn btn-action btn-lg" href="#reserver">Réserver</a>
-    </div>
-  </section>
+  <CtaBlock title="Envie de passer à l'action ?" lede="Réservez votre consultation dans le salon de votre choix."><a class="btn btn-action btn-lg" href="#reserver">Réserver</a></CtaBlock>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
 
@@ -132,16 +127,7 @@ const faqSchema = d.faq.length
     .ar-back { max-width: 768px; margin: clamp(2rem, 5vw, 3rem) auto 0; padding: 0 var(--gutter); }
     .ar-back a { text-decoration: none; }
 
-    .ar-cta { padding-left: 0; padding-right: 0; margin-top: clamp(3rem, 7vw, 5rem); }
-    .ar-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 5rem) var(--gutter); text-align: center; }
-    .ar-cta-title { color: #fff; }
-    .ar-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
-    .ar-cta .btn-action { margin-top: 1.9rem; }
 
 
-    @media (min-width: 820px) {
-      .ar-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
-      .ar-cta-inner { border-radius: var(--radius); }
-    }
   </style>
 </Layout>

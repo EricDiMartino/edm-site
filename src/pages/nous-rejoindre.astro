@@ -6,6 +6,7 @@ import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 import { buildBreadcrumb } from '../lib/schema';
 import SiteFooter from '../components/SiteFooter.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const FORM_ENDPOINT = ''; // TODO: endpoint candidatures (Formspree / GoHighLevel)
@@ -101,13 +102,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       </ul>
     </section>
 
-    <section class="section nr-cta">
-      <div class="nr-cta-inner reveal">
-        <p class="editorial nr-cta-title">Pas le poste qu’il vous faut ?</p>
-        <p class="lede nr-cta-lede">Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils.</p>
-        <button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button>
-      </div>
-    </section>
+    <CtaBlock title="Pas le poste qu’il vous faut ?" lede="Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils."><button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
@@ -186,11 +181,6 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     .nr-poste-profil { color: var(--ink); font-size: 0.95rem; line-height: 1.6; margin: 0; }
     .nr-poste-cta { margin-top: 1.6rem; }
 
-    .nr-cta { padding-left: 0; padding-right: 0; }
-    .nr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,5.5rem) var(--gutter); text-align: center; }
-    .nr-cta-title { color: #fff; }
-    .nr-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 42ch; }
-    .nr-cta .btn-action { margin-top: 2rem; }
 
 
     /* Modale candidature */
@@ -217,10 +207,6 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     }
     @media (min-width: 1000px) {
       .nr-atouts { grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (min-width: 820px) {
-      .nr-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
-      .nr-cta-inner { border-radius: var(--radius); }
     }
   </style>
 </Layout>

@@ -7,6 +7,7 @@ import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 import { buildBreadcrumb } from '../lib/schema';
 import SiteFooter from '../components/SiteFooter.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const EMAIL = 'contact@ericdimartino.com';
@@ -148,17 +149,7 @@ const faqSchema = {
       </div>
     </section>
 
-    <section class="section nv-cta">
-      <div class="nv-cta-inner reveal">
-        <p class="editorial nv-cta-title">Une beauté qui a du sens.</p>
-        <p class="lede nv-cta-lede">Réservez votre consultation — on prend soin de vos cheveux, vraiment.</p>
-        <div class="nv-cta-links">
-          <a class="btn btn-action" href="#reserver">Réserver</a>
-          <a class="link-arrow link-cream" href="/nos-salons-de-coiffure">Nos salons<span class="arrow" aria-hidden="true">→</span></a>
-          <a class="link-arrow link-cream" href="/prestations-coiffure">Nos prestations<span class="arrow" aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
+    <CtaBlock title="Une beauté qui a du sens." lede="Réservez votre consultation — on prend soin de vos cheveux, vraiment."><a class="btn btn-action" href="#reserver">Réserver</a><a class="link-arrow link-cream" href="/nos-salons-de-coiffure">Nos salons<span class="arrow" aria-hidden="true">→</span></a><a class="link-arrow link-cream" href="/prestations-coiffure">Nos prestations<span class="arrow" aria-hidden="true">→</span></a></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
@@ -212,17 +203,10 @@ const faqSchema = {
     .nv-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
     /* CTA */
-    .nv-cta { padding-left: 0; padding-right: 0; }
-    .nv-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem,8vw,5.5rem) var(--gutter); text-align: center; }
-    .nv-cta-title { color: #fff; }
-    .nv-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 44ch; }
-    .nv-cta-links { display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; align-items: center; justify-content: center; margin-top: 2rem; }
 
 
     @media (min-width: 820px) {
       .nv-split { grid-template-columns: 0.95fr 1.05fr; }
-      .nv-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
-      .nv-cta-inner { border-radius: var(--radius); }
     }
   </style>
 </Layout>

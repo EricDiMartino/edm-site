@@ -5,6 +5,7 @@ import Header from './Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 import type { PrestationData } from '../lib/prestations-shared';
 import SiteFooter from './SiteFooter.astro';
+import CtaBlock from './CtaBlock.astro';
 
 interface Props { data: PrestationData }
 const { data } = Astro.props;
@@ -118,13 +119,7 @@ const ICONS: Record<string, string> = {
   </section>
 
   <!-- CTA -->
-  <section class="section pp-cta" id="reserver">
-    <div class="pp-cta-inner reveal">
-      <p class="editorial pp-cta-title">{data.cta.titre}</p>
-      <p class="lede pp-cta-lede">{data.cta.texte}</p>
-      <a class="btn btn-action btn-lg" href={data.reservationUrl}>Réserver en ligne</a>
-    </div>
-  </section>
+  <CtaBlock id="reserver" title={data.cta.titre} lede={data.cta.texte}><a class="btn btn-action btn-lg" href={data.reservationUrl}>Réserver en ligne</a></CtaBlock>
 
   <!-- MAILLAGE prestations liées -->
   {showMaillage && (
@@ -189,11 +184,6 @@ const ICONS: Record<string, string> = {
   .pp-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
   /* CTA */
-  .pp-cta { padding-left: 0; padding-right: 0; }
-  .pp-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 6rem) var(--gutter); text-align: center; }
-  .pp-cta-title { color: #fff; }
-  .pp-cta-lede { color: rgba(255, 255, 255, 0.86); margin-left: auto; margin-right: auto; }
-  .pp-cta .btn-action { margin-top: 2.2rem; }
 
   /* Maillage prestations */
   .pp-related-list { list-style: none; margin: 1.2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
@@ -208,7 +198,5 @@ const ICONS: Record<string, string> = {
     .pp-ben { border-bottom: 0; border-left: 1px solid var(--line); padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.5rem); }
     .pp-ben:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
     .pp-ben:nth-child(n + 4) { border-top: 1px solid var(--line); }
-    .pp-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
-    .pp-cta-inner { border-radius: var(--radius); }
   }
 </style>

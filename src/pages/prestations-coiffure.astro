@@ -9,6 +9,7 @@ import { voiron } from '../data/voiron';
 import { aixLesBains } from '../data/aix-les-bains';
 import { buildBreadcrumb } from '../lib/schema';
 import SiteFooter from '../components/SiteFooter.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
@@ -138,13 +139,7 @@ const faqSchema = {
     </section>
 
     <!-- CTA -->
-    <section class="section pr-cta" id="reserver">
-      <div class="pr-cta-inner reveal">
-        <p class="editorial pr-cta-title">{p.ctaTitre}</p>
-        <p class="lede pr-cta-lede">{p.ctaTexte}</p>
-        <a class="btn btn-action btn-lg" href={p.reservationUrl}>Réserver en ligne</a>
-      </div>
-    </section>
+    <CtaBlock id="reserver" title={p.ctaTitre} lede={p.ctaTexte}><a class="btn btn-action btn-lg" href={p.reservationUrl}>Réserver en ligne</a></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
@@ -192,11 +187,6 @@ const faqSchema = {
     .pr-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
     /* CTA */
-    .pr-cta { padding-left: 0; padding-right: 0; }
-    .pr-cta-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 6rem) var(--gutter); text-align: center; }
-    .pr-cta-title { color: #fff; }
-    .pr-cta-lede { color: rgba(255, 255, 255, 0.86); margin-left: auto; margin-right: auto; }
-    .pr-cta .btn-action { margin-top: 2.2rem; }
 
     /* Footer */
 
@@ -205,8 +195,6 @@ const faqSchema = {
     }
     @media (min-width: 820px) {
       .pr-split { grid-template-columns: 0.95fr 1.05fr; }
-      .pr-cta { padding-left: var(--gutter); padding-right: var(--gutter); }
-      .pr-cta-inner { border-radius: var(--radius); }
     }
     @media (min-width: 1000px) {
       .pr-cards { grid-template-columns: repeat(3, 1fr); }

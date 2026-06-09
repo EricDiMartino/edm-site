@@ -1,0 +1,38 @@
+---
+// Bande CTA olive partagée (centrée). Harmonise 7 copies au CSS auparavant
+// légèrement divergent. `title`/`lede` en props, actions via <slot> (bouton
+// seul, bouton + tél, ou rangée de liens). Classes utilitaires fournies :
+// .cta-band-tel (ligne téléphone), liens .link-cream pour la rangée de liens.
+interface Props {
+  title: string;
+  lede?: string;
+  id?: string;
+}
+const { title, lede, id } = Astro.props;
+---
+
+<section class="section cta-band" id={id}>
+  <div class="cta-band-inner reveal">
+    <p class="editorial cta-band-title">{title}</p>
+    {lede && <p class="lede cta-band-lede">{lede}</p>}
+    <div class="cta-band-actions"><slot /></div>
+  </div>
+</section>
+
+<style>
+  .cta-band { padding-left: 0; padding-right: 0; }
+  .cta-band-inner { background: var(--olive); color: #fff; padding: clamp(3rem, 8vw, 6rem) var(--gutter); text-align: center; }
+  .cta-band-title { color: #fff; }
+  .cta-band-lede { color: rgba(255, 255, 255, 0.86); margin-left: auto; margin-right: auto; max-width: 42ch; }
+  .cta-band-actions { margin-top: 2.1rem; display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; align-items: center; justify-content: center; }
+  @media (min-width: 820px) {
+    .cta-band { padding-left: var(--gutter); padding-right: var(--gutter); }
+    .cta-band-inner { border-radius: var(--radius); }
+  }
+</style>
+
+<!-- Styles du contenu slotté (la ligne tél vient du slot → doit être global). -->
+<style is:global>
+  .cta-band-tel { width: 100%; margin: 0.2rem 0 0; font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); }
+  .cta-band-tel a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+</style>
