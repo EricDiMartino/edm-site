@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import { salonsNav } from '../../lib/prestations-shared';
 import { getCollection, render } from 'astro:content';
 import { buildBreadcrumb } from '../../lib/schema';
+import SiteFooter from '../../components/SiteFooter.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', (e) => !e.data.draft);
@@ -94,10 +95,7 @@ const faqSchema = d.faq.length
     </div>
   </section>
 
-  <footer class="ar-footer">
-    <p class="ar-foot-mark">Eric Di Martino</p>
-    <p class="ar-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
-  </footer>
+  <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
 
   <style>
     .ar { max-width: 768px; margin-inline: auto; padding: clamp(2.5rem, 6vw, 4rem) var(--gutter) 0; }
@@ -140,9 +138,6 @@ const faqSchema = d.faq.length
     .ar-cta-lede { color: rgba(255,255,255,0.86); margin-left: auto; margin-right: auto; max-width: 40ch; }
     .ar-cta .btn-action { margin-top: 1.9rem; }
 
-    .ar-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
-    .ar-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
-    .ar-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
 
     @media (min-width: 820px) {
       .ar-cta { padding-left: var(--gutter); padding-right: var(--gutter); }

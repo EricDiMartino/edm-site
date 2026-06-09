@@ -8,6 +8,7 @@ import Header from '../components/Header.astro';
 import { salonsNav } from '../lib/prestations-shared';
 import { montbonnot as m } from '../data/montbonnot';
 import { buildBreadcrumb } from '../lib/schema';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
@@ -183,10 +184,7 @@ const seo = {
     </section>
   </main>
 
-  <footer class="bdr-footer">
-    <p class="bdr-foot-mark">Eric Di Martino</p>
-    <p class="bdr-foot-sub">Beauté du regard · Salon de Montbonnot · {m.adresse}, {cpVille}</p>
-  </footer>
+  <SiteFooter sub={`Beauté du regard · Salon de Montbonnot · ${m.adresse}, ${cpVille}`} />
 
   <style>
     .bdr em.ital { font-style: italic; color: var(--olive); }
@@ -259,9 +257,6 @@ const seo = {
     .bdr-cta-tel a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
 
     /* FOOTER */
-    .bdr-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
-    .bdr-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
-    .bdr-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
 
     @media (min-width: 640px) { .bdr-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 820px) {

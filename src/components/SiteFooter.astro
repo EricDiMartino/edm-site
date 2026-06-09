@@ -1,0 +1,19 @@
+---
+// Pied de page simple (marque + sous-titre) partagé par les pages éditoriales.
+// Remplace 8 copies au CSS identique. `sub` = la ligne de sous-titre.
+interface Props {
+  sub: string;
+}
+const { sub } = Astro.props;
+---
+
+<footer class="site-foot">
+  <p class="site-foot-mark">Eric Di Martino</p>
+  <p class="site-foot-sub">{sub}</p>
+</footer>
+
+<style>
+  .site-foot { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
+  .site-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
+  .site-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+</style>

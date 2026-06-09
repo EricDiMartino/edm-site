@@ -10,6 +10,7 @@ import { voiron } from '../data/voiron';
 import { aixLesBains } from '../data/aix-les-bains';
 import { salonsNav, areaServed } from '../lib/prestations-shared';
 import { buildBreadcrumb } from '../lib/schema';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [
@@ -123,10 +124,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     </section>
   </main>
 
-  <footer class="cv-footer">
-    <p class="cv-foot-mark">Eric Di Martino</p>
-    <p class="cv-foot-sub">Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains</p>
-  </footer>
+  <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
 
   <script is:inline>
     (function () {
@@ -181,9 +179,6 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     .cv-faq-item[open] .cv-plus::after { transform: scaleY(0); }
     .cv-faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
 
-    .cv-footer { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem,6vw,4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
-    .cv-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
-    .cv-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
 
     @media (min-width: 640px) {
       .cv-inclus-grid { grid-template-columns: repeat(2, 1fr); }
