@@ -35,6 +35,7 @@ const NAV = [
         { label: 'Beauté du regard', href: '/beaute-du-regard-montbonnot', sub: 'Montbonnot' },
       ],
       all: { label: 'Toutes les prestations', href: '/prestations-coiffure' },
+      allFirst: true,
     },
   },
   { label: 'Nos valeurs', href: '/nos-valeurs', key: 'histoire' },
@@ -54,12 +55,18 @@ const NAV = [
       <div class="nav-drop">
         <a href={item.href} class="nav-drop-trigger" aria-current={(item.active ?? [item.key]).includes(current ?? '') ? 'page' : undefined} aria-haspopup="true">{item.label}<span class="caret" aria-hidden="true"></span></a>
         <div class="nav-drop-panel">
+          {item.drop.all && item.drop.allFirst && (
+            <Fragment>
+              <a class="nav-drop-lead" href={item.drop.all.href}>{item.drop.all.label}<span class="nav-drop-allarrow" aria-hidden="true">→</span></a>
+              <span class="nav-drop-sep" aria-hidden="true"></span>
+            </Fragment>
+          )}
           <ul class="nav-drop-list">
             {item.drop.items.map((it) => (
               <li><a href={it.href}><span class="nav-drop-label">{it.label}</span>{it.sub && <span class="nav-drop-sub">{it.sub}</span>}</a></li>
             ))}
           </ul>
-          {item.drop.all && (
+          {item.drop.all && !item.drop.allFirst && (
             <a class="nav-drop-all" href={item.drop.all.href}>{item.drop.all.label}<span class="nav-drop-allarrow" aria-hidden="true">→</span></a>
           )}
         </div>
@@ -264,5 +271,17 @@ const NAV = [
     .nav-drop-allarrow { transition: transform 0.25s var(--ease); }
     .nav-drop-all:hover { color: var(--olive-deep); }
     .nav-drop-all:hover .nav-drop-allarrow { transform: translateX(3px); }
+
+    /* « all » en tête (ex. Toutes les prestations) : entrée principale du menu */
+    .nav-drop-lead {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.62rem 0.7rem; border-radius: 8px; text-decoration: none;
+      font-family: var(--sans); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.01em;
+      color: var(--olive); transition: background-color 0.2s, color 0.2s;
+    }
+    .nav-drop-lead:hover { background: var(--cream); color: var(--olive-deep); }
+    .nav-drop-lead .nav-drop-allarrow { color: var(--olive); }
+    .nav-drop-lead:hover .nav-drop-allarrow { transform: translateX(3px); }
+    .nav-drop-sep { display: block; height: 1px; background: var(--line); margin: 0.3rem 0.45rem; }
   }
 </style>
