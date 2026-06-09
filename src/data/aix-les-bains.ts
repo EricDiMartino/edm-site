@@ -118,8 +118,8 @@ export const aixLesBains: SalonData = {
   instagram: { handle: '@salon_ericdimartino_aix', url: 'https://www.instagram.com/salon_ericdimartino_aix/' },
 
   seo: {
-    title: 'Coiffeur & coloriste visagiste à Aix-les-Bains — Eric Di Martino',
+    title: 'Coiffeur visagiste à Aix-les-Bains (Savoie) | Eric Di Martino',
     description:
-      'Salon de coiffure haut de gamme à Aix-les-Bains, boulevard Président Wilson. Coupe, couleur et consultation visagiste sur rendez-vous.',
+      'Salon de coiffure premium à Aix-les-Bains, bd Président Wilson, au bord du lac : coupe, couleur et consultation visagiste sur rendez-vous, en Savoie.',
   },
 };

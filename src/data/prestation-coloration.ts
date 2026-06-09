@@ -72,8 +72,8 @@ export const coloration: PrestationData = {
   },
 
   seo: {
-    title: 'Coloration & balayage — coloriste visagiste | Eric Di Martino',
+    title: 'Coloration & balayage, coloriste visagiste | Eric Di Martino',
     description:
-      'Coloration, balayage, ombré, gloss et coloration naturelle dans les salons Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains). Sur-mesure, après consultation, dans le respect du cheveu. Sur rendez-vous.',
+      'Coloration, balayage, ombré et gloss par nos coloristes visagistes Eric Di Martino. Teinte sur-mesure définie après diagnostic. Sur rendez-vous en salon.',
   },
 };

@@ -45,7 +45,7 @@ const ICONS: Record<string, string> = {
 const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Nous rejoindre', item: canonical }]);
 ---
 
-<Layout title="Nous rejoindre — Carrières | Eric Di Martino" description="Rejoignez les salons Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains) : formation continue, évolution vers le management et le partenariat, cadre premium. Postes en CDI." canonical={canonical}>
+<Layout title="Recrutement coiffeur en Isère & Savoie | Eric Di Martino" description="Eric Di Martino recrute des coiffeurs en CDI dans ses salons premium d’Isère et Savoie : formation continue, académie interne, évolution jusqu’au partenariat." canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
 
   <Header salons={salonsNav} current="carrieres" />

@@ -68,8 +68,8 @@ export const extensions: PrestationData = {
   },
 
   seo: {
-    title: 'Extensions de cheveux à Grenoble | Eric Di Martino',
+    title: 'Extensions de cheveux kératine à Grenoble | Eric Di Martino',
     description:
-      'Extensions kératine 100 % cheveux naturels (longueur, volume, densité) dans les salons Eric Di Martino — Grenoble, Montbonnot, Voiron, Aix-les-Bains. Sur consultation, sur rendez-vous.',
+      'Extensions kératine 100 % cheveux naturels : longueur, volume, densité, rendu invisible. Pose sur consultation à Grenoble, Montbonnot, Voiron, Aix-les-Bains.',
   },
 };

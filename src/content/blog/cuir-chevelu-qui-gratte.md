@@ -1,6 +1,6 @@
 ---
-title: "Pourquoi votre cuir chevelu vous gratte (et comment l'apaiser)"
-description: "Démangeaisons, tiraillements, pellicules ? Un cuir chevelu qui gratte a des causes précises — et des solutions concrètes. On fait le point."
+title: "Cuir chevelu qui gratte : causes et solutions"
+description: "Cuir chevelu qui gratte ? Démangeaisons, pellicules, sécheresse : on décrypte les causes et les bons gestes, du soin maison au head spa apaisant en salon."
 date: 2026-05-30
 category: "Conseils soin"
 author: "Eric Di Martino"

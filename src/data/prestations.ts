@@ -80,8 +80,8 @@ export const prestations = {
   ctaTexte: 'Réservez votre rendez-vous dans le salon de votre choix. Consultation comprise.',
 
   seo: {
-    title: 'Prestations de coiffure — coupe, couleur, soin | Eric Di Martino',
+    title: 'Prestations de coiffure : coupe, couleur, soin | Eric Di Martino',
     description:
-      'Coupe & coiffage visagiste, coloration & balayage, lissage, soins, extensions, head spa et coiffure de mariage dans les salons Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains). Sur rendez-vous.',
+      'Coupe, coloration, balayage, lissage, soins, extensions, head spa et mariage chez Eric Di Martino : chaque prestation débute par la consultation visagiste.',
   },
 };

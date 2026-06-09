@@ -68,8 +68,8 @@ export const mariage: PrestationData = {
   },
 
   seo: {
-    title: 'Coiffure de mariage en Isère & Savoie | Eric Di Martino',
+    title: 'Coiffure de mariage Isère & Savoie | Eric Di Martino',
     description:
-      'Essai, chignon, attaché et coiffure du jour J par Eric Di Martino — Grenoble, Montbonnot, Voiron, Aix-les-Bains. Accompagnement dédié de la mariée, sur rendez-vous.',
+      'Coiffure de mariage par Eric Di Martino : essai, chignon mariée et jour J à Grenoble, Montbonnot, Voiron, Aix-les-Bains. Accompagnement dédié, sur rendez-vous.',
   },
 };

@@ -141,8 +141,8 @@ export const montbonnot: SalonData = {
   instagram: { handle: '@salon_ericdimartino_montbonnot', url: 'https://www.instagram.com/salon_ericdimartino_montbonnot/' },
 
   seo: {
-    title: 'Coiffeur & coloriste visagiste à Montbonnot — Eric Di Martino',
+    title: 'Coiffeur & coloriste visagiste Montbonnot | Eric Di Martino',
     description:
-      'Salon de coiffure haut de gamme à Montbonnot, avenue de l’Europe. Coupe, couleur et beauté du regard sur rendez-vous, à partir d’une vraie consultation visagiste.',
+      'Salon de coiffure premium à Montbonnot, avenue de l’Europe : coupe, couleur et beauté du regard sur consultation visagiste. Réservez votre rendez-vous.',
   },
 };

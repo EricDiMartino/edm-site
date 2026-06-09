@@ -68,8 +68,8 @@ export const coupe: PrestationData = {
   },
 
   seo: {
-    title: 'Coupe & coiffage — coiffeur visagiste | Eric Di Martino',
+    title: 'Coupe & coiffage : coiffeur visagiste | Eric Di Martino',
     description:
-      'Coupe femme et homme, brushing, coiffage et barbe par les coiffeurs visagistes Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains). Après diagnostic, sur rendez-vous.',
+      'Coupe femme et homme, brushing et barbe par les coiffeurs visagistes Eric Di Martino à Grenoble, Montbonnot, Voiron, Aix-les-Bains. Après diagnostic, sur RDV.',
   },
 };

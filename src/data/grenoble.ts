@@ -273,8 +273,8 @@ export const grenoble: SalonData = {
   instagram: { handle: '@salon_eric_di_martino_grenoble', url: 'https://www.instagram.com/salon_eric_di_martino_grenoble/' },
 
   seo: {
-    title: 'Coiffeur & coloriste visagiste à Grenoble — Eric Di Martino',
+    title: 'Coiffeur visagiste à Grenoble | Eric Di Martino',
     description:
-      'Salon de coiffure haut de gamme à Grenoble, place Victor Hugo. Coupe, couleur, head spa et barbier sur rendez-vous, à partir d’une vraie consultation visagiste.',
+      'Coiffeur visagiste premium à Grenoble, place Victor Hugo : coupe, couleur, head spa et barbier sur rendez-vous. Tout commence par une vraie consultation.',
   },
 };

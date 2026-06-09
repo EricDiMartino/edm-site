@@ -15,7 +15,7 @@ const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', mon
 const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Journal', item: canonical }]);
 ---
 
-<Layout title="Le journal — conseils coiffure & actualités | Eric Di Martino" description="Conseils soin du cheveu, focus prestations et actualités des salons Eric Di Martino à Grenoble, Montbonnot, Voiron et Aix-les-Bains." canonical={canonical}>
+<Layout title="Conseils coiffure & soin du cheveu | Eric Di Martino" description="Le journal Eric Di Martino : conseils coiffure, soin du cheveu et focus prestations par nos coiffeurs visagistes en Isère et Savoie. Lisez nos articles." canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
   <link slot="head" rel="alternate" type="application/rss+xml" title="Eric Di Martino — Le journal" href={new URL('/rss.xml', Astro.site).href} />
 

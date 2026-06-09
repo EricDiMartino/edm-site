@@ -124,8 +124,8 @@ export const voiron: SalonData = {
   instagram: { handle: '@salon_eric_di_martino_voiron', url: 'https://www.instagram.com/salon_eric_di_martino_voiron/' },
 
   seo: {
-    title: 'Coiffeur & coloriste visagiste à Voiron — Eric Di Martino',
+    title: 'Coiffeur visagiste à Voiron, Pays Voironnais | Eric Di Martino',
     description:
-      'Salon de coiffure haut de gamme à Voiron, avenue du 8 Mai 1945. Coupe, couleur et consultation visagiste sur rendez-vous.',
+      'Salon de coiffure premium à Voiron, avenue du 8 Mai 1945 : coupe, couleur et consultation visagiste sur rendez-vous, dans le Pays Voironnais.',
   },
 };

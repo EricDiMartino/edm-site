@@ -69,8 +69,8 @@ export const lissage: PrestationData = {
   },
 
   seo: {
-    title: 'Lissage & soins capillaires | Eric Di Martino',
+    title: 'Lissage & soin capillaire en Isère | Eric Di Martino',
     description:
-      'Lissage brésilien, botox capillaire, soins profonds et masques dans les salons Eric Di Martino (Grenoble, Montbonnot, Voiron, Aix-les-Bains). Sur-mesure, après diagnostic. Sur rendez-vous.',
+      'Lissage brésilien, botox capillaire et soins profonds chez Eric Di Martino (Grenoble, Isère, Savoie). Protocole choisi après diagnostic de la fibre.',
   },
 };

@@ -1,6 +1,6 @@
 ---
-title: "Pourquoi une consultation avant de changer de tête ?"
-description: "Coupe décevante, couleur qui ne tient pas… souvent, il manque une étape : la consultation visagiste. On vous explique pourquoi elle change tout."
+title: "Changer de tête : le rôle de la consultation"
+description: "Envie de changer de tête ? Avant la coupe ou la couleur, la consultation visagiste évite les déceptions et révèle la coiffure qui vous va vraiment. On explique."
 date: 2026-05-22
 category: "Conseils soin"
 author: "Eric Di Martino"

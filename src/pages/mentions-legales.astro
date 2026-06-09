@@ -13,7 +13,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
 ---
 
-<Layout title="Mentions légales — Eric Di Martino" description="Mentions légales et politique de confidentialité du site Eric Di Martino." canonical={canonical}>
+<Layout title="Mentions légales | Eric Di Martino" description="Mentions légales du site Eric Di Martino : éditeur, hébergeur et politique de confidentialité des données personnelles des salons de coiffure." canonical={canonical}>
   <Header salons={salonsNav} current={undefined} />
 
   <main class="legal">

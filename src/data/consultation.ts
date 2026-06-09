@@ -84,8 +84,8 @@ export const consultation = {
   },
 
   seo: {
-    title: 'Consultation visagiste offerte — coiffeur Grenoble | Eric Di Martino',
+    title: 'Consultation visagiste & coloriste | Eric Di Martino',
     description:
-      'Consultation visagiste & coloriste de 30 min : bilan, diagnostic et préconisations sur-mesure. Nos experts vous rappellent. Grenoble, Montbonnot, Voiron, Aix-les-Bains. Sans engagement.',
+      'La consultation visagiste & coloriste Eric Di Martino : 30 min de bilan, diagnostic et préconisations sur-mesure avant chaque coupe ou couleur. Sur RDV.',
   },
 };

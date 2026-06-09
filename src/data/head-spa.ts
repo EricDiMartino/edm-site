@@ -141,8 +141,8 @@ export const headSpa = {
   },
 
   seo: {
-    title: 'Head Spa japonais à Grenoble, place Victor Hugo | Eric Di Martino',
+    title: 'Head spa japonais à Grenoble : rituel signature | Eric Di Martino',
     description:
-      'Head Spa d’inspiration japonaise place Victor Hugo à Grenoble : diagnostic du cuir chevelu, vapeur tiède, massage crânien. Rituels 1h15 à 2h30, dès 120 €.',
+      'Head spa japonais au salon Eric Di Martino, place Victor Hugo à Grenoble : diagnostic du cuir chevelu, massage crânien shiatsu. Rituels 1h15 à 2h30, dès 120 €.',
   },
 };
