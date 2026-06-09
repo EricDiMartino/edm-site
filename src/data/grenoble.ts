@@ -165,12 +165,12 @@ export const grenoble: SalonData = {
 
   // — Provisoire (textes placeholders cohérents) —
   heroTexte:
-    'Coupe, couleur, head spa et barbier au cœur de Grenoble, place Victor Hugo. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+    'Salon de coiffure haut de gamme place Victor Hugo, au cœur de Grenoble : coupe, couleur, head spa et barbier sur rendez-vous. Tout commence par une vraie consultation, pour une coiffure qui vous ressemble.',
 
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
     texte:
-      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+      'Avant chaque coupe ou couleur, notre coiffeur visagiste prend le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis qui guide le geste, pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
     lien: '/consultation-visagiste-coloriste',
   },
@@ -179,9 +179,9 @@ export const grenoble: SalonData = {
   maison: {
     numero: '01',
     eyebrow: 'Notre maison',
-    titre: 'Le salon de Grenoble.',
+    titre: 'Le salon de coiffure de Grenoble.',
     paragraphes: [
-      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle — un écrin pensé pour que le geste prime.',
+      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle — un écrin pensé pour que le geste prime. À deux pas du centre-ville, il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
       'Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
@@ -190,10 +190,10 @@ export const grenoble: SalonData = {
   services: [
     {
       eyebrow: 'Signature exclusive',
-      titre: 'Head spa à Grenoble',
+      titre: 'Head spa japonais à Grenoble',
       texte:
-        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage du cuir chevelu, vapeur tiède et soin profond — pour un cheveu apaisé, un esprit relâché.',
-      points: ['Diagnostic capillaire', 'Massage 20 minutes', 'Soin sur-mesure', 'Brushing inclus'],
+        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage crânien, vapeur tiède et soin profond du cuir chevelu — pour un cheveu apaisé et un esprit relâché.',
+      points: ['Diagnostic capillaire', 'Massage crânien 20 min', 'Soin du cuir chevelu sur-mesure', 'Brushing inclus'],
       prix: '89 €',
       prixDetail: '1h · soin signature',
       image: headspa,
@@ -205,8 +205,8 @@ export const grenoble: SalonData = {
       eyebrow: 'Au masculin',
       titre: 'Barbier à Grenoble, sur rendez-vous',
       texte:
-        'Coupe, taille de barbe et entretien, avec la même exigence de précision et la même tranquillité. Discrètement, dans l’esprit de la maison.',
-      points: ['Coupe & coiffage', 'Taille de barbe', 'Contours nets', 'Serviette chaude'],
+        'Coupe, taille de barbe et entretien, avec la même exigence de précision et la même tranquillité. Un espace barbier discret, dans l’esprit de la maison.',
+      points: ['Coupe homme & dégradé', 'Taille de barbe', 'Contours nets', 'Serviette chaude'],
       prix: 'dès 28 €',
       prixDetail: '30 min',
       image: barbier,
@@ -222,9 +222,9 @@ export const grenoble: SalonData = {
     titreEm: 'tout un savoir-faire',
     texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
     items: [
-      { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
-      { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
+      { titre: 'Extensions de cheveux', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié à votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure, adaptés à la forme de votre visage.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },
 
@@ -257,16 +257,16 @@ export const grenoble: SalonData = {
     {
       question: 'Faut-il prendre rendez-vous ?',
       reponse:
-        'Oui, nous travaillons exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
+        'Oui, notre salon place Victor Hugo travaille exclusivement sur rendez-vous, afin de vous consacrer le temps nécessaire, consultation comprise.',
     },
     {
       question: 'En quoi consiste la consultation visagiste ?',
       reponse:
-        'Un temps d’échange avant chaque prestation : morphologie, nature du cheveu, mode de vie. Elle oriente la coupe et la couleur pour un résultat facile à vivre.',
+        'C’est un temps d’échange avant chaque prestation : morphologie du visage, nature du cheveu, mode de vie. Ce diagnostic oriente la coupe et la couleur pour un résultat facile à vivre au quotidien.',
     },
     {
       question: 'Proposez-vous le head spa à Grenoble ?',
-      reponse: 'Oui, dans un espace dédié — en soin seul ou en complément d’une prestation.',
+      reponse: 'Oui, dans un espace dédié — massage crânien et soin du cuir chevelu, en soin seul ou en complément d’une prestation.',
     },
   ],
 

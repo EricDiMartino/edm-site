@@ -9,7 +9,7 @@ export const lissage: PrestationData = {
     eyebrow: 'Soin',
     titre: 'Lissage & soins',
     lede:
-      'Lissage brésilien, botox capillaire, soins profonds et masques — pour discipliner, réparer et faire briller le cheveu. Sur-mesure, après diagnostic de la fibre. Dans nos quatre salons.',
+      'Lissage brésilien, botox capillaire, soins profonds et masques — pour discipliner, réparer et faire briller le cheveu. Sur-mesure, après diagnostic de la fibre. Dans nos quatre salons à Grenoble et en Isère, à Voiron comme à Aix-les-Bains.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 

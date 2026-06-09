@@ -56,12 +56,12 @@ export const aixLesBains: SalonData = {
   },
 
   heroTexte:
-    'Coupe, couleur et consultation visagiste à Aix-les-Bains, boulevard Président Wilson. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+    'Coupe, couleur et consultation visagiste à Aix-les-Bains, boulevard Président Wilson, au bord du lac. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
 
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
     texte:
-      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+      'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature du cheveu, mode de vie. Un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
     lien: '/consultation-visagiste-coloriste',
   },
@@ -71,7 +71,7 @@ export const aixLesBains: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon d’Aix-les-Bains.',
     paragraphes: [
-      'Boulevard Président Wilson, à Aix-les-Bains, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu.',
+      'Boulevard Président Wilson, au cœur d’Aix-les-Bains et tout près du lac, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu. Un point de rendez-vous pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
       'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
@@ -106,7 +106,7 @@ export const aixLesBains: SalonData = {
     {
       question: 'Faut-il prendre rendez-vous ?',
       reponse:
-        'Oui, nous travaillons exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
+        'Oui, nous travaillons exclusivement sur rendez-vous, du mardi au samedi, afin de vous consacrer le temps nécessaire, consultation comprise.',
     },
     {
       question: 'En quoi consiste la consultation visagiste ?',

@@ -24,17 +24,17 @@ const ICONS: Record<string, string> = {
   spark: '<circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
 };
 const univers = [
-  { titre: 'Sourcils', icon: 'brow', texte: 'Restructuration, épilation et teinture : des sourcils redessinés selon la ligne de votre visage. La structure qui change tout un regard.' },
-  { titre: 'Cils', icon: 'eye', texte: 'Rehaussement (lash lift), teinture et extensions : des cils plus longs, recourbés et intenses — au naturel ou plus affirmés.' },
-  { titre: 'Maquillage permanent', icon: 'pen', texte: 'Sourcils, ligne des yeux, lèvres : un maquillage semi-permanent durable et parfaitement dessiné, par une spécialiste de la technique.' },
+  { titre: 'Sourcils', icon: 'brow', texte: 'Restructuration, épilation et teinture des sourcils à Montbonnot : une ligne redessinée selon la forme de votre visage. La structure qui change tout un regard.' },
+  { titre: 'Cils', icon: 'eye', texte: 'Rehaussement de cils (lash lift), teinture et extensions de cils : des cils plus longs, recourbés et intenses — effet naturel ou regard plus affirmé.' },
+  { titre: 'Maquillage permanent', icon: 'pen', texte: 'Maquillage permanent des sourcils, de la ligne des yeux et des lèvres : un dessin durable et précis, par une spécialiste de la technique.' },
   { titre: 'Grain de beauté', icon: 'spark', texte: 'La touche finale : un grain de beauté dessiné avec précision pour souligner et sublimer le regard.' },
 ];
 
 const faq = [
-  { question: 'Où se déroulent les prestations beauté du regard ?', reponse: `Au salon Eric Di Martino de Montbonnot, ${m.adresse}, ${cpVille}, sur rendez-vous avec Audrey, notre artiste du regard.` },
-  { question: 'Peut-on combiner beauté du regard et coiffure ?', reponse: 'Oui : vous pouvez réserver une prestation du regard seule, ou en complément d’un rendez-vous coiffure dans le même salon.' },
+  { question: 'Où faire ses cils et sourcils près de Montbonnot ?', reponse: `Au salon Eric Di Martino de Montbonnot, ${m.adresse}, ${cpVille}, sur rendez-vous avec Audrey, notre artiste du regard. Un rendez-vous facile d’accès depuis Meylan, Saint-Ismier, Biviers, Crolles et Grenoble.` },
+  { question: 'Peut-on combiner beauté du regard et coiffure ?', reponse: 'Oui : vous pouvez réserver une prestation du regard seule, ou en complément d’un rendez-vous coiffure dans le même salon de Montbonnot.' },
   { question: 'Proposez-vous le paiement en plusieurs fois ?', reponse: 'Oui, le paiement en 3 ou 4 fois est possible sur les prestations beauté du regard.' },
-  { question: 'Faut-il un échange avant un maquillage permanent ?', reponse: 'Oui. Chaque maquillage permanent commence par un temps d’échange pour définir la forme, la teinte et valider ensemble le rendu souhaité.' },
+  { question: 'Faut-il un échange avant un rehaussement de cils ou un maquillage permanent ?', reponse: 'Oui. Chaque rehaussement de cils, extension de cils ou maquillage permanent commence par un temps d’échange pour définir la forme, la teinte et valider ensemble le rendu souhaité.' },
 ];
 
 // Schémas SEO / GEO
@@ -81,7 +81,7 @@ const seo = {
       <div class="bdr-hero-copy reveal">
         <p class="label">{m.ville} · L'artiste du regard</p>
         <h1 class="editorial bdr-h1">La beauté du <em class="ital">regard</em>.</h1>
-        <p class="lede bdr-lede">Sourcils redessinés, cils intensifiés, maquillage permanent : à Montbonnot, Audrey sublime votre regard avec la même exigence que nos prestations coiffure — toujours à partir de votre visage.</p>
+        <p class="lede bdr-lede">Beauté du regard à Montbonnot : sourcils redessinés, rehaussement et extensions de cils, maquillage permanent. Audrey sublime votre regard avec la même exigence que nos prestations coiffure — toujours à partir de la forme de votre visage.</p>
         <div class="bdr-actions">
           <a class="btn btn-action" href="#reserver" data-reserve>Prendre rendez-vous</a>
           <a class="btn btn-ghost" href="#univers">Voir les prestations</a>
@@ -103,7 +103,7 @@ const seo = {
       <div class="bdr-approche-copy reveal">
         <p class="label">Notre approche</p>
         <h2 class="h-seo">Le regard, prolongement du visage</h2>
-        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque prestation, Audrey prend le temps du diagnostic — pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
+        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque rehaussement de cils, restructuration de sourcils ou maquillage permanent, Audrey prend le temps du diagnostic — pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
         <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -112,7 +112,7 @@ const seo = {
     <section class="section bdr-univers" id="univers">
       <header class="section-head reveal">
         <p class="label">Nos prestations</p>
-        <h2 class="h-seo">Quatre savoir-faire au service du regard</h2>
+        <h2 class="h-seo">Cils, sourcils et maquillage permanent à Montbonnot</h2>
       </header>
       <ul class="bdr-grid reveal" data-d="1">
         {univers.map((u) => (
@@ -131,7 +131,7 @@ const seo = {
       <div class="bdr-praticienne-copy reveal" data-d="1">
         <p class="label">La praticienne</p>
         <h2 class="h-seo">Audrey, artiste du regard</h2>
-        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard, pour un résultat naturel et durable.</p>
+        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard — cils, sourcils, dessin durable — pour un résultat naturel à Montbonnot.</p>
         <a class="link-arrow link-olive" href={m.instagram.url} target="_blank" rel="noopener">Voir son travail sur Instagram<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -143,7 +143,7 @@ const seo = {
       </div>
       <div class="bdr-lieu-copy reveal" data-d="1">
         <p class="label">Le lieu</p>
-        <h2 class="h-seo">Au salon de Montbonnot</h2>
+        <h2 class="h-seo">Beauté du regard au salon de Montbonnot</h2>
         <p class="bdr-lieu-addr">{m.adresse}<br />{cpVille}</p>
         <ul class="bdr-hours">
           {m.horaires.map((hr) => (

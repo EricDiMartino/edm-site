@@ -54,7 +54,7 @@ const itemList = {
       <header class="section-head reveal">
         <p class="label">Nos adresses</p>
         <h1 class="h-seo">Les salons de coiffure Eric&nbsp;Di&nbsp;Martino, en Isère &amp; Savoie</h1>
-        <p class="lede">Quatre salons en Isère et en Savoie. Même exigence partout : une coiffure pensée pour vous, à partir d’une vraie consultation.</p>
+        <p class="lede">Quatre salons de coiffure haut de gamme : à Grenoble et Montbonnot, à Voiron en Isère, à Aix-les-Bains en Savoie. Partout la même exigence — coupe femme, coupe homme, balayage, coloration, lissage ou head spa, toujours pensés à partir d’une vraie consultation visagiste, jamais sur catalogue. Choisissez l’adresse la plus proche et réservez votre rendez-vous.</p>
       </header>
 
       <ul class="salons-grid">
@@ -63,7 +63,7 @@ const itemList = {
           const telHref = d.telephone ? 'tel:' + d.telephone.replace(/[^0-9+]/g, '') : '';
           return (
             <li class="salon-card reveal" data-d={i % 2 === 1 ? '1' : undefined}>
-              <a class="card-media" href={s.href} aria-label={`Découvrir le salon de ${d.ville}`}>
+              <a class="card-media" href={s.href} aria-label={`Découvrir le salon de coiffure Eric Di Martino à ${d.ville}`}>
                 <Image
                   src={d.heroImage}
                   widths={CARD_WIDTHS}

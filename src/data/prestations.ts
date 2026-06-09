@@ -20,7 +20,7 @@ export const prestations = {
     titre: 'Coupe, couleur, soin —',
     titreEm: 'pensés pour vous',
     lede:
-      'Chaque prestation commence par une vraie consultation visagiste, dans nos quatre salons. Coupe, coloration, lissage, soins, extensions, head spa et mariage — sur rendez-vous.',
+      'Chaque prestation commence par une vraie consultation visagiste, dans nos quatre salons. Coupe, coloration, balayage, lissage, soins, extensions, head spa et mariage — sur rendez-vous.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 

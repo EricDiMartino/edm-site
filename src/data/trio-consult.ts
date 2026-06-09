@@ -26,7 +26,7 @@ export interface TrioConsultData {
 export const defaultTrioConsult: TrioConsultData = {
   kicker: 'Consultation & Coupe',
   titre: 'Tout commence par un diagnostic',
-  sous: 'Notre signature : une consultation visagiste qui révèle votre coupe idéale avant le premier coup de ciseaux.',
+  sous: 'Notre signature : une consultation visagiste qui détermine la coupe selon la forme de votre visage, avant le premier coup de ciseaux.',
   cards: [
     {
       badge: "L'essentiel",
@@ -37,7 +37,7 @@ export const defaultTrioConsult: TrioConsultData = {
       points: [
         { texte: 'Coupe signature personnalisée' },
         { texte: 'Coiffage & finition' },
-        { texte: 'Routine maison conseillée' },
+        { texte: 'Routine d’entretien à la maison' },
       ],
       cta: 'Réserver',
     },
@@ -50,7 +50,7 @@ export const defaultTrioConsult: TrioConsultData = {
       points: [
         { texte: 'Analyse du visage & morphologie' },
         { texte: 'Conseil coupe + couleur sur-mesure' },
-        { texte: 'Projection du rendu' },
+        { texte: 'Projection du rendu avant décision' },
         { texte: 'Offerte dès une coupe ou couleur', muted: true, gift: true },
       ],
       cta: 'Réserver ma consultation',

@@ -56,12 +56,12 @@ export const voiron: SalonData = {
   },
 
   heroTexte:
-    'Coupe, couleur et consultation visagiste à Voiron, avenue du 8 Mai 1945. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+    'Salon de coiffure haut de gamme à Voiron, avenue du 8 Mai 1945 : coupe femme et homme, balayage, coloration et consultation visagiste. Une coiffure pensée selon la forme de votre visage, à partir d’une vraie consultation.',
 
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
     texte:
-      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+      'Quelle coupe selon mon visage ? C’est la première question à laquelle nous répondons. Avant chaque coupe ou couleur, notre coiffeur visagiste à Voiron prend le temps du diagnostic capillaire : morphologie du visage, nature du cheveu, mode de vie. Un examen précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
     lien: '/consultation-visagiste-coloriste',
   },
@@ -71,8 +71,8 @@ export const voiron: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de Voiron.',
     paragraphes: [
-      'Avenue du 8 Mai 1945, notre salon est une référence de la coiffure à Voiron et dans le Pays Voironnais : coupe, couleur et techniques exigeantes, dans un cadre soigné.',
-      'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+      'Avenue du 8 Mai 1945, notre salon de coiffure est une référence à Voiron et dans le Pays Voironnais : coupe femme et homme, dégradé, brushing, balayage et coloration menés avec exigence, dans un cadre soigné. Nos clientes et clients viennent aussi de Coublevie, Saint-Jean-de-Moirans, Moirans, La Buisse et Rives.',
+      'Coupe pensée selon la forme du visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation visagiste, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
   },
@@ -85,10 +85,10 @@ export const voiron: SalonData = {
     eyebrow: 'Aussi au salon',
     titre: 'Bien plus qu’une coupe,',
     titreEm: 'tout un savoir-faire',
-    texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
+    texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent à Voiron sur les grands rendez-vous comme au quotidien.',
     items: [
-      { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Extensions', texte: 'Extensions de cheveux à Voiron : longueur, volume ou densité, pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Essai coiffure mariage, chignon de mariée et coiffure du jour J — un accompagnement dédié à Voiron pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
       { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },
@@ -110,14 +110,19 @@ export const voiron: SalonData = {
 
   faq: [
     {
-      question: 'Faut-il prendre rendez-vous ?',
+      question: 'Faut-il prendre rendez-vous dans votre salon de coiffure à Voiron ?',
       reponse:
-        'Oui, nous travaillons exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
+        'Oui, notre salon de coiffure à Voiron travaille exclusivement sur rendez-vous afin de vous consacrer le temps nécessaire, consultation comprise.',
     },
     {
       question: 'En quoi consiste la consultation visagiste ?',
       reponse:
-        'Un temps d’échange avant chaque prestation : morphologie, nature du cheveu, mode de vie. Elle oriente la coupe et la couleur pour un résultat facile à vivre.',
+        'Un temps d’échange avant chaque prestation : morphologie du visage, nature du cheveu, mode de vie. Ce diagnostic capillaire répond à la question « quelle coupe selon mon visage ? » et oriente la coupe et la couleur pour un résultat facile à vivre.',
+    },
+    {
+      question: 'Faites-vous le balayage et la coloration à Voiron ?',
+      reponse:
+        'Oui. Nos coloristes réalisent balayage, ombré hair, gloss et coloration sur-mesure à Voiron, sur cheveux blonds comme foncés, après une consultation pour choisir la technique adaptée à votre cheveu.',
     },
   ],
 

@@ -12,7 +12,7 @@ export const consultation = {
   // ---- FORM de rappel ----
   form: {
     titre: 'Votre consultation offerte',
-    sousTitre: 'Laissez vos coordonnées : nos experts vous rappellent pour faire le point sur votre projet.',
+    sousTitre: 'Laissez vos coordonnées : nos coiffeurs visagistes vous rappellent pour faire le point sur votre projet.',
     submit: 'Être rappelé·e',
     confirmation: 'Merci ! Nous avons bien reçu votre demande — un expert vous rappelle très vite.',
     rgpd: 'Vos données servent uniquement à vous recontacter. Aucune revente.',
@@ -52,7 +52,7 @@ export const consultation = {
   },
 
   etapes: {
-    titre: 'Comment ça marche',
+    titre: 'Comment se déroule votre consultation',
     items: [
       { num: '01', titre: 'Laissez vos coordonnées', texte: 'Le formulaire prend 30 secondes.' },
       { num: '02', titre: 'Nos experts vous rappellent', texte: 'Pour faire le point sur votre projet, dans la limite des places.' },

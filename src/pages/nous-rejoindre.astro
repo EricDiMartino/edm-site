@@ -12,9 +12,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const FORM_ENDPOINT = ''; // TODO: endpoint candidatures (Formspree / GoHighLevel)
 
 const atouts = [
-  { titre: 'Formation continue', texte: 'Formation tout au long de l’année + accès à notre académie interne, Academy Leader.', icon: 'book' },
+  { titre: 'Formation continue', texte: 'Coupe, couleur, balayage, lissage : on se forme toute l’année, avec un accès à notre académie interne, Academy Leader.', icon: 'book' },
   { titre: 'Évolution réelle', texte: 'Une trajectoire claire : coiffeur, manager, formateur, puis associé ou partenariat.', icon: 'arrow' },
-  { titre: 'Cadre premium', texte: 'Quatre salons haut de gamme, une spécialité reconnue : la consultation visagiste.', icon: 'sparkle' },
+  { titre: 'Cadre premium', texte: 'Quatre salons de coiffure haut de gamme en Isère et Savoie, autour d’une spécialité reconnue : la consultation visagiste.', icon: 'sparkle' },
   { titre: 'Avantages', texte: 'Mutuelle d’entreprise, participation aux frais de transport, réductions sur les prestations.', icon: 'heart' },
 ];
 
@@ -23,14 +23,14 @@ const postes = [
     titre: 'Coiffeur·se confirmé·e',
     contrat: 'CDI',
     lieu: 'Nos 4 salons — Grenoble, Montbonnot, Voiron, Aix-les-Bains',
-    missions: ['Coupe, couleur et techniques capillaires', 'Conseil client personnalisé — notre signature', 'Polyvalence sur l’ensemble des prestations'],
-    profil: 'CAP minimum et 2 ans d’expérience en salon, à l’aise en coupe comme en couleur, orienté conseil et envie de progresser.',
+    missions: ['Coupe femme et coupe homme, couleur, balayage, lissage et soins', 'Diagnostic capillaire et conseil personnalisé — la signature de la maison', 'Polyvalence sur l’ensemble des prestations'],
+    profil: 'CAP minimum et 2 ans d’expérience en salon, à l’aise sur la coupe selon la forme du visage comme sur la couleur et le balayage, orienté conseil et envie de progresser.',
   },
   {
     titre: 'Manager de salon',
     contrat: 'CDI',
     lieu: 'Grenoble',
-    missions: ['Piloter l’équipe : planning, recrutement, montée en compétences', 'Gérer le salon (chiffre d’affaires, marge, stocks)', 'Garantir les standards et l’expérience Eric Di Martino', 'Continuer à exercer la coiffure'],
+    missions: ['Piloter l’équipe : planning, recrutement, montée en compétences', 'Gérer le salon de coiffure (chiffre d’affaires, marge, stocks)', 'Garantir les standards et l’expérience Eric Di Martino', 'Continuer à exercer la coiffure en salon'],
     profil: 'Coiffeur·se confirmé·e avec une vraie envie de basculer vers le management et la gestion, structuré·e, dans une vision long terme (associariat ou franchise).',
   },
 ];
@@ -55,7 +55,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       <div class="reveal">
         <p class="label">Carrières</p>
         <h1 class="editorial nr-h1">Rejoignez la <em class="ital">maison</em>.</h1>
-        <p class="lede nr-lede">Quatre salons haut de gamme en Isère et Savoie, une académie interne et une vraie trajectoire d’évolution. On recrute les talents qui veulent progresser.</p>
+        <p class="lede nr-lede">Quatre salons de coiffure haut de gamme à Grenoble, Montbonnot, Voiron et Aix-les-Bains, une académie interne et une vraie trajectoire d’évolution. On recrute les coiffeurs et coiffeuses qui veulent progresser.</p>
         <div class="nr-actions">
           <a class="btn btn-action" href="#postes">Voir les postes</a>
           <button type="button" class="btn btn-ghost" data-apply data-poste="Candidature spontanée">Candidature spontanée</button>
@@ -66,7 +66,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     <section class="section nr-why">
       <header class="section-head reveal">
         <p class="label">Pourquoi nous</p>
-        <h2 class="h-seo">Ce qu’on offre vraiment</h2>
+        <h2 class="h-seo">Travailler en salon de coiffure haut de gamme</h2>
       </header>
       <ul class="nr-atouts reveal" data-d="1">
         {atouts.map((a) => (
@@ -82,7 +82,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     <section class="section nr-postes" id="postes">
       <header class="section-head reveal">
         <p class="label">Postes ouverts</p>
-        <h2 class="h-seo">On recrute</h2>
+        <h2 class="h-seo">Recrutement coiffeur en Isère et Savoie</h2>
       </header>
       <ul class="nr-poste-list reveal" data-d="1">
         {postes.map((p) => (
@@ -102,7 +102,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       </ul>
     </section>
 
-    <CtaBlock title="Pas le poste qu’il vous faut ?" lede="Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils."><button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button></CtaBlock>
+    <CtaBlock title="Pas le poste qu’il vous faut ?" lede="Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils de coiffeurs et coiffeuses en Isère et Savoie."><button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />

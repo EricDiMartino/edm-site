@@ -20,7 +20,7 @@ export const headSpa = {
     titre: 'Head Spa',
     titreEm: 'japonais',
     lede:
-      "Un soin du cuir chevelu d'inspiration japonaise. Vapeur tiède, massage crânien, rituels d'huiles précieuses — un voyage sensoriel pour relâcher le mental et révéler la beauté du cheveu.",
+      "Un soin du cuir chevelu d'inspiration japonaise, mené dans une cabine dédiée. Vapeur tiède, massage crânien, rituels d'huiles précieuses — un voyage sensoriel pour relâcher le mental et révéler la beauté du cheveu.",
     meta: [
       { label: 'Durée', valeur: '1h15 – 2h30' },
       { label: 'À partir de', valeur: '120 €' },
@@ -32,11 +32,11 @@ export const headSpa = {
   intro: {
     numero: 'I',
     eyebrow: 'Le rituel',
-    titre: 'Le Head Spa, c’est quoi ?',
+    titre: 'Le head spa, qu’est-ce que c’est ?',
     paragraphes: [
-      'Né dans les salons de Tokyo, le Head Spa est le pendant capillaire du massage shiatsu — un soin profond du cuir chevelu, traité comme on traite la peau du visage.',
+      'Né dans les salons de Tokyo, le head spa japonais est le pendant capillaire du massage shiatsu — un soin profond du cuir chevelu, traité comme on traite la peau du visage.',
       'Il associe diagnostic du cuir chevelu, vapeur d’eau tiède, exfoliation aux huiles essentielles et massage crânien lent. Un soin technique, mais une expérience avant tout sensorielle : on s’allonge, on ferme les yeux, et on disparaît, le temps d’un rituel.',
-      'Inspiré des rituels japonais et adapté aux cuirs chevelus européens, il est pratiqué exclusivement dans la cabine dédiée du salon de Grenoble.',
+      'Inspiré des rituels japonais et adapté aux cuirs chevelus européens, il est pratiqué exclusivement dans la cabine dédiée de notre salon de Grenoble.',
     ],
     citation: {
       texte: 'On ne soigne pas un cheveu sec, on apaise un cuir chevelu fatigué.',
@@ -50,7 +50,7 @@ export const headSpa = {
     eyebrow: 'Le déroulé',
     titre: 'Cinq étapes, un vrai moment pour soi',
     intro:
-      'Chaque rituel suit le même protocole, transmis par notre maître coiffeur. La durée totale varie selon la formule choisie — l’enchaînement reste le même.',
+      'Chaque rituel suit le même protocole, transmis par notre maître coiffeur. La durée totale varie selon la formule choisie — l’enchaînement, lui, reste le même.',
     etapes: [
       { num: '01', titre: 'Diagnostic du cuir chevelu', duree: '10 min', texte: 'Analyse à la loupe lumineuse. On identifie la nature du cuir chevelu — sec, sensible, gras, irrité — et on choisit l’huile essentielle adaptée.' },
       { num: '02', titre: 'Bain de vapeur tiède', duree: '8 min', texte: 'Une fine vapeur d’eau de source ouvre les follicules et prépare le cuir chevelu à recevoir les actifs. La sensation est cocooning, jamais brûlante.' },
@@ -64,7 +64,7 @@ export const headSpa = {
   bienfaits: {
     eyebrow: 'Les bienfaits',
     titre: 'Plus qu’un soin, une parenthèse',
-    intro: 'Le Head Spa agit sur le cuir chevelu, le cheveu et l’esprit. Six bienfaits que nos clientes nous rapportent, séance après séance.',
+    intro: 'Le head spa agit sur le cuir chevelu, le cheveu et l’esprit. Six bienfaits que nos clientes nous rapportent, séance après séance.',
     items: [
       { titre: 'Anti-stress profond', texte: 'Un relâchement immédiat des tensions, du corps comme de l’esprit.', caption: 'Dès la séance', icon: 'leaf' },
       { titre: 'Sommeil apaisé', texte: 'Le massage crânien lent invite à un état de détente propice au repos.', caption: 'Détente profonde', icon: 'moon' },
@@ -119,10 +119,10 @@ export const headSpa = {
   faq: [
     { question: 'Faut-il avoir les cheveux sales ou propres ?', reponse: 'L’idéal est d’arriver avec un cheveu lavé la veille — ni trop propre, ni gras. Cela permet à l’exfoliation et au massage de travailler efficacement sans alourdir le cuir chevelu.' },
     { question: 'Combien de séances pour voir un résultat ?', reponse: 'L’effet relaxant est immédiat, dès la première séance. Pour un cuir chevelu inconfortable, un cycle de 3 à 4 séances espacées de 3 semaines est conseillé.' },
-    { question: 'Le Head Spa convient-il aux cheveux colorés ?', reponse: 'Oui, et c’est même conseillé. Le rituel utilise des huiles bio sans sulfate qui respectent la couleur, et un cuir chevelu apaisé garde mieux sa couleur dans le temps.' },
-    { question: 'Puis-je l’offrir en cadeau ?', reponse: 'Oui. Nous proposons un coffret cadeau pour chacune des trois formules, valable 1 an, à retirer en salon ou à recevoir par voie postale.' },
-    { question: 'Le rituel est-il fait pour les hommes ?', reponse: 'Absolument. Le Head Spa est unisexe — environ un tiers de notre clientèle est masculine. Les hommes apprécient particulièrement l’effet sur le cuir chevelu et la décontraction des cervicales.' },
-    { question: 'Peut-on le combiner avec une coupe ou une couleur ?', reponse: 'Oui, le Head Spa s’intègre parfaitement avant une coupe ou une couleur. Précisez-le à la réservation : nous adaptons le planning pour enchaîner les soins sans rupture.' },
+    { question: 'Le head spa convient-il aux cheveux colorés ?', reponse: 'Oui, et c’est même conseillé. Le rituel utilise des huiles bio sans sulfate qui respectent la couleur, et un cuir chevelu apaisé garde mieux sa couleur dans le temps.' },
+    { question: 'Puis-je l’offrir en cadeau ?', reponse: 'Oui. Nous proposons un coffret cadeau pour chacune des trois formules, valable 1 an, à retirer au salon ou à recevoir par voie postale.' },
+    { question: 'Le rituel est-il fait pour les hommes ?', reponse: 'Absolument. Le head spa est unisexe — environ un tiers de notre clientèle est masculine. Les hommes apprécient particulièrement l’effet sur le cuir chevelu et la décontraction des cervicales.' },
+    { question: 'Peut-on le combiner avec une coupe ou une couleur ?', reponse: 'Oui, le head spa s’intègre parfaitement avant une coupe ou une couleur. Précisez-le à la réservation : nous adaptons le planning pour enchaîner les soins sans rupture.' },
   ],
 
   // Instagram du salon de Grenoble (lien + sameAs schema). Galerie = placeholders provisoires.

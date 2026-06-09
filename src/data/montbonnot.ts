@@ -14,7 +14,7 @@ export const montbonnot: SalonData = {
   // — Réel (saisi / vérifié sur Google) —
   nom: 'Eric Di Martino',
   ville: 'Montbonnot',
-  accroche: "L'élégance, prise au mot.",
+  accroche: 'Le bon geste, après la bonne question.',
   titreSeo: 'Coiffeur et coloriste visagiste à Montbonnot',
   adresse: '1435 avenue de l’Europe',
   codePostal: '38330',
@@ -61,12 +61,12 @@ export const montbonnot: SalonData = {
 
   // — Provisoire (textes placeholders cohérents) —
   heroTexte:
-    'Coupe, couleur et beauté du regard à Montbonnot, avenue de l’Europe. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+    'Salon de coiffure haut de gamme à Montbonnot, avenue de l’Europe : coupe femme et homme, balayage, coloration et beauté du regard. Une coiffure pensée pour vous, à partir d’une vraie consultation visagiste.',
 
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
     texte:
-      'Avant chaque coupe ou couleur, nous prenons le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+      'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature et état du cheveu, mode de vie. Notre coiffeur visagiste à Montbonnot répond à la vraie question — quelle coupe selon mon visage — pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
     lien: '/consultation-visagiste-coloriste',
   },
@@ -77,8 +77,8 @@ export const montbonnot: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de Montbonnot.',
     paragraphes: [
-      'À Montbonnot-Saint-Martin, avenue de l’Europe, notre salon accueille le Grésivaudan et l’agglomération grenobloise dans un cadre clair et apaisé.',
-      'Coupe pensée pour le visage, coloration sur-mesure et beauté du regard : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+      'À Montbonnot-Saint-Martin, avenue de l’Europe, notre salon de coiffure accueille le Grésivaudan et l’agglomération grenobloise dans un cadre clair et apaisé.',
+      'Coupe pensée pour le visage, balayage et coloration sur-mesure, beauté du regard : chez votre coloriste visagiste, chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
   },
@@ -88,7 +88,7 @@ export const montbonnot: SalonData = {
       eyebrow: 'Le regard, en signature',
       titre: 'Beauté du regard à Montbonnot',
       texte:
-        'Rehaussement et extensions de cils, teinture des cils et des sourcils, restructuration des sourcils : un regard intensifié et sur-mesure, dans le même esprit d’exigence que nos prestations coiffure.',
+        'Rehaussement et extensions de cils, teinture des cils et des sourcils, restructuration des sourcils : un regard intensifié et sur-mesure, dans le même esprit d’exigence que nos prestations coiffure. En prestation seule ou en complément de votre coiffure.',
       points: ['Rehaussement de cils', 'Extensions de cils', 'Teinture cils & sourcils', 'Restructuration sourcils'],
       image: undefined, // pas de visuel dédié → cadre dégradé (à remplacer par une vraie photo)
       lien: '/beaute-du-regard-montbonnot',
@@ -103,8 +103,8 @@ export const montbonnot: SalonData = {
     titreEm: 'tout un savoir-faire',
     texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
     items: [
-      { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Extensions', texte: 'Extensions de cheveux : longueur, volume ou densité — pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Coiffure de mariage à Montbonnot : essai préalable, chignon de mariée et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
       { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },
@@ -129,7 +129,7 @@ export const montbonnot: SalonData = {
     {
       question: 'En quoi consiste la consultation visagiste ?',
       reponse:
-        'Un temps d’échange avant chaque prestation : morphologie, nature du cheveu, mode de vie. Elle oriente la coupe et la couleur pour un résultat facile à vivre.',
+        'C’est un temps d’échange et un diagnostic avant chaque prestation : forme du visage, nature et état du cheveu, mode de vie. Il oriente la coupe et la couleur vers un résultat qui vous ressemble et reste facile à vivre.',
     },
     {
       question: 'Proposez-vous la beauté du regard à Montbonnot ?',
