@@ -3,7 +3,9 @@
 // Envoie un JSON (incluant le nom du formulaire + CV en base64) à l'endpoint
 // Google Apps Script (PUBLIC_FORM_ENDPOINT) → 1 onglet/form + email + CV dans le Drive.
 // Affiche un message de remerciement à la place du formulaire.
-const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+const formEndpoint =
+  import.meta.env.PUBLIC_FORM_ENDPOINT ||
+  'https://script.google.com/macros/s/AKfycbyJ_tG7w2NHKa2oePxc9OaC8SY8Swh5YMuHH3Q72BrF14HyWfA1mMFFbUvhsAj9zGyG/exec';
 ---
 
 <script is:inline define:vars={{ formEndpoint }}>
