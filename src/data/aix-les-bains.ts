@@ -5,8 +5,8 @@
 // Images : réutilisent PROVISOIREMENT les visuels Grenoble.
 
 import type { SalonData } from './grenoble';
-import hero from '../assets/salons/grenoble/hero.webp'; // PROVISOIRE
-import expertise from '../assets/salons/grenoble/expertise.webp'; // PROVISOIRE
+import hero from '../assets/salons/aix-les-bains/hero.webp';
+import expertise from '../assets/salons/aix-les-bains/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
 
 export const aixLesBains: SalonData = {

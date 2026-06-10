@@ -6,8 +6,8 @@
 // vraies photos de Montbonnot).
 
 import type { SalonData } from './grenoble';
-import hero from '../assets/salons/grenoble/hero.webp'; // PROVISOIRE
-import expertise from '../assets/salons/grenoble/expertise.webp'; // PROVISOIRE
+import hero from '../assets/salons/montbonnot/hero.webp';
+import expertise from '../assets/salons/montbonnot/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
 
 export const montbonnot: SalonData = {
