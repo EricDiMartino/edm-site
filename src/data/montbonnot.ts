@@ -117,7 +117,6 @@ export const montbonnot: SalonData = {
   equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
   // Équipe — prénoms réels (site). Spécialités PROVISOIRES (sauf Audrey, beauté du regard).
   equipe: [
-    { prenom: 'Manon', specialite: 'Coiffeuse' },
     { prenom: 'Lili Rose', specialite: 'Coiffeuse', photo: eqili },
     { prenom: 'Audrey', specialite: 'Beauté du regard', photo: equdrey },
     { prenom: 'Jeremy', specialite: 'Coiffeur Artiste', photo: eqeremy },

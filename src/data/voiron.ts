@@ -8,6 +8,7 @@ import type { SalonData } from './grenoble';
 import hero from '../assets/salons/voiron/hero.webp';
 import expertise from '../assets/salons/voiron/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
+import lilyPhoto from '../assets/salons/voiron/equipe/lily.webp';
 import eqmy from '../assets/salons/voiron/equipe/emy.webp';
 import eqanu from '../assets/salons/voiron/equipe/manu.webp';
 import eqharlotte from '../assets/salons/voiron/equipe/charlotte.webp';
@@ -102,12 +103,10 @@ export const voiron: SalonData = {
   equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
   // Prénoms réels (site). Spécialités non communiquées → omises pour l'instant.
   equipe: [
-    { prenom: 'Lily' },
-    { prenom: 'Florence' },
+    { prenom: 'Lily', photo: lilyPhoto },
     { prenom: 'Emy', photo: eqmy },
     { prenom: 'Diego' },
     { prenom: 'Emmanuel', photo: eqanu },
-    { prenom: 'Marlène' },
     { prenom: 'Charlotte', photo: eqharlotte },
     { prenom: 'Lisa', photo: eqisa },
     { prenom: 'Sarah', photo: eqarah },

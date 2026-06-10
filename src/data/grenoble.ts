@@ -240,7 +240,6 @@ export const grenoble: SalonData = {
     { prenom: 'Philippe', specialite: 'Coiffeur Artiste', photo: eqhilippe },
     { prenom: 'Coralie', specialite: 'Coloriste' },
     { prenom: 'Manon', specialite: 'Coiffeuse', photo: eqanon },
-    { prenom: 'Joanna', specialite: 'Head spa & soins' },
   ],
 
   // Avis — PLACEHOLDER (témoignages fictifs). À remplacer par les vrais avis Google :
