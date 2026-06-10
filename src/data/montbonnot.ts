@@ -9,6 +9,10 @@ import type { SalonData } from './grenoble';
 import hero from '../assets/salons/montbonnot/hero.webp';
 import expertise from '../assets/salons/montbonnot/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
+import equdrey from '../assets/salons/montbonnot/equipe/audrey.webp';
+import eqeremy from '../assets/salons/montbonnot/equipe/jeremy.webp';
+import eqidia from '../assets/salons/montbonnot/equipe/lidia.webp';
+import eqili from '../assets/salons/montbonnot/equipe/lili.webp';
 
 export const montbonnot: SalonData = {
   // — Réel (saisi / vérifié sur Google) —
@@ -114,10 +118,10 @@ export const montbonnot: SalonData = {
   // Équipe — prénoms réels (site). Spécialités PROVISOIRES (sauf Audrey, beauté du regard).
   equipe: [
     { prenom: 'Manon', specialite: 'Coiffeuse' },
-    { prenom: 'Lili Rose', specialite: 'Coiffeuse' },
-    { prenom: 'Audrey', specialite: 'Beauté du regard' },
-    { prenom: 'Jeremy', specialite: 'Coiffeur Artiste' },
-    { prenom: 'Lidia', specialite: 'Coloriste' },
+    { prenom: 'Lili Rose', specialite: 'Coiffeuse', photo: eqili },
+    { prenom: 'Audrey', specialite: 'Beauté du regard', photo: equdrey },
+    { prenom: 'Jeremy', specialite: 'Coiffeur Artiste', photo: eqeremy },
+    { prenom: 'Lidia', specialite: 'Coloriste', photo: eqidia },
   ],
 
   faq: [

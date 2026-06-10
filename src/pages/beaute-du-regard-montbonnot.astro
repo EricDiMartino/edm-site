@@ -3,8 +3,10 @@
 // esthétique du salon de Montbonnot (Audrey, artiste du regard).
 // Contenu repris du site actuel (/salon-esthetique). Aucun prix (cohérent site).
 // Réservation routée Montbonnot via [data-planity] (BookingModal global).
+import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
+import audreyPhoto from '../assets/salons/montbonnot/equipe/audrey.webp';
 import { salonsNav } from '../lib/prestations-shared';
 import { montbonnot as m } from '../data/montbonnot';
 import { buildBreadcrumb } from '../lib/schema';
@@ -127,7 +129,10 @@ const seo = {
 
     <!-- AUDREY -->
     <section class="section bdr-praticienne">
-      <figure class="bdr-portrait reveal" aria-hidden="true"><figcaption>Audrey</figcaption></figure>
+      <figure class="bdr-portrait reveal">
+        <Image src={audreyPhoto} widths={[360, 480, 640]} sizes="(min-width: 820px) 40vw, 90vw" alt="Audrey, artiste du regard au salon Eric Di Martino de Montbonnot" loading="lazy" />
+        <figcaption>Audrey</figcaption>
+      </figure>
       <div class="bdr-praticienne-copy reveal" data-d="1">
         <p class="label">La praticienne</p>
         <h2 class="h-seo">Audrey, artiste du regard</h2>
@@ -214,7 +219,9 @@ const seo = {
     .bdr-praticienne { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }
     .bdr-portrait { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; margin: 0; box-shadow: inset 0 0 0 1px var(--line);
       background: radial-gradient(120% 90% at 75% 15%, rgba(194,85,16,0.14), transparent 55%), linear-gradient(150deg, var(--cream) 0%, var(--cream-deep) 60%, #d9d4bf 100%); }
-    .bdr-portrait figcaption { position: absolute; left: 1.1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--olive-deep); }
+    .bdr-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .bdr-portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 38%); pointer-events: none; }
+    .bdr-portrait figcaption { position: absolute; z-index: 1; left: 1.1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; }
     .bdr-praticienne-copy .body { margin: 1.1rem 0 1.4rem; max-width: 48ch; }
 
     /* LIEU */

@@ -12,6 +12,9 @@ import headspa from '../assets/salons/grenoble/headspa.webp';
 import barbier from '../assets/salons/grenoble/barbier.webp';
 // Portrait d'équipe PROVISOIRE (image IA) — sera remplacé par les vrais portraits.
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp';
+import eqva from '../assets/salons/grenoble/equipe/eva.webp';
+import eqhilippe from '../assets/salons/grenoble/equipe/philippe.webp';
+import eqanon from '../assets/salons/grenoble/equipe/manon.webp';
 
 export interface Horaire {
   jour: string;
@@ -233,10 +236,10 @@ export const grenoble: SalonData = {
   // Équipe — données en dur. `photo` absente → portrait placeholder (vraies photos plus tard).
   // Spécialités PROVISOIRES (sauf Eva, déjà connue), à ajuster.
   equipe: [
-    { prenom: 'Eva', specialite: 'Coloriste Visagiste' },
-    { prenom: 'Philippe', specialite: 'Coiffeur Artiste' },
+    { prenom: 'Eva', specialite: 'Coloriste Visagiste', photo: eqva },
+    { prenom: 'Philippe', specialite: 'Coiffeur Artiste', photo: eqhilippe },
     { prenom: 'Coralie', specialite: 'Coloriste' },
-    { prenom: 'Manon', specialite: 'Coiffeuse' },
+    { prenom: 'Manon', specialite: 'Coiffeuse', photo: eqanon },
     { prenom: 'Joanna', specialite: 'Head spa & soins' },
   ],
 

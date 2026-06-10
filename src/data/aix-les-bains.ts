@@ -8,6 +8,9 @@ import type { SalonData } from './grenoble';
 import hero from '../assets/salons/aix-les-bains/hero.webp';
 import expertise from '../assets/salons/aix-les-bains/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
+import eqaura from '../assets/salons/aix-les-bains/equipe/laura.webp';
+import eqanny from '../assets/salons/aix-les-bains/equipe/fanny.webp';
+import eqenna from '../assets/salons/aix-les-bains/equipe/jenna.webp';
 
 export const aixLesBains: SalonData = {
   // — Réel (saisi / vérifié sur Google) —
@@ -97,9 +100,9 @@ export const aixLesBains: SalonData = {
   equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
   // Prénoms + spécialités réels (site).
   equipe: [
-    { prenom: 'Laura' },
-    { prenom: 'Fanny', specialite: 'Artiste Visagiste' },
-    { prenom: 'Jenna', specialite: 'Artiste complète' },
+    { prenom: 'Laura', photo: eqaura },
+    { prenom: 'Fanny', specialite: 'Artiste Visagiste', photo: eqanny },
+    { prenom: 'Jenna', specialite: 'Artiste complète', photo: eqenna },
   ],
 
   faq: [

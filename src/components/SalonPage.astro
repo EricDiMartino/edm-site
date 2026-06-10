@@ -275,26 +275,25 @@ const PREST_ICONS: Record<string, string> = {
           <h2 class="h-seo">{salon.equipeTitre || `L'équipe${salon.ville ? ' de ' + salon.ville : ''}`}</h2>
         </header>
         <ul class="team-grid">
-          {salon.equipe.map((m) => {
-            const photo = m.photo ?? salon.equipePlaceholder;
-            return (
-              <li class="team-card reveal">
-                <div class="portrait">
-                  {photo && (
-                    <Image
-                      src={photo}
-                      widths={PORTRAIT_WIDTHS}
-                      sizes="(min-width: 1000px) 18vw, (min-width: 820px) 30vw, 45vw"
-                      alt={`${m.prenom}${m.specialite ? ', ' + m.specialite : ''} — Eric Di Martino ${salon.ville}`}
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <p class="team-name">{m.prenom}</p>
-                {m.specialite && <p class="team-role">{m.specialite}</p>}
-              </li>
-            );
-          })}
+          {salon.equipe.map((m) => (
+            <li class="team-card reveal">
+              <div class="portrait">
+                {m.photo ? (
+                  <Image
+                    src={m.photo}
+                    widths={PORTRAIT_WIDTHS}
+                    sizes="(min-width: 1000px) 18vw, (min-width: 820px) 30vw, 45vw"
+                    alt={`${m.prenom}${m.specialite ? ', ' + m.specialite : ''} — Eric Di Martino ${salon.ville}`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span class="portrait-initial" aria-hidden="true">{m.prenom.charAt(0)}</span>
+                )}
+              </div>
+              <p class="team-name">{m.prenom}</p>
+              {m.specialite && <p class="team-role">{m.specialite}</p>}
+            </li>
+          ))}
         </ul>
       </section>
     )}
@@ -523,6 +522,7 @@ const PREST_ICONS: Record<string, string> = {
     box-shadow: inset 0 0 0 1px var(--line);
   }
   .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+  .portrait-initial { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 3.4rem; color: var(--olive); opacity: 0.5; }
   .team-card:hover .portrait img { transform: scale(1.04); }
   .team-name { font-family: var(--serif); font-size: 1.2rem; margin: 1rem 0 0.15rem; }
   .team-role { font-size: 0.85rem; color: var(--muted); margin: 0; letter-spacing: 0.02em; }
