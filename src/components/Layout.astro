@@ -21,9 +21,10 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, canonical, ogImage, ogType = 'website', noindex = true } = Astro.props;
-// Tag Manager — surchargeable via PUBLIC_GTM_ID (Vercel) ; défaut = conteneur EDM.
-// Mettre '' pour désactiver complètement la couche tracking.
-const gtmId = import.meta.env.PUBLIC_GTM_ID || 'GTM-PC7R3SCF';
+// Tag Manager — défini via PUBLIC_GTM_ID (Vercel). Vide = couche inerte.
+// NB : on attend un conteneur NEUF pour le nouveau site (l'ancien GTM-PC7R3SCF
+// = setup TraficPilot + Cookiebot, incompatible avec notre bandeau/Consent Mode).
+const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
 ---
 
 <!doctype html>
