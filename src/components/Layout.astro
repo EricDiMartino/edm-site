@@ -22,6 +22,8 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, canonical, ogImage, ogType = 'website', noindex = true } = Astro.props;
+// Image de partage : celle de la page si fournie, sinon visuel de marque par défaut.
+const ogImageUrl = ogImage || (Astro.site ? new URL('/og-default.jpg', Astro.site).href : '/og-default.jpg');
 // Tag Manager — défini via PUBLIC_GTM_ID (Vercel). Vide = couche inerte.
 // NB : on attend un conteneur NEUF pour le nouveau site (l'ancien GTM-PC7R3SCF
 // = setup TraficPilot + Cookiebot, incompatible avec notre bandeau/Consent Mode).
@@ -86,8 +88,9 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     {canonical && <meta property="og:url" content={canonical} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
     <slot name="head" />
   </head>
   <body>

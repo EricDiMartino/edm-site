@@ -1,0 +1,38 @@
+---
+// Page 404 — servie par Vercel sur toute URL inconnue (dist/404.html).
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { salonsNav } from '../lib/prestations-shared';
+---
+
+<Layout title="Page introuvable | Eric Di Martino" description="Cette page n'existe pas ou plus — retrouvez nos salons, nos prestations et la réservation.">
+  <Header salons={salonsNav} />
+
+  <main class="nf">
+    <section class="section nf-hero">
+      <p class="label">Erreur 404</p>
+      <h1 class="editorial nf-h1">Cette page n'existe <em class="ital">plus</em>.</h1>
+      <p class="lede nf-lede">Le lien a peut-être changé. Reprenons depuis une bonne adresse :</p>
+      <div class="nf-links">
+        <a class="btn btn-action" href="/">Accueil</a>
+        <a class="btn btn-ghost" href="/nos-salons-de-coiffure">Nos salons</a>
+        <a class="btn btn-ghost" href="/prestations-coiffure">Prestations</a>
+      </div>
+      <p class="nf-or">
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
+      </p>
+    </section>
+  </main>
+
+  <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
+
+  <style>
+    .nf-hero { max-width: var(--maxw); margin-inline: auto; min-height: 58vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .nf-h1 { margin: 0.6rem 0 0; }
+    .nf-h1 em { font-style: italic; color: var(--olive); }
+    .nf-lede { margin: 1.1rem 0 1.9rem; max-width: 46ch; }
+    .nf-links { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .nf-or { margin: 1.9rem 0 0; }
+  </style>
+</Layout>
