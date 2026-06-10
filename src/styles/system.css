@@ -21,7 +21,7 @@
   --c-success: #6b7a4f; --c-warning: #b8862a; --c-error: #8b3a2e; --c-info: #4a5c66;
   --line: rgba(38, 38, 31, 0.10);
   --line-light: rgba(247, 243, 234, 0.18);
-  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --serif: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Poppins", -apple-system, system-ui, sans-serif;
   /* largeurs & rythme */
   --maxw: 1200px;

@@ -1,6 +1,13 @@
 ---
 // Layout de base — <head> commun + système de design + reveal au scroll.
 // noindex par défaut (pré-lancement) ; passer noindex={false} à la bascule (Phase 6).
+// Polices auto-hébergées (RGPD : plus d'appel au CDN Google ; bundlées par Astro).
+import '@fontsource-variable/fraunces/opsz.css'; // axes opsz + wght (normal)
+import '@fontsource-variable/fraunces/opsz-italic.css'; // + italique
+import '@fontsource/poppins/300.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
 import '../styles/system.css';
 import BookingModal from './BookingModal.astro';
 import ConsentBanner from './ConsentBanner.astro';
@@ -78,12 +85,6 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImage && <meta property="og:image" content={ogImage} />}
     {ogImage && <meta name="twitter:card" content="summary_large_image" />}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
     <slot name="head" />
   </head>
   <body>
