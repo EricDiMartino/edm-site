@@ -10,10 +10,14 @@ const { sub } = Astro.props;
 <footer class="site-foot">
   <p class="site-foot-mark">Eric Di Martino</p>
   <p class="site-foot-sub">{sub}</p>
+  <p class="site-foot-legal"><a href="/mentions-legales">Mentions légales</a><span aria-hidden="true"> · </span><a href="#" data-consent-open>Gérer les cookies</a></p>
 </footer>
 
 <style>
   .site-foot { max-width: var(--maxw); margin-inline: auto; padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 3rem; border-top: 1px solid var(--line); }
   .site-foot-mark { font-family: var(--serif); font-size: 1.4rem; margin: 0; }
   .site-foot-sub { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); margin: 0.4rem 0 0; }
+  .site-foot-legal { font-family: var(--sans); font-size: 0.78rem; color: var(--muted); margin: 0.9rem 0 0; }
+  .site-foot-legal a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+  .site-foot-legal a:hover { color: var(--olive); border-color: var(--olive); }
 </style>

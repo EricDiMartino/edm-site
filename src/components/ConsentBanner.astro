@@ -1,0 +1,112 @@
+---
+// Bandeau de consentement cookies (RGPD / CNIL). Pilote Google Consent Mode v2
+// (défini tôt dans Layout) + pousse les signaux dans dataLayer pour GTM.
+// Catégories : Nécessaires (toujours) · Mesure d'audience (GA4) · Marketing (Ads/Meta/TikTok).
+// Refus par défaut tant qu'aucun choix n'est enregistré. Réouverture via [data-consent-open].
+---
+
+<div id="consent" class="cc" role="dialog" aria-label="Gestion des cookies" aria-modal="false" hidden>
+  <div class="cc-inner">
+    <div class="cc-head">
+      <p class="cc-title">Cookies &amp; confidentialité</p>
+      <p class="cc-desc">
+        Nous utilisons des cookies pour mesurer l'audience et améliorer nos campagnes. C'est vous qui décidez.
+        <a href="/mentions-legales">En savoir plus</a>
+      </p>
+    </div>
+
+    <form class="cc-prefs" id="cc-prefs" hidden>
+      <label class="cc-pref">
+        <span><strong>Nécessaires</strong> — indispensables au fonctionnement du site.</span>
+        <input type="checkbox" checked disabled aria-label="Cookies nécessaires (toujours actifs)" />
+      </label>
+      <label class="cc-pref">
+        <span><strong>Mesure d'audience</strong> — statistiques de visite (Google Analytics).</span>
+        <input type="checkbox" id="cc-analytics" />
+      </label>
+      <label class="cc-pref">
+        <span><strong>Marketing</strong> — publicité Google, Meta et TikTok.</span>
+        <input type="checkbox" id="cc-marketing" />
+      </label>
+    </form>
+
+    <div class="cc-actions">
+      <button type="button" class="cc-btn cc-ghost" data-cc="refuse">Tout refuser</button>
+      <button type="button" class="cc-btn cc-ghost" data-cc="prefs">Personnaliser</button>
+      <button type="button" class="cc-btn cc-ghost" data-cc="save" hidden>Enregistrer mes choix</button>
+      <button type="button" class="cc-btn cc-accept" data-cc="accept">Tout accepter</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById('consent');
+    if (!el) return;
+    function stored() { try { return JSON.parse(localStorage.getItem('edm_consent') || 'null'); } catch (e) { return null; } }
+    function show() { el.hidden = false; }
+    function hide() { el.hidden = true; }
+    function apply(a, m) { if (window.__edmConsent) window.__edmConsent(a, m); hide(); }
+
+    if (!stored()) show();
+
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-cc]');
+      if (!b) return;
+      var k = b.getAttribute('data-cc');
+      if (k === 'accept') apply(true, true);
+      else if (k === 'refuse') apply(false, false);
+      else if (k === 'prefs') {
+        document.getElementById('cc-prefs').hidden = false;
+        b.hidden = true;
+        el.querySelector('[data-cc="save"]').hidden = false;
+      } else if (k === 'save') {
+        apply(document.getElementById('cc-analytics').checked, document.getElementById('cc-marketing').checked);
+      }
+    });
+
+    // Réouverture depuis un lien "Gérer les cookies"
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest && e.target.closest('[data-consent-open]');
+      if (!t) return;
+      e.preventDefault();
+      var s = stored();
+      if (s) {
+        var a = document.getElementById('cc-analytics'); if (a) a.checked = !!s.analytics;
+        var m = document.getElementById('cc-marketing'); if (m) m.checked = !!s.marketing;
+      }
+      show();
+    });
+  })();
+</script>
+
+<style>
+  .cc { position: fixed; left: 0; right: 0; bottom: 0; z-index: 80; padding: 0 var(--gutter) calc(var(--gutter) + env(safe-area-inset-bottom)); pointer-events: none; }
+  .cc[hidden] { display: none; }
+  .cc-inner {
+    pointer-events: auto; max-width: 52rem; margin: 0 auto;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: 0 24px 60px -24px rgba(38, 38, 31, 0.4);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .cc-title { font-family: var(--serif); font-size: 1.2rem; margin: 0 0 0.35rem; color: var(--ink); }
+  .cc-desc { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--muted); }
+  .cc-desc a { color: var(--olive); text-decoration: underline; text-underline-offset: 3px; }
+  .cc-prefs { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; }
+  .cc-prefs[hidden] { display: none; }
+  .cc-btn[hidden] { display: none; }
+  .cc-pref { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem 0.85rem; background: var(--cream); border-radius: 8px; font-size: 0.85rem; color: var(--ink); }
+  .cc-pref strong { font-weight: 600; }
+  .cc-pref input { flex: none; width: 18px; height: 18px; accent-color: var(--olive); }
+  .cc-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
+  .cc-btn { font-family: var(--sans); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.04em; padding: 0.8rem 1.2rem; border-radius: var(--radius); cursor: pointer; border: 1px solid var(--line); transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+  .cc-ghost { background: #fff; color: var(--ink); }
+  .cc-ghost:hover { border-color: var(--olive); color: var(--olive); }
+  .cc-accept { background: var(--terracotta); border-color: var(--terracotta); color: #fff; margin-left: auto; }
+  .cc-accept:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+  @media (max-width: 560px) {
+    .cc-actions { flex-direction: column-reverse; align-items: stretch; }
+    .cc-accept { margin-left: 0; }
+    .cc-btn { width: 100%; }
+  }
+</style>
