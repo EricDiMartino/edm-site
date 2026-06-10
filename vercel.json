@@ -1,10 +1,305 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/salon-esthetique",
+      "destination": "/beaute-du-regard-montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/coaching-coiffure",
+      "destination": "/prestations-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/actualite-coiffure",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/nos-coiffeurs",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/contact-recrutement",
+      "destination": "/nous-rejoindre",
+      "permanent": true
+    },
+    {
+      "source": "/bis---nos-salons-de-coiffure",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/test",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/formation-consultation-expert",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-grenoble-head-spa",
+      "destination": "/head-spa-grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-extensions-salon-grenoble",
+      "destination": "/extension-cheveux-grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-grenoble",
+      "destination": "/salon-de-coiffure/grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-eric-salon-grenoble",
+      "destination": "/salon-de-coiffure/grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-montbonnot-copy",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-montbonnot-lundi",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-eric-salon-montbonnot",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-extensions-salon-montbonnot",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-montbonnot",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-extensions-salon-voiron",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-voiron",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-extensions-salon-aix-les-bains",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-offre-aix-les-bains",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-aix-les-bains",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-salon-esthetique",
+      "destination": "/beaute-du-regard-montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-general",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/reservation-connection",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/audrey",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/jeremy",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/lidia",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/lili-rose",
+      "destination": "/salon-de-coiffure/montbonnot",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/eva",
+      "destination": "/salon-de-coiffure/grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/manon",
+      "destination": "/salon-de-coiffure/grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/charlotte",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/diego-voiron",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/emmanuel-voiron",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/emy-voiron",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/lily",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/lisa",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/sarah",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/florence",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/marlene",
+      "destination": "/salon-de-coiffure/voiron",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/fanny",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/jenna",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/laura-aix-les-bains",
+      "destination": "/salon-de-coiffure/aix-les-bains",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/eric",
+      "destination": "/nos-valeurs",
+      "permanent": true
+    },
+    {
+      "source": "/equipe/:p*",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/choisir-ses-extensions",
+      "destination": "/extension-cheveux-grenoble",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/octobre-rose-eric-di-martino-",
+      "destination": "/nos-valeurs",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/zoom-carriere-loredana",
+      "destination": "/nous-rejoindre",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/4-etapes-pour-commencer-la-nouvelle-annee-en-beaute",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/comment-entretenir-sa-barbe",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/comment-ouvrir-un-salon-de-coiffure-en-2025-le-guide-complet",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/comment-prendre-soin-de-sa-barbe-et-sa-moustache",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/faut-il-se-laver-les-cheveux-tous-les-jours",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/les-artistes-visagistes-et-coloristes",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/prendre-soin-de-vos-cheveux-cet-hiver",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/actualites/top-3-pour-des-cheveux-brillants",
+      "destination": "/actualites",
+      "permanent": true
+    },
+    {
+      "source": "/salon-de-coiffures-isere/:ville*",
+      "destination": "/nos-salons-de-coiffure",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     }
   ]
