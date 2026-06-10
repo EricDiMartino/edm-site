@@ -9,7 +9,6 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CtaBlock from '../components/CtaBlock.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const FORM_ENDPOINT = ''; // TODO: endpoint candidatures (Formspree / GoHighLevel)
 
 const atouts = [
   { titre: 'Formation continue', texte: 'Coupe, couleur, balayage, lissage : on se forme toute l’année, avec un accès à notre académie interne, Academy Leader.', icon: 'book' },
@@ -112,7 +111,8 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     <div class="apply-body">
       <p class="label">Candidature</p>
       <h2 class="apply-title">Postuler chez Eric Di Martino</h2>
-      <form class="apply-form" action={FORM_ENDPOINT || '#'} method="POST" enctype="multipart/form-data">
+      <form class="apply-form" data-sheet-form="Candidature">
+        <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
         <div class="apply-row">
           <label>Prénom<input type="text" name="prenom" required autocomplete="given-name" /></label>
           <label>Nom<input type="text" name="nom" required autocomplete="family-name" /></label>

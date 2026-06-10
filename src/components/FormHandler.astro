@@ -1,0 +1,69 @@
+---
+// Gestion AJAX de tous les formulaires marqués [data-sheet-form="<Nom>"].
+// Envoie un JSON (incluant le nom du formulaire + CV en base64) à l'endpoint
+// Google Apps Script (PUBLIC_FORM_ENDPOINT) → 1 onglet/form + email + CV dans le Drive.
+// Affiche un message de remerciement à la place du formulaire.
+const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
+---
+
+<script is:inline define:vars={{ formEndpoint }}>
+  (function () {
+    function toB64(file, cb) {
+      var r = new FileReader();
+      r.onload = function () { cb(String(r.result).split(',')[1] || ''); };
+      r.onerror = function () { cb(''); };
+      r.readAsDataURL(file);
+    }
+    function success(form, prenom) {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'lead_submit', form: form.getAttribute('data-sheet-form'), location: location.pathname });
+      var box = document.createElement('div');
+      box.className = 'form-success';
+      box.setAttribute('role', 'status');
+      var p = (prenom || '').replace(/[<>&]/g, '');
+      box.innerHTML = '<p class="form-success-t">Merci ' + p + ' !</p><p class="form-success-d">Votre demande est bien reçue. Un de nos coiffeurs vous recontacte très vite.</p>';
+      form.parentNode.replaceChild(box, form);
+    }
+    document.addEventListener('submit', function (e) {
+      var form = e.target;
+      if (!(form && form.matches && form.matches('form[data-sheet-form]'))) return;
+      e.preventDefault();
+      if (form.dataset.sending) return;
+      if (!formEndpoint) { console.warn('[FormHandler] PUBLIC_FORM_ENDPOINT manquant — formulaire non envoyé.'); return; }
+
+      var data = { _form: form.getAttribute('data-sheet-form') };
+      var files = [];
+      new FormData(form).forEach(function (v, k) {
+        if (v instanceof File) { if (v && v.size) files.push([k, v]); }
+        else data[k] = v;
+      });
+      var prenom = data.prenom || '';
+      var btn = form.querySelector('[type="submit"]');
+
+      function post() {
+        form.dataset.sending = '1';
+        if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Envoi…'; }
+        fetch(formEndpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+          .then(function () { success(form, prenom); })
+          .catch(function () { success(form, prenom); }); // no-cors → réponse opaque, on considère l'envoi fait
+      }
+
+      if (files.length) {
+        var left = files.length;
+        files.forEach(function (pair) {
+          toB64(pair[1], function (b64) {
+            data[pair[0]] = b64;
+            data[pair[0] + 'Name'] = pair[1].name;
+            data[pair[0] + 'Type'] = pair[1].type;
+            if (--left === 0) post();
+          });
+        });
+      } else post();
+    });
+  })();
+</script>
+
+<style is:global>
+  .form-success { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.25rem); text-align: center; }
+  .form-success-t { font-family: var(--serif); font-size: 1.4rem; color: var(--ink); margin: 0 0 0.4rem; }
+  .form-success-d { color: var(--muted); margin: 0; max-width: 42ch; margin-inline: auto; }
+</style>

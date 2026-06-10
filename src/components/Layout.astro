@@ -11,6 +11,7 @@ import '@fontsource/poppins/600.css';
 import '../styles/system.css';
 import BookingModal from './BookingModal.astro';
 import ConsentBanner from './ConsentBanner.astro';
+import FormHandler from './FormHandler.astro';
 
 interface Props {
   title: string;
@@ -94,6 +95,7 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     <slot />
     <BookingModal />
     <ConsentBanner />
+    <FormHandler />
     {/* Événements de conversion → dataLayer (GTM déclenche GA4 / Ads / Meta / TikTok dessus). */}
     <script is:inline>
       addEventListener('click', function (e) {
@@ -102,7 +104,8 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
       });
       addEventListener('submit', function (e) {
         var f = e.target;
-        if (f && f.matches && f.matches('form')) {
+        // les forms [data-sheet-form] poussent leur propre event (voir FormHandler) → on les ignore ici
+        if (f && f.matches && f.matches('form:not([data-sheet-form])')) {
           (window.dataLayer = window.dataLayer || []).push({ event: 'lead_submit', form: f.id || f.getAttribute('name') || 'form', location: location.pathname });
         }
       }, true);

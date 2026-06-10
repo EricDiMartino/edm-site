@@ -52,7 +52,8 @@ const totalArrondi = totalAvis ? Math.floor(totalAvis / 100) * 100 : 0;
         <div class="lp-form-card reveal" data-d="1" id="form">
           <h2 class="lp-form-titre">Je veux ma consultation offerte</h2>
           <p class="lp-form-sub">{c.form.sousTitre}</p>
-          <form class="lp-form" action={c.form.endpoint || '#'} method="POST">
+          <form class="lp-form" data-sheet-form="Consultation offerte">
+            <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
             <div class="lp-row">
               <label>Prénom<input type="text" name="prenom" required autocomplete="given-name" /></label>
               <label>Nom<input type="text" name="nom" required autocomplete="family-name" /></label>
