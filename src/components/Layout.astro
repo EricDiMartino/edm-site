@@ -21,8 +21,9 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, canonical, ogImage, ogType = 'website', noindex = true } = Astro.props;
-// Tag Manager — vide tant que l'ID n'est pas fourni → couche tracking 100% inerte.
-const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
+// Tag Manager — surchargeable via PUBLIC_GTM_ID (Vercel) ; défaut = conteneur EDM.
+// Mettre '' pour désactiver complètement la couche tracking.
+const gtmId = import.meta.env.PUBLIC_GTM_ID || 'GTM-PC7R3SCF';
 ---
 
 <!doctype html>
