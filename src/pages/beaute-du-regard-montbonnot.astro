@@ -18,6 +18,12 @@ const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
 const cpVille = `${m.codePostal} ${m.ville}`;
 const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([m.adresse, m.codePostal, m.ville].join(', '))}&z=16&output=embed`;
 
+// Filtre widget Planity (serviceSetsWhitelist) = ids des ensembles « beauté du regard » à Montbonnot :
+//  -NL5-bso… Épilations (pince) · -NLMvRhc… Sourcils maquillage permanent
+//  -NLMyII… Les yeux maquillage permanent · -NLMvjJ… Teintures de poils & rehaussement de cils
+// ⚠️ ids Firebase stables mais opaques : si un ensemble est supprimé/recréé dans Planity, mettre à jour ici.
+const regardServiceSets = '-NL5-bso_6DT5YlT_4X1,-NLMvRhc5KCm7kMRS6xk,-NLMyIIRb_MGfPVaiBi_,-NLMvjJxJZaWLxeOsdPV';
+
 // Les 4 univers (repris du site actuel : Sourcils · Cils · Maquillage permanent · Grain de beauté).
 const ICONS: Record<string, string> = {
   brow: '<path d="M3 13c3-4 7-6 12-6 3 0 5 .8 6 1.6"/><path d="M5 11.5c2.5-1.4 5-2 7.5-2"/>',
@@ -77,7 +83,7 @@ const seo = {
 
   <Header tel={m.telephone} reservationUrl="#reserver" salons={salonsNav} current="beauteregard" />
 
-  <main class="bdr" data-planity={m.planityKey}>
+  <main class="bdr" data-planity={m.planityKey} data-cat={regardServiceSets}>
     <!-- HERO -->
     <section class="section bdr-hero">
       <div class="bdr-hero-copy reveal">

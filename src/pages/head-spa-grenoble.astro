@@ -46,6 +46,10 @@ const faqSchema = {
 };
 const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Head spa', item: canonical }]);
 
+// Filtre widget Planity (serviceSetsWhitelist) = id de l'ensemble « Head Spa » à Grenoble.
+// ⚠️ id Firebase stable mais opaque : si l'ensemble est supprimé/recréé dans Planity, le mettre à jour.
+const headSpaServiceSet = '-OqtQg4oPhljxwOC4cED';
+
 // Panneau hero : infos pratiques remontées (durée, prix, adresse, horaires + tél en plus).
 const jourCourt: Record<string, string> = { 'Mardi – Vendredi': 'Mar–Ven', 'Samedi': 'Sam', 'Dimanche & Lundi': 'Dim & Lun' };
 const heroHoraires = h.lieu.horaires
@@ -67,7 +71,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
 
   <Header tel={h.telephone} reservationUrl={h.reservationUrl} current="headspa" />
 
-  <div class="headspa" data-planity={grenoble.planityKey}>
+  <div class="headspa" data-planity={grenoble.planityKey} data-cat={headSpaServiceSet}>
     <!-- HERO -->
     <section class="hs-hero">
       <div class="hs-hero-inner">
