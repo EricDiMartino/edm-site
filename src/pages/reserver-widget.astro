@@ -89,7 +89,20 @@ const demoGroups = [
         if (!key) { loader.querySelector('p').textContent = 'Aucun salon sélectionné.'; return; }
         var c = document.getElementById('planity-appointment');
         window.planity = { key: key, primaryColor: qs.get('color') || '#c25510', container: c };
-        window.planity.options = { onServiceAdd: function () { window.scrollTo(0, 0); } };
+        window.planity.options = {
+          onServiceAdd: function () { window.scrollTo(0, 0); },
+          // Conversion RÉELLE : Planity appelle ce callback après une résa confirmée.
+          // On pousse l'événement dans le dataLayer du parent (même origine → GTM y écoute).
+          // Non destructif : on ne redirige pas / on ne modifie pas l'écran Planity.
+          appointmentRedirect: function () {
+            try {
+              var dl = (window.parent && window.parent !== window && window.parent.dataLayer)
+                ? window.parent.dataLayer
+                : (window.dataLayer = window.dataLayer || []);
+              dl.push({ event: 'booking_confirmed', salon: key, location: '/reserver-widget' });
+            } catch (e) {}
+          },
+        };
         var cat = qs.get('cat');
         if (cat) window.planity.options.serviceSetsWhitelist = cat.split(',').map(function (s) { return s.trim(); });
         var obs = new MutationObserver(function () { if (c.childNodes.length) loader.style.display = 'none'; });
