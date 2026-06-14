@@ -3,6 +3,7 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { headSpa as h } from '../data/head-spa';
+import { grenoble } from '../data/grenoble';
 import { buildBreadcrumb } from '../lib/schema';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -66,7 +67,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
 
   <Header tel={h.telephone} reservationUrl={h.reservationUrl} current="headspa" />
 
-  <div class="headspa">
+  <div class="headspa" data-planity={grenoble.planityKey}>
     <!-- HERO -->
     <section class="hs-hero">
       <div class="hs-hero-inner">

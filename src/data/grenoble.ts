@@ -274,6 +274,55 @@ export const grenoble: SalonData = {
 
   instagram: { handle: '@salon_eric_di_martino_grenoble', url: 'https://www.instagram.com/salon_eric_di_martino_grenoble/' },
 
+  // Trio Grenoble — prix spécifiques (surcharge le trio par défaut).
+  trioConsult: {
+    kicker: 'Consultation & Coupe',
+    titre: 'Tout commence par un diagnostic',
+    sous: 'Notre signature : une consultation visagiste qui détermine la coupe selon la forme de votre visage, avant le premier coup de ciseaux.',
+    cards: [
+      {
+        badge: "L'essentiel",
+        name: 'Coupe Transformation',
+        prefix: 'dès',
+        price: '74',
+        offer: { label: 'Consultation offerte', strike: '30€', note: 'Réservé aux nouveaux clients' },
+        points: [
+          { texte: 'Coupe transformation personnalisée' },
+          { texte: 'Coiffage & finition' },
+          { texte: 'Routine d’entretien à la maison' },
+        ],
+        cta: 'Réserver',
+      },
+      {
+        badge: 'Notre spécialité',
+        name: 'Consultation Visagiste',
+        price: '30',
+        meta: '· 30 min',
+        featured: true,
+        points: [
+          { texte: 'Analyse du visage & morphologie' },
+          { texte: 'Conseil coupe + couleur sur-mesure' },
+          { texte: 'Projection du rendu avant décision' },
+          { texte: 'Offerte dès une coupe ou couleur — nouveaux clients', muted: true, gift: true },
+        ],
+        cta: 'Réserver ma consultation',
+      },
+      {
+        badge: 'La transformation',
+        name: 'Technique + Balayage',
+        prefix: 'dès',
+        price: '200',
+        offer: { label: 'Consultation offerte', strike: '30€', note: 'Réservé aux nouveaux clients' },
+        points: [
+          { texte: 'Balayage ou technique couleur sur-mesure' },
+          { texte: 'Coupe signature personnalisée' },
+          { texte: 'Coiffage & finition' },
+        ],
+        cta: 'Réserver',
+      },
+    ],
+  },
+
   seo: {
     title: 'Coiffeur visagiste à Grenoble | Eric Di Martino',
     description:

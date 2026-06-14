@@ -34,6 +34,7 @@ const { data } = Astro.props;
             <s>{c.offer.strike}</s>
           </p>
         )}
+        {c.offer?.note && <p class="trio-offer-note">{c.offer.note}</p>}
         <ul class="trio-list">
           {c.points.map((p) => (
             <li class={p.muted ? 'is-muted' : ''}>
@@ -75,6 +76,7 @@ const { data } = Astro.props;
   .trio-offer-spark { color: var(--terracotta); font-size: 0.7rem; }
   .trio-offer-txt { font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); }
   .trio-offer s { color: var(--muted); opacity: 0.7; font-size: 0.8rem; }
+  .trio-offer-note { margin: -1rem 0 1.5rem; text-align: center; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--muted); }
 
   /* Puces */
   .trio-list { list-style: none; padding: 0; margin: 0 0 1.9rem; flex: 1; }

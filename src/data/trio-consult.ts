@@ -10,7 +10,7 @@ export interface TrioCard {
   prefix?: string; // ex. "dès"
   price: string; // montant, ex. "60"
   meta?: string; // ex. "· 30 min"
-  offer?: { label: string; strike: string }; // bandeau "consultation offerte"
+  offer?: { label: string; strike: string; note?: string }; // bandeau "consultation offerte" (+ note ex. "nouveaux clients")
   points: { texte: string; muted?: boolean; gift?: boolean }[];
   cta: string;
   featured?: boolean; // carte centrale, mise en avant
@@ -33,7 +33,7 @@ export const defaultTrioConsult: TrioConsultData = {
       name: 'Coupe Signature',
       prefix: 'dès',
       price: '60',
-      offer: { label: 'Consultation offerte', strike: '30€' },
+      offer: { label: 'Consultation offerte', strike: '30€', note: 'Réservé aux nouveaux clients' },
       points: [
         { texte: 'Coupe signature personnalisée' },
         { texte: 'Coiffage & finition' },
@@ -51,7 +51,7 @@ export const defaultTrioConsult: TrioConsultData = {
         { texte: 'Analyse du visage & morphologie' },
         { texte: 'Conseil coupe + couleur sur-mesure' },
         { texte: 'Projection du rendu avant décision' },
-        { texte: 'Offerte dès une coupe ou couleur', muted: true, gift: true },
+        { texte: 'Offerte dès une coupe ou couleur — nouveaux clients', muted: true, gift: true },
       ],
       cta: 'Réserver ma consultation',
     },
@@ -60,7 +60,7 @@ export const defaultTrioConsult: TrioConsultData = {
       name: 'Coupe + Balayage Signature',
       prefix: 'dès',
       price: '150',
-      offer: { label: 'Consultation offerte', strike: '30€' },
+      offer: { label: 'Consultation offerte', strike: '30€', note: 'Réservé aux nouveaux clients' },
       points: [
         { texte: 'Balayage signature sur-mesure' },
         { texte: 'Coupe signature personnalisée' },
