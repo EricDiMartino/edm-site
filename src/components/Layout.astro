@@ -21,7 +21,7 @@ interface Props {
   ogType?: string;
   noindex?: boolean;
 }
-const { title, description, canonical, ogImage, ogType = 'website', noindex = true } = Astro.props;
+const { title, description, canonical, ogImage, ogType = 'website', noindex = false } = Astro.props;
 // Image de partage : celle de la page si fournie, sinon visuel de marque par défaut.
 const ogImageUrl = ogImage || (Astro.site ? new URL('/og-default.jpg', Astro.site).href : '/og-default.jpg');
 // Tag Manager — défini via PUBLIC_GTM_ID (Vercel). Vide = couche inerte.
