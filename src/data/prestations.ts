@@ -17,10 +17,10 @@ export const prestations = {
 
   hero: {
     eyebrow: 'Prestations',
-    titre: 'Coupe, couleur, soin —',
+    titre: 'Coupe, couleur, soin,',
     titreEm: 'pensés pour vous',
     lede:
-      'Chaque prestation commence par une vraie consultation visagiste, dans nos quatre salons. Coupe, coloration, balayage, lissage, soins, extensions, head spa et mariage — sur rendez-vous.',
+      'Chaque prestation commence par une vraie consultation visagiste, dans nos quatre salons. Coupe, coloration, balayage, lissage, soins, extensions, head spa et mariage, sur rendez-vous.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 
@@ -30,7 +30,7 @@ export const prestations = {
     titre: 'La consultation visagiste, avant tout',
     paragraphes: [
       'Avant chaque transformation, un diagnostic fondé sur trois piliers : votre mode de vie, la santé de votre cheveu et la géométrie de votre visage.',
-      'C’est lui qui oriente la coupe et la couleur — pour un résultat qui vous ressemble et se vit simplement, au quotidien. Le montant de la consultation est déduit le jour du rendez-vous.',
+      'C’est lui qui oriente la coupe et la couleur, pour un résultat qui vous ressemble et se vit simplement, au quotidien. Le montant de la consultation est déduit le jour du rendez-vous.',
     ],
     lien: { label: 'Découvrir la consultation', href: '/consultation-visagiste-coloriste' },
   },
@@ -38,19 +38,19 @@ export const prestations = {
   // Cartes prestations → pages dédiées (certaines à créer ensuite).
   cartesTitre: 'Nos prestations',
   cartes: [
-    { titre: 'Coupe & coiffage', texte: 'Coupe sur-mesure pensée pour le visage, brushing et coiffage — après diagnostic visagiste.', lien: '/coupe-coiffage-visagiste', icon: 'scissors' },
+    { titre: 'Coupe & coiffage', texte: 'Coupe sur-mesure pensée pour le visage, brushing et coiffage, après diagnostic visagiste.', lien: '/coupe-coiffage-visagiste', icon: 'scissors' },
     { titre: 'Coloration & balayage', texte: 'Coloration, balayage, ombré, gloss : un éclat sur-mesure, dans le respect du cheveu.', lien: '/coloration-balayage', icon: 'drop' },
     { titre: 'Lissage & soins', texte: 'Lissage, botox capillaire, soins profonds et masques : discipline, brillance et réparation.', lien: '/lissage-soin', icon: 'leaf' },
     { titre: 'Extensions', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', lien: '/extension-cheveux-grenoble', icon: 'strands' },
     { titre: 'Head spa', texte: 'Rituel japonais du cuir chevelu : vapeur, massage crânien, huiles précieuses. Au salon de Grenoble.', lien: '/head-spa-grenoble', icon: 'spa' },
-    { titre: 'Coiffure de mariage', texte: 'Essai, chignon et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', lien: '/coiffeur-mariage', icon: 'ring' },
+    { titre: 'Coiffure de mariage', texte: 'Essai, chignon et coiffure du jour J : un accompagnement dédié pour votre cérémonie.', lien: '/coiffeur-mariage', icon: 'ring' },
   ] as PrestationCarte[],
 
   // Maillage local (le local passe par la donnée + le maillage, pas l'URL par ville).
   salons: {
     eyebrow: 'Où nous trouver',
     titre: 'Dans nos quatre salons',
-    texte: 'Mêmes gestes, même exigence à Grenoble, Montbonnot, Voiron et Aix-les-Bains — et dans tout le bassin Isère et Savoie.',
+    texte: 'Mêmes gestes, même exigence à Grenoble, Montbonnot, Voiron et Aix-les-Bains, et dans tout le bassin Isère et Savoie.',
     lien: { label: 'Voir nos salons', href: '/nos-salons-de-coiffure' },
   },
 

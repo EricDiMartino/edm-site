@@ -46,7 +46,7 @@ export const montbonnot: SalonData = {
   // Badges d'accès — détails PROVISOIRES à confirmer.
   acces: [
     { label: 'Parking', detail: 'Parking gratuit sur place' },
-    { label: 'Accès', detail: 'Proche A41 — sortie Montbonnot' },
+    { label: 'Accès', detail: 'Proche A41 (sortie Montbonnot)' },
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
@@ -70,7 +70,7 @@ export const montbonnot: SalonData = {
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
     texte:
-      'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature et état du cheveu, mode de vie. Notre coiffeur visagiste à Montbonnot répond à la vraie question — quelle coupe selon mon visage — pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
+      'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature et état du cheveu, mode de vie. Notre coiffeur visagiste à Montbonnot répond à la vraie question, quelle coupe selon mon visage, pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
     lien: '/consultation-visagiste-coloriste',
   },
@@ -107,8 +107,8 @@ export const montbonnot: SalonData = {
     titreEm: 'tout un savoir-faire',
     texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
     items: [
-      { titre: 'Extensions', texte: 'Extensions de cheveux : longueur, volume ou densité — pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Coiffure de mariage à Montbonnot : essai préalable, chignon de mariée et coiffure du jour J — un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Extensions', texte: 'Extensions de cheveux : longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
+      { titre: 'Coiffure de mariage', texte: 'Coiffure de mariage à Montbonnot : essai préalable, chignon de mariée et coiffure du jour J : un accompagnement dédié pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
       { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },
@@ -137,7 +137,7 @@ export const montbonnot: SalonData = {
     {
       question: 'Proposez-vous la beauté du regard à Montbonnot ?',
       reponse:
-        'Oui : rehaussement et extensions de cils, teinture des cils et des sourcils, restructuration des sourcils — en prestation seule ou en complément d’une coiffure.',
+        'Oui : rehaussement et extensions de cils, teinture des cils et des sourcils, restructuration des sourcils, en prestation seule ou en complément d’une coiffure.',
     },
   ],
 

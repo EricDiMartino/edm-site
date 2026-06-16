@@ -13,7 +13,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
 const o = c.offre;
 const hasDate = !!o.date && !o.date.includes('définir');
-const ribbon = `${o.quantite} consultations offertes${hasDate ? ` — jusqu’au ${o.date}` : ''} · places limitées`;
+const ribbon = `${o.quantite} consultations offertes${hasDate ? `, jusqu’au ${o.date}` : ''} · places limitées`;
 
 const live = (await Promise.all(SALONS.map((s) => getGoogleReviews(s.googlePlaceId, 1)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getGoogleReviews>>>[];
 const totalAvis = live.reduce((sum, a) => sum + (a.total || 0), 0);

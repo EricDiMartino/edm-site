@@ -9,7 +9,7 @@ export const coupe: PrestationData = {
     eyebrow: 'Coupe',
     titre: 'Coupe & coiffage',
     lede:
-      'Coupe femme et homme, brushing, coiffage et barbe — par nos coiffeurs visagistes, après diagnostic. Une coupe pensée pour votre visage, facile à vivre au quotidien. Dans nos quatre salons de Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
+      'Coupe femme et homme, brushing, coiffage et barbe, par nos coiffeurs visagistes, après diagnostic. Une coupe pensée pour votre visage, facile à vivre au quotidien. Dans nos quatre salons de Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 
@@ -18,7 +18,7 @@ export const coupe: PrestationData = {
     titre: 'La coupe pensée pour le visage',
     paragraphes: [
       'Avant chaque coupe, un diagnostic : morphologie du visage, nature et implantation du cheveu, mode de vie. C’est lui qui dessine la ligne.',
-      'Le résultat : une coupe qui vous ressemble, qui retombe bien et se coiffe simplement au quotidien — pas seulement le jour du rendez-vous.',
+      'Le résultat : une coupe qui vous ressemble, qui retombe bien et se coiffe simplement au quotidien, pas seulement le jour du rendez-vous.',
     ],
     lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
   },
@@ -26,12 +26,12 @@ export const coupe: PrestationData = {
   variantes: {
     eyebrow: 'Au programme',
     titre: 'Coupe, coiffage & barbe',
-    intro: 'Femme, homme, mise en forme — chaque geste pensé pour vos traits.',
+    intro: 'Femme, homme, mise en forme : chaque geste pensé pour vos traits.',
     items: [
       { nom: 'Coupe femme', texte: 'Une création sur-mesure qui révèle votre personnalité, longueurs et dégradé travaillés après diagnostic visagiste.' },
       { nom: 'Brushing & coiffage', texte: 'Mise en forme, volume et mouvement ; shampooing et coiffage adaptés à la longueur.' },
       { nom: 'Coupe homme', texte: 'Du classique au contemporain, structurée selon vos traits et votre style.' },
-      { nom: 'Barbe & contours', texte: 'Taille, sculpture des contours et rituel barbe — précision et netteté.' },
+      { nom: 'Barbe & contours', texte: 'Taille, sculpture des contours et rituel barbe : précision et netteté.' },
     ],
   },
 
@@ -55,11 +55,11 @@ export const coupe: PrestationData = {
   },
 
   faq: [
-    { question: 'Qu’est-ce qu’une coupe visagiste ?', reponse: 'Une coupe pensée à partir de votre morphologie et de vos traits, après un diagnostic — pour un résultat harmonieux et facile à vivre.' },
+    { question: 'Qu’est-ce qu’une coupe visagiste ?', reponse: 'Une coupe pensée à partir de votre morphologie et de vos traits, après un diagnostic, pour un résultat harmonieux et facile à vivre.' },
     { question: 'Le brushing est-il inclus ?', reponse: 'Le coiffage dépend de la prestation choisie ; le détail s’affiche au moment de la réservation.' },
     { question: 'Faites-vous les coupes homme et la barbe ?', reponse: 'Oui : coupe homme, taille de barbe et contours, avec la même exigence de précision.' },
     { question: 'Combien de temps dure une coupe ?', reponse: 'Cela dépend de la prestation et de la longueur. La durée s’affiche à la réservation, salon par salon.' },
-    { question: 'Les tarifs sont-ils les mêmes dans tous les salons ?', reponse: 'Certains tarifs varient selon le salon — Grenoble, Montbonnot, Voiron, Aix-les-Bains — et la longueur. Le prix exact s’affiche à la réservation en ligne.' },
+    { question: 'Les tarifs sont-ils les mêmes dans tous les salons ?', reponse: 'Certains tarifs varient selon le salon (Grenoble, Montbonnot, Voiron, Aix-les-Bains) et la longueur. Le prix exact s’affiche à la réservation en ligne.' },
   ],
 
   cta: {

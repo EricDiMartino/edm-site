@@ -9,7 +9,7 @@ export const extensions: PrestationData = {
     eyebrow: 'Longueur & volume',
     titre: 'Extensions',
     lede:
-      'Extensions de cheveux à Grenoble : extensions kératine 100 % cheveux naturels pour gagner en longueur, en volume ou en densité. Pose sur-mesure, après consultation obligatoire. Dans nos quatre salons — Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
+      'Extensions de cheveux à Grenoble : extensions kératine 100 % cheveux naturels pour gagner en longueur, en volume ou en densité. Pose sur-mesure, après consultation obligatoire. Dans nos quatre salons : Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 
@@ -17,7 +17,7 @@ export const extensions: PrestationData = {
     eyebrow: 'Avant la pose',
     titre: 'Une consultation, toujours',
     paragraphes: [
-      'Toute pose d’extensions de cheveux commence par une consultation obligatoire : on évalue la nature de votre cheveu, la quantité d’extensions naturelles nécessaire, la méthode de pose et la teinte exacte — pour un résultat invisible, fondu et confortable.',
+      'Toute pose d’extensions de cheveux commence par une consultation obligatoire : on évalue la nature de votre cheveu, la quantité d’extensions naturelles nécessaire, la méthode de pose et la teinte exacte, pour un résultat invisible, fondu et confortable.',
       'Nous travaillons exclusivement avec des extensions naturelles, posées dans le respect de votre chevelure, avec un entretien suivi dans le temps dans nos salons de Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
     ],
     lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
@@ -26,7 +26,7 @@ export const extensions: PrestationData = {
   variantes: {
     eyebrow: 'Au programme',
     titre: 'Pose, entretien & dépose',
-    intro: 'De la première pose au suivi — un accompagnement complet, de la consultation à la dépose.',
+    intro: 'De la première pose au suivi : un accompagnement complet, de la consultation à la dépose.',
     items: [
       { nom: 'Extensions kératine', texte: 'Pose mèche à mèche à chaud, discrète et naturelle, fondue dans votre chevelure pour un rendu invisible.' },
       { nom: 'Longueur', texte: 'Gagner de la longueur immédiatement, sans attendre la pousse de vos cheveux.' },

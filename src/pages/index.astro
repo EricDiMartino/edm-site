@@ -87,7 +87,7 @@ const videoSchema = {
       <div class="hm-hero-copy reveal">
         <p class="label">Quatre salons en Isère &amp; Savoie</p>
         <h1 class="editorial hm-h1">L'art du <em>cheveu</em>,<br />au plus près de <em>chez vous</em>.</h1>
-        <p class="lede hm-lede">Coiffeurs visagistes et coloristes, coupe femme et homme, balayage, lissage brésilien, head spa et beauté du regard. Quatre salons de coiffure haut de gamme en Isère et Savoie, une même exigence — vous voir partir radieux·se.</p>
+        <p class="lede hm-lede">Coiffeurs visagistes et coloristes, coupe femme et homme, balayage, lissage brésilien, head spa et beauté du regard. Quatre salons de coiffure haut de gamme en Isère et Savoie, une même exigence : vous voir partir radieux·se.</p>
         <div class="hm-actions">
           <a class="btn btn-action" href="/consultation-visagiste-coloriste">Découvrir la consultation</a>
         </div>
@@ -114,12 +114,19 @@ const videoSchema = {
       <header class="hm-video-head reveal">
         <p class="label">En images</p>
         <h2 class="h-seo">Du salon à la scène</h2>
-        <p class="body hm-video-lede">Eric Di Martino en démonstration : la coiffure des candidates d'une élection de Miss Isère et Miss France — le même geste de coiffeur visagiste, la même exigence qu'en salon de coiffure.</p>
+        <p class="body hm-video-lede">Eric Di Martino en démonstration : la coiffure des candidates d'une élection de Miss Isère et Miss France. Le même geste de coiffeur visagiste, la même exigence qu'en salon de coiffure.</p>
       </header>
       <figure class="hm-video-frame reveal" data-d="1">
-        <video controls preload="none" playsinline poster="/edm-show-poster.jpg">
-          <source src="/edm-show.mp4" type="video/mp4" />
-        </video>
+        <div class="hm-video-player" data-video-player>
+          <video preload="none" playsinline poster="/edm-show-poster.jpg">
+            <source src="/edm-show.mp4" type="video/mp4" />
+          </video>
+          <button type="button" class="hm-video-play" aria-label="Lire la vidéo">
+            <span class="hm-video-play-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" /></svg></span>
+            <span class="hm-video-play-txt">Voir la démonstration</span>
+          </button>
+        </div>
+        <figcaption class="hm-video-cap">Eric Di Martino, en coulisses d'une élection Miss Isère · Miss France.</figcaption>
       </figure>
     </section>
 
@@ -128,7 +135,7 @@ const videoSchema = {
       <div class="hm-conseil-copy reveal">
         <p class="label">Notre signature</p>
         <h2 class="h-seo">La consultation visagiste, avant tout</h2>
-        <p class="body">Quelle coupe selon mon visage ? Quelle couleur pour mon teint ? Chaque coupe femme, chaque coupe homme, chaque balayage ou coloration commence par une consultation visagiste : le temps du diagnostic capillaire — mode de vie, géométrie du visage, nature du cheveu et du cuir chevelu. C’est de là que découle une coiffure pensée selon la forme de votre visage.</p>
+        <p class="body">Quelle coupe selon mon visage ? Quelle couleur pour mon teint ? Chaque coupe femme, chaque coupe homme, chaque balayage ou coloration commence par une consultation visagiste : le temps du diagnostic capillaire : mode de vie, géométrie du visage, nature du cheveu et du cuir chevelu. C’est de là que découle une coiffure pensée selon la forme de votre visage.</p>
         <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <ul class="hm-piliers reveal" data-d="1">
@@ -143,7 +150,7 @@ const videoSchema = {
       <header class="section-head hm-presta-head reveal">
         <div>
           <p class="label">Nos prestations</p>
-          <h2 class="h-seo">Coupe, balayage, lissage, soin — pensés pour votre visage</h2>
+          <h2 class="h-seo">Coupe, balayage, lissage, soin, pensés pour votre visage</h2>
         </div>
         <a class="link-arrow link-olive hm-presta-all" href="/prestations-coiffure">Toutes les prestations<span class="arrow" aria-hidden="true">→</span></a>
       </header>
@@ -166,20 +173,20 @@ const videoSchema = {
         <header class="hm-sig-head reveal">
           <p class="hm-sig-eyebrow">Exclusivités</p>
           <h2 class="hm-sig-title">Deux signatures <em>uniques</em>.</h2>
-          <p class="hm-sig-lede">Au-delà de la coupe, de la couleur et du soin, deux rituels développés en exclusivité — chacun ancré dans un de nos salons, à Grenoble et à Montbonnot.</p>
+          <p class="hm-sig-lede">Au-delà de la coupe, de la couleur et du soin, deux rituels développés en exclusivité, chacun ancré dans un de nos salons, à Grenoble et à Montbonnot.</p>
           <a class="hm-sig-all" href="/prestations-coiffure">Toutes les prestations →</a>
         </header>
         <div class="hm-sig-cards">
           <a class="hm-sig-card reveal" href="/head-spa-grenoble">
             <p class="hm-sig-cat">Rituel cuir chevelu</p>
             <h3 class="hm-sig-name">Head <em>Spa</em></h3>
-            <p class="hm-sig-text">Le head spa japonais : soin du cuir chevelu venu du Japon — vapeur tiède, massage crânien, huiles précieuses. Un moment suspendu pour relâcher la tête et sublimer le cheveu, à Grenoble.</p>
+            <p class="hm-sig-text">Le head spa japonais : soin du cuir chevelu venu du Japon, vapeur tiède, massage crânien, huiles précieuses. Un moment suspendu pour relâcher la tête et sublimer le cheveu, à Grenoble.</p>
             <span class="hm-sig-foot"><span class="hm-sig-salon">Salon Grenoble</span><span class="hm-sig-go">Découvrir →</span></span>
           </a>
           <a class="hm-sig-card reveal" data-d="1" href="/beaute-du-regard-montbonnot">
             <p class="hm-sig-cat">Cils &amp; sourcils</p>
             <h3 class="hm-sig-name">Beauté du <em>regard</em></h3>
-            <p class="hm-sig-text">Rehaussement de cils, extension de cils, teinture et restructuration des sourcils — pour intensifier le regard à Montbonnot, dans le même esprit d’exigence.</p>
+            <p class="hm-sig-text">Rehaussement de cils, extension de cils, teinture et restructuration des sourcils, pour intensifier le regard à Montbonnot, dans le même esprit d’exigence.</p>
             <span class="hm-sig-foot"><span class="hm-sig-salon">Salon Montbonnot</span><span class="hm-sig-go">Découvrir →</span></span>
           </a>
         </div>
@@ -249,7 +256,7 @@ const videoSchema = {
     )}
 
     <!-- 8. CTA -->
-    <CtaBlock id="reserver" title="Offrez-vous un vrai moment." lede="Réservez votre visite dans le salon de coiffure de votre choix, en Isère ou en Savoie — consultation visagiste comprise."><a class="btn btn-action btn-lg" data-reserve href="#reserver">Réserver</a></CtaBlock>
+    <CtaBlock id="reserver" title="Offrez-vous un vrai moment." lede="Réservez votre visite dans le salon de coiffure de votre choix, en Isère ou en Savoie : consultation visagiste comprise."><a class="btn btn-action btn-lg" data-reserve href="#reserver">Réserver</a></CtaBlock>
   </main>
 
   <!-- FOOTER -->
@@ -279,13 +286,30 @@ const videoSchema = {
       </nav>
     </div>
     <div class="hm-footer-bottom">
-      <p>© Eric Di Martino — Tous droits réservés.</p>
+      <p>© Eric Di Martino. Tous droits réservés.</p>
       <ul class="hm-footer-social">
         <li><a href="https://www.instagram.com/salon_eric_di_martino_grenoble/" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.facebook.com/salonericdimartino/" target="_blank" rel="noopener">Facebook</a></li>
       </ul>
     </div>
   </footer>
+
+  <script is:inline>
+    // Player vidéo "Du salon à la scène" : poster + bouton play custom → lecture + contrôles natifs.
+    (function () {
+      var p = document.querySelector('[data-video-player]');
+      if (!p) return;
+      var v = p.querySelector('video');
+      var btn = p.querySelector('.hm-video-play');
+      if (!v || !btn) return;
+      btn.addEventListener('click', function () {
+        v.setAttribute('controls', '');
+        p.classList.add('is-playing');
+        var r = v.play();
+        if (r && r.catch) r.catch(function () {});
+      });
+    })();
+  </script>
 
   <style>
     /* ===== HERO ===== */
@@ -314,7 +338,18 @@ const videoSchema = {
     .hm-video-head { max-width: 60ch; }
     .hm-video-lede { margin-top: 0.9rem; color: var(--muted); }
     .hm-video-frame { margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; }
-    .hm-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--espresso); border-radius: var(--radius); box-shadow: 0 24px 60px -28px rgba(42,35,29,0.45); }
+    .hm-video-player { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 60px -28px rgba(42,35,29,0.45); }
+    .hm-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--espresso); }
+    /* Voile + bouton play custom, tant que la vidéo n'est pas lancée */
+    .hm-video-play { position: absolute; inset: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; border: 0; cursor: pointer; color: #fff;
+      background: linear-gradient(180deg, rgba(26,20,13,0.15), rgba(26,20,13,0.45)); transition: background-color 0.3s, opacity 0.3s; }
+    .hm-video-play:hover { background: linear-gradient(180deg, rgba(26,20,13,0.25), rgba(26,20,13,0.55)); }
+    .hm-video-play-ring { display: grid; place-items: center; width: clamp(4rem, 7vw, 5.25rem); height: clamp(4rem, 7vw, 5.25rem); border-radius: 50%; background: var(--terracotta); box-shadow: 0 12px 32px -10px rgba(42,35,29,0.6); transition: transform 0.3s var(--ease), background-color 0.25s; }
+    .hm-video-play:hover .hm-video-play-ring { transform: scale(1.06); background: var(--terracotta-deep); }
+    .hm-video-play-ring svg { width: 42%; height: 42%; margin-left: 8%; }
+    .hm-video-play-txt { font-family: var(--sans); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    .hm-video-player.is-playing .hm-video-play { opacity: 0; pointer-events: none; }
+    .hm-video-cap { margin: 0.9rem 0 0; font-size: 0.82rem; color: var(--muted); font-style: italic; }
 
     /* ===== CONSULTATION ===== */
     .hm-conseil { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; border-top: 1px solid var(--line); }

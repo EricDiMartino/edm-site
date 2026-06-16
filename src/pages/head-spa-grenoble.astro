@@ -23,7 +23,7 @@ const ICONS: Record<string, string> = {
 // Schémas SEO/GEO
 const provider = {
   '@type': 'HairSalon',
-  name: `Eric Di Martino — ${h.ville}`,
+  name: `Eric Di Martino, ${h.ville}`,
   telephone: h.telephone,
   address: { '@type': 'PostalAddress', streetAddress: h.lieu.adresse, postalCode: h.lieu.codePostal, addressLocality: h.ville, addressCountry: 'FR' },
   sameAs: [h.instagram.url],
@@ -184,7 +184,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
               <li><span class="hs-extra-name">{e.nom}</span><span class="hs-extra-detail">{e.detail}</span><span class="hs-extra-price">{e.prix}</span></li>
             ))}
           </ul>
-          <p class="hs-extras-note">Duo et cures sur réservation téléphonique — <a href={telHref}>{h.telephone}</a>.</p>
+          <p class="hs-extras-note">Duo et cures sur réservation téléphonique : <a href={telHref}>{h.telephone}</a>.</p>
         </div>
       )}
     </section>
@@ -206,7 +206,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     <section class="hs-sec hs-band">
       <div class="hs-place">
         <div class="hs-place-visual reveal">
-          <iframe title="Carte — Salon Grenoble" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="Carte, Salon Grenoble" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="hs-place-copy reveal" data-d="1">
           <p class="hs-eyebrow">{h.lieu.eyebrow}</p>
@@ -266,7 +266,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         <p class="hs-cta-title">{h.cta.titre}</p>
         <p class="hs-cta-text">{h.cta.texte}</p>
         <a class="btn btn-action btn-lg" href={h.reservationUrl}>Réserver en ligne</a>
-        <p class="hs-cta-tel">ou par téléphone — <a href={telHref}>{h.telephone}</a></p>
+        <p class="hs-cta-tel">ou par téléphone : <a href={telHref}>{h.telephone}</a></p>
       </div>
     </section>
 

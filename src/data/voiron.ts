@@ -94,7 +94,7 @@ export const voiron: SalonData = {
     texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent à Voiron sur les grands rendez-vous comme au quotidien.',
     items: [
       { titre: 'Extensions', texte: 'Extensions de cheveux à Voiron : longueur, volume ou densité, pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Essai coiffure mariage, chignon de mariée et coiffure du jour J — un accompagnement dédié à Voiron pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Coiffure de mariage', texte: 'Essai coiffure mariage, chignon de mariée et coiffure du jour J : un accompagnement dédié à Voiron pour votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
       { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },

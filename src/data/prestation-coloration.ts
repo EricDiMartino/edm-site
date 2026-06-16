@@ -10,7 +10,7 @@ export const coloration: PrestationData = {
     eyebrow: 'Couleur',
     titre: 'Coloration & balayage',
     lede:
-      'Coloration, balayage, ombré, gloss et coloration naturelle — par nos coloristes visagistes, dans le respect du cheveu et après diagnostic. Dans nos quatre salons.',
+      'Coloration, balayage, ombré, gloss et coloration naturelle, par nos coloristes visagistes, dans le respect du cheveu et après diagnostic. Dans nos quatre salons.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 
@@ -27,11 +27,11 @@ export const coloration: PrestationData = {
   variantes: {
     eyebrow: 'Techniques',
     titre: 'Toutes nos techniques de couleur',
-    intro: 'De l’entretien de la racine à la transformation complète — chaque technique répond à un besoin précis.',
+    intro: 'De l’entretien de la racine à la transformation complète : chaque technique répond à un besoin précis.',
     items: [
       { nom: 'Coloration racine', texte: 'Entretien régulier de la racine : ton sur ton ou couvrance des cheveux blancs, pour une couleur toujours nette.' },
       { nom: 'Coloration & soin', texte: 'Couleur complète sur l’ensemble de la chevelure, éclat et profondeur, dans le respect de la fibre.' },
-      { nom: 'Coloration naturelle', texte: 'Une coloration d’origine naturelle, plus douce, aux reflets lumineux — pour qui cherche une alternative respectueuse.' },
+      { nom: 'Coloration naturelle', texte: 'Une coloration d’origine naturelle, plus douce, aux reflets lumineux, pour qui cherche une alternative respectueuse.' },
       { nom: 'Balayage', texte: 'Éclaircissement par mèches, fondu et progressif : un effet naturel et lumineux, sans démarcation à la repousse.' },
       { nom: 'Ombré hair', texte: 'Un dégradé des racines foncées vers des pointes plus claires, très peu d’entretien, plein de relief.' },
       { nom: 'Gloss & reflets', texte: 'Un voile de couleur qui ravive l’éclat et les reflets, sublime la brillance, sans engager durablement.' },
@@ -42,7 +42,7 @@ export const coloration: PrestationData = {
     eyebrow: 'Pourquoi nous',
     titre: 'Une couleur qui respecte le cheveu',
     items: [
-      { titre: 'Sur-mesure', texte: 'La teinte est choisie selon votre teint, vos yeux et votre visage — jamais sur catalogue.', icon: 'eye' },
+      { titre: 'Sur-mesure', texte: 'La teinte est choisie selon votre teint, vos yeux et votre visage, jamais sur catalogue.', icon: 'eye' },
       { titre: 'Respect du cheveu', texte: 'Produits haut de gamme et soins associés, pour préserver la fibre à chaque passage.', icon: 'leaf' },
       { titre: 'Brillance & tenue', texte: 'Des reflets lumineux et une couleur qui dure, séance après séance.', icon: 'sparkle' },
     ],

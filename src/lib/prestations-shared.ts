@@ -19,7 +19,7 @@ export const areaServed = [...new Set(SALONS.flatMap((s) => s.areaServed ?? []))
 
 const providers = SALONS.map((s) => ({
   '@type': 'HairSalon',
-  name: `Eric Di Martino — ${s.ville}`,
+  name: `Eric Di Martino, ${s.ville}`,
   telephone: s.telephone,
   address: { '@type': 'PostalAddress', streetAddress: s.adresse, postalCode: s.codePostal, addressLocality: s.ville, addressCountry: 'FR' },
 }));
@@ -48,7 +48,7 @@ export function buildPrestationSchemas(data: PrestationData, canonical: string, 
     '@context': 'https://schema.org',
     '@type': 'Service',
     serviceType: data.serviceType,
-    name: `${nom} — Eric Di Martino`,
+    name: `${nom}, Eric Di Martino`,
     description: data.seo.description,
     url: canonical,
     areaServed,

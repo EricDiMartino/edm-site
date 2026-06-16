@@ -9,7 +9,7 @@ export const lissage: PrestationData = {
     eyebrow: 'Soin',
     titre: 'Lissage & soins',
     lede:
-      'Lissage brésilien, botox capillaire, soins profonds et masques — pour discipliner, réparer et faire briller le cheveu. Sur-mesure, après diagnostic de la fibre. Dans nos quatre salons à Grenoble et en Isère, à Voiron comme à Aix-les-Bains.',
+      'Lissage brésilien, botox capillaire, soins profonds et masques : pour discipliner, réparer et faire briller le cheveu. Sur-mesure, après diagnostic de la fibre. Dans nos quatre salons à Grenoble et en Isère, à Voiron comme à Aix-les-Bains.',
     meta: 'Dans nos 4 salons · Sur rendez-vous',
   },
 
@@ -17,7 +17,7 @@ export const lissage: PrestationData = {
     eyebrow: 'Notre approche',
     titre: 'Réparer, discipliner, sublimer',
     paragraphes: [
-      'Tout part d’un diagnostic de la fibre : porosité, état, attentes. On choisit ensuite le soin ou le lissage le plus adapté — jamais l’inverse.',
+      'Tout part d’un diagnostic de la fibre : porosité, état, attentes. On choisit ensuite le soin ou le lissage le plus adapté, jamais l’inverse.',
       'Des soins ciblés aux lissages durables, l’objectif reste le même : un cheveu sain, discipliné et lumineux, dans le respect de sa nature.',
     ],
     lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
@@ -26,7 +26,7 @@ export const lissage: PrestationData = {
   variantes: {
     eyebrow: 'Techniques',
     titre: 'Lissages & soins profonds',
-    intro: 'Du soin réparateur au lissage longue durée — chaque besoin a sa réponse.',
+    intro: 'Du soin réparateur au lissage longue durée : chaque besoin a sa réponse.',
     items: [
       { nom: 'Lissage brésilien', texte: 'Discipline durable, anti-frisottis et brillance miroir, tout en gardant du mouvement.' },
       { nom: 'Lissage New Yorkais', texte: 'Un lissage plus doux et modulable, pour assouplir sans tout figer.' },

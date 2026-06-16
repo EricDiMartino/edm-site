@@ -14,7 +14,7 @@ export const consultation = {
     titre: 'Votre consultation offerte',
     sousTitre: 'Laissez vos coordonnées : nos coiffeurs visagistes vous rappellent pour faire le point sur votre projet.',
     submit: 'Être rappelé·e',
-    confirmation: 'Merci ! Nous avons bien reçu votre demande — un expert vous rappelle très vite.',
+    confirmation: 'Merci ! Nous avons bien reçu votre demande, un expert vous rappelle très vite.',
     rgpd: 'Vos données servent uniquement à vous recontacter. Aucune revente.',
     endpoint: '', // TODO: URL du formulaire (Formspree / GoHighLevel / webhook)
   },
@@ -33,7 +33,7 @@ export const consultation = {
     titre: 'Changez de tête.',
     titreEm: 'Pour de vrai.',
     lede:
-      '30 minutes avec un visagiste expert : bilan, diagnostic et plan d’action clair pour vos cheveux. Offert, sans engagement — nos experts vous rappellent.',
+      '30 minutes avec un visagiste expert : bilan, diagnostic et plan d’action clair pour vos cheveux. Offert, sans engagement : nos experts vous rappellent.',
     points: ['100 % offert', 'Sans engagement', 'Par un visagiste expert', 'Places limitées'],
   },
 
@@ -80,7 +80,7 @@ export const consultation = {
 
   ctaFinal: {
     titre: 'Prêt·e à changer de tête ?',
-    texte: 'Laissez vos coordonnées — on s’occupe du reste.',
+    texte: 'Laissez vos coordonnées, on s’occupe du reste.',
   },
 
   seo: {

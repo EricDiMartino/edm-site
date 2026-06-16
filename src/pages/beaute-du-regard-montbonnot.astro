@@ -33,7 +33,7 @@ const ICONS: Record<string, string> = {
 };
 const univers = [
   { titre: 'Sourcils', icon: 'brow', texte: 'Restructuration, épilation et teinture des sourcils à Montbonnot : une ligne redessinée selon la forme de votre visage. La structure qui change tout un regard.' },
-  { titre: 'Cils', icon: 'eye', texte: 'Rehaussement de cils (lash lift), teinture et extensions de cils : des cils plus longs, recourbés et intenses — effet naturel ou regard plus affirmé.' },
+  { titre: 'Cils', icon: 'eye', texte: 'Rehaussement de cils (lash lift), teinture et extensions de cils : des cils plus longs, recourbés et intenses (effet naturel ou regard plus affirmé).' },
   { titre: 'Maquillage permanent', icon: 'pen', texte: 'Maquillage permanent des sourcils, de la ligne des yeux et des lèvres : un dessin durable et précis, par une spécialiste de la technique.' },
   { titre: 'Grain de beauté', icon: 'spark', texte: 'La touche finale : un grain de beauté dessiné avec précision pour souligner et sublimer le regard.' },
 ];
@@ -89,7 +89,7 @@ const seo = {
       <div class="bdr-hero-copy reveal">
         <p class="label">{m.ville} · L'artiste du regard</p>
         <h1 class="editorial bdr-h1">La beauté du <em class="ital">regard</em>.</h1>
-        <p class="lede bdr-lede">Beauté du regard à Montbonnot : sourcils redessinés, rehaussement et extensions de cils, maquillage permanent. Audrey sublime votre regard avec la même exigence que nos prestations coiffure — toujours à partir de la forme de votre visage.</p>
+        <p class="lede bdr-lede">Beauté du regard à Montbonnot : sourcils redessinés, rehaussement et extensions de cils, maquillage permanent. Audrey sublime votre regard avec la même exigence que nos prestations coiffure, toujours à partir de la forme de votre visage.</p>
         <div class="bdr-actions">
           <a class="btn btn-action" href="#reserver" data-reserve>Prendre rendez-vous</a>
           <a class="btn btn-ghost" href="#univers">Voir les prestations</a>
@@ -111,7 +111,7 @@ const seo = {
       <div class="bdr-approche-copy reveal">
         <p class="label">Notre approche</p>
         <h2 class="h-seo">Le regard, prolongement du visage</h2>
-        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque rehaussement de cils, restructuration de sourcils ou maquillage permanent, Audrey prend le temps du diagnostic — pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
+        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque rehaussement de cils, restructuration de sourcils ou maquillage permanent, Audrey prend le temps du diagnostic, pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
         <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -142,7 +142,7 @@ const seo = {
       <div class="bdr-praticienne-copy reveal" data-d="1">
         <p class="label">La praticienne</p>
         <h2 class="h-seo">Audrey, artiste du regard</h2>
-        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard — cils, sourcils, dessin durable — pour un résultat naturel à Montbonnot.</p>
+        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard (cils, sourcils, dessin durable) pour un résultat naturel à Montbonnot.</p>
         <a class="link-arrow link-olive" href={m.instagram.url} target="_blank" rel="noopener">Voir son travail sur Instagram<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -186,7 +186,7 @@ const seo = {
     </section>
 
     <!-- CTA -->
-    <CtaBlock id="reserver" title="Sublimez votre regard." lede="Rendez-vous avec Audrey, au salon de Montbonnot."><a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a><p class="cta-band-tel">ou par téléphone — <a href={telHref}>{m.telephone}</a></p></CtaBlock>
+    <CtaBlock id="reserver" title="Sublimez votre regard." lede="Rendez-vous avec Audrey, au salon de Montbonnot."><a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a><p class="cta-band-tel">ou par téléphone : <a href={telHref}>{m.telephone}</a></p></CtaBlock>
   </main>
 
   <SiteFooter sub={`Beauté du regard · Salon de Montbonnot · ${m.adresse}, ${cpVille}`} />

@@ -21,8 +21,8 @@ const postes = [
   {
     titre: 'Coiffeur·se confirmé·e',
     contrat: 'CDI',
-    lieu: 'Nos 4 salons — Grenoble, Montbonnot, Voiron, Aix-les-Bains',
-    missions: ['Coupe femme et coupe homme, couleur, balayage, lissage et soins', 'Diagnostic capillaire et conseil personnalisé — la signature de la maison', 'Polyvalence sur l’ensemble des prestations'],
+    lieu: 'Nos 4 salons : Grenoble, Montbonnot, Voiron, Aix-les-Bains',
+    missions: ['Coupe femme et coupe homme, couleur, balayage, lissage et soins', 'Diagnostic capillaire et conseil personnalisé, la signature de la maison', 'Polyvalence sur l’ensemble des prestations'],
     profil: 'CAP minimum et 2 ans d’expérience en salon, à l’aise sur la coupe selon la forme du visage comme sur la couleur et le balayage, orienté conseil et envie de progresser.',
   },
   {
@@ -101,7 +101,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       </ul>
     </section>
 
-    <CtaBlock title="Pas le poste qu’il vous faut ?" lede="Envoyez-nous une candidature spontanée — on garde toujours un œil sur les beaux profils de coiffeurs et coiffeuses en Isère et Savoie."><button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button></CtaBlock>
+    <CtaBlock title="Pas le poste qu’il vous faut ?" lede="Envoyez-nous une candidature spontanée, on garde toujours un œil sur les beaux profils de coiffeurs et coiffeuses en Isère et Savoie."><button type="button" class="btn btn-action btn-lg" data-apply data-poste="Candidature spontanée">Envoyer ma candidature</button></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
@@ -128,8 +128,8 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
             <option>Candidature spontanée</option>
           </select>
         </label>
-        <label>CV <span class="apply-opt">— PDF, optionnel</span><input type="file" name="cv" accept=".pdf,.doc,.docx" /></label>
-        <label>Message <span class="apply-opt">— optionnel</span><textarea name="message" rows="3" placeholder="Quelques mots sur vous…"></textarea></label>
+        <label>CV <span class="apply-opt">(PDF, optionnel)</span><input type="file" name="cv" accept=".pdf,.doc,.docx" /></label>
+        <label>Message <span class="apply-opt">(optionnel)</span><textarea name="message" rows="3" placeholder="Quelques mots sur vous…"></textarea></label>
         <button class="btn btn-action btn-lg apply-submit" type="submit">Envoyer ma candidature</button>
         <p class="apply-rgpd">Vos données servent uniquement au traitement de votre candidature.</p>
       </form>
