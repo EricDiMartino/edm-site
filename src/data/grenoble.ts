@@ -131,11 +131,11 @@ export const grenoble: SalonData = {
 
   horaires: [
     { jour: 'Lundi', valeur: 'Fermé', ferme: true, jourEn: 'Monday' },
-    { jour: 'Mardi', valeur: '9h – 19h', jourEn: 'Tuesday', opens: '09:00', closes: '19:00' },
-    { jour: 'Mercredi', valeur: '9h – 19h', jourEn: 'Wednesday', opens: '09:00', closes: '19:00' },
-    { jour: 'Jeudi', valeur: '9h – 19h', jourEn: 'Thursday', opens: '09:00', closes: '19:00' },
-    { jour: 'Vendredi', valeur: '9h – 19h', jourEn: 'Friday', opens: '09:00', closes: '19:00' },
-    { jour: 'Samedi', valeur: '9h – 18h', jourEn: 'Saturday', opens: '09:00', closes: '18:00' },
+    { jour: 'Mardi', valeur: '9h – 18h', jourEn: 'Tuesday', opens: '09:00', closes: '18:00' },
+    { jour: 'Mercredi', valeur: '9h – 18h', jourEn: 'Wednesday', opens: '09:00', closes: '18:00' },
+    { jour: 'Jeudi', valeur: '9h – 18h', jourEn: 'Thursday', opens: '09:00', closes: '18:00' },
+    { jour: 'Vendredi', valeur: '9h – 18h', jourEn: 'Friday', opens: '09:00', closes: '18:00' },
+    { jour: 'Samedi', valeur: '9h – 17h', jourEn: 'Saturday', opens: '09:00', closes: '17:00' },
     { jour: 'Dimanche', valeur: 'Fermé', ferme: true, jourEn: 'Sunday' },
   ],
 
@@ -148,7 +148,7 @@ export const grenoble: SalonData = {
   // Badges d'accès (section infos pratiques) — détails PROVISOIRES à ajuster.
   acces: [
     { label: 'Parking', detail: 'Parking Lafayette à 2 min' },
-    { label: 'Tramway', detail: 'Tram A & B — arrêt Victor Hugo' },
+    { label: 'Tramway', detail: 'Tram A & B, arrêt Victor Hugo' },
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
@@ -184,7 +184,7 @@ export const grenoble: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de coiffure de Grenoble.',
     paragraphes: [
-      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle — un écrin pensé pour que le geste prime. À deux pas du centre-ville, il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
+      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle, un écrin pensé pour que le geste prime. À deux pas du centre-ville, il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
       'Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
@@ -195,7 +195,7 @@ export const grenoble: SalonData = {
       eyebrow: 'Signature exclusive',
       titre: 'Head spa japonais à Grenoble',
       texte:
-        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage crânien, vapeur tiède et soin profond du cuir chevelu — pour un cheveu apaisé et un esprit relâché.',
+        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage crânien, vapeur tiède et soin profond du cuir chevelu, pour un cheveu apaisé et un esprit relâché.',
       points: ['Diagnostic capillaire', 'Massage crânien 20 min', 'Soin du cuir chevelu sur-mesure', 'Brushing inclus'],
       prix: '89 €',
       prixDetail: '1h · soin signature',
@@ -226,7 +226,7 @@ export const grenoble: SalonData = {
     texte: 'Au-delà de la coupe et de la couleur, nos artistes vous accompagnent sur les grands rendez-vous comme au quotidien.',
     items: [
       { titre: 'Extensions de cheveux', texte: 'Longueur, volume ou densité : pose sur-mesure, entretien et dépose, dans le respect du cheveu.', caption: 'Sur consultation', icon: 'extensions' },
-      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J — un accompagnement dédié à votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
+      { titre: 'Coiffure de mariage', texte: 'Essai préalable, chignon et coiffure du jour J, un accompagnement dédié à votre cérémonie.', caption: 'Sur devis', icon: 'mariage' },
       { titre: 'Coaching & relooking', texte: 'Apprenez à coiffer votre coupe au quotidien : gestes, produits et conseils sur-mesure, adaptés à la forme de votre visage.', caption: 'Sur demande', icon: 'coaching' },
     ],
   },
@@ -268,7 +268,7 @@ export const grenoble: SalonData = {
     },
     {
       question: 'Proposez-vous le head spa à Grenoble ?',
-      reponse: 'Oui, dans un espace dédié — massage crânien et soin du cuir chevelu, en soin seul ou en complément d’une prestation.',
+      reponse: 'Oui, dans un espace dédié : massage crânien et soin du cuir chevelu, en soin seul ou en complément d’une prestation.',
     },
   ],
 
@@ -303,7 +303,7 @@ export const grenoble: SalonData = {
           { texte: 'Analyse du visage & morphologie' },
           { texte: 'Conseil coupe + couleur sur-mesure' },
           { texte: 'Projection du rendu avant décision' },
-          { texte: 'Offerte dès une coupe ou couleur — nouveaux clients', muted: true, gift: true },
+          { texte: 'Offerte dès une coupe ou couleur (nouveaux clients)', muted: true, gift: true },
         ],
         cta: 'Réserver ma consultation',
       },

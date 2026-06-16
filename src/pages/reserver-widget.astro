@@ -5,6 +5,11 @@
 // Params : ?key=<clé> &color=<hex> &cat=<catégories,séparées,par,virgules> &demo (aperçu)
 // noindex.
 
+// Police du site chargée dans le widget (sinon Planity utilise sa police par défaut).
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+
 // Contenu factice pour l'aperçu (?demo) — rendu masqué, affiché par JS.
 const demoGroups = [
   { titre: 'Consultation visagiste', items: [
@@ -34,6 +39,8 @@ const demoGroups = [
       * { box-sizing: border-box; }
       html, body { margin: 0; }
       body { font-family: "Poppins", -apple-system, system-ui, sans-serif; color: #31302e; padding: 16px; }
+      /* Force la typo du widget Planity (rendu sur cette page) sur la police du site. */
+      body, body * { font-family: "Poppins", -apple-system, system-ui, sans-serif !important; }
       .pl-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; padding: 4rem 1rem; }
       .pl-loader p { font-size: 0.95rem; color: #807f70; margin: 0; }
       .pl-spin { width: 42px; height: 42px; border: 4px solid var(--bk-accent); border-bottom-color: transparent; border-radius: 50%; animation: pl-rot 1s linear infinite; }
