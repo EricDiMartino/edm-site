@@ -428,7 +428,7 @@ const PREST_ICONS: Record<string, string> = {
 
   /* ============ 1b. CHIFFRES-CLÉS (réassurance) ============ */
   .stats { max-width: var(--maxw); margin-inline: auto; padding: clamp(2.5rem, 5vw, 3.75rem) var(--gutter); border-bottom: 1px solid var(--line); }
-  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 4vw, 2.5rem); }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 4vw, 2.5rem); }
   .stat { text-align: center; }
   .stat-value { display: block; font-family: var(--serif); font-weight: 380; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); line-height: 1; color: var(--ink); }
   .stat-label { display: block; margin-top: 0.55rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
@@ -588,6 +588,7 @@ const PREST_ICONS: Record<string, string> = {
 
   /* ============ RESPONSIVE ≥ 820px (spécifique page) ============ */
   @media (min-width: 820px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
     .hero {
       grid-template-columns: 0.84fr 1.16fr; align-items: stretch;
       /* Plein écran sous le header. min-height (PAS height) → si le texte ou l'image

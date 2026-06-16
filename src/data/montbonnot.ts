@@ -54,6 +54,7 @@ export const montbonnot: SalonData = {
   chiffres: [
     { valeur: '5', label: 'artistes' },
     { valeur: '4,8 ★', label: '192 avis Google' },
+    { valeur: '4,9★', label: '352 avis Planity' },
     { valeur: 'Mar–Sam', label: 'sur rendez-vous' },
   ],
 

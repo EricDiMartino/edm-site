@@ -28,7 +28,7 @@ const ogImage = new URL(data.heroImage.src, Astro.site).href;
 const liveAvis = await getGoogleReviews(data.googlePlaceId);
 const chiffres = liveAvis
   ? data.chiffres?.map((c) =>
-      /avis/i.test(c.label) ? { valeur: `${liveAvis.note}★`, label: `${liveAvis.total} avis Google` } : c,
+      /avis google/i.test(c.label) ? { valeur: `${liveAvis.note}★`, label: `${liveAvis.total} avis Google` } : c,
     )
   : data.chiffres;
 const salon = liveAvis

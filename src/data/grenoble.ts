@@ -158,6 +158,7 @@ export const grenoble: SalonData = {
     { valeur: '5', label: 'artistes' },
     { valeur: '200', label: 'm² d’espace' },
     { valeur: '4,7 ★', label: '500 avis Google' },
+    { valeur: '4,9★', label: '454 avis Planity' },
   ],
 
   // Citation signature d'Eric — texte PROVISOIRE.
