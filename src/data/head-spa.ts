@@ -123,8 +123,8 @@ export const headSpa = {
     adresse: '6 place Victor Hugo',
     codePostal: '38000',
     horaires: [
-      { jour: 'Mardi – Vendredi', valeur: '9h – 19h' },
-      { jour: 'Samedi', valeur: '9h – 18h' },
+      { jour: 'Mardi – Vendredi', valeur: '9h – 18h' },
+      { jour: 'Samedi', valeur: '9h – 17h' },
       { jour: 'Dimanche & Lundi', valeur: 'Fermé', ferme: true },
     ] as HsHoraire[],
   },

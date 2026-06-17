@@ -340,10 +340,14 @@ const PREST_ICONS: Record<string, string> = {
           <h2 class="h-seo">Le salon{salon.ville ? ` de ${salon.ville}` : ''} en images</h2>
         </header>
         <ul class="ig-grid reveal" data-d="1">
-          {Array.from({ length: 6 }).map(() => (
+          {(salon.instagramPhotos?.length ? salon.instagramPhotos : Array.from({ length: 6 })).map((ph, i) => (
             <li>
-              <a class="ig-shot" href={salon.instagram!.url} target="_blank" rel="noopener" aria-label={`Voir ${salon.instagram!.handle} sur Instagram`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg>
+              <a class={`ig-shot ${ph ? 'has-img' : ''}`} href={salon.instagram!.url} target="_blank" rel="noopener" aria-label={`Voir ${salon.instagram!.handle} sur Instagram`}>
+                {ph ? (
+                  <Image src={ph} widths={[220, 340, 460]} sizes="(min-width: 1000px) 16vw, 33vw" alt={`Réalisation du salon de coiffure ${salon.ville}`} loading="lazy" />
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg>
+                )}
               </a>
             </li>
           ))}
@@ -576,6 +580,9 @@ const PREST_ICONS: Record<string, string> = {
   .ig-shot svg { width: 28px; height: 28px; opacity: 0.55; transition: opacity 0.3s, transform 0.4s var(--ease); }
   .ig-shot:hover { color: var(--terracotta); }
   .ig-shot:hover svg { opacity: 1; transform: scale(1.1); }
+  .ig-shot.has-img { display: block; }
+  .ig-shot.has-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
+  .ig-shot.has-img:hover img { transform: scale(1.05); }
   .ig-follow { margin: clamp(1.5rem, 4vw, 2.25rem) 0 0; }
 
   /* ============ FOOTER ============ */

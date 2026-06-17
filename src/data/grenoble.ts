@@ -15,6 +15,12 @@ import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp
 import eqva from '../assets/salons/grenoble/equipe/eva.webp';
 import eqhilippe from '../assets/salons/grenoble/equipe/philippe.webp';
 import eqanon from '../assets/salons/grenoble/equipe/manon.webp';
+import ig1 from '../assets/salons/grenoble/instagram/1.webp';
+import ig2 from '../assets/salons/grenoble/instagram/2.webp';
+import ig3 from '../assets/salons/grenoble/instagram/3.webp';
+import ig4 from '../assets/salons/grenoble/instagram/4.webp';
+import ig5 from '../assets/salons/grenoble/instagram/5.webp';
+import ig6 from '../assets/salons/grenoble/instagram/6.webp';
 
 export interface Horaire {
   jour: string;
@@ -112,6 +118,7 @@ export interface SalonData {
   ctaTitre?: string;
   trioConsult?: TrioConsultData; // bloc trio consultation (surcharge ; sinon défaut partagé)
   instagram?: { handle: string; url: string };
+  instagramPhotos?: ImageMetadata[]; // vignettes section Instagram (sinon pictos par défaut)
   seo: { title: string; description: string };
 }
 
@@ -274,6 +281,7 @@ export const grenoble: SalonData = {
   ],
 
   instagram: { handle: '@salon_eric_di_martino_grenoble', url: 'https://www.instagram.com/salon_eric_di_martino_grenoble/' },
+  instagramPhotos: [ig1, ig2, ig3, ig4, ig5, ig6],
 
   // Trio Grenoble — prix spécifiques (surcharge le trio par défaut).
   trioConsult: {

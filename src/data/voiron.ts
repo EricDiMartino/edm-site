@@ -6,6 +6,12 @@
 
 import type { SalonData } from './grenoble';
 import hero from '../assets/salons/voiron/hero.webp';
+import ig1 from '../assets/salons/voiron/instagram/1.webp';
+import ig2 from '../assets/salons/voiron/instagram/2.webp';
+import ig3 from '../assets/salons/voiron/instagram/3.webp';
+import ig4 from '../assets/salons/voiron/instagram/4.webp';
+import ig5 from '../assets/salons/voiron/instagram/5.webp';
+import ig6 from '../assets/salons/voiron/instagram/6.webp';
 import expertise from '../assets/salons/voiron/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
 import lilyPhoto from '../assets/salons/voiron/equipe/lily.webp';
@@ -132,6 +138,7 @@ export const voiron: SalonData = {
   ],
 
   instagram: { handle: '@salon_eric_di_martino_voiron', url: 'https://www.instagram.com/salon_eric_di_martino_voiron/' },
+  instagramPhotos: [ig1, ig2, ig3, ig4, ig5, ig6],
 
   seo: {
     title: 'Coiffeur visagiste à Voiron, Pays Voironnais | Eric Di Martino',

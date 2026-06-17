@@ -7,6 +7,12 @@
 
 import type { SalonData } from './grenoble';
 import hero from '../assets/salons/montbonnot/hero.webp';
+import ig1 from '../assets/salons/montbonnot/instagram/1.webp';
+import ig2 from '../assets/salons/montbonnot/instagram/2.webp';
+import ig3 from '../assets/salons/montbonnot/instagram/3.webp';
+import ig4 from '../assets/salons/montbonnot/instagram/4.webp';
+import ig5 from '../assets/salons/montbonnot/instagram/5.webp';
+import ig6 from '../assets/salons/montbonnot/instagram/6.webp';
 import expertise from '../assets/salons/montbonnot/expertise.webp';
 import equipePlaceholder from '../assets/salons/grenoble/equipe-placeholder.webp'; // PROVISOIRE
 import equdrey from '../assets/salons/montbonnot/equipe/audrey.webp';
@@ -143,6 +149,7 @@ export const montbonnot: SalonData = {
   ],
 
   instagram: { handle: '@salon_ericdimartino_montbonnot', url: 'https://www.instagram.com/salon_ericdimartino_montbonnot/' },
+  instagramPhotos: [ig1, ig2, ig3, ig4, ig5, ig6],
 
   seo: {
     title: 'Coiffeur & coloriste visagiste Montbonnot | Eric Di Martino',
