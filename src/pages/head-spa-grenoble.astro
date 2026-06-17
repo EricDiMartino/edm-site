@@ -327,10 +327,10 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         radial-gradient(120% 80% at 75% 18%, rgba(207, 157, 114, 0.18), transparent 55%),
         linear-gradient(160deg, #2a2119 0%, #1d1813 55%, #161109 100%);
     }
-    .hs-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; z-index: 0; }
+    .hs-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 75% 50%; z-index: 0; }
     .hs-hero-scrim { position: absolute; inset: 0; z-index: 1; background:
-      linear-gradient(95deg, rgba(20, 16, 11, 0.95) 0%, rgba(20, 16, 11, 0.84) 40%, rgba(20, 16, 11, 0.55) 72%, rgba(20, 16, 11, 0.66) 100%),
-      linear-gradient(to bottom, transparent 58%, rgba(20, 16, 11, 0.55)); }
+      linear-gradient(90deg, rgba(20, 16, 11, 0.95) 0%, rgba(20, 16, 11, 0.88) 28%, rgba(20, 16, 11, 0.5) 50%, rgba(20, 16, 11, 0.18) 74%, rgba(20, 16, 11, 0.32) 100%),
+      linear-gradient(to bottom, transparent 60%, rgba(20, 16, 11, 0.45)); }
     .hs-hero-inner { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin-inline: auto; display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
     .hs-display {
       font-family: var(--serif); font-weight: 330; font-optical-sizing: auto;
@@ -344,8 +344,8 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     .hs-ghost:hover { border-color: var(--hs-copper); color: var(--hs-copper); }
     .hs-meta { display: grid; gap: 0; border-top: 1px solid var(--hs-line); }
     .hs-meta li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.95rem 0; border-bottom: 1px solid var(--hs-line); }
-    .hs-meta-label { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-muted); flex: none; }
-    .hs-meta-val { font-family: var(--serif); font-size: 1.1rem; color: #fdfbf7; text-align: right; line-height: 1.3; }
+    .hs-meta-label { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-cream); flex: none; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
+    .hs-meta-val { font-family: var(--serif); font-size: 1.1rem; color: #fdfbf7; text-align: right; line-height: 1.3; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
     .hs-meta-tel { text-decoration: none; transition: color 0.3s; }
     .hs-meta-tel:hover { color: var(--hs-copper); }
     .hs-hero-side { display: flex; flex-direction: column; gap: clamp(1.75rem, 4vw, 2.5rem); }
