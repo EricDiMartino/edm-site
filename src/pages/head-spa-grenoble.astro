@@ -1,5 +1,6 @@
 ---
 // Page HEAD SPA Grenoble — design SOMBRE. Layout + Header du système, contenu en dur.
+import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { headSpa as h } from '../data/head-spa';
@@ -196,8 +197,11 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         <h2 class="hs-h2">{h.atmosphere.titre}</h2>
       </header>
       <div class="hs-gallery reveal" data-d="1">
-        {h.atmosphere.photos.map((label, i) => (
-          <figure class={`hs-shot hs-shot-${i}`}><figcaption>{label}</figcaption></figure>
+        {h.atmosphere.photos.map((p, i) => (
+          <figure class={`hs-shot hs-shot-${i}`}>
+            <Image src={p.image} widths={i === 0 ? [640, 960, 1400] : [380, 560, 760]} sizes={i === 0 ? '(min-width: 820px) 64vw, 100vw' : '(min-width: 820px) 22vw, 100vw'} alt={`Head spa au salon de Grenoble — ${p.label}`} loading="lazy" />
+            <figcaption>{p.label}</figcaption>
+          </figure>
         ))}
       </div>
     </section>
@@ -399,7 +403,9 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
       background:
         radial-gradient(120% 90% at 75% 15%, rgba(207, 157, 114, 0.22), transparent 55%),
         linear-gradient(150deg, #3a2f26 0%, #261e17 60%, #19130d 100%); }
-    .hs-shot figcaption { position: absolute; left: 1rem; bottom: 0.9rem; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hs-muted); }
+    .hs-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hs-shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(13, 10, 7, 0.62), transparent 48%); z-index: 1; pointer-events: none; }
+    .hs-shot figcaption { position: absolute; left: 1rem; bottom: 0.9rem; z-index: 2; font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(247, 243, 234, 0.92); }
 
     /* Instagram */
     .hs-ig { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 2vw, 0.9rem); }

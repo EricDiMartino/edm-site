@@ -2,6 +2,12 @@
 // Contenu EN DUR, séparé du design (src/pages/head-spa-grenoble.astro).
 // Bienfaits volontairement formulés « bien-être / sensoriel » (aucune allégation
 // médicale ni étude chiffrée). Tarifs et durées PROVISOIRES, à confirmer.
+import cocon from '../assets/salons/grenoble/headspa/cocon.webp';
+import cabine from '../assets/salons/grenoble/headspa/cabine.webp';
+import lumiere from '../assets/salons/grenoble/headspa/lumiere.webp';
+import soins from '../assets/salons/grenoble/headspa/soins.webp';
+import bol from '../assets/salons/grenoble/headspa/bol.webp';
+import penombre from '../assets/salons/grenoble/headspa/penombre.webp';
 
 export interface HsEtape { num: string; titre: string; duree: string; texte: string }
 export interface HsBienfait { titre: string; texte: string; caption: string; icon: string }
@@ -99,7 +105,14 @@ export const headSpa = {
   atmosphere: {
     eyebrow: 'L’atmosphère',
     titre: 'La cabine, cocon de lumière',
-    photos: ['Vapeur', 'Bougie', 'Eau de source', 'Massage', 'Huiles précieuses'],
+    photos: [
+      { image: cocon, label: 'Le cocon' },
+      { image: cabine, label: 'La cabine' },
+      { image: lumiere, label: 'Lumière tamisée' },
+      { image: soins, label: 'Huiles & soins' },
+      { image: bol, label: 'Bol chantant' },
+      { image: penombre, label: 'Pénombre' },
+    ],
   },
 
   // Lieu
