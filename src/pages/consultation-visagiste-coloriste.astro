@@ -19,6 +19,14 @@ const SALONS = [
   { ...voiron, href: '/salon-de-coiffure/voiron' },
   { ...aixLesBains, href: '/salon-de-coiffure/aix-les-bains' },
 ];
+// Ensemble « consultation » Planity par salon (serviceSetsWhitelist) → widget filtré sur la seule consultation.
+// ⚠️ ids Firebase stables mais opaques ; si un ensemble consultation est supprimé/recréé dans Planity, mettre à jour ici.
+const CONSULT_CAT: Record<string, string> = {
+  '-M2E_c9IB-StXRRzP_6T': '-Npsyr8_adZCPf_f2Ouv', // Grenoble — « Femme - Consultation »
+  '-MkDNk8IahEaZLYEklvg': '-Nmz2hwTLuts3wrxdWzE', // Montbonnot — « Consultation visagiste »
+  '-L7OgePoi82iJeECJYDN': '-N6DIYriYrERC0i9g58A', // Voiron — « Rendez-vous consultation »
+  '-Mb6Bi_k1N3O517DT9yI': '-NUXrm6GydGUs65GxhFK', // Aix-les-Bains — « Rendez-vous consultation »
+};
 const offre = c.offre;
 
 const providers = SALONS.map((s) => ({
@@ -99,7 +107,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       </header>
       <div class="cv-tabs reveal" role="tablist">
         {SALONS.map((s, i) => (
-          <button type="button" class="cv-tab" data-key={s.planityKey} aria-selected={i === 0 ? 'true' : 'false'}>{s.ville}</button>
+          <button type="button" class="cv-tab" data-key={s.planityKey} data-cat={CONSULT_CAT[s.planityKey ?? ''] ?? ''} aria-selected={i === 0 ? 'true' : 'false'}>{s.ville}</button>
         ))}
       </div>
       <div class="cv-stage reveal" data-d="1">
@@ -133,7 +141,12 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
       function select(tab) {
         tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
         var key = tab.getAttribute('data-key') || '';
-        if (key) frame.src = '/reserver-widget?key=' + encodeURIComponent(key);
+        var cat = tab.getAttribute('data-cat') || '';
+        if (key) {
+          var url = '/reserver-widget?key=' + encodeURIComponent(key);
+          if (cat) url += '&cat=' + encodeURIComponent(cat);
+          frame.src = url;
+        }
       }
       tabs.forEach(function (t) { t.addEventListener('click', function () { select(t); }); });
       if (tabs.length) select(tabs[0]);
