@@ -38,7 +38,8 @@ const demoGroups = [
       :root { --bk-accent: #c25510; }
       * { box-sizing: border-box; }
       html, body { margin: 0; }
-      body { font-family: "Poppins", -apple-system, system-ui, sans-serif; color: #31302e; padding: 16px; }
+      /* padding vertical à 0 : évite la boucle d'auto-hauteur (le +32px ferait grandir l'iframe à l'infini). */
+      body { font-family: "Poppins", -apple-system, system-ui, sans-serif; color: #31302e; padding: 0 16px; }
       /* Force la typo du widget Planity (rendu sur cette page) sur la police du site. */
       body, body * { font-family: "Poppins", -apple-system, system-ui, sans-serif !important; }
       .pl-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; padding: 4rem 1rem; }
@@ -122,6 +123,23 @@ const demoGroups = [
           document.body.appendChild(s2);
         };
         document.body.appendChild(s1);
+      })();
+    </script>
+
+    <!-- Auto-hauteur : remonte la hauteur réelle du contenu au parent (iframe même origine) -->
+    <script is:inline>
+      (function () {
+        var last = 0;
+        function report() {
+          var h = document.body.scrollHeight;
+          if (h && Math.abs(h - last) > 2) {
+            last = h;
+            try { parent.postMessage({ type: 'edm-widget-height', height: h }, '*'); } catch (e) {}
+          }
+        }
+        if ('ResizeObserver' in window) { new ResizeObserver(report).observe(document.body); }
+        addEventListener('load', report);
+        setInterval(report, 1500); // filet : rendus tardifs / navigation interne Planity
       })();
     </script>
   </body>
