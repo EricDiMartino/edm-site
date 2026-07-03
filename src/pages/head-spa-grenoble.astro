@@ -3,6 +3,7 @@
 import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
+import AnalyseCapillaire from '../components/AnalyseCapillaire.astro';
 import { headSpa as h } from '../data/head-spa';
 import { grenoble } from '../data/grenoble';
 import heroImg from '../assets/salons/grenoble/headspa/hero.webp';
@@ -160,6 +161,9 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
         ))}
       </div>
     </section>
+
+    <!-- ANALYSE CAPILLAIRE (bandeau compact, sombre ; renvoie vers la consultation) -->
+    <AnalyseCapillaire variant="courte" dark />
 
     <!-- III — TARIFS -->
     <section class="hs-sec hs-band" id="tarifs">

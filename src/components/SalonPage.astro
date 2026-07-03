@@ -6,6 +6,7 @@
 import { Image } from 'astro:assets';
 import Header from './Header.astro';
 import TrioConsult from './TrioConsult.astro';
+import AnalyseCapillaire from './AnalyseCapillaire.astro';
 import { defaultTrioConsult } from '../data/trio-consult';
 import type { SalonData } from '../data/grenoble';
 
@@ -129,30 +130,8 @@ const PREST_ICONS: Record<string, string> = {
       </section>
     )}
 
-    <!-- 3. EXPERTISE VISAGISTE -->
-    {showExpertise && (
-      <section class="split">
-        <div class="split-visual reveal">
-          <div class="frame">
-            {salon.expertise!.image && (
-              <Image
-                src={salon.expertise!.image}
-                widths={SPLIT_WIDTHS}
-                sizes="(min-width: 820px) 48vw, 100vw"
-                alt="L’espace consultation du salon"
-                loading="lazy"
-              />
-            )}
-          </div>
-        </div>
-        <div class="split-copy reveal" data-d="1">
-          <p class="label">Notre signature</p>
-          {salon.expertise!.titre && <h2 class="h-seo">{salon.expertise!.titre}</h2>}
-          {salon.expertise!.texte && <p class="body">{salon.expertise!.texte}</p>}
-          {salon.expertise!.lien && <a class="link-olive" href={salon.expertise!.lien}>Découvrir la consultation &rsaquo;</a>}
-        </div>
-      </section>
-    )}
+    <!-- 3. CONSULTATION + ANALYSE CAPILLAIRE (bloc fusionné ; composant réutilisable, double photo, funnel consultation) -->
+    <AnalyseCapillaire variant="moyenne" ville={salon.ville} consultationImage={salon.expertise?.image} />
 
     <!-- 4. TRIO CONSULTATION (offre d'ancrage — consultation au centre) -->
     <TrioConsult data={salon.trioConsult ?? defaultTrioConsult} />

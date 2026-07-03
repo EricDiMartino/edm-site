@@ -312,6 +312,7 @@ export const grenoble: SalonData = {
           { texte: 'Analyse du visage & morphologie' },
           { texte: 'Conseil coupe + couleur sur-mesure' },
           { texte: 'Projection du rendu avant décision' },
+          { texte: 'Analyse capillaire de la fibre' },
         ],
         cta: 'Réserver ma consultation',
       },
