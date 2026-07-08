@@ -19,6 +19,8 @@ import equdrey from '../assets/salons/montbonnot/equipe/audrey.webp';
 import eqeremy from '../assets/salons/montbonnot/equipe/jeremy.webp';
 import eqidia from '../assets/salons/montbonnot/equipe/lidia.webp';
 import eqili from '../assets/salons/montbonnot/equipe/lili.webp';
+import eqalissia from '../assets/salons/montbonnot/equipe/alissia.webp';
+import eqclara from '../assets/salons/montbonnot/equipe/clara.webp';
 
 export const montbonnot: SalonData = {
   // — Réel (saisi / vérifié sur Google) —
@@ -128,6 +130,8 @@ export const montbonnot: SalonData = {
     { prenom: 'Audrey', specialite: 'Beauté du regard', photo: equdrey },
     { prenom: 'Jeremy', specialite: 'Coiffeur Artiste', photo: eqeremy },
     { prenom: 'Lidia', specialite: 'Coloriste', photo: eqidia },
+    { prenom: 'Alissia', photo: eqalissia },
+    { prenom: 'Clara', photo: eqclara },
   ],
 
   faq: [

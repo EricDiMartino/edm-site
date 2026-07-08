@@ -18,6 +18,17 @@ const telHref = 'tel:' + m.telephone.replace(/[^0-9+]/g, '');
 const cpVille = `${m.codePostal} ${m.ville}`;
 const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([m.adresse, m.codePostal, m.ville].join(', '))}&z=16&output=embed`;
 
+// Horaires PROPRES à la beauté du regard (Audrey) : ouvert le LUNDI, contrairement au salon coiffure de Montbonnot.
+const bdrHoraires = [
+  { jour: 'Lundi', valeur: '9h – 18h' },
+  { jour: 'Mardi', valeur: '9h – 18h' },
+  { jour: 'Mercredi', valeur: '9h – 18h' },
+  { jour: 'Jeudi', valeur: '9h – 18h' },
+  { jour: 'Vendredi', valeur: '9h – 18h' },
+  { jour: 'Samedi', valeur: '9h – 17h' },
+  { jour: 'Dimanche', valeur: 'Fermé', ferme: true },
+];
+
 // Filtre widget Planity (serviceSetsWhitelist) = ids des ensembles « beauté du regard » à Montbonnot :
 //  -NL5-bso… Épilations (pince) · -NLMvRhc… Sourcils maquillage permanent
 //  -NLMyII… Les yeux maquillage permanent · -NLMvjJ… Teintures de poils & rehaussement de cils
@@ -157,7 +168,7 @@ const seo = {
         <h2 class="h-seo">Beauté du regard au salon de Montbonnot</h2>
         <p class="bdr-lieu-addr">{m.adresse}<br />{cpVille}</p>
         <ul class="bdr-hours">
-          {m.horaires.map((hr) => (
+          {bdrHoraires.map((hr) => (
             <li class={hr.ferme ? 'is-closed' : ''}><span>{hr.jour}</span><span>{hr.valeur}</span></li>
           ))}
         </ul>
