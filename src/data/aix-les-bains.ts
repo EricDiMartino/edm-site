@@ -107,7 +107,7 @@ export const aixLesBains: SalonData = {
   equipePlaceholder, // image provisoire pour tous tant qu'il n'y a pas de vrai portrait
   // Prénoms + spécialités réels (site).
   equipe: [
-    { prenom: 'Laura', photo: eqaura },
+    { prenom: 'Laura', specialite: 'Coloriste', photo: eqaura },
     { prenom: 'Fanny', specialite: 'Artiste Visagiste', photo: eqanny },
     { prenom: 'Jenna', specialite: 'Artiste complète', photo: eqenna },
   ],

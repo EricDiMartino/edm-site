@@ -130,8 +130,8 @@ export const montbonnot: SalonData = {
     { prenom: 'Audrey', specialite: 'Beauté du regard', photo: equdrey },
     { prenom: 'Jeremy', specialite: 'Coiffeur Artiste', photo: eqeremy },
     { prenom: 'Lidia', specialite: 'Coloriste', photo: eqidia },
-    { prenom: 'Alissia', photo: eqalissia },
-    { prenom: 'Clara', photo: eqclara },
+    { prenom: 'Alissia', specialite: 'Coloriste', photo: eqalissia },
+    { prenom: 'Clara', specialite: 'Coiffeuse Artiste', photo: eqclara },
   ],
 
   faq: [
