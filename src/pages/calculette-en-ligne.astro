@@ -1,0 +1,98 @@
+---
+// Calculette de prix — OUTIL INTERNE. noindex (exclue du sitemap, voir astro.config.mjs).
+// Sélecteur en onglets (6 prestations) + calcul live. Config : src/data/calculette.ts.
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { salonsNav } from '../lib/prestations-shared';
+import { calculette } from '../data/calculette';
+---
+
+<Layout title="Calculette de prix (interne) | Eric Di Martino" noindex={true}>
+  <Header salons={salonsNav} />
+
+  <main class="calc">
+    <header class="calc-head reveal">
+      <p class="label">Outil interne</p>
+      <h1 class="calc-h1">Calculette de prix</h1>
+      <p class="calc-sub">Choisissez la prestation et les critères : le prix se met à jour automatiquement.</p>
+    </header>
+
+    <div class="calc-tabs reveal" role="tablist" aria-label="Prestations">
+      {calculette.map((s, i) => (
+        <button type="button" class="calc-tab" role="tab" data-target={s.id} aria-selected={i === 0 ? 'true' : 'false'}>{s.label}</button>
+      ))}
+    </div>
+
+    {calculette.map((s, i) => (
+      <section class="calc-panel" id={s.id} data-panel hidden={i !== 0} aria-label={s.label}>
+        <div class="calc-fields">
+          {s.fields.map((f) => (
+            <label class="calc-field">
+              <span class="calc-field-label">{f.label}</span>
+              <select class="calc-select" data-kind={f.kind}>
+                {f.options.map((o, oi) => (<option value={o.value} selected={oi === f.default}>{o.label}</option>))}
+              </select>
+            </label>
+          ))}
+        </div>
+        <p class="calc-result"><span class="calc-result-label">Prix</span><strong><span data-result>0</span>&nbsp;€</strong></p>
+      </section>
+    ))}
+  </main>
+
+  <SiteFooter sub="Outil interne · calculette de prix" />
+
+  <script is:inline>
+    (function () {
+      // Prix = produit des facteurs + somme des suppléments (par panneau).
+      document.querySelectorAll('[data-panel]').forEach(function (panel) {
+        var out = panel.querySelector('[data-result]');
+        function compute() {
+          var prod = 1, add = 0, hasFactor = false;
+          panel.querySelectorAll('select').forEach(function (sel) {
+            var v = parseFloat(sel.value) || 0;
+            if (sel.getAttribute('data-kind') === 'factor') { prod *= v; hasFactor = true; }
+            else { add += v; }
+          });
+          out.textContent = ((hasFactor ? prod : 0) + add).toFixed(2);
+        }
+        panel.querySelectorAll('select').forEach(function (s) { s.addEventListener('change', compute); });
+        compute();
+      });
+      // Onglets
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.calc-tab'));
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+          tabs.forEach(function (x) { x.setAttribute('aria-selected', x === t ? 'true' : 'false'); });
+          document.querySelectorAll('[data-panel]').forEach(function (p) { p.hidden = p.id !== t.getAttribute('data-target'); });
+        });
+      });
+    })();
+  </script>
+
+  <style>
+    .calc { max-width: 780px; margin-inline: auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+    .calc-head { text-align: center; margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+    .calc-h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem); color: var(--ink); margin: 0.6rem 0 0.6rem; }
+    .calc-sub { color: var(--muted); font-size: 0.95rem; margin: 0; }
+
+    .calc-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem; margin-bottom: clamp(1.5rem, 4vw, 2.25rem); }
+    .calc-tab { font-family: var(--sans); font-weight: 500; font-size: 0.9rem; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 1.15rem; cursor: pointer; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+    .calc-tab:hover { border-color: var(--olive); color: var(--olive); }
+    .calc-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .calc-panel { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.25rem); background: #fff; }
+    .calc-panel[hidden] { display: none; }
+    .calc-fields { display: grid; gap: 1.1rem; }
+    .calc-field { display: grid; gap: 0.4rem; }
+    .calc-field-label { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); }
+    .calc-select { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--olive); border-radius: var(--radius); background: #fff; color: var(--ink); font-family: var(--sans); font-size: 0.95rem; cursor: pointer; }
+
+    .calc-result { margin: 1.6rem 0 0; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.4rem; background: var(--cream); border-radius: var(--radius); }
+    .calc-result-label { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .calc-result strong { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 1.4rem + 1.5vw, 2.4rem); color: var(--ink); }
+
+    @media (min-width: 620px) { .calc-fields { grid-template-columns: 1fr 1fr; } }
+  </style>
+</Layout>

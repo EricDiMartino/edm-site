@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // exclut les pages utilitaires/non indexables
-      filter: (page) => !['/styleguide', '/reserver-widget', '/consultation-offerte'].some((p) => page.includes(p)),
+      filter: (page) => !['/styleguide', '/reserver-widget', '/consultation-offerte', '/calculette-en-ligne'].some((p) => page.includes(p)),
     }),
   ],
 });
