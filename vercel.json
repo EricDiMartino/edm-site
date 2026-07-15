@@ -291,5 +291,11 @@
       "destination": "/nos-salons-de-coiffure",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/calculette-en-ligne",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }
