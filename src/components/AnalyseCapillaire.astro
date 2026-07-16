@@ -17,19 +17,23 @@ interface Props {
   ville?: string;
   consultationImage?: ImageMetadata;
   dark?: boolean;
+  ctaHref?: string; // surcharge du lien CTA (ex. '#reserver' sur la page consultation)
+  ctaLabel?: string;
 }
-const { variant = 'moyenne', reverse = false, ville, consultationImage, dark = false } = Astro.props;
+const { variant = 'moyenne', reverse = false, ville, consultationImage, dark = false, ctaHref, ctaLabel } = Astro.props;
 
 const isMoyenne = variant === 'moyenne';
-const showEtapes = variant === 'complete';
-const showSuivi = variant === 'complete';
+const hasVideo = !!ac.video;
+// La vidéo (Eric explique) remplace le « comment ça marche » + le suivi rédigé.
+const showEtapes = variant === 'complete' && !hasVideo;
+const showSuivi = variant === 'complete' && !hasVideo;
 
 // moyenne = bloc fusionné consultation ; courte/complete = analyse seule.
 const eyebrow = isMoyenne ? ac.salon.eyebrow : ac.eyebrow;
 const titre = isMoyenne ? ac.salon.titre : ac.titre;
 const lede = isMoyenne ? ac.salon.lede.replace('{ville}', ville ?? 'nos salons') : ac.lede;
 const benefices = isMoyenne ? ac.salon.benefices : ac.benefices;
-const cta = isMoyenne ? ac.salon.cta : ac.cta;
+const cta = { href: ctaHref ?? (isMoyenne ? ac.salon.cta.href : ac.cta.href), label: ctaLabel ?? (isMoyenne ? ac.salon.cta.label : ac.cta.label) };
 ---
 
 <section class:list={['ac', `ac--${variant}`, { 'ac--reverse': reverse, 'ac--dark': dark }]}>
@@ -42,7 +46,16 @@ const cta = isMoyenne ? ac.salon.cta : ac.cta;
   ) : (
     <div class="ac-inner">
       <div class="ac-visual reveal">
-        {isMoyenne ? (
+        {hasVideo ? (
+          <figure class="ac-frame ac-video" data-ac-video>
+            <video preload="none" playsinline poster={ac.video!.poster}>
+              <source src={ac.video!.src} type="video/mp4" />
+            </video>
+            <button type="button" class="ac-play" aria-label="Lire la vidéo">
+              <span class="ac-play-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" /></svg></span>
+            </button>
+          </figure>
+        ) : isMoyenne ? (
           <div class="ac-duo">
             <figure class="ac-frame ac-frame--main">
               {consultationImage ? (
@@ -106,6 +119,21 @@ const cta = isMoyenne ? ac.salon.cta : ac.cta;
   )}
 </section>
 
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-ac-video]').forEach(function (fig) {
+      var v = fig.querySelector('video'), b = fig.querySelector('.ac-play');
+      if (!v || !b) return;
+      b.addEventListener('click', function () {
+        v.setAttribute('controls', '');
+        fig.classList.add('is-playing');
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    });
+  })();
+</script>
+
 <style>
   .ac { max-width: var(--maxw); margin-inline: auto; padding: var(--section-y) var(--gutter); }
   .ac-inner { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
@@ -124,6 +152,16 @@ const cta = isMoyenne ? ac.salon.cta : ac.cta;
   .ac-ph span { font-family: var(--sans); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.75; }
   .ac-ph--sm svg { width: 30px; height: 30px; }
   .ac-ph--sm span { font-size: 0.6rem; }
+
+  /* Vidéo (clic pour lire) — visuel portrait */
+  .ac-video { aspect-ratio: 4 / 5; }
+  .ac-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ac-play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; cursor: pointer; background: linear-gradient(180deg, rgba(20, 16, 11, 0.12), rgba(20, 16, 11, 0.42)); transition: opacity 0.3s, background-color 0.25s; }
+  .ac-play:hover { background: linear-gradient(180deg, rgba(20, 16, 11, 0.22), rgba(20, 16, 11, 0.5)); }
+  .ac-play-ring { display: grid; place-items: center; width: clamp(3.75rem, 6vw, 4.75rem); height: clamp(3.75rem, 6vw, 4.75rem); border-radius: 50%; background: var(--terracotta); box-shadow: 0 12px 30px -10px rgba(42, 35, 29, 0.6); transition: transform 0.3s var(--ease), background-color 0.25s; }
+  .ac-play:hover .ac-play-ring { transform: scale(1.06); background: var(--terracotta-deep); }
+  .ac-play-ring svg { width: 42%; height: 42%; margin-left: 8%; color: #fff; }
+  .ac-video.is-playing .ac-play { opacity: 0; pointer-events: none; }
 
   /* Double photo (moyenne) */
   .ac-duo { position: relative; padding-bottom: 2.2rem; padding-right: 2.2rem; }

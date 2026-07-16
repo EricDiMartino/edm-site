@@ -11,6 +11,7 @@ import { aixLesBains } from '../data/aix-les-bains';
 import { salonsNav, areaServed } from '../lib/prestations-shared';
 import { buildBreadcrumb } from '../lib/schema';
 import SiteFooter from '../components/SiteFooter.astro';
+import AnalyseCapillaire from '../components/AnalyseCapillaire.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [
@@ -97,6 +98,9 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
         {c.besoins.items.map((b) => (<li class="cv-besoin"><h3>{b.titre}</h3><p>{b.texte}</p></li>))}
       </ul>
     </section>
+
+    <!-- ANALYSE CAPILLAIRE — vidéo de démonstration (conversion, avant la réservation) -->
+    <AnalyseCapillaire variant="complete" ctaHref="#reserver" ctaLabel="Réserver ma consultation" />
 
     <!-- RÉSERVATION — sélecteur de salon + iframe -->
     <section class="section cv-resa" id="reserver">

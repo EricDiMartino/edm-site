@@ -71,4 +71,8 @@ export const analyseCapillaire = {
   // Photo de l'analyse (pince en action) — placeholder pour l'instant → cadre générique.
   image: undefined as ImageMetadata | undefined,
   imageAlt: 'Analyse capillaire pendant la consultation, au salon Eric Di Martino',
+
+  // Vidéo de démonstration (Eric présente l'analyse, avec voix off + sous-titres). Clic pour lire.
+  // Quand une vidéo est fournie, elle devient le visuel du bloc et remplace le « comment ça marche ».
+  video: { src: '/analyzer.mp4', poster: '/analyzer-poster.jpg' } as { src: string; poster: string } | undefined,
 };
