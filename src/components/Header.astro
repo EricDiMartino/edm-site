@@ -9,8 +9,10 @@ interface Props {
   reservationUrl?: string; // résa directe (pages salon/expertise)
   salons?: SalonLink[]; // pages neutres → dropdown
   current?: string; // clé de l'onglet actif
+  reserveKey?: string; // clé Planity → ouvre la modale sur ce salon (ex. beauté du regard = Montbonnot)
+  reserveCat?: string; // filtre serviceSetsWhitelist appliqué à la modale
 }
-const { tel, reservationUrl, salons = [], current } = Astro.props;
+const { tel, reservationUrl, salons = [], current, reserveKey, reserveCat } = Astro.props;
 const telHref = tel ? 'tel:' + tel.replace(/[^0-9+]/g, '') : '';
 
 // Liste des salons (menu « Salons » + dropdown résa des pages neutres).
@@ -79,7 +81,7 @@ const NAV = [
   <div class="nav-actions">
     {telHref && <a class="nav-tel" href={telHref}>{tel}</a>}
     {reservationUrl ? (
-      <a class="btn btn-action btn-sm" href={reservationUrl}>Réserver</a>
+      <a class="btn btn-action btn-sm" href={reservationUrl} data-planity={reserveKey} data-cat={reserveCat}>Réserver</a>
     ) : (
       <details class="resa-menu">
         <summary class="btn btn-action btn-sm">Réserver</summary>
@@ -115,7 +117,7 @@ const NAV = [
       </a>
     )}
     {reservationUrl ? (
-      <a class="m-act m-act-book" href={reservationUrl}>Réserver</a>
+      <a class="m-act m-act-book" href={reservationUrl} data-planity={reserveKey} data-cat={reserveCat}>Réserver</a>
     ) : (
       <a class="m-act m-act-book" href="#reserver" data-reserve>Réserver</a>
     )}
