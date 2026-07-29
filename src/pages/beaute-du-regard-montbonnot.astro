@@ -128,7 +128,11 @@ const seo = {
         <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <div class="bdr-approche-video reveal" data-d="1">
-        <div class="bdr-reel"><span>Vidéo à venir</span></div>
+        <button class="bdr-reel" type="button" data-bdr-video aria-label="Lire la présentation d'Audrey">
+          <video src="/audrey-presentation.mp4" poster="/audrey-presentation-poster.jpg" playsinline preload="none"></video>
+          <span class="bdr-reel-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="bdr-reel-cap">Audrey, artiste du regard</span>
+        </button>
       </div>
     </section>
 
@@ -205,6 +209,20 @@ const seo = {
     <CtaBlock id="reserver" title="Sublimez votre regard." lede="Rendez-vous avec Audrey, au salon de Montbonnot."><a class="btn btn-action btn-lg" href="#reserver" data-reserve>Prendre rendez-vous</a><p class="cta-band-tel">ou par téléphone : <a href={telHref}>{m.telephone}</a></p></CtaBlock>
   </main>
 
+  <script>
+    // Vidéo reel « Notre approche » : clic pour lire (avec le son), retour au poster à la fin.
+    const reel = document.querySelector('[data-bdr-video]');
+    if (reel) {
+      const video = reel.querySelector('video');
+      reel.addEventListener('click', () => {
+        if (!video) return;
+        if (video.paused) { reel.classList.add('is-playing'); video.play(); }
+        else { video.pause(); reel.classList.remove('is-playing'); }
+      });
+      video?.addEventListener('ended', () => { reel.classList.remove('is-playing'); video.currentTime = 0; });
+    }
+  </script>
+
   <SiteFooter sub={`Beauté du regard · Salon de Montbonnot · ${m.adresse}, ${cpVille}`} />
 
   <style>
@@ -229,10 +247,15 @@ const seo = {
     .bdr-approche-copy { max-width: 60ch; }
     .bdr-approche-copy .body { margin: 1.1rem 0 1.4rem; }
     .bdr-approche-video { display: flex; justify-content: center; }
-    /* Espace vidéo format reel Instagram (9:16) — placeholder en attendant la vidéo */
-    .bdr-reel { position: relative; width: 100%; max-width: 300px; aspect-ratio: 9 / 16; border-radius: var(--radius); background: linear-gradient(150deg, var(--cream), var(--cream-deep)); box-shadow: inset 0 0 0 1px var(--line); display: grid; place-items: center; }
-    .bdr-reel span { font-family: var(--sans); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--olive); opacity: 0.7; }
-    .bdr-reel :global(video), .bdr-reel :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+    /* Vidéo format reel Instagram (9:16) — clic pour lire (présentation Audrey) */
+    .bdr-reel { position: relative; width: 100%; max-width: 300px; aspect-ratio: 9 / 16; border-radius: var(--radius); overflow: hidden; background: linear-gradient(150deg, var(--cream), var(--cream-deep)); box-shadow: inset 0 0 0 1px var(--line); border: 0; padding: 0; cursor: pointer; display: block; }
+    .bdr-reel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .bdr-reel-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 62px; height: 62px; border-radius: 50%; background: rgba(255,255,255,0.92); display: grid; place-items: center; color: var(--terracotta); box-shadow: 0 10px 30px -10px rgba(38,38,31,0.5); transition: transform 0.4s var(--ease), opacity 0.3s; }
+    .bdr-reel-play svg { width: 24px; height: 24px; margin-left: 3px; }
+    .bdr-reel:hover .bdr-reel-play { transform: translate(-50%, -50%) scale(1.06); }
+    .bdr-reel-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem 0.9rem; font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; text-align: center; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); transition: opacity 0.3s; }
+    .bdr-reel.is-playing { cursor: default; }
+    .bdr-reel.is-playing .bdr-reel-play, .bdr-reel.is-playing .bdr-reel-cap { opacity: 0; pointer-events: none; }
     @media (min-width: 820px) { .bdr-approche { grid-template-columns: 1.5fr 0.5fr; } }
 
     /* UNIVERS */
