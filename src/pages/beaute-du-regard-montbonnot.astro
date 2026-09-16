@@ -42,20 +42,21 @@ const ICONS: Record<string, string> = {
   eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 7l1.5 2M20 7l-1.5 2M12 4.5V7"/>',
   pen: '<path d="M14 4l6 6L9 21l-5 1 1-5z"/><path d="M12 6l6 6"/>',
   lips: '<path d="M3 12c2.5-2 5-2 9 0.5 4-2.5 6.5-2.5 9-0.5"/><path d="M3 12c2.5 3 5.5 3.5 9 1 3.5 2.5 6.5 2 9-1"/>',
+  talk: '<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
 };
-// Cards : les 2 maquillage permanent (mis en avant) d'abord, puis l'expertise sourcils et la teinture des cils.
+// Cards : l'expertise sourcils (ligne, épilation, entretien) mise en avant + la consultation, puis maquillage permanent et teinture des cils.
 const univers = [
-  { titre: 'Maquillage permanent des sourcils', icon: 'pen', texte: 'Un dessin durable et précis des sourcils : effet poudré, poil à poil ou mélange des deux. Un regard structuré au quotidien, par une spécialiste de la technique à Montbonnot.' },
-  { titre: 'Maquillage permanent des lèvres', icon: 'lips', texte: 'Redessiner le contour et raviver la couleur des lèvres durablement, tout en naturel. Un maquillage permanent longue tenue, réalisé sur consultation.' },
-  { titre: 'Sourcils', icon: 'brow', texte: 'Restructuration, création de ligne et teinture des sourcils à Montbonnot : une ligne dessinée selon la forme de votre visage. La structure qui change tout un regard.' },
+  { titre: 'Sourcils sur-mesure', icon: 'brow', texte: 'Création et restructuration de la ligne, épilation et entretien : une ligne dessinée selon la forme de votre visage. Faites refaire votre ligne de sourcils par Audrey, à Montbonnot, la structure qui change tout un regard.' },
+  { titre: 'Consultation regard', icon: 'talk', texte: 'Un doute sur la forme de vos sourcils ? On définit ensemble la ligne idéale avant de se lancer, selon votre visage, vos habitudes et vos envies.' },
+  { titre: 'Maquillage permanent', icon: 'pen', texte: 'Sourcils et lèvres : un dessin durable et naturel, longue tenue, pour un regard structuré au quotidien. Réalisé sur consultation.' },
   { titre: 'Cils', icon: 'eye', texte: 'Teinture des cils : un regard plus intense et défini, tout en naturel, sans mascara au quotidien.' },
 ];
 
 const faq = [
-  { question: 'Où faire son maquillage permanent près de Montbonnot ?', reponse: `Au salon Eric Di Martino de Montbonnot, ${m.adresse}, ${cpVille}, sur rendez-vous avec Audrey, notre spécialiste du regard. Un rendez-vous facile d’accès depuis Meylan, Saint-Ismier, Biviers, Crolles et Grenoble.` },
+  { question: 'Où faire refaire ses sourcils près de Montbonnot ?', reponse: `Au salon Eric Di Martino de Montbonnot, ${m.adresse}, ${cpVille}, sur rendez-vous avec Audrey, notre spécialiste du regard : création de ligne, restructuration, épilation, entretien et maquillage permanent des sourcils. Un rendez-vous facile d’accès depuis Meylan, Saint-Ismier, Biviers, Crolles et Grenoble.` },
   { question: 'Peut-on combiner beauté du regard et coiffure ?', reponse: 'Oui : vous pouvez réserver une prestation du regard seule, ou en complément d’un rendez-vous coiffure dans le même salon de Montbonnot.' },
   { question: 'Proposez-vous le paiement en plusieurs fois ?', reponse: 'Oui, le paiement en 3 ou 4 fois est possible sur les prestations beauté du regard.' },
-  { question: 'Faut-il une consultation avant un maquillage permanent ?', reponse: 'Oui. Chaque maquillage permanent (sourcils ou lèvres) commence par une consultation pour définir la forme, la teinte et valider ensemble le rendu souhaité avant la réalisation.' },
+  { question: 'J’ai un doute sur la forme de mes sourcils, que faire ?', reponse: 'Prenez une consultation avec Audrey : on définit ensemble la ligne idéale selon votre visage, vos habitudes et vos envies, avant toute création de ligne, épilation ou maquillage permanent. Rien n’est figé, tout part de l’échange.' },
 ];
 
 // Schémas SEO / GEO
@@ -70,8 +71,8 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   serviceType: 'Beauté du regard',
-  name: 'Beauté du regard — maquillage permanent, sourcils, cils',
-  description: 'Maquillage permanent des sourcils et des lèvres, restructuration et teinture des sourcils, teinture des cils, à Montbonnot.',
+  name: 'Beauté du regard — sourcils, maquillage permanent, cils',
+  description: 'Création et restructuration de la ligne de sourcils, épilation et entretien, consultation, maquillage permanent (sourcils, lèvres) et teinture des cils, à Montbonnot, avec Audrey.',
   url: canonical,
   areaServed: m.areaServed,
   provider,
@@ -102,7 +103,7 @@ const seo = {
       <div class="bdr-hero-copy reveal">
         <p class="label">{m.ville} · L'artiste du regard</p>
         <h1 class="editorial bdr-h1">La beauté du <em class="ital">regard</em>.</h1>
-        <p class="lede bdr-lede">Beauté du regard à Montbonnot : maquillage permanent des sourcils et des lèvres, sourcils redessinés, teinture des cils. Audrey sublime votre regard avec la même exigence que nos prestations coiffure, toujours à partir de la forme de votre visage.</p>
+        <p class="lede bdr-lede">Beauté du regard à Montbonnot : création et restructuration de la ligne de sourcils, épilation et entretien, par Audrey. Un doute sur votre forme ? On en parle en consultation avant de se lancer. Maquillage permanent et teinture pour aller plus loin, toujours à partir de la forme de votre visage.</p>
         <div class="bdr-actions">
           <a class="btn btn-action" href="#reserver" data-reserve>Prendre rendez-vous</a>
           <a class="btn btn-ghost" href="#univers">Voir les prestations</a>
@@ -124,7 +125,7 @@ const seo = {
       <div class="bdr-approche-copy reveal">
         <p class="label">Notre approche</p>
         <h2 class="h-seo">Le regard, prolongement du visage</h2>
-        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque maquillage permanent, teinture ou restructuration des sourcils, Audrey prend le temps du diagnostic, pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
+        <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque création de ligne, épilation, restructuration ou maquillage permanent, Audrey prend le temps du diagnostic. Un doute sur votre forme ? On le lève en consultation, pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
         <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <div class="bdr-approche-video reveal" data-d="1">
@@ -140,7 +141,7 @@ const seo = {
     <section class="section bdr-univers" id="univers">
       <header class="section-head reveal">
         <p class="label">Nos prestations</p>
-        <h2 class="h-seo">Maquillage permanent, sourcils et cils à Montbonnot</h2>
+        <h2 class="h-seo">Sourcils, maquillage permanent et cils à Montbonnot</h2>
       </header>
       <ul class="bdr-grid reveal" data-d="1">
         {univers.map((u) => (
@@ -162,7 +163,7 @@ const seo = {
       <div class="bdr-praticienne-copy reveal" data-d="1">
         <p class="label">La praticienne</p>
         <h2 class="h-seo">Audrey, artiste du regard</h2>
-        <p class="body">Sept ans d'expérience et une spécialité : le maquillage permanent. Main douce et assurée, Audrey met sa précision au service de votre regard (sourcils, lèvres, dessin durable) pour un résultat naturel à Montbonnot.</p>
+        <p class="body">Sept ans d'expérience au service du regard. Main douce et assurée, Audrey met sa précision dans chaque ligne de sourcils : création, restructuration, épilation, entretien, maquillage permanent, pour un résultat naturel qui vous ressemble, à Montbonnot.</p>
         <a class="link-arrow link-olive" href={m.instagram.url} target="_blank" rel="noopener">Voir son travail sur Instagram<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>

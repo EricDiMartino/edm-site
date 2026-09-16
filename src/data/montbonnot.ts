@@ -101,8 +101,8 @@ export const montbonnot: SalonData = {
       eyebrow: 'Le regard, en signature',
       titre: 'Beauté du regard à Montbonnot',
       texte:
-        'Maquillage permanent des sourcils et des lèvres, restructuration et teinture des sourcils, teinture des cils : un regard intensifié et durable, sur-mesure, dans le même esprit d’exigence que nos prestations coiffure. En prestation seule ou en complément de votre coiffure.',
-      points: ['Maquillage permanent sourcils', 'Maquillage permanent lèvres', 'Teinture & restructuration sourcils', 'Teinture des cils'],
+        'Création et restructuration de la ligne de sourcils, épilation et entretien, par Audrey : une ligne dessinée pour votre visage. Un doute ? On en parle en consultation. Aussi maquillage permanent (sourcils, lèvres) et teinture, en prestation seule ou en complément de votre coiffure.',
+      points: ['Ligne & restructuration sourcils', 'Épilation & entretien', 'Consultation regard', 'Maquillage permanent & teinture'],
       image: undefined, // pas de visuel dédié → cadre dégradé (à remplacer par une vraie photo)
       lien: '/beaute-du-regard-montbonnot',
       lienLabel: 'Découvrir la beauté du regard',
@@ -148,7 +148,7 @@ export const montbonnot: SalonData = {
     {
       question: 'Proposez-vous la beauté du regard à Montbonnot ?',
       reponse:
-        'Oui : maquillage permanent des sourcils et des lèvres, restructuration et teinture des sourcils, teinture des cils, en prestation seule ou en complément d’une coiffure. Avec Audrey, spécialiste du regard, sur rendez-vous.',
+        'Oui : création et restructuration de la ligne de sourcils, épilation, entretien, consultation, maquillage permanent (sourcils, lèvres) et teinture, en prestation seule ou en complément d’une coiffure. Avec Audrey, spécialiste du regard, sur rendez-vous.',
     },
   ],
 
