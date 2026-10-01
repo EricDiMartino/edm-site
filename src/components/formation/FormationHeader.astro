@@ -1,0 +1,37 @@
+---
+// Header Academy Leader — maquette (classes .s1→.s9) + lien actif + burger mobile (ajout intégration).
+import { nav, ctaDiagnostic, url } from '../../data/formation/site';
+const path = Astro.url.pathname.replace(/\/$/, '');
+const isCurrent = (href: string) => path === href.replace(/\/$/, '');
+---
+
+<header class="s1">
+  <div class="s2">
+    <a href={url.accueil} aria-label="Academy Leader, accueil" class="s3">
+      <span class="s4">Academy <span class="s5">Leader</span></span>
+      <span class="s6">par EDXP Formation · Qualiopi</span>
+    </a>
+    <nav class="s7" aria-label="Parcours">
+      {nav.map((l) => <a href={l.href} class="s8" aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>)}
+      <a href={ctaDiagnostic.href} class="s9">{ctaDiagnostic.label}</a>
+    </nav>
+    <button class="al-burger" type="button" aria-expanded="false" aria-controls="al-mnav" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="al-mnav" class="al-mnav" aria-label="Menu mobile" hidden>
+    {nav.map((l) => <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>)}
+  </nav>
+</header>
+
+<script is:inline>
+  (function () {
+    var b = document.querySelector('.al-burger'), m = document.getElementById('al-mnav');
+    if (!b || !m) return;
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') === 'true';
+      b.setAttribute('aria-expanded', String(!open));
+      m.hidden = open;
+    });
+  })();
+</script>

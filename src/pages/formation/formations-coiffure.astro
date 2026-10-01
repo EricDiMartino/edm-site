@@ -1,0 +1,196 @@
+---
+// ACADEMY LEADER — Formations (/formation/formations-coiffure).
+// Balisage + texte = maquette (formation-src/code/dist, vérifié mot à mot contre formation-src/maquette.html).
+// SEO / FAQ / appel final : src/data/formation/pages.ts.
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import FormationFaq from '../../components/formation/FormationFaq.astro';
+import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
+import { formSeo as seo, formFaq as faq, formFin as fin } from '../../data/formation/pages';
+import { formations } from '../../data/formation/formations';
+---
+
+<FormationLayout title={seo.title} description={seo.description}>
+  <main>
+    <section class="s168">
+      <div class="s33">
+        <div class="s12">Formations coiffure · Certifié Qualiopi n° 25FOR01783.1</div>
+        <h1 class="s169">Formations coiffure et business, <br><span class="s125">jusqu'à 0 €* de reste à charge.</span></h1>
+        <p class="s170">Animées par Eric Di Martino, dans ton salon ou en visio. Ce n'est pas une remise, c'est <b class="s82">ton budget formation OPCO ou FAFCEA</b>. Une seule condition : la demande part avant le début de la formation. On peut monter le dossier avec toi.</p><div class="s171">
+          <a href="#cat" class="s172"><b class="s18">DÉCOUVRIR LES FORMATIONS</b><span class="s19">et mon reste à charge.</span></a>
+        </div>
+        <div class="s173">
+            <div class="s174"><div class="s175"><span class="s5">25 € HT/h</span></div><div class="s25">formations métier · OPCO EP</div></div>
+            <div class="s174"><div class="s175"><span class="s5">30 € HT/h</span></div><div class="s25">formations transverses · OPCO EP</div></div>
+            <div class="s174"><div class="s175"><span class="s5">Jusqu'à 8</span></div><div class="s25">personnes par session</div></div>
+            <div class="s174"><div class="s175"><span class="s5">+ 2 h</span></div><div class="s25">de suivi à 2 semaines, inclus</div></div>
+        </div>
+      </div>
+    </section>
+    <section id="cat" class="s176">
+      <div class="s33">
+        <div class="s28">Le catalogue · 9 formations</div>
+        <h2 class="s34">Choisis ta formation. <span class="s35"><br>Le calcul se fait en direct.</span></h2>
+        <div class="s177">
+            <button data-form="conso" class="s178">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Consultation Expert</b>
+              <span class="s181">2 jours · 14 h</span>
+            </button>
+            <button data-form="morpho" class="s182">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Morphologie & Visagisme</b>
+              <span class="s181">1 jour · 7 h</span>
+            </button>
+            <button data-form="coupe" class="s182">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Coupe & Texturisation</b>
+              <span class="s181">1 jour · 7 h</span>
+            </button>
+            <button data-form="colo" class="s182">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Colorimétrie Expert</b>
+              <span class="s181">1 jour · 7 h</span>
+            </button>
+            <button data-form="headspa" class="s182">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Head Spa</b>
+              <span class="s181">1 jour · 7 h</span>
+            </button>
+            <button data-form="barbier" class="s182">
+              <span class="s179">Dans ton salon</span>
+              <b class="s180">Barbier & Rasage</b>
+              <span class="s181">1 jour · 7 h</span>
+            </button>
+            <button data-form="iaequipe" class="s182">
+              <span class="s179">En visio</span>
+              <b class="s180">IA & AI Act · ton équipe</b>
+              <span class="s181">7 h · 3 pers. min.</span>
+            </button>
+            <button data-form="iager" class="s182">
+              <span class="s179">En visio</span>
+              <b class="s180">IA & AI Act · le gérant</b>
+              <span class="s181">7 h · pour toi seul</span>
+            </button>
+            <button data-form="prox" class="s182">
+              <span class="s179">En visio</span>
+              <b class="s180">Coaching de proximité</b>
+              <span class="s181">En ligne + 3 h visio</span>
+            </button>
+        </div>
+        <div class="s183">
+          <div class="s184">
+            <div class="s185"><span data-fsel="cat">Présentiel · transverse · phare</span></div>
+            <h3 class="s186"><span data-fsel="nom">Consultation Expert</span></h3>
+            <div class="s187"><b class="s188"><span data-fsel="tarif">3 500 € HT</span></b><span class="s189"><span data-fsel="tarifNote">pour le groupe · avant prise en charge</span></span></div>
+            <div class="s190"><span data-fsel="meta">2 jours · 14 h · dans ton salon · jusqu'à 8 personnes</span></div>
+            <p class="s191" data-fsel="hook">Ta cliente s'assoit, tu demandes « on fait comme d'habitude ? », et tu viens de renoncer à 30 € de ticket.</p>
+            <p class="s192"><b class="s193">Pour toi si</b> <span data-fsel="why">tes prix sont corrects mais le ticket ne monte pas. C'est le levier le plus direct sur ton panier moyen.</span></p>
+            <div class="s194">
+              <a data-todo="pdf" class="s195">Télécharger le programme (PDF) ↓</a>
+                <a data-todo="fiche" class="s195">Page complète de la formation →</a>
+            </div>
+          </div>
+          <div class="s196">
+            <div class="s95">Ton reste à charge</div>
+            <div class="s197"><span data-sim="nLabel">Personnes à former</span></div>
+            <div class="s198">
+              <button data-n="-1" class="s199">−</button>
+              <b class="s200"><span data-sim="n">8</span></b>
+              <button data-n="+1" class="s199">+</button>
+            </div>
+            <div class="s201"><span data-sim="cap">Forfait groupe, jusqu'à 8 personnes</span></div>
+              <div data-sim="zones"><div class="s202">Où se trouve ton salon</div>
+              <div class="s203">
+                <button data-zone="0" class="s204">Isère · Savoie · Rhône</button><button data-zone="1" class="s205">Auvergne-Rhône-Alpes · PACA</button><button data-zone="2" class="s205">Reste de la France</button><button data-zone="3" class="s205">Corse · DOM · BE · CH</button>
+              </div></div>
+            <div class="s206">
+              <div class="s207"><span>Formation</span><b class="s15"><span data-sim="cout">3 500 €</span></b></div>
+              <div class="s207"><span>Déplacement</span><b class="s15"><span data-sim="depl">0 €</span></b></div>
+              <div class="s207"><span>Prise en charge <span data-sim="org">OPCO EP</span></span><b class="s208">− <span data-sim="aide">3 500 €</span></b></div>
+            </div>
+            <div class="s209"><div class="s210" data-sim="bar"></div></div>
+            <div class="s211">
+              <div class="s25">Il te reste à payer</div>
+              <div class="s212"><span data-sim="rac">0 €</span></div>
+              <div class="s25"><span data-sim="per">soit 0 € par personne</span></div>
+            </div>
+            <a href="/formation/reserver" class="s213"><b class="s214">Réserver cette session</b><span class="s19">On monte le dossier de financement avec toi</span></a>
+            <p class="s215">* Sous réserve de tes droits disponibles et du plafond annuel de ton entreprise. Forfaits de déplacement indicatifs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s46">
+      <div class="s124">
+        <div>
+          <div class="s47">Le financement</div>
+          <h2 class="s60">Tes salons cotisent. <span class="s5">Consomme tes droits.</span></h2>
+          <p class="s216">Tu cotises à l'OPCO EP chaque année, que tu formes ou non. Ces droits ne se reportent pas d'une année sur l'autre : ce que tu n'utilises pas, tu le perds.</p>
+        </div>
+        <div class="s217">
+            <div class="s218"><b class="s219">01</b><div><b>Tu choisis ta formation et ta date</b><p class="s220">On vérifie tes droits disponibles avant de bloquer la date.</p></div></div>
+            <div class="s218"><b class="s219">02</b><div><b>On monte le dossier avec toi</b><p class="s220">Convention, programme, devis. La demande part avant la formation.</p></div></div>
+            <div class="s218"><b class="s219">03</b><div><b>Tu avances, l'OPCO rembourse</b><p class="s220">Émargement et attestation fournis. Salariés : OPCO EP. Gérants TNS : FAFCEA.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <FormationFaq items={faq} />
+  <FormationFinalCta data={fin} />
+  <script is:inline define:vars={{ FORMS: formations }}>
+    // Simulateur de reste à charge — formules de la maquette, NE PAS MODIFIER sans arbitrage :
+    //   aide = min(coût, (heures + 2) × taux × participants)   [forfait 350 € FAFCEA si aide = 'flat']
+    //   reste = coût + déplacement − aide   (les « + 2 h » = suivi déclaré au programme)
+    var DEPL = [0, 250, 450, 850];
+    var s = { fid: 'conso', n: 8, zone: 0 };
+    var eur = function (v) { return Math.round(v).toLocaleString('fr-FR') + ' €'; };
+    var set = function (a, k, v) { var el = document.querySelector('[data-' + a + '="' + k + '"]'); if (el) el.textContent = v; };
+    function render() {
+      var f = FORMS.find(function (x) { return x.id === s.fid; }) || FORMS[0];
+      var n = s.n = Math.max(f.min, Math.min(f.max, s.n));
+      var depl = f.depl ? DEPL[s.zone] : 0;
+      var cout = f.type === 'personne' ? f.prix * n : f.prix;
+      var aide = f.aide === 'flat' ? 350 : Math.min(cout, (f.h + 2) * f.tx * n);
+      var rac = cout + depl - aide;
+      var pct = Math.round(aide / (cout + depl) * 100);
+      set('fsel', 'cat', f.cat); set('fsel', 'nom', f.nom); set('fsel', 'meta', f.meta);
+      set('fsel', 'tarif', eur(f.prix) + ' HT');
+      set('fsel', 'tarifNote', f.type === 'personne' ? 'par personne · avant prise en charge' : 'pour le groupe · avant prise en charge');
+      set('fsel', 'hook', f.hook); set('fsel', 'why', f.why);
+      set('sim', 'nLabel', f.type === 'personne' ? 'Nombre de participants' : 'Personnes à former');
+      set('sim', 'n', String(n));
+      set('sim', 'cap', f.min > 1 ? f.min + ' participants minimum' : (f.max === 1 ? 'Formation individuelle' : "Forfait groupe, jusqu'à " + f.max + ' personnes'));
+      set('sim', 'cout', eur(cout)); set('sim', 'depl', f.depl ? eur(depl) : '—');
+      set('sim', 'org', f.aide === 'flat' ? 'FAFCEA' : 'OPCO EP'); set('sim', 'aide', eur(aide));
+      set('sim', 'rac', eur(rac)); set('sim', 'per', n > 1 ? 'soit ' + eur(rac / n) + ' par personne' : '');
+      var z = document.querySelector('[data-sim="zones"]'); if (z) z.hidden = !f.depl;
+      var bar = document.querySelector('[data-sim="bar"]'); if (bar) bar.style.width = pct + '%';
+      document.querySelectorAll('[data-form]').forEach(function (b) {
+        var on = b.getAttribute('data-form') === f.id;
+        b.setAttribute('aria-pressed', String(on));
+        b.style.background = on ? '#FCFAF6' : 'transparent';
+        b.style.border = on ? '1.5px solid #8A5A2B' : '1px solid rgba(20,16,13,.14)';
+        b.style.boxShadow = on ? '0 10px 28px -18px rgba(60,45,30,.5)' : 'none';
+      });
+      document.querySelectorAll('[data-zone]').forEach(function (b) {
+        var on = +b.getAttribute('data-zone') === s.zone;
+        b.setAttribute('aria-pressed', String(on));
+        b.style.background = on ? 'rgba(194,135,74,.16)' : 'transparent';
+        b.style.border = on ? '1px solid #C2874A' : '1px solid rgba(248,244,237,.16)';
+        b.style.color = on ? '#F8F4ED' : '#9B8F83';
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-form],[data-zone],[data-n]');
+      if (!b) return;
+      if (b.hasAttribute('data-form')) {
+        s.fid = b.getAttribute('data-form');
+        var f = FORMS.find(function (x) { return x.id === s.fid; });
+        s.n = f.id === 'conso' || f.max === 8 ? 8 : f.min;
+      } else if (b.hasAttribute('data-zone')) s.zone = +b.getAttribute('data-zone');
+      else s.n += b.getAttribute('data-n') === '+1' ? 1 : -1;
+      render();
+    });
+    render();
+  </script>
+</FormationLayout>

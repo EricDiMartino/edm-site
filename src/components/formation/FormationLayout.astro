@@ -1,0 +1,58 @@
+---
+// Layout Academy Leader (/formation/*) — charte propre (formation.css), SANS system.css ni Planity.
+// Partagé avec les salons : ConsentHead (Consent Mode v2 + GTM) et ConsentBanner, paramétrés
+// pour EDXP Formation (clé de consentement et conteneur GTM distincts : autre entité juridique).
+import '../../styles/formation.css';
+import fontLatin from '../../assets/formation/fonts/instrument-sans-latin.woff2?url';
+import ConsentHead from '../ConsentHead.astro';
+import ConsentBanner from '../ConsentBanner.astro';
+import FormationHeader from './FormationHeader.astro';
+import FormationFooter from './FormationFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  /** masque header/footer (écrans de tunnel sans sortie : diagnostic) */
+  bare?: boolean;
+}
+const { title, description, noindex = false, bare = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Conteneur GTM Academy Leader — à créer (≠ GTM salons). Vide = aucun tracking.
+const gtmId = import.meta.env.PUBLIC_GTM_ID_FORMATION || '';
+// Image de partage : NON FOURNIE (og.jpg 1200×630 à livrer) → visuel par défaut du domaine en attendant.
+const ogImageUrl = new URL('/og-default.jpg', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ConsentHead gtmId={gtmId} storageKey="al_consent" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" as="font" type="font/woff2" href={fontLatin} crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Academy Leader" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0F0C0A" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    {gtmId && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
+    {!bare && <FormationHeader />}
+    <slot />
+    {!bare && <FormationFooter />}
+    <ConsentBanner storageKey="al_consent" infoHref="/formation/confidentialite" />
+  </body>
+</html>

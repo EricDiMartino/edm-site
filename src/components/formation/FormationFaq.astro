@@ -1,0 +1,28 @@
+---
+// FAQ Academy Leader — maquette (.s59→.s65). Contenu dans le HTML initial (<details>) : lu par Google et les IA.
+// Le JSON-LD FAQPage est généré ici à partir des mêmes données (zéro écart texte/balisage).
+export interface Qa { q: string; a: string }
+interface Props { items: Qa[] }
+const { items } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })),
+};
+---
+
+<section class="s59">
+  <div class="s27">
+    <div class="s28">Questions fréquentes</div>
+    <h2 class="s60">Ce que tu veux savoir <span class="s35">avant.</span></h2>
+    <div class="s61">
+      {items.map((it) => (
+        <details class="s62">
+          <summary class="s63"><span>{it.q}</span><span class="pm s64" aria-hidden="true">+</span></summary>
+          <p class="s65">{it.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
