@@ -16,6 +16,7 @@ export const url = {
   mentions: `${BASE}/mentions-legales`,
   cgv: `${BASE}/cgv`,
   confidentialite: `${BASE}/confidentialite`,
+  qualiopi: `${BASE}/informations-qualiopi`,
 };
 
 /** Liens du header (hors CTA) */
@@ -42,6 +43,7 @@ export const edxp = {
   adresse: "1435 av. de l'Europe, 38330 Montbonnot-Saint-Martin",
   tel: '07 81 73 40 18',
   telHref: 'tel:+33781734018',
+  email: 'admin@ericdimartino.com',
   lignes: [
     'SAS au capital de 1 000 € · RCS Grenoble 931 295 208',
     'NDA 84 38 10226 38',
@@ -55,4 +57,5 @@ export const legal = [
   { label: 'Mentions légales', href: url.mentions },
   { label: 'CGV', href: url.cgv },
   { label: 'Confidentialité', href: url.confidentialite },
+  { label: 'Informations Qualiopi', href: url.qualiopi },
 ];

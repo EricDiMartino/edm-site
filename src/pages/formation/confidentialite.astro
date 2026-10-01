@@ -1,0 +1,38 @@
+---
+// Politique de confidentialité Academy Leader / EDXP Formation (RGPD).
+// Base : livret d'accueil (§5 Données personnelles), CGV §13, fonctionnement réel des pages /formation/.
+// Choix du 01/10/2026 : CRM = GoHighLevel ; prospects conservés 3 ans après le dernier contact (recommandation CNIL).
+import FormationLegal from '../../components/formation/FormationLegal.astro';
+import { url } from '../../data/formation/site';
+---
+
+<FormationLegal title="Politique de confidentialité · Academy Leader" h1="Politique de confidentialité" eyebrow="Academy Leader · EDXP Formation" maj="1er octobre 2026" noindex>
+  <h2>Responsable du traitement</h2>
+  <p><strong>EDXP FORMATION</strong>, SAS au capital de 1 000 €, RCS Grenoble 931 295 208, 1435 avenue de l'Europe, 38330 Montbonnot-Saint-Martin. Contact : <a href="mailto:admin@ericdimartino.com">admin@ericdimartino.com</a> · 07 81 73 40 18.</p>
+
+  <h2>Données collectées et finalités</h2>
+  <h3>Diagnostic en ligne et prise de rendez-vous</h3>
+  <p>Lorsque vous réalisez le diagnostic, nous recueillons vos réponses au questionnaire (situation, chiffre d'affaires, équipe, objectifs), ainsi que votre prénom, votre email et, si vous le souhaitez, votre téléphone. Ces données servent à vous afficher et vous envoyer votre résultat, à organiser l'entretien que vous réservez (confirmation, rappels par email et SMS) et à vous recontacter au sujet de nos offres.</p>
+  <p>Base légale : mesures précontractuelles prises à votre demande et intérêt légitime d'EDXP FORMATION à développer ses relations commerciales avec des professionnels de la coiffure.</p>
+  <h3>Formations et accompagnements</h3>
+  <p>Les données recueillies dans le cadre d'une formation (identité, coordonnées, éléments de suivi) sont traitées dans le seul but de gérer votre formation et d'en assurer le suivi administratif et qualité. Base légale : exécution du contrat et obligations légales liées à l'activité de formation.</p>
+  <h3>Mesure d'audience et publicité</h3>
+  <p>Avec votre accord uniquement, des cookies de mesure d'audience (Google Analytics) et publicitaires (Google, Meta) peuvent être déposés pour mesurer la fréquentation et l'efficacité de nos campagnes. Sans votre accord, aucun de ces cookies n'est déposé. Vous pouvez modifier votre choix à tout moment via « Gérer les cookies » en bas de page.</p>
+
+  <h2>Destinataires</h2>
+  <p>Vos données sont destinées à l'équipe d'EDXP FORMATION. Elles ne sont pas cédées à des tiers, hors obligations légales (financeurs, OPCO) et hors prestataires techniques agissant pour notre compte : hébergement du site (Vercel Inc.), outil de gestion des contacts et des rendez-vous (GoHighLevel / LeadConnector), et, avec votre accord, outils de mesure et de publicité (Google, Meta).</p>
+  <p>Certains de ces prestataires sont situés hors de l'Union européenne ; les transferts sont alors encadrés par les garanties prévues par le RGPD (décision d'adéquation ou clauses contractuelles types).</p>
+
+  <h2>Durée de conservation</h2>
+  <ul>
+    <li>Données de prospection (diagnostic, rendez-vous sans suite) : 3 ans après le dernier contact.</li>
+    <li>Données des stagiaires et clients : pour la durée légale applicable aux organismes de formation et aux documents comptables.</li>
+    <li>Choix relatifs aux cookies : 13 mois maximum.</li>
+  </ul>
+
+  <h2>Vos droits</h2>
+  <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données. Pour les exercer, écrivez à <a href="mailto:admin@ericdimartino.com">admin@ericdimartino.com</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
+
+  <h2>Pour aller plus loin</h2>
+  <p>Voir aussi nos <a href={url.mentions}>mentions légales</a> et nos <a href={url.cgv}>conditions générales de vente</a>.</p>
+</FormationLegal>
