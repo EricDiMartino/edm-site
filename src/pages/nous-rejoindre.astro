@@ -11,7 +11,7 @@ import CtaBlock from '../components/CtaBlock.astro';
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 const atouts = [
-  { titre: 'Formation continue', texte: 'Coupe, couleur, balayage, lissage : on se forme toute l’année, avec un accès à notre académie interne, Academy Leader.', icon: 'book' },
+  { titre: 'Formation continue', texte: 'Coupe, couleur, balayage, lissage : on se forme toute l’année, avec un accès à notre académie interne, Academy Leader.', icon: 'book', lien: { label: 'Découvrir Academy Leader', href: '/formation/' } },
   { titre: 'Évolution réelle', texte: 'Une trajectoire claire : coiffeur, manager, formateur, puis associé ou partenariat.', icon: 'arrow' },
   { titre: 'Cadre premium', texte: 'Quatre salons de coiffure haut de gamme en Isère et Savoie, autour d’une spécialité reconnue : la consultation visagiste.', icon: 'sparkle' },
   { titre: 'Avantages', texte: 'Mutuelle d’entreprise, participation aux frais de transport, réductions sur les prestations.', icon: 'heart' },
@@ -73,6 +73,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
             <svg class="nr-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[a.icon] ?? ICONS.sparkle} />
             <h3>{a.titre}</h3>
             <p>{a.texte}</p>
+            {a.lien && <a class="link-olive link-arrow nr-lien" href={a.lien.href}>{a.lien.label}<span class="arrow" aria-hidden="true">→</span></a>}
           </li>
         ))}
       </ul>
@@ -168,6 +169,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
     .nr-ico { width: 28px; height: 28px; color: var(--terracotta); margin-bottom: 1rem; }
     .nr-atout h3 { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; margin: 0 0 0.4rem; }
     .nr-atout p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+    .nr-lien { margin-top: 0.9rem; font-size: 0.85rem; }
 
     .nr-poste-list { list-style: none; margin: clamp(1.5rem,4vw,2.5rem) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem,3vw,1.75rem); }
     .nr-poste { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.6rem,4vw,2.25rem); }

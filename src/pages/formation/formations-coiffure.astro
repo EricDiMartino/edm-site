@@ -7,9 +7,34 @@ import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { formSeo as seo, formFaq as faq, formFin as fin } from '../../data/formation/pages';
 import { formations } from '../../data/formation/formations';
+import { orgRef, SITE, url } from '../../data/formation/site';
+
+// JSON-LD (maquette : ItemList + Course ×9 avec Offer, prix HT · FAQPage via FormationFaq)
+const pageUrl = `${SITE}${url.formations}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Formations coiffure Academy Leader',
+  url: pageUrl,
+  itemListElement: formations.map((f, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Course',
+      name: f.nom,
+      description: f.hook,
+      url: `${pageUrl}#cat`,
+      provider: orgRef,
+      inLanguage: 'fr',
+      offers: { '@type': 'Offer', category: 'Paid', price: f.prix, priceCurrency: 'EUR', priceSpecification: { '@type': 'UnitPriceSpecification', price: f.prix, priceCurrency: 'EUR', valueAddedTaxIncluded: false, unitText: f.type === 'personne' ? 'par personne' : 'par groupe' } },
+      hasCourseInstance: { '@type': 'CourseInstance', courseMode: f.depl ? 'Onsite' : 'Online', courseWorkload: `PT${f.h}H` },
+    },
+  })),
+};
 ---
 
 <FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <main>
     <section class="s168">
       <div class="s33">

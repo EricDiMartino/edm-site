@@ -6,9 +6,32 @@ import FormationLayout from '../../components/formation/FormationLayout.astro';
 import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { accSeo as seo, accFaq as faq, accFin as fin } from '../../data/formation/pages';
+import { orgRef, SITE, url } from '../../data/formation/site';
+
+// JSON-LD (maquette : Service + Offer « à partir de 7 000 € HT » · FAQPage via FormationFaq). VideoObject : quand la VSL existera.
+const pageUrl = `${SITE}${url.accompagnement}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Accompagnement Salon Autonome',
+  serviceType: 'Coaching de gérant de salon de coiffure',
+  description: seo.description,
+  url: pageUrl,
+  provider: orgRef,
+  areaServed: 'FR',
+  audience: { '@type': 'BusinessAudience', audienceType: 'Gérants de salon de coiffure' },
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    priceCurrency: 'EUR',
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: 7000, priceCurrency: 'EUR', valueAddedTaxIncluded: false },
+    seller: orgRef,
+  },
+};
 ---
 
 <FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <main>
     <section class="s10">
       <div class="s11">

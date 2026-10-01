@@ -59,3 +59,7 @@ export const legal = [
   { label: 'Confidentialité', href: url.confidentialite },
   { label: 'Informations Qualiopi', href: url.qualiopi },
 ];
+
+/** Référence JSON-LD vers l'organisation déclarée sur l'accueil (/formation/#organisation). */
+export const SITE = 'https://www.ericdimartino.com';
+export const orgRef = { '@id': `${SITE}${BASE}/#organisation` };

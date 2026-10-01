@@ -43,7 +43,7 @@
     },
     {
       "source": "/formation-consultation-expert",
-      "destination": "/",
+      "destination": "/formation/",
       "permanent": true
     },
     {

@@ -6,9 +6,27 @@ import FormationLayout from '../../components/formation/FormationLayout.astro';
 import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
+import { orgRef, SITE, url } from '../../data/formation/site';
+
+// JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
+const pageUrl = `${SITE}${url.ouvrir}`;
+const etapes = [
+  ['Savoir si le projet tient debout', "Ce que ta zone absorbe vraiment, et ce que chaque prestation te laissera à la minute. Calculé et analysé avant de décider."],
+  ['Écrire ton concept, dessiner tes murs', "Positionnement, grille tarifaire et agencement se décident avant l'ouverture. Pas une fois les équipes en place. C'est ce trio qui fixe ta marge pour toute la durée du bail."],
+  ['Choisir tes partenaires, monter ton équipe', 'Conditions fournisseur et première embauche, on négocie avec toi au moment où tu as le moins de pouvoir de négociation.'],
+  ['Ouvrir avec des plannings remplis et un résultat garanti', 'Des clients le premier jour. Six mois de correction des écarts, et on reste avec toi les deux premières années pour garantir tes résultats'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Service', name: 'Accompagnement à l\'ouverture d\'un salon de coiffure', serviceType: 'Accompagnement ouverture de salon de coiffure', description: seo.description, url: pageUrl, provider: orgRef, areaServed: 'FR', audience: { '@type': 'BusinessAudience', audienceType: 'Porteurs de projet de salon de coiffure' } },
+    { '@type': 'HowTo', name: 'Ouvrir un salon de coiffure rentable, en 7 étapes', url: pageUrl, step: etapes.map(([name, text], i) => ({ '@type': 'HowToStep', position: i + 1, name, text })) },
+  ],
+};
 ---
 
 <FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <main>
     <section class="s10">
       <div class="s11">
