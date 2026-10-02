@@ -18,8 +18,7 @@ export const franchise = {
     "Une franchise rassure parce qu'on n'ouvre pas seul. Mais tu le paies : droit d'entrée, redevance sur ton chiffre d'affaires, concept imposé, pendant toute la durée du contrat. Avec nous, tu as le cadre d'un réseau sans en payer le prix.",
   prisALaFranchise: [
     { t: "Tu n'es pas seul", p: 'Trois associés qui gèrent quatre salons, joignables à chaque décision, pendant 24 mois après ton ouverture.' },
-    // ⏸️ texte à préciser par Xavier (fournisseurs ? grille de prix ?)
-    { t: 'Des tarifs négociés', p: '[À préciser : conditions fournisseurs obtenues grâce au volume de nos salons, et/ou grille de prix construite sur ton coût minute.]' },
+    { t: 'Des tarifs négociés', p: 'On négocie pour toi, et tu profites des partenariats que nous avons signés avec les plus grandes marques nationales.' },
     { t: 'Un accompagnement de A à Z', p: "7 étapes menées avec toi, de l'étude de zone à l'ouverture, puis nos outils et notre bibliothèque de formation offerts." },
   ],
   gardeDeLIndependant: [
@@ -37,7 +36,7 @@ export const franchise = {
   ],
   honnete: {
     label: 'Soyons honnêtes',
-    h: "Ce qu'une franchise t'apporte, et pas nous.",
+    h: 'Tu veux une marque connue dès l\'ouverture ?',
     p: "Une marque déjà connue le jour de l'ouverture. Si c'est ce qui compte le plus pour ton projet, nous pouvons te proposer une solution. Pour être sûr(e) de faire le bon choix, réserve un créneau dans notre agenda : on étudiera ça avec toi, et c'est évidemment offert.",
   },
   cta: { label: 'Franchise ou indépendant : fais le diagnostic', sub: '2 minutes · réponse immédiate' },
