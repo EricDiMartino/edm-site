@@ -49,11 +49,12 @@ Parcours : page offre → **diagnostic** (9 questions) → coordonnées (prénom
 - **Merci** : prénom et créneau lus dans l'URL de redirection GHL (plus de « Camille » en dur).
 - Rappels email/SMS : dans les workflows GHL (hors site).
 
-## 5. Tracking ✅ (voir D5)
-- **Conteneur GTM dédié Academy Leader** (❓ ID à créer), GA4 dédiée, pixels Meta / Google Ads d'Academy Leader uniquement. `GTM-MHHC3VXC` (salons) ne se charge **pas** sur `/formation`.
-- Événements dataLayer : `diag_start`, `diag_step` (n), `diag_complete` (segment), `lead_submit` (form=diagnostic), `rdv_pose`, `rdv_confirme`, `pdf_download`, `simu_use`.
-- UTM : captés à l'arrivée (sessionStorage), envoyés à GHL avec le diagnostic.
-- Pixels Meta / Google Ads : ❓ IDs, dans GTM derrière le consentement (bandeau existant).
+## 5. Tracking ✅ (en place le 02/10/2026)
+- **GTM `GTM-WT68LQZP`** — compte « EDXP Formation », conteneur « Academy Leader - ericdimartino.com/formation » (≠ `GTM-MHHC3VXC` salons). Chargé uniquement sur `/formation/*` (FormationLayout), Consent Mode v2 refusé par défaut, clé `al_consent`.
+- **GA4 `G-K1PPNKZELD`** — compte « EDXP Formation », propriété « Academy Leader ».
+- Balises GTM : `GA4 - Configuration` (Initialization - All Pages) · `GA4 - Événements tunnel` (nom = `{{Event}}`, paramètre `segment` = `{{DLV - segment}}`, déclencheur regex `^(diag_start|diag_complete|lead_submit|rdv_pose|rdv_confirme)$`). Version publiée : « V1 - GA4 + événements tunnel ».
+- Événements clés GA4 : `lead_submit`, `rdv_pose` (une fois par session, sans valeur pour l'instant).
+- À venir : association Google Ads ↔ GA4, pixel Meta dans GTM, valeur monétaire des événements clés.
 
 ## 6. SEO / GEO ✅
 - Title, meta, H1 : ceux du dossier de passation, page par page.
