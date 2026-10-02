@@ -486,3 +486,47 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-resa-msg.err{color:#E8A08F}
 .al-resa-fields{display:grid;gap:10px;margin-top:20px}
 .al-resa-fields .al-field input{padding:12px 14px;font-size:15px}
+
+/* ==========================================================================
+   Page Ouvrir — bloc « Franchise ou indépendant » (maquette de travail du 02/10/2026)
+   ========================================================================== */
+.al-hero-franchise{margin-top:18px;font-size:17px;color:#D8CFC2;max-width:54ch}
+.al-hero-franchise b{color:#F8F4ED}
+.al-hero-franchise b.s5{color:#C2874A}
+.al-hero-link{display:inline-block;margin-top:6px;font-size:15px;font-weight:600;color:#F8F4ED;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#C2874A}
+.al-hero-link:hover{color:#DCA366}
+.al-fr{background:#0F0C0A;padding:112px 0;scroll-margin-top:80px}
+.al-fr-intro{margin-top:22px;color:#D8CFC2;max-width:64ch}
+.al-fr-cols{margin-top:40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.al-fr-card{background:#14100D;border:1px solid rgba(248,244,237,.1);border-radius:8px;padding:28px}
+.al-fr-card--acc{background:rgba(194,135,74,.08);border-color:rgba(194,135,74,.4)}
+.al-fr-kicker{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#9B8F83}
+.al-fr-kicker--acc{color:#C2874A}
+.al-fr-item{margin-top:18px}
+.al-fr-item h3,.al-fr-honest h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em;color:#F8F4ED}
+.al-fr-item p,.al-fr-honest p{margin-top:4px;color:#D8CFC2;font-size:16px}
+.al-fr-honest{margin-top:28px}
+.al-fr-honest h3{margin-top:12px;font-size:24px}
+.al-fr-honest p{margin-top:12px}
+.al-fr-tabletitle{margin-top:56px}
+.al-fr-table{margin-top:16px;width:100%;border-collapse:separate;border-spacing:0;border:1px solid rgba(248,244,237,.12);border-radius:8px;overflow:hidden;font-size:16px}
+.al-fr-table th,.al-fr-table td{padding:18px 24px;text-align:left;vertical-align:top;border-top:1px solid rgba(248,244,237,.1)}
+.al-fr-table thead th{border-top:0;background:#1A1512;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#9B8F83}
+.al-fr-table tbody th{font-weight:600;color:#F8F4ED;width:34%}
+.al-fr-table td{color:#D8CFC2}
+.al-fr-table .al-fr-us{background:rgba(194,135,74,.06);color:#F8F4ED;font-weight:600}
+.al-fr-table thead .al-fr-us{color:#C2874A;background:rgba(194,135,74,.1)}
+.al-fr-cta{display:inline-flex;margin-top:36px}
+@media(max-width:760px){
+  .al-fr{padding:80px 0}
+  .al-fr-cols{grid-template-columns:minmax(0,1fr)}
+  /* tableau → une carte par critère */
+  .al-fr-table,.al-fr-table tbody,.al-fr-table tr,.al-fr-table th,.al-fr-table td{display:block;width:100%}
+  .al-fr-table thead{display:none}
+  .al-fr-table tr{border-top:1px solid rgba(248,244,237,.12)}
+  .al-fr-table tr:first-child{border-top:0}
+  .al-fr-table th,.al-fr-table td{border-top:0;padding:10px 18px}
+  .al-fr-table tbody th{padding-top:16px;width:100%}
+  .al-fr-table td::before{content:attr(data-l) " : ";color:#9B8F83;font-weight:400}
+  .al-fr-table td.al-fr-us{padding-bottom:16px}
+}
