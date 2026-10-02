@@ -9,6 +9,8 @@ import ouvertureImg from '../../assets/formation/photos/ouverture-salon-de-coiff
 import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
+import { heroFranchise, franchise } from '../../data/formation/franchise';
+import { url } from '../../data/formation/site';
 import { orgRef, SITE, url } from '../../data/formation/site';
 
 // JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
@@ -34,13 +36,11 @@ const schema = {
     <section class="s10">
       <div class="s11">
         <div>
-          <div class="s12">Ouvrir ou reprendre un salon de coiffure</div>
-          <h1 class="s80">Ouvrir un salon de coiffure rentable, <span class="s5">en 7 étapes.</span></h1>
-          <p class="s81">Tout se décide avant l'ouverture et chaque erreur coûte de l'argent.<br>On mène avec toi les 7 étapes d'<b>une ouverture rentable</b>, puis <span class="s82">on reste avec toi les deux premières années pour <b>garantir ton résultat.</b></span></p>
-          <p class="al-fine">Garantie de résultat soumise à conditions : <a href="/formation/cgv">CGV, art. 11 bis</a>.</p>
+          <div class="s12">{heroFranchise.eyebrow}</div>
+          <h1 class="s80 al-h1-ouvrir">{heroFranchise.h1a} <span class="s5">{heroFranchise.h1b}</span></h1>
+          <p class="s81">7 étapes menées avec toi, 24 mois de suivi, les partenariats de 4 salons en exploitation. Tout ce qu'on cherche dans une franchise, <b>sans droit d'entrée ni redevance.</b></p>
           <div class="s83">
-            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment pour ouvrir</b><span class="s19">2 minutes · réponse immédiate</span></a>
-            <div class="s85"><b class="s15">1 nouveau projet par mois.</b><br>Prochaine place : [mois à renseigner]</div>
+            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment</b><span class="s19">2 minutes · réponse immédiate</span></a>
           </div>
         </div>
         <div class="s86 al-media"><Image src={salonImg} alt="Salon de coiffure Eric Di Martino ouvert en février 2026, place Victor Hugo à Grenoble" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" /></div>
@@ -50,7 +50,7 @@ const schema = {
             <div class="s88"><div class="s89">4</div><div class="s25">salons ouverts pour nous-mêmes</div></div>
             <div class="s88"><div class="s89">90 → 600 K€</div><div class="s25">taille des projets menés</div></div>
             <div class="s88"><div class="s89">24 mois</div><div class="s25">de suivi + outils et formations offerts</div></div>
-            <div class="s88"><div class="s89">Fév. 2026</div><div class="s25">dernière ouverture, Grenoble</div></div>
+            <div class="s88"><div class="s89">0 €</div><div class="s25">de droit d'entrée et de redevance</div></div>
         </div>
       </div>
     </section>
@@ -73,6 +73,36 @@ const schema = {
         </div>
       </div>
       <div class="s33">
+      </div>
+    </section>
+    <section id="franchise" class="al-fr">
+      <div class="s33">
+        <div class="s47">{franchise.label}</div>
+        <h2 class="s34">Les avantages d'une franchise, <span class="s5"><br />la liberté d'un indépendant.</span></h2>
+        <p class="al-fr-intro">{franchise.intro}</p>
+        <div class="al-fr-cols">
+          <div class="al-fr-card">
+            <div class="al-fr-kicker">Ce qu'on prend à la franchise</div>
+            {franchise.prisALaFranchise.map((x) => <div class="al-fr-item"><h3>{x.t}</h3><p>{x.p}</p></div>)}
+          </div>
+          <div class="al-fr-card al-fr-card--acc">
+            <div class="al-fr-kicker al-fr-kicker--acc">Ce que tu gardes de l'indépendant</div>
+            {franchise.gardeDeLIndependant.map((x) => <div class="al-fr-item"><h3>{x.t}</h3><p>{x.p}</p></div>)}
+          </div>
+        </div>
+        <div class="al-fr-kicker al-fr-tabletitle">Le comparatif, point par point</div>
+        <table class="al-fr-table">
+          <thead><tr><th scope="col">Ce qui compte</th><th scope="col">Franchise de coiffure</th><th scope="col" class="al-fr-us">Academy Leader</th></tr></thead>
+          <tbody>
+            {franchise.comparatif.map((r) => <tr><th scope="row">{r.c}</th><td data-l="Franchise">{r.f}</td><td data-l="Academy Leader" class="al-fr-us">{r.a}</td></tr>)}
+          </tbody>
+        </table>
+        <div class="al-fr-card al-fr-honest">
+          <div class="al-fr-kicker">{franchise.honnete.label}</div>
+          <h3>{franchise.honnete.h}</h3>
+          <p>{franchise.honnete.p}</p>
+        </div>
+        <a href={url.diagnostic} class="s84 al-fr-cta"><b class="s18">{franchise.cta.label}</b><span class="s19">{franchise.cta.sub}</span></a>
       </div>
     </section>
     <section class="s46">
@@ -98,7 +128,7 @@ const schema = {
     <section class="s59">
       <div class="s33">
         <div class="s28">Les 7 étapes</div>
-        <h2 class="s34">Un projet rentable,&nbsp;<br><span class="s111">dans un ordre précis.</span></h2>
+        <h2 class="s34">Un projet rentable se construit <br><span class="s111">dans un ordre précis.</span></h2>
         <div class="s112">
             <div class="s113">
               <div class="s114">Étapes 1 · 2</div>

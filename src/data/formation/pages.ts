@@ -12,6 +12,14 @@ export const ouvrirSeo = {
 };
 export const ouvrirFaq: Qa[] = [
   {
+    "q": "Franchise ou salon indépendant : que choisir pour ouvrir un salon de coiffure ?",
+    "a": "Une franchise t'apporte une marque connue, en échange d'un droit d'entrée, d'une redevance sur ton chiffre d'affaires et d'un concept imposé. En indépendant, tu gardes ta marge et ta liberté, mais tu dois tout construire : c'est là qu'on intervient, avec 7 étapes menées avec toi et 24 mois de suivi."
+  },
+  {
+    "q": "Combien coûte une franchise de salon de coiffure ?",
+    "a": "Ça dépend de l'enseigne : un droit d'entrée, une redevance mensuelle sur le chiffre d'affaires, souvent une redevance marketing, en plus des travaux et du stock. Avec Academy Leader, ni droit d'entrée ni redevance : le montant de l'accompagnement t'est donné au premier appel."
+  },
+  {
     "q": "Combien coûte un accompagnement à l'ouverture d'un salon de coiffure ?",
     "a": "Le montant dépend de ton projet : création ou reprise, budget, et ce que nos partenaires prennent en charge. On te le donne au premier appel, avant que tu aies engagé quoi que ce soit."
   },
@@ -31,7 +39,7 @@ export const ouvrirFaq: Qa[] = [
 export const ouvrirFin: FinalCta = { ...{
   "label": "Avant de signer quoi que ce soit",
   "h": "Parle-nous avant, pas après.",
-  "p": "On te dit où tu en es sur les 7 étapes et ce qu'il faut avoir calculé avant la banque. 1 nouveau projet par mois.",
+  "p": "Franchise ou indépendant, on te dit où tu en es sur les 7 étapes et ce qu'il faut avoir calculé avant la banque. 1 nouveau projet par mois.",
   "cta": "Découvre si c'est le bon moment pour ouvrir",
   "sub": "2 minutes · réponse immédiate"
 }, href: url.diagnostic };
