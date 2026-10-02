@@ -38,6 +38,7 @@ const q0 = questions[0];
       <p class="s229">Il s'affiche tout de suite. On t'en envoie aussi la copie, pour la travailler avec ton comptable.</p>
       <div class="al-fields">
         <label class="al-field">Prénom<input name="fn" autocomplete="given-name" placeholder="Camille" required /></label>
+        <label class="al-field">Nom<input name="ln" autocomplete="family-name" placeholder="Martin" required /></label>
         <label class="al-field">Email<input name="em" type="email" autocomplete="email" placeholder="camille@monsalon.fr" required /></label>
         <label class="al-field">Téléphone <small>uniquement pour le rappel SMS si tu réserves un appel</small><input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
         <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
@@ -132,7 +133,7 @@ const q0 = questions[0];
       e.preventDefault();
       var f = this.elements, seg = segment();
       st.fn = (f.fn.value || '').trim();
-      var lead = { fn: st.fn, em: (f.em.value || '').trim(), tel: (f.tel.value || '').trim(), seg: seg, contactId: '' };
+      var lead = { fn: st.fn, ln: (f.ln.value || '').trim(), em: (f.em.value || '').trim(), tel: (f.tel.value || '').trim(), seg: seg, contactId: '' };
       var utm = {}; try { utm = JSON.parse(sessionStorage.getItem('al_utm') || '{}'); } catch (err) {}
       var answers = Q.map(function (q, i) { return { q: q.q, a: st.ans[i] != null ? q.o[st.ans[i]] : '' }; });
       var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
@@ -140,7 +141,7 @@ const q0 = questions[0];
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.
       fetch('/api/formation/lead', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fn: lead.fn, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
+        body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
       }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
       dl({ event: 'lead_submit', form: 'diagnostic', segment: seg });
       st.step = Q.length + 1; render();

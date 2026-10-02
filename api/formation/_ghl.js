@@ -50,11 +50,11 @@ export async function freeSlots(start, end) {
 }
 
 /** Crée ou met à jour le contact (dédoublonné par GHL sur email / téléphone). Renvoie son id. */
-export async function upsertContact({ firstName, email, phone, tags = [], source }) {
+export async function upsertContact({ firstName, lastName, email, phone, tags = [], source }) {
   const data = await call('/contacts/upsert', {
     method: 'POST',
     version: '2021-07-28',
-    body: { locationId: GHL.locationId, firstName, email, ...(phone ? { phone } : {}), tags, source: source || 'Site ericdimartino.com/formation' },
+    body: { locationId: GHL.locationId, firstName, ...(lastName ? { lastName } : {}), email, ...(phone ? { phone } : {}), tags, source: source || 'Site ericdimartino.com/formation' },
   });
   const id = data?.contact?.id;
   if (!id) throw new Error('GHL : id contact absent');

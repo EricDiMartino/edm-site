@@ -10,6 +10,7 @@ export async function POST(request) {
   if (clean(b.website)) return json({ contactId: null }); // pot de miel anti-robot
 
   const firstName = clean(b.fn, 80);
+  const lastName = clean(b.ln, 80);
   const email = clean(b.em, 160).toLowerCase();
   const phone = clean(b.tel, 30);
   const segment = clean(b.segment, 30);
@@ -18,6 +19,7 @@ export async function POST(request) {
   try {
     const contactId = await upsertContact({
       firstName,
+      lastName,
       email,
       phone,
       tags: ['academy-leader', 'diagnostic-site', segment ? `diag-${segment.toLowerCase()}` : 'diag'],

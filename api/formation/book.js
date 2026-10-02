@@ -15,18 +15,20 @@ export async function POST(request) {
   try {
     let contactId = clean(b.contactId, 60);
     const firstName = clean(b.fn, 80);
+    const lastName = clean(b.ln, 80);
     if (!contactId) {
       const email = clean(b.em, 160).toLowerCase();
       if (!firstName || !isEmail(email)) return json({ error: 'invalid' }, 400);
       contactId = await upsertContact({
         firstName,
+        lastName,
         email,
         phone: clean(b.tel, 30),
         tags: ['academy-leader', 'rdv-site'],
         source: 'Réservation ericdimartino.com/formation',
       });
     }
-    await bookAppointment(contactId, startTime, `Ton appel offert ${firstName}`.trim());
+    await bookAppointment(contactId, startTime, `Ton appel offert ${firstName} ${lastName}`.replace(/\s+/g, ' ').trim());
     return json({ ok: true, startTime });
   } catch (e) {
     console.error('[book]', e?.message, e?.data);

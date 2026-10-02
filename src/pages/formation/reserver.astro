@@ -28,6 +28,7 @@ import { url, edxp } from '../../data/formation/site';
         <div class="s256" data-r="slots"></div>
         <form class="al-resa-fields" data-r="fields" hidden>
           <label class="al-field">Prénom<input name="fn" autocomplete="given-name" required /></label>
+          <label class="al-field">Nom<input name="ln" autocomplete="family-name" required /></label>
           <label class="al-field">Email<input name="em" type="email" autocomplete="email" required /></label>
           <label class="al-field">Téléphone <small>pour le rappel SMS</small><input name="tel" type="tel" autocomplete="tel" /></label>
           <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
@@ -103,11 +104,11 @@ import { url, edxp } from '../../data/formation/site';
     }
     $('[data-r="confirm"]').addEventListener('click', function () {
       if (!st.slot || st.busy) return;
-      var who = { contactId: diag.contactId || '', fn: diag.fn || '', em: diag.em || '', tel: diag.tel || '', website: '' };
+      var who = { contactId: diag.contactId || '', fn: diag.fn || '', ln: diag.ln || '', em: diag.em || '', tel: diag.tel || '', website: '' };
       if (needFields) {
         var f = $('[data-r="fields"]');
         if (!f.reportValidity()) return;
-        who = { contactId: '', fn: f.elements.fn.value.trim(), em: f.elements.em.value.trim(), tel: f.elements.tel.value.trim(), website: f.elements.website.value };
+        who = { contactId: '', fn: f.elements.fn.value.trim(), ln: f.elements.ln.value.trim(), em: f.elements.em.value.trim(), tel: f.elements.tel.value.trim(), website: f.elements.website.value };
       }
       var sel = D[st.day], slot = st.slot;
       st.busy = true; msg(''); render();
