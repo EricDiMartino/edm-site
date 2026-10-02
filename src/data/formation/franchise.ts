@@ -37,7 +37,7 @@ export const franchise = {
   honnete: {
     label: 'Soyons honnêtes',
     h: 'Tu veux une marque connue dès l\'ouverture ?',
-    p: "Une marque déjà connue le jour de l'ouverture. Si c'est ce qui compte le plus pour ton projet, nous pouvons te proposer une solution. Pour être sûr(e) de faire le bon choix, réserve un créneau dans notre agenda : on étudiera ça avec toi, et c'est évidemment offert.",
+    p: "Si c'est ce qui compte le plus pour ton projet, nous pouvons te proposer une solution. Pour être sûr(e) de faire le bon choix, réserve un créneau dans notre agenda : on étudiera ça avec toi, et c'est évidemment offert.",
   },
   cta: { label: 'Franchise ou indépendant : fais le diagnostic', sub: '2 minutes · réponse immédiate' },
 };
