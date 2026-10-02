@@ -63,12 +63,13 @@ const schema = {
           <p class="s93">C'est pour ça qu'on intervient au démarrage du projet, et pas à l'ouverture.</p>
         </div>
         <div class="s94">
-          <div class="s95">Exemple · <span class="s96">un prix mal posé sur 1 prestation</span></div>
+          <div class="s95">Exemple · <span class="s96" data-err="titre">un prix mal posé sur 1 prestation</span></div>
           <div class="s97">
             <div class="s98"><span>Écart de prix</span><b class="s15">− 5 €</b></div>
-            <div class="s98"><span>Prestations concernées / mois</span><b class="s15" data-err="n">300</b></div>
-            <div class="al-err-pills" role="group" aria-label="Nombre de prestations concernées par mois">
-              {[100, 300, 600, 1000].map((n) => <button type="button" class={n === 300 ? 's204' : 's205'} data-err-n={n} aria-pressed={n === 300 ? 'true' : 'false'}>{n.toLocaleString('fr-FR')}</button>)}
+            <div class="s98"><span>Prestations concernées / mois</span><b class="s15">300</b></div>
+            <div class="s98"><span>Prestations mal tarifées</span><b class="s15" data-err="n">1</b></div>
+            <div class="al-err-pills" role="group" aria-label="Nombre de prestations mal tarifées">
+              {[1, 2, 3, 4, 5].map((n) => <button type="button" class={n === 1 ? 's204' : 's205'} data-err-n={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
             </div>
             <div class="s99"><span>Manque à gagner / an</span><b class="s100" data-err="an">18 000 €</b></div>
             <div class="s98"><span>Sur un bail de 9 ans</span><b class="s100" data-err="bail">162 000 €</b></div>
@@ -206,16 +207,17 @@ const schema = {
     </section>
   </main>
   <script is:inline>
-    // Exemple « prix mal posé » : 5 € d'écart × prestations/mois × 12 mois (× 9 ans de bail)
+    // Exemple « prix mal posé » : 5 € d'écart × 300 prestations/mois × 12 mois × N prestations mal tarifées (× 9 ans de bail)
     (function () {
       var eur = function (v) { return Math.round(v).toLocaleString('fr-FR') + ' €'; };
       document.addEventListener('click', function (e) {
         var b = e.target.closest('[data-err-n]'); if (!b) return;
         var n = +b.getAttribute('data-err-n');
         document.querySelectorAll('[data-err-n]').forEach(function (x) { var on = x === b; x.className = on ? 's204' : 's205'; x.setAttribute('aria-pressed', String(on)); });
-        document.querySelector('[data-err="n"]').textContent = n.toLocaleString('fr-FR');
-        document.querySelector('[data-err="an"]').textContent = eur(5 * n * 12);
-        document.querySelector('[data-err="bail"]').textContent = eur(5 * n * 12 * 9);
+        document.querySelector('[data-err="n"]').textContent = String(n);
+        document.querySelector('[data-err="titre"]').textContent = 'un prix mal posé sur ' + n + ' prestation' + (n > 1 ? 's' : '');
+        document.querySelector('[data-err="an"]').textContent = eur(5 * 300 * 12 * n);
+        document.querySelector('[data-err="bail"]').textContent = eur(5 * 300 * 12 * 9 * n);
       });
     })();
   </script>
