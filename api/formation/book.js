@@ -26,7 +26,7 @@ export async function POST(request) {
         source: 'Réservation ericdimartino.com/formation',
       });
     }
-    await bookAppointment(contactId, startTime, `Entretien de validation — ${firstName || 'Academy Leader'}`);
+    await bookAppointment(contactId, startTime, `Ton appel offert ${firstName}`.trim());
     return json({ ok: true, startTime });
   } catch (e) {
     console.error('[book]', e?.message, e?.data);
