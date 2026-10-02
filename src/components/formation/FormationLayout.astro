@@ -20,8 +20,8 @@ const { title, description, noindex = false, bare = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // Conteneur GTM Academy Leader (compte « EDXP Formation », ≠ GTM salons). Surchargeable via PUBLIC_GTM_ID_FORMATION.
 const gtmId = import.meta.env.PUBLIC_GTM_ID_FORMATION || 'GTM-WT68LQZP';
-// Image de partage : NON FOURNIE (og.jpg 1200×630 à livrer) → visuel par défaut du domaine en attendant.
-const ogImageUrl = new URL('/og-default.jpg', Astro.site).href;
+// Image de partage 1200×630 : les 3 associés (public/og-academy-leader.jpg).
+const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
 ---
 
 <!doctype html>

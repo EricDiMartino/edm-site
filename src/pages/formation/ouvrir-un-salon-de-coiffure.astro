@@ -3,6 +3,9 @@
 // Balisage + texte = maquette (formation-src/code/dist, vérifié mot à mot contre formation-src/maquette.html).
 // SEO / FAQ / appel final : src/data/formation/pages.ts.
 import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { Image } from 'astro:assets';
+import salonImg from '../../assets/formation/photos/salon-de-coiffure-grenoble-place-victor-hugo-ouverture.webp';
+import ouvertureImg from '../../assets/formation/photos/ouverture-salon-de-coiffure-grenoble-eric-di-martino.webp';
 import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
@@ -40,7 +43,7 @@ const schema = {
             <div class="s85"><b class="s15">1 nouveau projet par mois.</b><br>Prochaine place : [mois à renseigner]</div>
           </div>
         </div>
-        <div class="s86">photo · chantier puis ouverture, place Victor Hugo</div>
+        <div class="s86 al-media"><Image src={salonImg} alt="Salon de coiffure Eric Di Martino ouvert en février 2026, place Victor Hugo à Grenoble" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" /></div>
       </div>
       <div class="s21">
         <div class="s87">
@@ -134,7 +137,7 @@ const schema = {
           </div>
         </div>
         <div class="s131">
-          <div class="s132">photo · ouverture client</div>
+          <div class="s132 al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900, 1400]} sizes="(max-width: 900px) 100vw, 560px" /></div>
           <div class="s133">
             <div class="s134">ÉTUDE DE CAS · OUVERTURE GRENOBLE</div>
             <div><b class="s82">Avant.</b>&nbsp;Salon de 180 m² et 180K</div>

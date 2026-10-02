@@ -7,6 +7,10 @@
 import type { Qa } from '../../components/formation/FormationFaq.astro';
 import type { FinalCta } from '../../components/formation/FormationFinalCta.astro';
 import { url } from './site';
+import heroImg from '../../assets/formation/photos/eric-di-martino-formateur-coiffure-academy-leader.webp';
+import ericImg from '../../assets/formation/photos/eric-di-martino-portrait.webp';
+import xavierImg from '../../assets/formation/photos/xavier-paolucci-portrait.webp';
+import lucieImg from '../../assets/formation/photos/lucie-shobbrook-portrait.webp';
 
 export const seo = {
   title: 'Academy Leader · Formations et accompagnement pour gérants de salon de coiffure',
@@ -17,7 +21,7 @@ export const seo = {
 export const hero = {
   eyebrow: 'Formations et accompagnement · gérants de salon de coiffure',
   cta: { label: 'Découvre quelle offre est faite pour toi', sub: '2 minutes · prix affiché à la fin · sans appel', href: url.diagnostic },
-  photo: 'photo · Eric en salon, place Victor Hugo (Grenoble)', // emplacement photo (à fournir)
+  photo: { src: heroImg, alt: "Eric Di Martino, président d'EDXP Formation et formateur Academy Leader" },
 };
 
 /** Bandeau de preuve. « 50+ » et « ★ 4,9 » retirés tant que la source n'est pas fournie. */
@@ -81,9 +85,9 @@ export const equipe = {
     "Est-ce que la personne qui te conseille a encore un salon aujourd'hui ? Nous oui. Grenoble, Montbonnot, Voiron, Aix-les-Bains et d'autres ouvertures en cours, toujours en nom propre.",
   derniere: { label: 'Dernière ouverture :', texte: 'Février 2026 - 200 m² à Grenoble' },
   associes: [
-    { ini: 'ED', nom: 'Eric Di Martino', role: 'La technique et le métier', p: 'Président. A construit la méthode de consultation en 7 étapes. Anime toutes les formations présentielles.' },
-    { ini: 'XP', nom: 'Xavier Paolucci', role: 'Le business et le pilotage', p: 'Rentabilité par prestation, coût minute, grille tarifaire, management. Blocs Fondations et Management.' },
-    { ini: 'LS', nom: 'Lucie Shobbrook', role: "L'acquisition et la marque", p: 'Concept, positionnement, communication, flux client. Tu repars avec un plan, des scripts et une méthode de mesure.' },
+    { ini: 'ED', photo: ericImg, nom: 'Eric Di Martino', role: 'La technique et le métier', p: 'Président. A construit la méthode de consultation en 7 étapes. Anime toutes les formations présentielles.' },
+    { ini: 'XP', photo: xavierImg, nom: 'Xavier Paolucci', role: 'Le business et le pilotage', p: 'Rentabilité par prestation, coût minute, grille tarifaire, management. Blocs Fondations et Management.' },
+    { ini: 'LS', photo: lucieImg, nom: 'Lucie Shobbrook', role: "L'acquisition et la marque", p: 'Concept, positionnement, communication, flux client. Tu repars avec un plan, des scripts et une méthode de mesure.' },
   ],
 };
 
