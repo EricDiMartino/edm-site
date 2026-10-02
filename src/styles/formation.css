@@ -383,7 +383,7 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-burger{display:none}
 .s4{white-space:nowrap}
 @media(max-width:880px){header > div > a.s3{flex:none}}
-@media(max-width:420px){
+@media(max-width:520px){ /* 520 et non 420 : en-tête trop large sur iPhone Pro Max (430px) */
   header > div{gap:8px !important}
   header .s7 a.s9{padding:9px 10px !important;font-size:10.5px !important;letter-spacing:.05em}
   .al-burger{width:34px;height:34px;padding:0 8px;margin-left:0}
@@ -472,3 +472,9 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-diag-right{display:flex;align-items:center;gap:14px}
 .al-close{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;margin-right:-8px;border-radius:50%;color:#D8CFC2}
 .al-close:hover{color:#F8F4ED;background:rgba(248,244,237,.08)}
+@media(max-width:359px){ /* très petits écrans (iPhone SE 1re gén.) */
+  header > div{gap:6px !important;padding-left:14px !important;padding-right:14px !important}
+  header .s7 a.s9{padding:8px 8px !important;font-size:9.5px !important;letter-spacing:.02em}
+  header > div > a:first-child > span:first-child{font-size:15px !important}
+  .al-burger{width:32px;height:32px;padding:0 7px}
+}
