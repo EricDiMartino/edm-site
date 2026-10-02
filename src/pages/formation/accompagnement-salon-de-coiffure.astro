@@ -1,0 +1,154 @@
+---
+// ACADEMY LEADER — Accompagnement (/formation/accompagnement-salon-de-coiffure).
+// Balisage + texte = maquette (formation-src/code/dist, vérifié mot à mot contre formation-src/maquette.html).
+// SEO / FAQ / appel final : src/data/formation/pages.ts.
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import FormationFaq from '../../components/formation/FormationFaq.astro';
+import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
+import { accSeo as seo, accFaq as faq, accFin as fin } from '../../data/formation/pages';
+import { orgRef, SITE, url } from '../../data/formation/site';
+
+// JSON-LD (maquette : Service + Offer « à partir de 7 000 € HT » · FAQPage via FormationFaq). VideoObject : quand la VSL existera.
+const pageUrl = `${SITE}${url.accompagnement}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Accompagnement Salon Autonome',
+  serviceType: 'Coaching de gérant de salon de coiffure',
+  description: seo.description,
+  url: pageUrl,
+  provider: orgRef,
+  areaServed: 'FR',
+  audience: { '@type': 'BusinessAudience', audienceType: 'Gérants de salon de coiffure' },
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    priceCurrency: 'EUR',
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: 7000, priceCurrency: 'EUR', valueAddedTaxIncluded: false },
+    seller: orgRef,
+  },
+};
+---
+
+<FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <main>
+    <section class="s10">
+      <div class="s11">
+        <div>
+          <div class="s12">Accompagnement Salon Autonome · gérants de salon</div>
+          <h1 class="s80">Rends ton salon de coiffure <span class="s125">autonome en 6 mois.</span></h1>
+          <p class="s81">De 40 h à 4 h par semaine. Six mois de coaching individuel avec tes trois experts, sur ton salon, avec tes chiffres et tes équipes. <b class="s15"><br>Pour les salons à partir de ~300 000 € de CA, ou en passe de les atteindre.</b></p>
+          <div class="s83">
+            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est ton moment</b><span class="s19">2 minutes · prix exact à la fin</span></a>
+            <div class="s85"><b class="s15">À partir de 7 000 € HT</b> · facturé à la société<br>4 nouveaux gérants par mois maximum</div>
+          </div>
+        </div>
+        <div class="s140"><div class="s141">▶</div>VSL 8–12 min · Xavier explique la méthode</div>
+      </div>
+      <div class="s21">
+        <div class="s142">
+            <div class="s23"><div class="s89">6 mois</div><div class="s25">25 semaines, 6 étapes</div></div>
+            <div class="s23"><div class="s89">1 h 30</div><div class="s25">de visio par mois</div></div>
+            <div class="s23"><div class="s89">6 outils</div><div class="s25">construits pour nos salons</div></div>
+            <div class="s23"><div class="s89">50+</div><div class="s25">salons accompagnés</div></div>
+        </div>
+      </div>
+    </section>
+    <section class="s59">
+      <div class="s33">
+        <div class="s28">C'est pour toi si</div>
+        <h2 class="s34">Quatre places par mois. <span class="s35"><br>Autant être clair.</span></h2>
+        <div class="s101">
+          <div class="s143">
+            <div class="s144">C'est pour toi si</div>
+            <div class="s104"><div class="s145"><span class="s146">✓</span><span>Ton salon fait ~300 000 € de CA, ou tu en approches.</span></div><div class="s145"><span class="s146">✓</span><span>Tu veux du temps pour toi sans que le chiffre baisse.</span></div><div class="s145"><span class="s146">✓</span><span>Tu acceptes de travailler sur tes vrais chiffres, même quand ils dérangent.</span></div><div class="s145"><span class="s146">✓</span><span>Tu peux consacrer 1 h 30 par mois de visio, plus les actions en salon.</span></div></div>
+          </div>
+          <div class="s147">
+            <div class="s148">Ce n'est pas pour toi si</div>
+            <div class="s104"><div class="s149"><span class="s110">✕</span><span>Ton CA est sous 150 000 € : une formation financée te rapportera plus.</span></div><div class="s149"><span class="s110">✕</span><span>Tu cherches une prise en charge OPCO : l'accompagnement n'est pas finançable.</span></div><div class="s149"><span class="s110">✕</span><span>Tu veux des conseils génériques, pas un travail sur ton salon.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s46">
+      <div class="s33">
+        <div class="s47">Ce que tu reprends en main</div>
+        <h2 class="s34">Six étapes, dans un ordre qui <span class="s5">ne se négocie pas.</span></h2>
+        <p class="s49">Tu veux un exemple : on ne travaille pas ton flux client avant ta rentabilité : tu ferais juste plus de volume sur des prix trop bas. Chaque étape valide la précédente.</p>
+        <div class="s150">
+            <div class="s151">
+              <div class="s152"><span>Sem. 0</span><span class="s77">Démarrage</span></div>
+              <h3 class="s153">On pose ton cap</h3>
+              <p class="s154">Où tu veux aller, et une photo précise de ton salon aujourd'hui.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> ton tableau de bord nominatif</div>
+            </div>
+            <div class="s151">
+              <div class="s152"><span>Sem. 1 → 8</span><span class="s77">Fondations</span></div>
+              <h3 class="s153">Rentabilité, prix, concept</h3>
+              <p class="s154">Ce que chaque prestation te rapporte, une grille construite sur ce chiffre, un concept fort.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> calculette de rentabilité, grille, charte</div>
+            </div>
+            <div class="s151">
+              <div class="s152"><span>Sem. 8 → 15</span><span class="s77">Acquisition</span></div>
+              <h3 class="s153">Reprendre le contrôle du flux</h3>
+              <p class="s154">Une vitrine en ligne qui rassure, un levier à actionner quand le planning se creuse.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> audit digital 54 critères, plan de com</div>
+            </div>
+            <div class="s151">
+              <div class="s152"><span>Sem. 11 → 20</span><span class="s77">Management</span></div>
+              <h3 class="s153">Ton rôle, c'est de gérer</h3>
+              <p class="s154">Qui décide quoi, jusqu'où, et ce qui remonte à toi. Écrit noir sur blanc.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> cadre de délégation, générateur d'annonces</div>
+            </div>
+            <div class="s151">
+              <div class="s152"><span>Sem. 20 → 25</span><span class="s77">Indépendance</span></div>
+              <h3 class="s153">Faire monter ton panier moyen</h3>
+              <p class="s154">Les mêmes clientes, un ticket plus haut, par la consultation.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> scripts de consultation</div>
+            </div>
+            <div class="s151">
+              <div class="s152"><span>Sem. 25</span><span class="s77">Bilan</span></div>
+              <h3 class="s153">On mesure le chemin</h3>
+              <p class="s154">Ton salon comparé à la photo du départ, chiffres à l'appui.</p>
+              <div class="s155"><span class="s5">Tu repars avec :</span> bilan chiffré, prochaine ambition</div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <section class="s46">
+      <div class="s33">
+        <div class="s47">Comment on s'engage</div>
+        <h2 class="s34">Parcours de sélection,&nbsp;&nbsp;<br><span class="s125">et un choix Garanti.&nbsp;</span></h2>
+        <div class="s156">
+            <div class="s157">
+              <div class="s158">01</div>
+              <h3 class="s159">Le diagnostic</h3>
+              <p class="s160">Deux minutes en ligne. Tu sais laquelle de nos offres correspond à ton avancement professionnel, et nos prochaines disponibilités. </p>
+            </div>
+            <div class="s157">
+              <div class="s158">02</div>
+              <h3 class="s159">L'entretien de validation</h3>
+              <p class="s160">Trente minutes avec ton dernier bilan. On analyse en direct ta rentabilité et tu repars avec un plan d'action concret même sans acheter.</p>
+            </div>
+            <div class="s157">
+              <div class="s158">03</div>
+              <h3 class="s159">Quatre gérants par mois</h3>
+              <p class="s160">Le suivi est individuel et hebdomadaire. Si le mois est complet, tu le sais dès l'appel.</p>
+            </div>
+            <div class="s157">
+              <div class="s158">04</div>
+              <h3 class="s159">Un choix 100% garanti</h3>
+              <p class="s160">Tu adhères, tu fais tes premiers rendez-vous d'analyse et de mise en place du plan d'action, tu as des doutes : Tu peux annuler ton achat sans te justifier.</p>
+              <p class="al-fine">Remboursement sur demande écrite sous 7 jours après le rendez-vous d'onboarding : <a href="/formation/cgv">CGV, art. 6.1 bis</a>.</p>
+            </div>
+        </div>
+        <div class="s161">
+          <div class="s162"><div class="s95">L'accompagnement</div><h3 class="s163">Changer le résultat</h3><p class="s164">Toi, le gérant · 6 mois, 25 semaines · non finançable</p></div><div class="s165"><div class="s166">Une formation</div><h3 class="s163">Monter le niveau</h3><p class="s167">Ton équipe · 1 à 2 jours · financée OPCO EP ou FAFCEA</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <FormationFaq items={faq} />
+  <FormationFinalCta data={fin} />
+</FormationLayout>

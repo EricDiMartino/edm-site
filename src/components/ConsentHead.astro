@@ -1,0 +1,52 @@
+---
+// Consent Mode v2 + chargement GTM — partagé par Layout (salons) et FormationLayout (Academy Leader).
+// À placer en tout début de <head>, AVANT tout tag. Tout refusé par défaut (RGPD).
+// storageKey : clé localStorage du choix (une par entité juridique : edm_consent / al_consent).
+// gtmId '' = aucune couche tracking.
+interface Props { gtmId: string; storageKey: string }
+const { gtmId, storageKey } = Astro.props;
+---
+
+{/* Consentement (Consent Mode v2) défini AVANT tout tag. Tout refusé par défaut (RGPD). */}
+<script is:inline define:vars={{ gtmId, storageKey }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', personalization_storage: 'denied',
+    functionality_storage: 'granted', security_storage: 'granted',
+    wait_for_update: 500,
+  });
+  try {
+    var c = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    if (c) {
+      gtag('consent', 'update', {
+        analytics_storage: c.analytics ? 'granted' : 'denied',
+        ad_storage: c.marketing ? 'granted' : 'denied',
+        ad_user_data: c.marketing ? 'granted' : 'denied',
+        ad_personalization: c.marketing ? 'granted' : 'denied',
+        personalization_storage: c.marketing ? 'granted' : 'denied',
+      });
+      dataLayer.push({ event: 'consent_ready', consent_analytics: !!c.analytics, consent_marketing: !!c.marketing });
+    }
+  } catch (e) {}
+  window.__edmConsent = function (analytics, marketing) {
+    gtag('consent', 'update', {
+      analytics_storage: analytics ? 'granted' : 'denied',
+      ad_storage: marketing ? 'granted' : 'denied',
+      ad_user_data: marketing ? 'granted' : 'denied',
+      ad_personalization: marketing ? 'granted' : 'denied',
+      personalization_storage: marketing ? 'granted' : 'denied',
+    });
+    try { localStorage.setItem(storageKey, JSON.stringify({ analytics: !!analytics, marketing: !!marketing, ts: Date.now() })); } catch (e) {}
+    dataLayer.push({ event: 'consent_update', consent_analytics: !!analytics, consent_marketing: !!marketing });
+  };
+  if (gtmId) {
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', gtmId);
+  }
+</script>

@@ -3,6 +3,10 @@
 // (défini tôt dans Layout) + pousse les signaux dans dataLayer pour GTM.
 // Catégories : Nécessaires (toujours) · Mesure d'audience (GA4) · Marketing (Ads/Meta/TikTok).
 // Refus par défaut tant qu'aucun choix n'est enregistré. Réouverture via [data-consent-open].
+// storageKey / infoHref : un jeu par entité (salons = défauts ; Academy Leader = al_consent + sa page).
+// Couleurs = tokens du système (--ink, --terracotta…) : la charte formation les redéfinit.
+interface Props { storageKey?: string; infoHref?: string }
+const { storageKey = 'edm_consent', infoHref = '/mentions-legales' } = Astro.props;
 ---
 
 <div id="consent" class="cc" role="dialog" aria-label="Gestion des cookies" aria-modal="false" hidden>
@@ -11,7 +15,7 @@
       <p class="cc-title">Cookies &amp; confidentialité</p>
       <p class="cc-desc">
         Nous utilisons des cookies pour mesurer l'audience et améliorer nos campagnes. C'est vous qui décidez.
-        <a href="/mentions-legales">En savoir plus</a>
+        <a href={infoHref}>En savoir plus</a>
       </p>
     </div>
 
@@ -39,11 +43,11 @@
   </div>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ storageKey }}>
   (function () {
     var el = document.getElementById('consent');
     if (!el) return;
-    function stored() { try { return JSON.parse(localStorage.getItem('edm_consent') || 'null'); } catch (e) { return null; } }
+    function stored() { try { return JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch (e) { return null; } }
     function show() { el.hidden = false; }
     function hide() { el.hidden = true; }
     function apply(a, m) { if (window.__edmConsent) window.__edmConsent(a, m); hide(); }

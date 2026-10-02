@@ -1,0 +1,127 @@
+---
+// ACADEMY LEADER — Diagnostic (/formation/diagnostic), noindex. Aucune sortie (pas de menu) : maquette.
+// 9 questions (1 par écran, avance au clic) → coordonnées → résultat selon segment().
+// ⏸️ À finaliser (brief D3/D4) : règles de segment et envoi des réponses/coordonnées à GoHighLevel.
+//    En attendant, RIEN n'est envoyé : prénom + segment passent à /reserver via sessionStorage.
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { tunnelSeo, questions, resultats } from '../../data/formation/tunnel';
+import { url } from '../../data/formation/site';
+const q0 = questions[0];
+---
+
+<FormationLayout title={tunnelSeo.diag.title} noindex bare>
+  <main class="s221">
+    <div class="s222">
+      <div class="s223">Academy <span class="s5">Leader</span></div>
+      <div class="s25" data-q="counter">Question 1 sur {questions.length}</div>
+    </div>
+    <div class="s224"><div class="s225" data-q="bar"></div></div>
+
+    <div class="s226" data-screen="q">
+      <div class="s227" data-q="num">01 / {questions.length}</div>
+      <h1 class="s228" data-q="q">{q0.q}</h1>
+      <p class="s229" data-q="sub">{q0.sub}</p>
+      <div class="s230" data-q="opts">
+        {q0.o.map((o, i) => <button type="button" class="s231" data-opt={i}><span class="s232"></span>{o}</button>)}
+      </div>
+      <button type="button" class="al-back" data-q="back" hidden>← Question précédente</button>
+    </div>
+
+    <form class="al-gate" data-screen="gate" hidden>
+      <div class="s227">Ton diagnostic est prêt</div>
+      <h1 class="al-h1">Où t'envoie-t-on ton résultat ?</h1>
+      <p class="s229">Il s'affiche tout de suite. On t'en envoie aussi la copie, pour la travailler avec ton comptable.</p>
+      <div class="al-fields">
+        <label class="al-field">Prénom<input name="fn" autocomplete="given-name" placeholder="Camille" required /></label>
+        <label class="al-field">Email<input name="em" type="email" autocomplete="email" placeholder="camille@monsalon.fr" required /></label>
+        <label class="al-field">Téléphone <small>uniquement pour le rappel SMS si tu réserves un appel</small><input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
+      </div>
+      <button type="submit" class="al-btn">Voir mon résultat</button>
+      <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+      <button type="button" class="al-back" data-q="back">← Question précédente</button>
+    </form>
+
+    <div class="al-res" data-screen="res" hidden>
+      <div class="s227" data-r="seg"></div>
+      <h1 class="al-h1" data-r="h"></h1>
+      <p class="al-res-p" data-r="p"></p>
+      <div class="al-facts" data-r="facts"></div>
+      <a class="al-res-cta" data-r="go"><b data-r="cta"></b><span data-r="ctaSub"></span></a>
+      <button type="button" class="al-back" data-q="restart">Refaire le diagnostic</button>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ Q: questions, RES: resultats, URL: url }}>
+    var st = { step: 0, ans: {} };
+    var $ = function (s) { return document.querySelector(s); };
+    var dl = function (o) { (window.dataLayer = window.dataLayer || []).push(o); };
+    var ACC = '#C2874A';
+    // Règles de la maquette (à valider, brief D3)
+    function segment() {
+      var a = st.ans;
+      if (a[0] === 0 || a[6] === 0) return 'OUVERTURE';
+      if (a[8] === 2) return 'FORMATION';
+      if (a[1] === 3 || (a[1] === 2 && (a[6] === 1 || a[6] === 2))) return 'ACCOMPAGNEMENT';
+      return 'FORMATION';
+    }
+    function show(k) { ['q', 'gate', 'res'].forEach(function (s) { $('[data-screen="' + s + '"]').hidden = s !== k; }); window.scrollTo(0, 0); }
+    function render() {
+      var n = Q.length, step = st.step, isQ = step < n, isGate = step === n;
+      $('[data-q="counter"]').textContent = isQ ? 'Question ' + (step + 1) + ' sur ' + n : (isGate ? 'Dernière étape' : 'Résultat');
+      $('[data-q="bar"]').style.width = (step > n ? 100 : Math.round(step / (n + 1) * 100)) + '%';
+      if (isQ) {
+        var cq = Q[step];
+        $('[data-q="num"]').textContent = String(step + 1).padStart(2, '0') + ' / ' + n;
+        $('[data-q="q"]').textContent = cq.q;
+        $('[data-q="sub"]').textContent = cq.sub;
+        $('[data-q="opts"]').innerHTML = '';
+        cq.o.forEach(function (label, i) {
+          var b = document.createElement('button'), sel = st.ans[step] === i;
+          b.type = 'button'; b.className = 's231'; b.setAttribute('data-opt', i);
+          if (sel) { b.style.background = 'rgba(194,135,74,.12)'; b.style.border = '1px solid ' + ACC; }
+          var d = document.createElement('span'); d.className = 's232';
+          if (sel) { d.style.borderColor = ACC; d.style.background = ACC; }
+          b.appendChild(d); b.appendChild(document.createTextNode(label));
+          $('[data-q="opts"]').appendChild(b);
+        });
+        $('[data-screen="q"] [data-q="back"]').hidden = step === 0;
+        show('q');
+      } else if (isGate) show('gate');
+      else {
+        var seg = segment(), r = RES[seg], fn = st.fn || 'Camille';
+        $('[data-r="seg"]').textContent = 'Ton diagnostic · ' + seg.charAt(0) + seg.slice(1).toLowerCase();
+        $('[data-r="h"]').textContent = r.h.replace('{fn}', fn);
+        $('[data-r="p"]').textContent = r.p;
+        $('[data-r="facts"]').innerHTML = '';
+        r.facts.forEach(function (f) {
+          var c = document.createElement('div'); c.className = 'al-fact';
+          var k = document.createElement('div'); k.textContent = f.k;
+          var v = document.createElement('b'); v.textContent = f.v;
+          c.appendChild(k); c.appendChild(v); $('[data-r="facts"]').appendChild(c);
+        });
+        $('[data-r="cta"]').textContent = r.cta;
+        $('[data-r="ctaSub"]').textContent = r.ctaSub;
+        $('[data-r="go"]').href = r.go === 'form' ? URL.formations + '#cat' : URL.reserver;
+        try { sessionStorage.setItem('al_diag', JSON.stringify({ fn: st.fn || '', seg: seg })); } catch (e) {}
+        dl({ event: 'diag_complete', segment: seg });
+        show('res');
+      }
+    }
+    document.addEventListener('click', function (e) {
+      var o = e.target.closest('[data-opt]');
+      if (o) {
+        if (st.step === 0 && st.ans[0] === undefined) dl({ event: 'diag_start' });
+        st.ans[st.step] = +o.getAttribute('data-opt'); st.step++; dl({ event: 'diag_step', step: st.step }); render(); return;
+      }
+      if (e.target.closest('[data-q="back"]')) { st.step = Math.max(0, st.step - 1); render(); return; }
+      if (e.target.closest('[data-q="restart"]')) { st = { step: 0, ans: {} }; render(); }
+    });
+    $('[data-screen="gate"]').addEventListener('submit', function (e) {
+      e.preventDefault();
+      st.fn = (this.elements.fn.value || '').trim();
+      // ⏸️ Envoi GoHighLevel à brancher ici (D4) : réponses st.ans + fn/em/tel + UTM.
+      dl({ event: 'lead_submit', form: 'diagnostic' });
+      st.step = Q.length + 1; render();
+    });
+  </script>
+</FormationLayout>

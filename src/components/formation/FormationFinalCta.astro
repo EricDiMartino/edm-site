@@ -1,0 +1,15 @@
+---
+// Bloc d'appel final Academy Leader — maquette (.s66→.s70). Un jeu de textes par page (données de la page).
+export interface FinalCta { label: string; h: string; p: string; cta: string; sub: string; href: string }
+interface Props { data: FinalCta }
+const { data } = Astro.props;
+---
+
+<section class="s66">
+  <div class="s67">
+    <div class="s47">{data.label}</div>
+    <h2 class="s68">{data.h}</h2>
+    <p class="s69">{data.p}</p>
+    <a href={data.href} class="s70"><b class="s18">{data.cta}</b><span class="s19">{data.sub}</span></a>
+  </div>
+</section>

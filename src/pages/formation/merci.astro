@@ -1,0 +1,39 @@
+---
+// ACADEMY LEADER — Merci (/formation/merci), noindex. Écran de la maquette.
+// Prénom + créneau lus depuis /reserver (sessionStorage) ; à terme, depuis la redirection GoHighLevel.
+// ⏸️ Vidéo Xavier et étude de cas : emplacements de la maquette (contenus à fournir).
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { tunnelSeo, merciTodo, calBtns } from '../../data/formation/tunnel';
+import { url } from '../../data/formation/site';
+---
+
+<FormationLayout title={tunnelSeo.merci.title} noindex bare>
+  <main class="s233">
+    <div class="s234"><a href={url.accueil} class="s223" style="color:#F8F4ED">Academy <span class="s5">Leader</span></a></div>
+    <div class="s260">
+      <div class="s261">✓ Rendez-vous confirmé</div>
+      <h1 class="s262" data-m="title">C'est confirmé, Camille.</h1>
+      <p class="s263" data-m="when"></p>
+      <div class="s264"><div class="s141">▶</div>vidéo 60–90 s · Xavier : « voici ce qui va se passer »</div>
+      <div class="s265">
+        {merciTodo.map((m) => <div class="s266"><div class="s227">{m.n}</div><b class="s267">{m.t}</b><p class="s268">{m.p}</p></div>)}
+      </div>
+      <div class="s269">
+        {calBtns.map((c) => <button type="button" class="s270">+ {c}</button>)}
+      </div>
+      <div class="s271">
+        <div class="s272">En attendant l'appel</div>
+        <div class="s273"><b class="s15">[Étude de cas · Prénom, ville]</b> Avant → Après → Le pont, avec le chiffre clé. Lien vers la vidéo.</div>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var r = {}; try { r = JSON.parse(sessionStorage.getItem('al_rdv') || '{}'); } catch (e) {}
+      document.querySelector('[data-m="title"]').textContent = "C'est confirmé, " + (r.fn || 'Camille') + '.';
+      document.querySelector('[data-m="when"]').textContent = (r.when || '') + ' à ' + (r.slot || '14:00') + ' · 30 min en visio avec Xavier Paolucci';
+      (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_confirme' });
+    })();
+  </script>
+</FormationLayout>

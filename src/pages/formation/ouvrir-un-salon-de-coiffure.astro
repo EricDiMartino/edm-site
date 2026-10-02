@@ -1,0 +1,176 @@
+---
+// ACADEMY LEADER — Ouvrir (/formation/ouvrir-un-salon-de-coiffure).
+// Balisage + texte = maquette (formation-src/code/dist, vérifié mot à mot contre formation-src/maquette.html).
+// SEO / FAQ / appel final : src/data/formation/pages.ts.
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { Image } from 'astro:assets';
+import salonImg from '../../assets/formation/photos/salon-de-coiffure-grenoble-place-victor-hugo-ouverture.webp';
+import ouvertureImg from '../../assets/formation/photos/ouverture-salon-de-coiffure-grenoble-eric-di-martino.webp';
+import FormationFaq from '../../components/formation/FormationFaq.astro';
+import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
+import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
+import { orgRef, SITE, url } from '../../data/formation/site';
+
+// JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
+const pageUrl = `${SITE}${url.ouvrir}`;
+const etapes = [
+  ['Savoir si le projet tient debout', "Ce que ta zone absorbe vraiment, et ce que chaque prestation te laissera à la minute. Calculé et analysé avant de décider."],
+  ['Écrire ton concept, dessiner tes murs', "Positionnement, grille tarifaire et agencement se décident avant l'ouverture. Pas une fois les équipes en place. C'est ce trio qui fixe ta marge pour toute la durée du bail."],
+  ['Choisir tes partenaires, monter ton équipe', 'Conditions fournisseur et première embauche, on négocie avec toi au moment où tu as le moins de pouvoir de négociation.'],
+  ['Ouvrir avec des plannings remplis et un résultat garanti', 'Des clients le premier jour. Six mois de correction des écarts, et on reste avec toi les deux premières années pour garantir tes résultats'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Service', name: 'Accompagnement à l\'ouverture d\'un salon de coiffure', serviceType: 'Accompagnement ouverture de salon de coiffure', description: seo.description, url: pageUrl, provider: orgRef, areaServed: 'FR', audience: { '@type': 'BusinessAudience', audienceType: 'Porteurs de projet de salon de coiffure' } },
+    { '@type': 'HowTo', name: 'Ouvrir un salon de coiffure rentable, en 7 étapes', url: pageUrl, step: etapes.map(([name, text], i) => ({ '@type': 'HowToStep', position: i + 1, name, text })) },
+  ],
+};
+---
+
+<FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <main>
+    <section class="s10">
+      <div class="s11">
+        <div>
+          <div class="s12">Ouvrir ou reprendre un salon de coiffure</div>
+          <h1 class="s80">Ouvrir un salon de coiffure rentable, <span class="s5">en 7 étapes.</span></h1>
+          <p class="s81">Tout se décide avant l'ouverture et chaque erreur coûte de l'argent.<br>On mène avec toi les 7 étapes d'<b>une ouverture rentable</b>, puis <span class="s82">on reste avec toi les deux premières années pour <b>garantir ton résultat.</b></span></p>
+          <p class="al-fine">Garantie de résultat soumise à conditions : <a href="/formation/cgv">CGV, art. 11 bis</a>.</p>
+          <div class="s83">
+            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment pour ouvrir</b><span class="s19">2 minutes · réponse immédiate</span></a>
+            <div class="s85"><b class="s15">1 nouveau projet par mois.</b><br>Prochaine place : [mois à renseigner]</div>
+          </div>
+        </div>
+        <div class="s86 al-media"><Image src={salonImg} alt="Salon de coiffure Eric Di Martino ouvert en février 2026, place Victor Hugo à Grenoble" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" /></div>
+      </div>
+      <div class="s21">
+        <div class="s87">
+            <div class="s88"><div class="s89">4</div><div class="s25">salons ouverts pour nous-mêmes</div></div>
+            <div class="s88"><div class="s89">90 → 600 K€</div><div class="s25">taille des projets menés</div></div>
+            <div class="s88"><div class="s89">24 mois</div><div class="s25">de suivi + outils et formations offerts</div></div>
+            <div class="s88"><div class="s89">Fév. 2026</div><div class="s25">dernière ouverture, Grenoble</div></div>
+        </div>
+      </div>
+    </section>
+    <section class="s59">
+      <div class="s90">
+        <div>
+          <div class="s28">Ce que coûte une erreur</div>
+          <h2 class="s91">Chaque mauvais choix <span class="s35">se paye pendant 7 ans.</span></h2>
+          <p class="s92">Le positionnement tarifaire. Le recrutement. L'agencement. Les travaux. La négociation. La localisation. <br>Aucune de ces décisions ne relève de la coiffure. Toutes se prennent avant d'ouvrir, et tu les paies ensuite pendant toute la durée de ton bail.</p>
+          <p class="s93">C'est pour ça qu'on intervient au démarrage du projet, et pas à l'ouverture.</p>
+        </div>
+        <div class="s94">
+          <div class="s95">Exemple · <span class="s96">un prix mal posé sur 1 prestation</span></div>
+          <div class="s97">
+            <div class="s98"><span>Écart de prix</span><b class="s15">− 5 €</b></div>
+            <div class="s98"><span>Prestations concernées / mois</span><b class="s15">300</b></div>
+            <div class="s99"><span>Manque à gagner / an</span><b class="s100">18 000 €</b></div>
+            <div class="s98"><span>Sur un bail de 9 ans</span><b class="s100">162 000 €</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="s33">
+      </div>
+    </section>
+    <section class="s46">
+      <div class="s33">
+        <div class="s47">C'est pour qui</div>
+        <h2 class="s34">Un seul projet par mois. <span class="s5"><br>Voilà comment on choisit.</span></h2>
+        <div class="s101">
+          <div class="s102">
+            <div class="s103">On prend ton projet si</div>
+            <div class="s104">
+              <div class="s105"><span class="s106">✓</span><span>Tu vises un salon premium, où la qualité et la formation ne sont pas négociables.</span></div><div class="s105"><span class="s106">✓</span><span>Rien n'est encore signé, ou tu viens tout juste de signer.</span></div><div class="s105"><span class="s106">✓</span><span>Tu es prêt à faire une partie du travail. On mène le projet avec toi, pas à ta place.</span></div><div class="s105"><span class="s106">✓</span><span>Tu crées ou tu reprends. On t'aide justement à trancher.</span></div><div class="s105"><span class="s106">✓</span><span>Tu veux qu'on te conseille quand tu as tort, y compris sur les choix que tu as en tête. </span></div>
+            </div>
+          </div>
+          <div class="s107">
+            <div class="s108">On te dira non si</div>
+            <div class="s104">
+              <div class="s109"><span class="s110">✕</span><span>Ton bail est signé et tes travaux sont finis. L'essentiel est joué.</span></div><div class="s109"><span class="s110">✕</span><span>Tu cherches quelqu'un qui fasse à ta place.</span></div><div class="s109"><span class="s110">✕</span><span>Ton objectif est d'ouvrir le moins cher possible.</span></div><div class="s109"><span class="s110">✕</span><span>Tu n'as ni apport ni piste de financement.</span></div><div class="s109"><span class="s110">✕</span><span>Tu veux la validation d'un projet déjà arrêté.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s59">
+      <div class="s33">
+        <div class="s28">Les 7 étapes</div>
+        <h2 class="s34">Un projet rentable,&nbsp;<br><span class="s111">dans un ordre précis.</span></h2>
+        <div class="s112">
+            <div class="s113">
+              <div class="s114">Étapes 1 · 2</div>
+              <div><h3 class="s115">Savoir si le projet tient debout</h3><p class="s116">Ce que ta zone absorbe vraiment, et ce que chaque prestation te laissera à la minute. Calculé et analysé avant de décider.</p></div>
+            </div>
+            <div class="s113">
+              <div class="s114">Étapes 3 · 4</div>
+              <div><h3 class="s115">Écrire ton concept, dessiner tes murs</h3><p class="s116">Positionnement, grille tarifaire et agencement se décident avant l'ouverture. Pas une fois les équipes en place. C'est ce trio qui fixe ta marge pour toute la durée du bail.</p></div>
+            </div>
+            <div class="s113">
+              <div class="s114">Étapes 5 · 6</div>
+              <div><h3 class="s115">Choisir tes partenaires, monter ton équipe</h3><p class="s116">Conditions fournisseur et première embauche, on négocie avec toi au moment où tu as le moins de pouvoir de négociation.</p></div>
+            </div>
+            <div class="s113">
+              <div class="s114">Étape 7 · après</div>
+              <div><h3 class="s115">Ouvrir avec des plannings remplis et un résultat garanti</h3><p class="s116">Des clients le premier jour. Six mois de correction des écarts, et on reste avec toi les deux premières années pour garantir tes résultats</p></div>
+            </div>
+        </div>
+        <div class="s117">
+          <div class="s118">PDF</div>
+          <div class="s119"><b class="s43">Les 7 étapes d'une ouverture rentable</b><p class="s120">Découvre notre mini-guide pour accompagner chaque décision, ce qu'on regarde, et les pièges dans lesquels tombent la plupart des projets.</p></div>
+          <div class="s121"><input placeholder="ton email" class="s122"><a data-todo="pdf" class="s123">Recevoir le PDF</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="s46">
+      <div class="s124">
+        <div>
+          <div class="s47">La preuve</div>
+          <h2 class="s60">Notre dernier projet personnel : <span class="s125">Février 2026.</span></h2>
+          <p class="s126">200 m² place Victor Hugo, à Grenoble, un salon de coiffure avec un Head Spa, Espace Barbier et Complément capillaire. Le quatrième salon du groupe. C'est le déroulé de cette page, appliqué avec notre propre argent.</p>
+          <h3 class="s127">On reste avec toi 24 mois.</h3>
+          <p class="s128">Pendant les 24 mois qui suivent ton ouverture, tes choix et tes analyses sont pris en charge. Un devis à arbitrer, une embauche à décider, un prix à revoir : tu nous appelles, on regarde ensemble. <b class="s15">Et tous nos outils et notre bibliothèque de formation te sont offerts pendant ces 24 mois.</b></p>
+          <div class="s129">
+            <span class="s130">Schwarzkopf</span><span class="s130">Mizutani</span><span class="s130">ghd</span><span class="s130">Planity</span>
+          </div>
+        </div>
+        <div class="s131">
+          <div class="s132 al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900, 1400]} sizes="(max-width: 900px) 100vw, 560px" /></div>
+          <div class="s133">
+            <div class="s134">ÉTUDE DE CAS · OUVERTURE GRENOBLE</div>
+            <div><b class="s82">Avant.</b>&nbsp;Salon de 180 m² et 180K</div>
+            <div><b class="s82">Budget.</b>&nbsp;Achat + Travaux : 240K</div>
+            <div><b class="s82">Point à date.</b>&nbsp; Projection fin de première année : 340K</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s59">
+      <div class="s33">
+        <div class="s28">Comment ça se passe</div>
+        <h2 class="s34">Parle-nous <span class="s111">avant</span> de signer, <br>pas après.</h2>
+        <div class="s135">
+            <div class="s136">
+              <div class="s137"><span>01</span><span>2 min</span></div>
+              <h3 class="s138">Le diagnostic en ligne</h3>
+              <p class="s139">Neuf questions sur ton projet. Tu sais tout de suite si c'est le bon moment.</p>
+            </div>
+            <div class="s136">
+              <div class="s137"><span>02</span><span>30 min</span></div>
+              <h3 class="s138">On regarde tes chiffres</h3>
+              <p class="s139">Zone, budget, local éventuel. On te dit où tu en es sur les 7 étapes et on te donne le montant.</p>
+            </div>
+            <div class="s136">
+              <div class="s137"><span>03</span><span>offert</span></div>
+              <h3 class="s138">Tu repars avec ta liste</h3>
+              <p class="s139">Ce qu'il faut avoir calculé avant la banque. Même si tu ne travailles pas avec nous.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <FormationFaq items={faq} />
+  <FormationFinalCta data={fin} />
+</FormationLayout>

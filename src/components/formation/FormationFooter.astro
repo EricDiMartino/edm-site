@@ -1,0 +1,27 @@
+---
+// Pied de page Academy Leader — maquette (.s71→.s78) + ligne légale (ajout intégration, obligatoire).
+import { footerParcours, edxp, legal } from '../../data/formation/site';
+---
+
+<footer class="s71">
+  <div class="s72">
+    <div>
+      <div class="s73">Academy <span class="s5">Leader</span></div>
+      <p class="s74">Un programme d'EDXP Formation.<br />{edxp.adresse}<br /><a href={edxp.telHref}>{edxp.tel}</a></p>
+    </div>
+    <div>
+      <b class="s75">Parcours</b>
+      <p class="s76">
+        {footerParcours.map((l, i) => (<>{i > 0 && <br />}<a href={l.href} class="s77">{l.label}</a></>))}
+      </p>
+    </div>
+    <div>
+      <b class="s75">{edxp.nom}</b>
+      <p class="s78">{edxp.lignes.map((l, i) => (<>{i > 0 && <br />}{l}</>))}</p>
+    </div>
+  </div>
+  <div class="al-legal">
+    {legal.map((l) => <a href={l.href}>{l.label}</a>)}
+    <button type="button" data-consent-open>Gérer les cookies</button>
+  </div>
+</footer>

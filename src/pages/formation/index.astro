@@ -1,0 +1,136 @@
+---
+// ACADEMY LEADER — Accueil (/formation/). Contenu : src/data/formation/accueil.ts · Design : classes maquette (formation.css).
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import FormationFaq from '../../components/formation/FormationFaq.astro';
+import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
+import { seo, hero, stats, enBrefTexte, parcours, methode, equipe, faq, finalCta } from '../../data/formation/accueil';
+import { edxp } from '../../data/formation/site';
+import { Image } from 'astro:assets';
+
+const site = Astro.site!;
+const home = new URL('/formation/', site).href;
+const orgId = `${home}#organisation`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'EducationalOrganization'],
+      '@id': orgId,
+      name: 'Academy Leader',
+      legalName: edxp.nom,
+      url: home,
+      description: enBrefTexte,
+      telephone: '+33781734018',
+      address: { '@type': 'PostalAddress', streetAddress: "1435 avenue de l'Europe", postalCode: '38330', addressLocality: 'Montbonnot-Saint-Martin', addressCountry: 'FR' },
+      areaServed: 'FR',
+      hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'Certification Qualiopi', identifier: '25FOR01783.1' },
+      founder: equipe.associes.map((a) => ({ '@id': `${home}#${a.ini.toLowerCase()}` })),
+    },
+    ...equipe.associes.map((a) => ({
+      '@type': 'Person',
+      '@id': `${home}#${a.ini.toLowerCase()}`,
+      name: a.nom,
+      jobTitle: a.role,
+      worksFor: { '@id': orgId },
+    })),
+  ],
+};
+---
+
+<FormationLayout title={seo.title} description={seo.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <main>
+    <section class="s10">
+      <div class="s11">
+        <div>
+          <div class="s12">{hero.eyebrow}</div>
+          <h1 class="s13">Diriger un salon de coiffure, <span class="s5">ça s'apprend.</span></h1>
+          <p class="s14">Ouvrir un salon rentable ; Rendre ton salon <b class="s15">capable de tourner sans toi ;</b> Faire monter ton équipe de niveau avec <b class="s15">jusqu'à 0 € de reste à charge,</b> des parcours totalement personnalisés <b>imaginés par des coiffeurs</b> pour des coiffeurs.</p>
+          <div class="s16">
+            <a href={hero.cta.href} class="s17"><b class="s18">{hero.cta.label}</b><span class="s19">{hero.cta.sub}</span></a>
+          </div>
+        </div>
+        <div class="s20 al-media"><Image src={hero.photo.src} alt={hero.photo.alt} widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" fetchpriority="high" /></div>
+      </div>
+      <div class="s21">
+        <div class="s22">
+          {stats.map((s) => (
+            <div class="s23">
+              <div class="s24">{s.n}</div>
+              <div class="s25">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="s26">
+      <div class="s27">
+        <div class="s28">En bref</div>
+        <h2 class="s29">Academy Leader, c'est quoi ?</h2>
+        <p class="s30">Academy Leader est le programme de formation et d'accompagnement propulsé par <b>Eric Di Martino et ses associés</b>. Organisme certifié Qualiopi basé à Montbonnot-Saint-Martin (Isère), il s'adresse aux gérants et futurs gérants de salon de coiffure : <b class="s31">ouverture de salon</b> (un projet par mois), <b class="s31">accompagnement vers des salons autonomes</b> (pour les salons à partir de ~300 000 € et plus de CA) et <b class="s31">9 formations d'équipe</b> finançables par l'OPCO EP ou le FAFCEA.<br />Eric et ses associés dirigent quatre salons en Isère et en Savoie et partagent tous leurs secrets à leurs membres.</p>
+      </div>
+    </section>
+
+    <section id="parcours" class="s32">
+      <div class="s33">
+        <div class="s28">Trois parcours dédiés</div>
+        <h2 class="s34">Des parcours pour <span class="s35"><br />chaque situation.</span></h2>
+        <div class="s36">
+          {parcours.map((c) => (
+            <div class="s37">
+              <div class="s38">{c.sit}</div>
+              <h3 class="s39">{c.h}</h3>
+              <p class="s40">{c.p}</p>
+              <div class="s41">{c.tag}</div>
+              <div class="s42">
+                <b class="s43">{c.price}</b>
+                <span class="s44">{c.cap}</span>
+              </div>
+              <a href={c.href} class="s45">{c.cta}</a>
+            </div>
+          ))}
+        </div>
+        <p class="al-fine">Garantie de résultat de l'ouverture soumise à conditions : <a href="/formation/cgv">CGV, art. 11 bis</a>.</p>
+      </div>
+    </section>
+
+    <section class="s46">
+      <div class="s33">
+        <div class="s47">{methode.label}</div>
+        <h2 class="s48">On pose le chiffre <span class="s5">avant de parler.</span></h2>
+        <p class="s49">{methode.intro}</p>
+        <div class="s50">
+          {methode.items.map((m) => (
+            <div class="s51">
+              <div class="s52">{m.n}</div>
+              <h3 class="s53">{m.h}</h3>
+              <p class="s54">{m.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="equipe" class="s46">
+      <div class="s33">
+        <div class="s47">{equipe.label}</div>
+        <h2 class="s34">Trois associés <span class="s5"><br />toujours en activité.</span></h2>
+        <p class="s49">{equipe.intro}<br /><b>{equipe.derniere.label}</b> {equipe.derniere.texte}</p>
+        <div class="s55">
+          {equipe.associes.map((a) => (
+            <div>
+              <div class="s56 al-media"><Image src={a.photo} alt={`${a.nom}, ${a.role.toLowerCase()} — Academy Leader`} widths={[300, 600]} sizes="(max-width: 700px) 90vw, 360px" /></div>
+              <h3 class="s57">{a.nom}</h3>
+              <div class="s58">{a.role}</div>
+              <p class="s54">{a.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <FormationFaq items={faq} />
+    <FormationFinalCta data={finalCta} />
+  </main>
+</FormationLayout>

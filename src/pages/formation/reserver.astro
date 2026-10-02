@@ -1,0 +1,87 @@
+---
+// ACADEMY LEADER — Réserver (/formation/reserver), noindex. Écran de la maquette.
+// ⏸️ TEMPORAIRE : créneaux FICTIFS générés comme dans la maquette (J+2 ouvrés, 8 jours, 2 complets).
+//    À remplacer par l'embed du calendrier GoHighLevel. Aucune réservation réelle n'est créée.
+import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { tunnelSeo, callFlow } from '../../data/formation/tunnel';
+import { url } from '../../data/formation/site';
+---
+
+<FormationLayout title={tunnelSeo.resa.title} noindex bare>
+  <main class="s233">
+    <div class="s234"><a href={url.accueil} class="s223" style="color:#F8F4ED">Academy <span class="s5">Leader</span></a></div>
+    <div class="s235">
+      <div>
+        <div class="s227">Entretien de validation · 30 min · visio</div>
+        <h1 class="s236" data-r="title">Camille, choisis ton créneau.</h1>
+        <div class="s237">
+          {callFlow.map((c) => <div class="s238"><b class="s239">{c.n}</b><div><b>{c.t}</b><p class="s240">{c.p}</p></div></div>)}
+        </div>
+        <div class="s241"><b class="s15">Tu repars avec ton coût minute calculé sur tes 3 prestations principales</b>, écrit, même si tu n'achètes rien.</div>
+        <div class="s242"><div class="s243"></div><div class="s244"><b>Xavier Paolucci</b><div class="s77">Associé · 4 salons en exploitation</div></div></div>
+      </div>
+      <div class="s245">
+        <div class="s246"><b class="s43">Choisis ton créneau</b><span class="s247">Heure de Paris</span></div>
+        <div class="s248" data-r="days"></div>
+        <div class="s255" data-r="dayLabel"></div>
+        <div class="s256" data-r="slots"></div>
+        <button type="button" class="s258" data-r="confirm">Choisis un créneau</button>
+        <p class="s259">Confirmation par email + SMS · replanifiable en un clic</p>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ URL: url }}>
+    var $ = function (s) { return document.querySelector(s); };
+    var ACC = '#C2874A';
+    var diag = {}; try { diag = JSON.parse(sessionStorage.getItem('al_diag') || '{}'); } catch (e) {}
+    var fn = diag.fn || 'Camille';
+    $('[data-r="title"]').textContent = fn + ', choisis ton créneau.';
+    // Créneaux fictifs — logique days() de la maquette
+    var D = [], d = new Date(), skip = 2;
+    while (D.length < 8) {
+      d.setDate(d.getDate() + 1);
+      var wd = d.getDay(); if (wd === 0 || wd === 6) continue;
+      if (skip > 0) { skip--; continue; }
+      var i = D.length, full = i === 1 || i === 5;
+      D.push({ date: new Date(d), full: full, slots: full ? [] : [['09:30', '14:00', '17:00'], ['11:00', '16:30'], ['10:00', '15:00'], ['09:30', '18:00'], ['14:00'], ['11:00', '16:00']][i % 6] });
+    }
+    var st = { day: 0, slot: null };
+    var fmt = function (dt, o) { return dt.toLocaleDateString('fr-FR', o); };
+    var cap = function (t) { return t.charAt(0).toUpperCase() + t.slice(1); };
+    function render() {
+      var box = $('[data-r="days"]'); box.innerHTML = '';
+      D.forEach(function (x, i) {
+        var b = document.createElement('button'); b.type = 'button';
+        b.className = i === st.day ? 's249' : (x.full ? 's253' : 's254');
+        b.disabled = x.full;
+        b.innerHTML = '<span class="s250"></span><b class="s251"></b><span class="s252"></span>';
+        b.children[0].textContent = fmt(x.date, { weekday: 'short' });
+        b.children[1].textContent = fmt(x.date, { day: 'numeric' });
+        b.children[2].textContent = x.full ? 'complet' : x.slots.length + ' créneau' + (x.slots.length > 1 ? 'x' : '');
+        b.addEventListener('click', function () { if (!x.full) { st.day = i; st.slot = null; render(); } });
+        box.appendChild(b);
+      });
+      var sel = D[st.day];
+      $('[data-r="dayLabel"]').textContent = cap(fmt(sel.date, { weekday: 'long', day: 'numeric', month: 'long' }));
+      var sl = $('[data-r="slots"]'); sl.innerHTML = '';
+      sel.slots.forEach(function (t) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 's257'; b.textContent = t;
+        if (st.slot === t) { b.style.background = 'rgba(194,135,74,.16)'; b.style.border = '1.5px solid ' + ACC; }
+        b.addEventListener('click', function () { st.slot = t; render(); });
+        sl.appendChild(b);
+      });
+      var c = $('[data-r="confirm"]');
+      c.textContent = st.slot ? 'Confirmer · ' + fmt(sel.date, { weekday: 'short', day: 'numeric', month: 'short' }) + ' à ' + st.slot : 'Choisis un créneau';
+      c.style.background = st.slot ? ACC : ''; c.style.color = st.slot ? '#0F0C0A' : ''; c.style.cursor = st.slot ? 'pointer' : '';
+    }
+    $('[data-r="confirm"]').addEventListener('click', function () {
+      if (!st.slot) return;
+      var sel = D[st.day];
+      try { sessionStorage.setItem('al_rdv', JSON.stringify({ fn: diag.fn || '', when: cap(fmt(sel.date, { weekday: 'long', day: 'numeric', month: 'long' })), slot: st.slot })); } catch (e) {}
+      (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_pose' });
+      location.href = URL.merci;
+    });
+    render();
+  </script>
+</FormationLayout>

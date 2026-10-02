@@ -1,0 +1,38 @@
+---
+// Mentions légales Academy Leader / EDXP Formation (LCEN art. 6).
+// Sources : annuaire-entreprises.data.gouv.fr (01/10/2026), convention de formation, livret d'accueil (Drive QUALIOPI).
+import FormationLegal from '../../components/formation/FormationLegal.astro';
+import { url } from '../../data/formation/site';
+---
+
+<FormationLegal title="Mentions légales · Academy Leader" h1="Mentions légales" eyebrow="Academy Leader · EDXP Formation" maj="1er octobre 2026" noindex>
+  <h2>Éditeur du site</h2>
+  <p>Les pages <strong>www.ericdimartino.com/formation/</strong> présentent Academy Leader, programme de formation et d'accompagnement édité par :</p>
+  <ul>
+    <li><strong>EDXP FORMATION</strong>, société par actions simplifiée (SAS) au capital de 1 000 €</li>
+    <li>Siège social : 1435 avenue de l'Europe, 38330 Montbonnot-Saint-Martin, France</li>
+    <li>RCS Grenoble 931 295 208 · SIRET 931 295 208 00017 · Code NAF 85.59B</li>
+    <li>N° de TVA intracommunautaire : FR68 931 295 208</li>
+    <li>Déclaration d'activité de formation n° 84 38 10226 38 auprès de la Préfecture de la région Auvergne-Rhône-Alpes (cet enregistrement ne vaut pas agrément de l'État)</li>
+    <li>Certification Qualiopi n° 25FOR01783.1 au titre des actions de formation, délivrée par QUALITIA Certification</li>
+    <li>Téléphone : <a href="tel:+33781734018">07 81 73 40 18</a> · Email : <a href="mailto:admin@ericdimartino.com">admin@ericdimartino.com</a></li>
+  </ul>
+
+  <h2>Directeur de la publication</h2>
+  <p>Eric Di Martino, Président d'EDXP FORMATION.</p>
+
+  <h2>Hébergement</h2>
+  <p>Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis · <a href="https://vercel.com" rel="noopener">vercel.com</a></p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>L'ensemble des contenus de ces pages (textes, méthodes, visuels, marques et logos) est la propriété d'EDXP FORMATION ou de ses partenaires et est protégé par le droit de la propriété intellectuelle. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+
+  <h2>Données personnelles et cookies</h2>
+  <p>Le traitement de vos données personnelles et l'usage des cookies sont décrits dans notre <a href={url.confidentialite}>politique de confidentialité</a>. Vous pouvez modifier vos choix à tout moment via le lien « Gérer les cookies » en bas de page.</p>
+
+  <h2>Conditions de vente</h2>
+  <p>Les prestations d'EDXP FORMATION sont régies par nos <a href={url.cgv}>conditions générales de vente</a>.</p>
+
+  <h2>Site des salons Eric Di Martino</h2>
+  <p>Les autres pages du domaine www.ericdimartino.com concernent les salons de coiffure Eric Di Martino, édités par une entité distincte : voir les <a href="/mentions-legales">mentions légales des salons</a>.</p>
+</FormationLegal>

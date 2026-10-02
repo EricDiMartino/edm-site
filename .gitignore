@@ -33,3 +33,6 @@ photos-src/
 
 # Config preview locale
 .claude/launch.json
+
+# Sources maquette Academy Leader (export brut + code livré) — référence locale, jamais commitée.
+formation-src/
