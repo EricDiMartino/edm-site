@@ -31,7 +31,7 @@ import { url } from '../../data/formation/site';
     </div>
   </main>
 
-  <script is:inline define:vars={{ URL: url }}>
+  <script is:inline define:vars={{ LINKS: url }}>
     var $ = function (s) { return document.querySelector(s); };
     var ACC = '#C2874A';
     var diag = {}; try { diag = JSON.parse(sessionStorage.getItem('al_diag') || '{}'); } catch (e) {}
@@ -80,7 +80,7 @@ import { url } from '../../data/formation/site';
       var sel = D[st.day];
       try { sessionStorage.setItem('al_rdv', JSON.stringify({ fn: diag.fn || '', when: cap(fmt(sel.date, { weekday: 'long', day: 'numeric', month: 'long' })), slot: st.slot })); } catch (e) {}
       (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_pose' });
-      location.href = URL.merci;
+      location.href = LINKS.merci;
     });
     render();
   </script>

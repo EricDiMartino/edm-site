@@ -1,5 +1,5 @@
 ---
-// ACADEMY LEADER — Diagnostic (/formation/diagnostic), noindex. Aucune sortie (pas de menu) : maquette.
+// ACADEMY LEADER — Diagnostic (/formation/diagnostic), noindex. Pas de menu (maquette) ; croix de sortie ajoutée (demande 02/10/2026).
 // 9 questions (1 par écran, avance au clic) → coordonnées → résultat selon segment().
 // ⏸️ À finaliser (brief D3/D4) : règles de segment et envoi des réponses/coordonnées à GoHighLevel.
 //    En attendant, RIEN n'est envoyé : prénom + segment passent à /reserver via sessionStorage.
@@ -13,7 +13,12 @@ const q0 = questions[0];
   <main class="s221">
     <div class="s222">
       <div class="s223">Academy <span class="s5">Leader</span></div>
-      <div class="s25" data-q="counter">Question 1 sur {questions.length}</div>
+      <div class="al-diag-right">
+        <div class="s25" data-q="counter">Question 1 sur {questions.length}</div>
+        <a href={url.accueil} class="al-close" data-q="close" aria-label="Quitter le diagnostic">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </a>
+      </div>
     </div>
     <div class="s224"><div class="s225" data-q="bar"></div></div>
 
@@ -51,7 +56,7 @@ const q0 = questions[0];
     </div>
   </main>
 
-  <script is:inline define:vars={{ Q: questions, RES: resultats, URL: url }}>
+  <script is:inline define:vars={{ Q: questions, RES: resultats, LINKS: url }}>
     var st = { step: 0, ans: {} };
     var $ = function (s) { return document.querySelector(s); };
     var dl = function (o) { (window.dataLayer = window.dataLayer || []).push(o); };
@@ -101,7 +106,7 @@ const q0 = questions[0];
         });
         $('[data-r="cta"]').textContent = r.cta;
         $('[data-r="ctaSub"]').textContent = r.ctaSub;
-        $('[data-r="go"]').href = r.go === 'form' ? URL.formations + '#cat' : URL.reserver;
+        $('[data-r="go"]').href = r.go === 'form' ? LINKS.formations + '#cat' : LINKS.reserver;
         try { sessionStorage.setItem('al_diag', JSON.stringify({ fn: st.fn || '', seg: seg })); } catch (e) {}
         dl({ event: 'diag_complete', segment: seg });
         show('res');
@@ -115,6 +120,13 @@ const q0 = questions[0];
       }
       if (e.target.closest('[data-q="back"]')) { st.step = Math.max(0, st.step - 1); render(); return; }
       if (e.target.closest('[data-q="restart"]')) { st = { step: 0, ans: {} }; render(); }
+    });
+    // Sortie (croix) : retour à la page précédente du site si elle existe, sinon accueil formation
+    $('[data-q="close"]').addEventListener('click', function (e) {
+      dl({ event: 'diag_exit', step: st.step });
+      try {
+        if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); }
+      } catch (err) {}
     });
     $('[data-screen="gate"]').addEventListener('submit', function (e) {
       e.preventDefault();
