@@ -467,3 +467,8 @@ header nav a.s8:hover{color:#F8F4ED}
   /* Ouvrir · « Les 7 étapes » : libellé au-dessus du texte */
   .s113{grid-template-columns:minmax(0,1fr);row-gap:6px}
 }
+
+/* diagnostic : croix de sortie dans l'en-tête */
+.al-diag-right{display:flex;align-items:center;gap:14px}
+.al-close{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;margin-right:-8px;border-radius:50%;color:#D8CFC2}
+.al-close:hover{color:#F8F4ED;background:rgba(248,244,237,.08)}
