@@ -1,10 +1,11 @@
 ---
 // ACADEMY LEADER — Réserver (/formation/reserver), noindex. Écran de la maquette.
-// ⏸️ TEMPORAIRE : créneaux FICTIFS générés comme dans la maquette (J+2 ouvrés, 8 jours, 2 complets).
-//    À remplacer par l'embed du calendrier GoHighLevel. Aucune réservation réelle n'est créée.
+// Créneaux RÉELS du calendrier GoHighLevel (via /api/formation/slots) ; la réservation crée
+// le rendez-vous dans GHL (via /api/formation/book), qui envoie confirmations et rappels.
+// Coordonnées : reprises du diagnostic (sessionStorage al_diag) ; sinon demandées ici.
 import FormationLayout from '../../components/formation/FormationLayout.astro';
 import { tunnelSeo, callFlow } from '../../data/formation/tunnel';
-import { url } from '../../data/formation/site';
+import { url, edxp } from '../../data/formation/site';
 ---
 
 <FormationLayout title={tunnelSeo.resa.title} noindex bare>
@@ -13,7 +14,7 @@ import { url } from '../../data/formation/site';
     <div class="s235">
       <div>
         <div class="s227">Entretien de validation · 30 min · visio</div>
-        <h1 class="s236" data-r="title">Camille, choisis ton créneau.</h1>
+        <h1 class="s236" data-r="title">Choisis ton créneau.</h1>
         <div class="s237">
           {callFlow.map((c) => <div class="s238"><b class="s239">{c.n}</b><div><b>{c.t}</b><p class="s240">{c.p}</p></div></div>)}
         </div>
@@ -25,63 +26,105 @@ import { url } from '../../data/formation/site';
         <div class="s248" data-r="days"></div>
         <div class="s255" data-r="dayLabel"></div>
         <div class="s256" data-r="slots"></div>
+        <form class="al-resa-fields" data-r="fields" hidden>
+          <label class="al-field">Prénom<input name="fn" autocomplete="given-name" required /></label>
+          <label class="al-field">Email<input name="em" type="email" autocomplete="email" required /></label>
+          <label class="al-field">Téléphone <small>pour le rappel SMS</small><input name="tel" type="tel" autocomplete="tel" /></label>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+        </form>
         <button type="button" class="s258" data-r="confirm">Choisis un créneau</button>
+        <p class="al-resa-msg" data-r="msg" role="status" hidden></p>
         <p class="s259">Confirmation par email + SMS · replanifiable en un clic</p>
       </div>
     </div>
   </main>
 
-  <script is:inline define:vars={{ LINKS: url }}>
+  <script is:inline define:vars={{ LINKS: url, TEL: edxp.tel }}>
     var $ = function (s) { return document.querySelector(s); };
-    var ACC = '#C2874A';
+    var ACC = '#C2874A', TZ = 'Europe/Paris';
     var diag = {}; try { diag = JSON.parse(sessionStorage.getItem('al_diag') || '{}'); } catch (e) {}
-    var fn = diag.fn || 'Camille';
-    $('[data-r="title"]').textContent = fn + ', choisis ton créneau.';
-    // Créneaux fictifs — logique days() de la maquette
-    var D = [], d = new Date(), skip = 2;
-    while (D.length < 8) {
-      d.setDate(d.getDate() + 1);
-      var wd = d.getDay(); if (wd === 0 || wd === 6) continue;
-      if (skip > 0) { skip--; continue; }
-      var i = D.length, full = i === 1 || i === 5;
-      D.push({ date: new Date(d), full: full, slots: full ? [] : [['09:30', '14:00', '17:00'], ['11:00', '16:30'], ['10:00', '15:00'], ['09:30', '18:00'], ['14:00'], ['11:00', '16:00']][i % 6] });
-    }
-    var st = { day: 0, slot: null };
-    var fmt = function (dt, o) { return dt.toLocaleDateString('fr-FR', o); };
+    if (diag.fn) $('[data-r="title"]').textContent = diag.fn + ', choisis ton créneau.';
+    var needFields = !(diag.contactId || (diag.fn && diag.em));
+    $('[data-r="fields"]').hidden = !needFields;
+    var msg = function (t, err) { var m = $('[data-r="msg"]'); m.hidden = !t; m.textContent = t || ''; m.className = 'al-resa-msg' + (err ? ' err' : ''); };
+    var ymd = function (d) { return new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(d); };
+    var fmt = function (key, o) { return new Date(key + 'T12:00:00').toLocaleDateString('fr-FR', o); };
+    var hm = function (iso) { return new Date(iso).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: TZ }); };
     var cap = function (t) { return t.charAt(0).toUpperCase() + t.slice(1); };
+    var D = [], st = { day: 0, slot: null, busy: false };
+
+    function build(map) {
+      // 8 prochains jours ouvrés (heure de Paris) ; un jour sans créneau = « complet »
+      D = []; var d = new Date();
+      while (D.length < 8) {
+        d = new Date(d.getTime() + 864e5);
+        var key = ymd(d), wd = new Date(key + 'T12:00:00').getDay();
+        if (wd === 0 || wd === 6) continue;
+        var slots = map[key] || [];
+        D.push({ key: key, full: !slots.length, slots: slots });
+      }
+      var first = D.findIndex(function (x) { return !x.full; });
+      st.day = first < 0 ? 0 : first; st.slot = null;
+    }
     function render() {
       var box = $('[data-r="days"]'); box.innerHTML = '';
       D.forEach(function (x, i) {
         var b = document.createElement('button'); b.type = 'button';
-        b.className = i === st.day ? 's249' : (x.full ? 's253' : 's254');
+        b.className = i === st.day && !x.full ? 's249' : (x.full ? 's253' : 's254');
         b.disabled = x.full;
         b.innerHTML = '<span class="s250"></span><b class="s251"></b><span class="s252"></span>';
-        b.children[0].textContent = fmt(x.date, { weekday: 'short' });
-        b.children[1].textContent = fmt(x.date, { day: 'numeric' });
+        b.children[0].textContent = fmt(x.key, { weekday: 'short' });
+        b.children[1].textContent = fmt(x.key, { day: 'numeric' });
         b.children[2].textContent = x.full ? 'complet' : x.slots.length + ' créneau' + (x.slots.length > 1 ? 'x' : '');
         b.addEventListener('click', function () { if (!x.full) { st.day = i; st.slot = null; render(); } });
         box.appendChild(b);
       });
       var sel = D[st.day];
-      $('[data-r="dayLabel"]').textContent = cap(fmt(sel.date, { weekday: 'long', day: 'numeric', month: 'long' }));
+      $('[data-r="dayLabel"]').textContent = sel ? cap(fmt(sel.key, { weekday: 'long', day: 'numeric', month: 'long' })) : '';
       var sl = $('[data-r="slots"]'); sl.innerHTML = '';
-      sel.slots.forEach(function (t) {
-        var b = document.createElement('button'); b.type = 'button'; b.className = 's257'; b.textContent = t;
-        if (st.slot === t) { b.style.background = 'rgba(194,135,74,.16)'; b.style.border = '1.5px solid ' + ACC; }
-        b.addEventListener('click', function () { st.slot = t; render(); });
+      (sel && !sel.full ? sel.slots : []).forEach(function (iso) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 's257'; b.textContent = hm(iso);
+        if (st.slot === iso) { b.style.background = 'rgba(194,135,74,.16)'; b.style.border = '1.5px solid ' + ACC; }
+        b.addEventListener('click', function () { st.slot = iso; render(); });
         sl.appendChild(b);
       });
       var c = $('[data-r="confirm"]');
-      c.textContent = st.slot ? 'Confirmer · ' + fmt(sel.date, { weekday: 'short', day: 'numeric', month: 'short' }) + ' à ' + st.slot : 'Choisis un créneau';
-      c.style.background = st.slot ? ACC : ''; c.style.color = st.slot ? '#0F0C0A' : ''; c.style.cursor = st.slot ? 'pointer' : '';
+      c.textContent = st.busy ? 'Réservation en cours…' : (st.slot ? 'Confirmer · ' + fmt(sel.key, { weekday: 'short', day: 'numeric', month: 'short' }) + ' à ' + hm(st.slot) : 'Choisis un créneau');
+      var on = st.slot && !st.busy;
+      c.style.background = on ? ACC : ''; c.style.color = on ? '#0F0C0A' : ''; c.style.cursor = on ? 'pointer' : '';
+    }
+    function load() {
+      msg('Chargement des créneaux…');
+      fetch('/api/formation/slots').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+        var map = {}; (d.days || []).forEach(function (x) { map[x.date] = x.slots; });
+        build(map); msg(''); render();
+        if (D.every(function (x) { return x.full; })) msg('Aucun créneau libre ces prochains jours. Appelle-nous au ' + TEL + '.', true);
+      }).catch(function () { build({}); render(); msg('Le calendrier est momentanément indisponible. Appelle-nous au ' + TEL + '.', true); });
     }
     $('[data-r="confirm"]').addEventListener('click', function () {
-      if (!st.slot) return;
-      var sel = D[st.day];
-      try { sessionStorage.setItem('al_rdv', JSON.stringify({ fn: diag.fn || '', when: cap(fmt(sel.date, { weekday: 'long', day: 'numeric', month: 'long' })), slot: st.slot })); } catch (e) {}
-      (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_pose' });
-      location.href = LINKS.merci;
+      if (!st.slot || st.busy) return;
+      var who = { contactId: diag.contactId || '', fn: diag.fn || '', em: diag.em || '', tel: diag.tel || '', website: '' };
+      if (needFields) {
+        var f = $('[data-r="fields"]');
+        if (!f.reportValidity()) return;
+        who = { contactId: '', fn: f.elements.fn.value.trim(), em: f.elements.em.value.trim(), tel: f.elements.tel.value.trim(), website: f.elements.website.value };
+      }
+      var sel = D[st.day], slot = st.slot;
+      st.busy = true; msg(''); render();
+      fetch('/api/formation/book', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ startTime: slot }, who))
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
+        st.busy = false;
+        if (res.ok && res.d.ok) {
+          try { sessionStorage.setItem('al_rdv', JSON.stringify({ fn: who.fn, when: cap(fmt(sel.key, { weekday: 'long', day: 'numeric', month: 'long' })), slot: hm(slot) })); } catch (e) {}
+          (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_pose' });
+          location.href = LINKS.merci; return;
+        }
+        if (res.d && res.d.error === 'slot_taken') { msg('Ce créneau vient d\'être pris. Choisis-en un autre.', true); load(); return; }
+        msg('La réservation n\'a pas abouti. Réessaie ou appelle-nous au ' + TEL + '.', true); render();
+      }).catch(function () { st.busy = false; render(); msg('La réservation n\'a pas abouti. Réessaie ou appelle-nous au ' + TEL + '.', true); });
     });
-    render();
+    load();
   </script>
 </FormationLayout>

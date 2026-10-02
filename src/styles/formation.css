@@ -478,3 +478,11 @@ header nav a.s8:hover{color:#F8F4ED}
   header > div > a:first-child > span:first-child{font-size:15px !important}
   .al-burger{width:32px;height:32px;padding:0 7px}
 }
+
+/* champ piège anti-robot (invisible) */
+.al-hp{position:absolute !important;left:-9999px !important;width:1px;height:1px;opacity:0}
+/* réservation : message d'état + champs coordonnées si visite directe */
+.al-resa-msg{margin-top:14px;font-size:14px;color:#D8CFC2}
+.al-resa-msg.err{color:#E8A08F}
+.al-resa-fields{display:grid;gap:10px;margin-top:20px}
+.al-resa-fields .al-field input{padding:12px 14px;font-size:15px}

@@ -12,7 +12,7 @@ import { url } from '../../data/formation/site';
     <div class="s234"><a href={url.accueil} class="s223" style="color:#F8F4ED">Academy <span class="s5">Leader</span></a></div>
     <div class="s260">
       <div class="s261">✓ Rendez-vous confirmé</div>
-      <h1 class="s262" data-m="title">C'est confirmé, Camille.</h1>
+      <h1 class="s262" data-m="title">C'est confirmé.</h1>
       <p class="s263" data-m="when"></p>
       <div class="s264"><div class="s141">▶</div>vidéo 60–90 s · Xavier : « voici ce qui va se passer »</div>
       <div class="s265">
@@ -31,8 +31,8 @@ import { url } from '../../data/formation/site';
   <script is:inline>
     (function () {
       var r = {}; try { r = JSON.parse(sessionStorage.getItem('al_rdv') || '{}'); } catch (e) {}
-      document.querySelector('[data-m="title"]').textContent = "C'est confirmé, " + (r.fn || 'Camille') + '.';
-      document.querySelector('[data-m="when"]').textContent = (r.when || '') + ' à ' + (r.slot || '14:00') + ' · 30 min en visio avec Xavier Paolucci';
+      document.querySelector('[data-m="title"]').textContent = r.fn ? "C'est confirmé, " + r.fn + '.' : "C'est confirmé.";
+      document.querySelector('[data-m="when"]').textContent = r.when ? r.when + ' à ' + r.slot + ' · 30 min en visio avec Xavier Paolucci' : '30 min en visio avec Xavier Paolucci · le détail est dans l\'email de confirmation';
       (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_confirme' });
     })();
   </script>

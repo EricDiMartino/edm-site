@@ -54,5 +54,13 @@ const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
     <slot />
     {!bare && <FormationFooter />}
     <ConsentBanner storageKey="al_consent" infoHref="/formation/confidentialite" />
+    <script is:inline>
+      // Mémorise les paramètres de campagne (utm_*, gclid, fbclid) de la 1re page vue → envoyés à GHL avec le diagnostic.
+      try {
+        var q = new URLSearchParams(location.search), u = {};
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(function (k) { if (q.get(k)) u[k] = q.get(k); });
+        if (Object.keys(u).length) sessionStorage.setItem('al_utm', JSON.stringify(u));
+      } catch (e) {}
+    </script>
   </body>
 </html>
