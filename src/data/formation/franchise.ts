@@ -6,10 +6,10 @@
 // ============================================================
 
 export const heroFranchise = {
-  eyebrow: 'Ouvrir un salon de coiffure · en indépendant ou en franchise ?',
-  accroche: 'Tu hésites avec une franchise de coiffure ?',
-  // texte riche (gras) rendu dans la page
-  lien: 'Franchise ou indépendant : le comparatif ↓',
+  // Hero retenu : proposition 3 du canevas (« Sans être seul »), retouchée par Xavier le 02/10/2026.
+  eyebrow: "Accompagnement à l'ouverture · 1 projet par mois",
+  h1a: 'Ouvrir ton salon de coiffure rentable,',
+  h1b: 'sans être seul.',
 };
 
 export const franchise = {

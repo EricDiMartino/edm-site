@@ -530,3 +530,5 @@ header nav a.s8:hover{color:#F8F4ED}
   .al-fr-table td::before{content:attr(data-l) " : ";color:#9B8F83;font-weight:400}
   .al-fr-table td.al-fr-us{padding-bottom:16px}
 }
+/* H1 de la page Ouvrir (hero « Sans être seul ») : plus compact que le H1 maquette, demande Xavier */
+.al-h1-ouvrir{font-size:clamp(34px,4.2vw,54px);max-width:16ch}
