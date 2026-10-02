@@ -532,3 +532,8 @@ header nav a.s8:hover{color:#F8F4ED}
 }
 /* H1 de la page Ouvrir (hero « Sans être seul ») : plus compact que le H1 maquette, demande Xavier */
 .al-h1-ouvrir{font-size:clamp(34px,4.2vw,54px);max-width:16ch}
+/* Page Ouvrir · exemple « prix mal posé » : sélecteur du nombre de prestations + phrase de chute */
+.al-err-pills{display:flex;flex-wrap:wrap;gap:8px;margin:-2px 0 6px}
+.al-err-pills button{min-height:36px;min-width:64px;font-family:inherit}
+.al-err-note{margin-top:16px;padding-top:14px;border-top:1px solid rgba(248,244,237,.14);font-size:15px;color:#D8CFC2}
+.al-err-note b{color:#F8F4ED}
