@@ -5,6 +5,8 @@ import { readFileSync } from 'node:fs';
 
 function getKey(): string | undefined {
   if (process.env.GOOGLE_PLACES_API_KEY) return process.env.GOOGLE_PLACES_API_KEY;
+  // Sur Vercel la variable a été créée sans le « G » (nom non modifiable) : on accepte les deux.
+  if (process.env.OOGLE_PLACES_API_KEY) return process.env.OOGLE_PLACES_API_KEY;
   try {
     const m = readFileSync('.env', 'utf8').match(/^GOOGLE_PLACES_API_KEY=(.+)$/m);
     return m?.[1]?.trim();
