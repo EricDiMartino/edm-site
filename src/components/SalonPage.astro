@@ -136,6 +136,16 @@ const PREST_ICONS: Record<string, string> = {
     <!-- 4. TRIO CONSULTATION (offre d'ancrage — consultation au centre) -->
     <TrioConsult data={salon.trioConsult ?? defaultTrioConsult} />
 
+    <!-- 4bis. RATTRAPAGE couleur & coupe (bouton résa du salon → tracking reserve_click conservé) -->
+    <section class="rattrapage">
+      <div class="rattrapage-inner reveal">
+        <p class="label">Rattrapage</p>
+        <h2 class="h-seo">Couleur ratée ailleurs ? On rattrape.</h2>
+        <p class="body">Couleur qui a viré, balayage raté, coupe à récupérer : à {salon.ville}, on commence par une consultation pour diagnostiquer, puis on corrige dans le respect du cheveu. On vous dit honnêtement ce qui est possible, avant d'agir.</p>
+        <a class="btn btn-action" href="#reserver" data-reserve data-planity={salon.planityKey}>Réserver un rattrapage</a>
+      </div>
+    </section>
+
     <!-- 5. SERVICES PHARES (layout alterné ; sombre = esprit cocon, plus riche) -->
     {showServices && salon.services.map((s, i) => {
       const reverse = i % 2 === 1;
@@ -415,6 +425,13 @@ const PREST_ICONS: Record<string, string> = {
   .stat { text-align: center; }
   .stat-value { display: block; font-family: var(--serif); font-weight: 380; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); line-height: 1; color: var(--ink); }
   .stat-label { display: block; margin-top: 0.55rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+  /* ============ 4bis. RATTRAPAGE ============ */
+  .rattrapage { max-width: var(--maxw); margin-inline: auto; padding: clamp(1rem, 3vw, 2rem) var(--gutter); }
+  .rattrapage-inner { max-width: 720px; margin-inline: auto; text-align: center; padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 3rem); background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); }
+  .rattrapage-inner .label { justify-content: center; }
+  .rattrapage-inner .h-seo { max-width: 22ch; margin-inline: auto; }
+  .rattrapage-inner .body { max-width: 54ch; margin: 1.1rem auto 1.6rem; }
 
   /* ============ BADGES D'ACCÈS (NAP) ============ */
   .acces { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }

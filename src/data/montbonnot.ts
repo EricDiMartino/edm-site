@@ -61,8 +61,7 @@ export const montbonnot: SalonData = {
   // Chiffres-clés. L'entrée « avis » est resynchronisée au build sur les vrais avis Google.
   chiffres: [
     { valeur: '5', label: 'artistes' },
-    { valeur: '4,8 ★', label: '192 avis Google' },
-    { valeur: '4,9★', label: '352 avis Planity' },
+    { valeur: '4,9/5', label: 'sur Planity' },
     { valeur: 'Mar–Sam', label: 'sur rendez-vous' },
   ],
 

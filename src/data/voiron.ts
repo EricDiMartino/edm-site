@@ -58,8 +58,7 @@ export const voiron: SalonData = {
 
   chiffres: [
     { valeur: '9', label: 'artistes' },
-    { valeur: '4,7 ★', label: '394 avis Google' },
-    { valeur: '4,9★', label: '424 avis Planity' },
+    { valeur: '4,9/5', label: 'sur Planity' },
     { valeur: 'Mar–Sam', label: 'sur rendez-vous' },
   ],
 

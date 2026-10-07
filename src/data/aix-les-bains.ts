@@ -55,8 +55,7 @@ export const aixLesBains: SalonData = {
 
   chiffres: [
     { valeur: '3', label: 'artistes' },
-    { valeur: '4,6 ★', label: '235 avis Google' },
-    { valeur: '4,9★', label: '309 avis Planity' },
+    { valeur: '4,9/5', label: 'sur Planity' },
     { valeur: 'Mar–Sam', label: 'sur rendez-vous' },
   ],
 
