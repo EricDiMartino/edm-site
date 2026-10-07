@@ -61,10 +61,15 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || 'GTM-MHHC3VXC';
     <ConsentBanner />
     <FormHandler />
     {/* Événements de conversion → dataLayer (GTM déclenche GA4 / Ads / Meta / TikTok dessus). */}
+    {/* Note : reserve_click est poussé par BookingModal (seul à connaître le salon + l'origine). */}
     <script is:inline>
+      // Clic sur un lien téléphone → dataLayer. salon déduit du numéro (table), + numéro normalisé.
+      var EDM_TEL_SALON = { '0476460704': 'grenoble', '0476512993': 'montbonnot', '0476078230': 'voiron', '0479350331': 'aix' };
       addEventListener('click', function (e) {
-        var r = e.target.closest && e.target.closest('a[href="#reserver"], [data-reserve]');
-        if (r) (window.dataLayer = window.dataLayer || []).push({ event: 'reserve_click', location: location.pathname });
+        var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+        if (!a) return;
+        var num = (a.getAttribute('href') || '').replace(/[^0-9]/g, '').replace(/^33/, '0');
+        (window.dataLayer = window.dataLayer || []).push({ event: 'clic_telephone', salon: EDM_TEL_SALON[num] || '', numero: num, location: location.pathname });
       });
       addEventListener('submit', function (e) {
         var f = e.target;

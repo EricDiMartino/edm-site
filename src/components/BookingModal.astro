@@ -31,10 +31,33 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
     var frame = document.getElementById('bk-frame');
     var picker = document.getElementById('bk-picker');
 
+    // clé Planity → salon physique (grenoble/montbonnot/voiron/aix).
+    var EDM_KEY_SALON = {
+      '-M2E_c9IB-StXRRzP_6T': 'grenoble',
+      '-MkDNk8IahEaZLYEklvg': 'montbonnot',
+      '-L7OgePoi82iJeECJYDN': 'voiron',
+      '-Mb6Bi_k1N3O517DT9yI': 'aix',
+    };
+    function edmSalon(key) { return EDM_KEY_SALON[key] || ''; }
+    // page d'origine du clic : regard / headspa / salon / autre (distingue Regard vs Montbonnot, Head Spa vs Grenoble).
+    function edmOrigine() {
+      var p = location.pathname;
+      if (p.indexOf('/beaute-du-regard') === 0) return 'regard';
+      if (p.indexOf('/head-spa') === 0) return 'headspa';
+      if (p.indexOf('/salon-de-coiffure') === 0) return 'salon';
+      return 'autre';
+    }
+    function edmReserveClick(salon) {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'reserve_click', salon: salon || '', page_origine: edmOrigine(), location: location.pathname });
+    }
+
     function load(key, cat) {
       if (!key) return;
       var url = '/reserver-widget?key=' + encodeURIComponent(key);
       if (cat) url += '&cat=' + encodeURIComponent(cat);
+      var salon = edmSalon(key);
+      if (salon) url += '&salon=' + encodeURIComponent(salon);
+      url += '&origin=' + encodeURIComponent(edmOrigine());
       frame.src = url;
       frame.style.display = 'block';
       picker.style.display = 'none';
@@ -43,6 +66,7 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
     }
     function open(key, cat) {
       if (key) {
+        edmReserveClick(edmSalon(key)); // salon connu → event poussé à l'ouverture
         load(key, cat);
       } else {
         picker.setAttribute('data-cat', cat || '');
@@ -71,7 +95,11 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
     });
 
     picker.querySelectorAll('.bk-salon').forEach(function (b) {
-      b.addEventListener('click', function () { load(b.getAttribute('data-key'), picker.getAttribute('data-cat') || ''); });
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-key');
+        edmReserveClick(edmSalon(k)); // page neutre → event poussé au choix du salon
+        load(k, picker.getAttribute('data-cat') || '');
+      });
     });
 
     document.getElementById('bk-close').addEventListener('click', close);

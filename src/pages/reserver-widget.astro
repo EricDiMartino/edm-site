@@ -95,21 +95,41 @@ const demoGroups = [
         }
         var key = qs.get('key') || '';
         if (!key) { loader.querySelector('p').textContent = 'Aucun salon sélectionné.'; return; }
+        var salonSlug = qs.get('salon') || ''; // slug physique transmis par la modale (grenoble/montbonnot/voiron/aix)
+        var pageOrigine = qs.get('origin') || ''; // regard / headspa / salon / autre
         var c = document.getElementById('planity-appointment');
         window.planity = { key: key, primaryColor: qs.get('color') || '#c25510', container: c };
+
+        // Conversion RÉELLE. Planity appelle appointmentCallback(e) dans son onSuccess, à CHAQUE
+        // RDV confirmé, avec e = { sequenceId, appointmentMoved, products, … }, AVANT la logique
+        // appointmentRedirect/reload (séquence vérifiée dans app.latest.js). On pousse dans le
+        // dataLayer du parent (même origine → GTM y écoute).
+        var edmSent = {}; // sequenceId déjà envoyés → anti-doublon par RDV
+        function edmBookingPush(e) {
+          var sid = (e && e.sequenceId) || '';
+          if (sid && edmSent[sid]) return; // ce RDV a déjà été poussé
+          if (sid) edmSent[sid] = true;    // sid vide → on pousse quand même
+          var moved = !!(e && e.appointmentMoved); // RDV déplacé ≠ conversion
+          try {
+            var dl = (window.parent && window.parent !== window && window.parent.dataLayer)
+              ? window.parent.dataLayer
+              : (window.dataLayer = window.dataLayer || []);
+            dl.push({
+              event: moved ? 'booking_moved' : 'booking_confirmed',
+              salon: salonSlug || key,
+              page_origine: pageOrigine,
+              transaction_id: sid,
+              location: '/reserver-widget',
+            });
+          } catch (err) {}
+        }
+
         window.planity.options = {
           onServiceAdd: function () { window.scrollTo(0, 0); },
-          // Conversion RÉELLE : Planity appelle ce callback après une résa confirmée.
-          // On pousse l'événement dans le dataLayer du parent (même origine → GTM y écoute).
-          // Non destructif : on ne redirige pas / on ne modifie pas l'écran Planity.
-          appointmentRedirect: function () {
-            try {
-              var dl = (window.parent && window.parent !== window && window.parent.dataLayer)
-                ? window.parent.dataLayer
-                : (window.dataLayer = window.dataLayer || []);
-              dl.push({ event: 'booking_confirmed', salon: key, location: '/reserver-widget' });
-            } catch (e) {}
-          },
+          appointmentCallback: function (e) { edmBookingPush(e); },
+          // no-op volontaire : conserve le comportement du widget (évite le window.location.reload()
+          // du parcours sans compte). Ne pousse rien — c'est appointmentCallback qui pousse.
+          appointmentRedirect: function () {},
         };
         var cat = qs.get('cat');
         if (cat) window.planity.options.serviceSetsWhitelist = cat.split(',').map(function (s) { return s.trim(); });
