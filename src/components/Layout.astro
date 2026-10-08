@@ -28,6 +28,9 @@ const ogImageUrl = ogImage || (Astro.site ? new URL('/og-default.jpg', Astro.sit
 // Tag Manager — conteneur neuf dédié au site (surchargeable via PUBLIC_GTM_ID).
 // Mettre '' pour désactiver complètement la couche tracking.
 const gtmId = import.meta.env.PUBLIC_GTM_ID || 'GTM-MHHC3VXC';
+// Le <noscript> GTM ne peut pas tester le hostname (pas de JS) → on l'exclut des déploiements
+// non-production (Vercel preview). VERCEL_ENV absent (build local/inconnu) → on le garde (sûr pour la prod).
+const isPreviewDeploy = !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
 ---
 
 <!doctype html>
@@ -55,7 +58,7 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || 'GTM-MHHC3VXC';
     <slot name="head" />
   </head>
   <body>
-    {gtmId && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
+    {gtmId && !isPreviewDeploy && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
     <slot />
     <BookingModal />
     <ConsentBanner />

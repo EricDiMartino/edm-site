@@ -20,6 +20,9 @@ const { title, description, noindex = false, bare = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // Conteneur GTM Academy Leader (compte « EDXP Formation », ≠ GTM salons). Surchargeable via PUBLIC_GTM_ID_FORMATION.
 const gtmId = import.meta.env.PUBLIC_GTM_ID_FORMATION || 'GTM-WT68LQZP';
+// <noscript> GTM exclu des déploiements non-production (cf. Layout.astro). Le script GTM est déjà
+// gaté par hostname dans ConsentHead (partagé) → aucun GTM hors prod.
+const isPreviewDeploy = !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
 // Image de partage 1200×630 : les 3 associés (public/og-academy-leader.jpg).
 const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
 ---
@@ -49,7 +52,7 @@ const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
     <slot name="head" />
   </head>
   <body>
-    {gtmId && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
+    {gtmId && !isPreviewDeploy && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
     {!bare && <FormationHeader />}
     <slot />
     {!bare && <FormationFooter />}

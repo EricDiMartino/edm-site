@@ -41,7 +41,10 @@ const { gtmId, storageKey } = Astro.props;
     try { localStorage.setItem(storageKey, JSON.stringify({ analytics: !!analytics, marketing: !!marketing, ts: Date.now() })); } catch (e) {}
     dataLayer.push({ event: 'consent_update', consent_analytics: !!analytics, consent_marketing: !!marketing });
   };
-  if (gtmId) {
+  // GTM uniquement en PRODUCTION (hostname exact). Ailleurs (*.vercel.app, localhost, etc.) :
+  // pas de GTM chargé. Le Consent Mode et le dataLayer restent en place (aucune erreur JS).
+  var edmProdHost = location.hostname === 'www.ericdimartino.com' || location.hostname === 'ericdimartino.com';
+  if (gtmId && edmProdHost) {
     (function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
       var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
