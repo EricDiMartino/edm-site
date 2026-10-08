@@ -19,11 +19,11 @@ related:
     href: "/consultation-visagiste-coloriste"
 ---
 
-Ça démange, ça tiraille, parfois ça pèle un peu. Un cuir chevelu qui gratte, c'est inconfortable — et surtout, **ce n'est pas une fatalité**. Dans la grande majorité des cas, il y a une cause identifiable… et une solution.
+Ça démange, ça tiraille, parfois ça pèle un peu. Un cuir chevelu qui gratte, c'est inconfortable. Et surtout, **ce n'est pas une fatalité**. Dans la grande majorité des cas, il y a une cause identifiable… et une solution.
 
 ## Les causes les plus fréquentes
 
-- **Un cuir chevelu trop sec** : déshydratation, chauffage, eau trop chaude — la peau tiraille et démange.
+- **Un cuir chevelu trop sec** : déshydratation, chauffage, eau trop chaude, la peau tiraille et démange.
 - **Un excès de sébum ou des pellicules** : le déséquilibre du cuir chevelu entretient les démangeaisons.
 - **Des résidus** : shampooings inadaptés, produits coiffants, eau calcaire qui s'accumulent et étouffent la racine.
 - **Une sensibilité ou du stress** : le cuir chevelu réagit comme la peau du visage.
