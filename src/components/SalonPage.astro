@@ -623,9 +623,8 @@ const PREST_ICONS: Record<string, string> = {
     .team-grid { grid-template-columns: repeat(3, 1fr); }
     .ig-grid { grid-template-columns: repeat(6, 1fr); }
 
-    /* Prestations : 3 colonnes séparées par un filet, eyebrow centré (double tiret) */
+    /* Prestations : 3 colonnes séparées par un filet, eyebrow centré */
     .prest-head .label { display: inline-flex; justify-content: center; }
-    .prest-head .label::after { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.5; flex: none; }
     .prest-grid { grid-template-columns: repeat(3, 1fr); }
     .prest-card { padding: clamp(2.25rem, 3vw, 3rem) clamp(1.5rem, 3vw, 2.5rem); border-bottom: 0; border-left: 1px solid var(--line); }
     .prest-card:first-child { border-left: 0; padding-left: 0; }

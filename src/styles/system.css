@@ -163,10 +163,3 @@ ul { margin: 0; padding: 0; list-style: none; }
 .faq-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
 .faq-item[open] .faq-plus::after { transform: scaleY(0); }
 .faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
-
-/* ---------- RESPONSIVE (≥ breakpoint) ---------- */
-@media (min-width: 820px) {
-  /* tiret devant les eyebrows — desktop uniquement */
-  .label { display: inline-flex; align-items: center; gap: 0.75rem; }
-  .label::before { content: ""; width: 1.7rem; height: 1px; background: currentColor; opacity: 0.5; flex: none; }
-}
