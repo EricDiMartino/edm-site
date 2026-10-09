@@ -7,7 +7,7 @@
 import type { Qa } from '../../components/formation/FormationFaq.astro';
 import type { FinalCta } from '../../components/formation/FormationFinalCta.astro';
 import { url } from './site';
-import heroImg from '../../assets/formation/photos/eric-di-martino-formateur-coiffure-academy-leader.webp';
+import heroImg from '../../assets/formation/photos/eric-di-martino-coiffeur-formateur-academy-leader.webp';
 import ericImg from '../../assets/formation/photos/eric-di-martino-portrait.webp';
 import xavierImg from '../../assets/formation/photos/xavier-paolucci-portrait.webp';
 import lucieImg from '../../assets/formation/photos/lucie-shobbrook-portrait.webp';
@@ -15,13 +15,13 @@ import lucieImg from '../../assets/formation/photos/lucie-shobbrook-portrait.web
 export const seo = {
   title: 'Academy Leader · Formations et accompagnement pour gérants de salon de coiffure',
   description:
-    "Ouvrir un salon rentable, le rendre autonome, former ton équipe jusqu'à 0 € de reste à charge. Par 3 associés qui dirigent 4 salons. Qualiopi.",
+    "Ouvrir un salon rentable, le rendre autonome, former ton équipe avec des formations finançables. Par 3 associés qui dirigent 4 salons. Qualiopi.",
 };
 
 export const hero = {
   eyebrow: 'Formations et accompagnement · gérants de salon de coiffure',
   cta: { label: 'Découvre quelle offre est faite pour toi', sub: '2 minutes · prix affiché à la fin · sans appel', href: url.diagnostic },
-  photo: { src: heroImg, alt: "Eric Di Martino, président d'EDXP Formation et formateur Academy Leader" },
+  photo: { src: heroImg, alt: "Eric Di Martino, coiffeur et formateur Academy Leader, en consultation avec une cliente dans son salon" },
 };
 
 /** Bandeau de preuve. « 50+ » et « ★ 4,9 » retirés tant que la source n'est pas fournie. */
@@ -33,7 +33,7 @@ export const stats = [
 
 /** « Academy Leader, c'est quoi ? » — repris tel quel dans le JSON-LD (description). */
 export const enBrefTexte =
-  "Academy Leader est le programme de formation et d'accompagnement propulsé par Eric Di Martino et ses associés. Organisme certifié Qualiopi basé à Montbonnot-Saint-Martin (Isère), il s'adresse aux gérants et futurs gérants de salon de coiffure : ouverture de salon (un projet par mois), accompagnement vers des salons autonomes (pour les salons à partir de ~300 000 € et plus de CA) et 9 formations d'équipe finançables par l'OPCO EP ou le FAFCEA. Eric et ses associés dirigent quatre salons en Isère et en Savoie et partagent tous leurs secrets à leurs membres.";
+  "Academy Leader est le programme de formation et d'accompagnement propulsé par Eric Di Martino et ses associés. Organisme certifié Qualiopi basé à Montbonnot-Saint-Martin en Isère, il s'adresse aux gérants et futurs gérants de salon de coiffure : ouverture de salon, accompagnement vers des salons autonomes et 9 formations d'équipe finançables par l'OPCO EP ou le FAFCEA. Eric et ses associés dirigent quatre salons en Isère et en Savoie et partagent tous leurs secrets à leurs membres.";
 
 export const parcours = [
   {
@@ -51,7 +51,7 @@ export const parcours = [
     h: 'Rends ton salon autonome',
     p: 'De 40 h à 4 h par semaine. Six mois de coaching individuel pour rendre ton salon autonome et te concentrer sur tes projets ou ta vie perso.',
     tag: "6 mois · 6 Outils · 20 000 € d'outils offerts",
-    price: 'À partir de 7 000 € HT',
+    price: '',
     cap: '4 gérants / mois',
     cta: 'Voir le parcours →',
     href: url.accompagnement,
