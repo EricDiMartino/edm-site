@@ -51,7 +51,7 @@ export const parcours = [
     h: 'Rends ton salon autonome',
     p: 'De 40 h à 4 h par semaine. Six mois de coaching individuel pour rendre ton salon autonome et te concentrer sur tes projets ou ta vie perso.',
     tag: "6 mois · 6 Outils · 20 000 € d'outils offerts",
-    price: '',
+    price: 'Sur sélection',
     cap: '4 gérants / mois',
     cta: 'Voir le parcours →',
     href: url.accompagnement,
