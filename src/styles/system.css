@@ -173,3 +173,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .faq-plus::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
 .faq-item[open] .faq-plus::after { transform: scaleY(0); }
 .faq-item .rt { margin: 0 0 1.5rem; max-width: 62ch; color: var(--ink); }
+
+/* ---------- PROFONDEUR DES CARTES (élévation homogène — 2e passe) ---------- */
+/* Pose une ombre douce sur les cartes PLEINES claires de chaque page (celles qui
+   n'en avaient pas), pour coller à la maquette. Les cartes sombres (head spa),
+   les blocs "séparateurs" (.prest-card) et les cadres image gardent leur style. */
+.trio-card, .review-card,
+.hm-presta-card, .hm-avis-card, .hm-engage-inner, .hm-piliers li,
+.bdr-hero-panel, .bdr-card,
+.cv-inclus-item, .cv-besoin,
+.pr-card, .cr-etape, .cr-cas-item,
+.nr-atout, .nr-poste,
+.lp-inclus-item, .rattrapage-inner,
+.salon-card { box-shadow: var(--shadow-sm); }
