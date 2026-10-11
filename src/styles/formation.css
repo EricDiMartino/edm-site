@@ -563,3 +563,34 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-card--dark:hover .s45{background:#E2B47E}
 .al-card--dark .al-card-n{-webkit-text-stroke-color:rgba(226,180,126,.35)}
 @media (prefers-reduced-motion:reduce){.al-card,.al-card::before{transition:none}.al-card:hover{transform:none}}
+
+/* ---------- Diagnostic : score, détail flouté, piliers ---------- */
+.al-num-row{display:flex;align-items:center;gap:12px;margin-top:34px}
+.al-num-row input{flex:1;min-width:0;max-width:220px;padding:16px 18px;background:#14100D;border:1px solid rgba(248,244,237,.18);border-radius:6px;color:#F8F4ED;font-size:20px}
+.al-num-row input:focus{outline:none;border-color:#C2874A}
+.al-num-row span{color:#9B8F83;font-size:17px}
+.al-score-n{display:flex;align-items:baseline;gap:10px;margin-top:12px}
+.al-score-n b{font-size:clamp(84px,14vw,120px);font-weight:700;line-height:.9;letter-spacing:-.05em;color:#C2874A}
+.al-score-n span{font-size:22px;font-weight:600;color:#9B8F83}
+.al-score-n--sm b{font-size:clamp(56px,9vw,72px)}
+.al-score-emo{margin-top:18px;font-size:clamp(20px,2.4vw,24px);font-weight:600;line-height:1.3;letter-spacing:-.01em;text-wrap:balance;max-width:30ch}
+.al-score--none .s227,.al-score--none .al-score-n,.al-score--none .al-score-emo,.al-score--none .al-blur{display:none}
+.al-blur{position:relative;margin-top:30px;border:1px solid rgba(248,244,237,.12);border-radius:10px;overflow:hidden;background:#14100D}
+.al-blur-in{padding:22px;filter:blur(7px);opacity:.6;pointer-events:none;user-select:none}
+.al-blur-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:16px;color:#F8F4ED}
+.al-blur-lock svg{color:#C2874A;margin-bottom:4px}
+.al-blur-lock b{font-size:18px}
+.al-blur-lock span{color:#9B8F83;font-size:14px}
+.al-gate-h{margin-top:40px;font-size:clamp(24px,3vw,32px)}
+.al-gauges{display:grid;gap:16px}
+.al-res [data-r="gauges"]{margin-top:28px}
+.al-gauge-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:7px}
+.al-gauge-top b{font-size:17px;font-weight:600}
+.al-gauge-top span{font-size:13.5px;color:#9B8F83}
+.al-track{height:9px;background:rgba(248,244,237,.1);border-radius:5px;overflow:hidden}
+.al-track i{display:block;height:100%;background:#C2874A;border-radius:5px}
+.al-track i.weak{background:#E2B47E;background:repeating-linear-gradient(135deg,#E2B47E 0 6px,#C2874A 6px 12px)}
+.al-lever{margin-top:22px;border-radius:10px;padding:18px 20px;background:rgba(194,135,74,.14);border:1px solid rgba(194,135,74,.35)}
+.al-lever b{display:block;font-size:18px;color:#E2B47E}
+.al-lever p{margin-top:6px;color:#D8CFC2}
+.al-res-sep{height:1px;background:rgba(248,244,237,.1);margin:44px 0 30px}

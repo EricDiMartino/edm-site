@@ -1,12 +1,14 @@
 ---
-// ACADEMY LEADER — Diagnostic (/formation/diagnostic), noindex. Pas de menu (maquette) ; croix de sortie ajoutée (demande 02/10/2026).
-// 9 questions (1 par écran, avance au clic) → coordonnées → résultat selon segment().
-// Coordonnées + réponses envoyées à GoHighLevel via /api/formation/lead (contact + note).
-// ⏸️ Règles de segment : celles de la maquette, à valider (brief D3).
+// ACADEMY LEADER — Diagnostic (/formation/diagnostic), noindex. Pas de menu (maquette) ; croix de sortie.
+// Contenu, conditions, score et règles : src/data/formation/diagnostic.ts (issu de l'atelier validé le 11/10/2026).
+// Déroulé : questions (1 par écran, certaines conditionnelles) → score visible + détail flouté + coordonnées
+// → détail des piliers, levier n°1 et résultat (appel ou formations + calculateur).
+// Coordonnées + réponses + score envoyés à GoHighLevel via /api/formation/lead (contact + note).
 import FormationLayout from '../../components/formation/FormationLayout.astro';
-import { tunnelSeo, questions, resultats } from '../../data/formation/tunnel';
+import { tunnelSeo } from '../../data/formation/tunnel';
+import { diag } from '../../data/formation/diagnostic';
 import { url } from '../../data/formation/site';
-const q0 = questions[0];
+const q0 = diag.questions[0];
 ---
 
 <FormationLayout title={tunnelSeo.diag.title} noindex bare>
@@ -14,7 +16,7 @@ const q0 = questions[0];
     <div class="s222">
       <div class="s223">Academy <span class="s5">Leader</span></div>
       <div class="al-diag-right">
-        <div class="s25" data-q="counter">Question 1 sur {questions.length}</div>
+        <div class="s25" data-q="counter">Question 1</div>
         <a href={url.accueil} class="al-close" data-q="close" aria-label="Quitter le diagnostic">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
         </a>
@@ -23,32 +25,52 @@ const q0 = questions[0];
     <div class="s224"><div class="s225" data-q="bar"></div></div>
 
     <div class="s226" data-screen="q">
-      <div class="s227" data-q="num">01 / {questions.length}</div>
+      <div class="s227" data-q="num">01</div>
       <h1 class="s228" data-q="q">{q0.q}</h1>
       <p class="s229" data-q="sub">{q0.sub}</p>
       <div class="s230" data-q="opts">
         {q0.o.map((o, i) => <button type="button" class="s231" data-opt={i}><span class="s232"></span>{o}</button>)}
       </div>
+      <form class="al-num" data-q="numform" hidden>
+        <div class="al-num-row"><input name="v" inputmode="decimal" autocomplete="off" required /><span data-q="unit"></span></div>
+        <button type="submit" class="al-btn">Continuer</button>
+      </form>
       <button type="button" class="al-back" data-q="back" hidden>← Question précédente</button>
     </div>
 
-    <form class="al-gate" data-screen="gate" hidden>
-      <div class="s227">Ton diagnostic est prêt</div>
-      <h1 class="al-h1">Où t'envoie-t-on ton résultat ?</h1>
-      <p class="s229">Il s'affiche tout de suite. On t'en envoie aussi la copie, pour la travailler avec ton comptable.</p>
-      <div class="al-fields">
-        <label class="al-field">Prénom<input name="fn" autocomplete="given-name" placeholder="Camille" required /></label>
-        <label class="al-field">Nom<input name="ln" autocomplete="family-name" placeholder="Martin" required /></label>
-        <label class="al-field">Email<input name="em" type="email" autocomplete="email" placeholder="camille@monsalon.fr" required /></label>
-        <label class="al-field">Téléphone <small>uniquement pour le rappel SMS si tu réserves un appel</small><input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
-        <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+    <div class="al-gate al-score" data-screen="gate" hidden>
+      <div class="s227" data-s="title"></div>
+      <div class="al-score-n"><b data-s="n"></b><span>sur 100</span></div>
+      <p class="al-score-emo" data-s="emo"></p>
+      <div class="al-blur" aria-hidden="true">
+        <div class="al-blur-in" data-s="preview"></div>
+        <div class="al-blur-lock">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+          <b>Ton détail est prêt</b><span>Piliers, levier n°1 et offre adaptée</span>
+        </div>
       </div>
-      <button type="submit" class="al-btn">Voir mon résultat</button>
-      <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+      <form data-q="gate">
+        <h2 class="al-h1 al-gate-h">{diag.gate.h}</h2>
+        <p class="s229">{diag.gate.p}</p>
+        <div class="al-fields">
+          <label class="al-field">Prénom<input name="fn" autocomplete="given-name" placeholder="Camille" required /></label>
+          <label class="al-field">Nom<input name="ln" autocomplete="family-name" placeholder="Martin" required /></label>
+          <label class="al-field">Email<input name="em" type="email" autocomplete="email" placeholder="camille@monsalon.fr" required /></label>
+          <label class="al-field">Téléphone <small>uniquement pour le rappel SMS si tu réserves un appel</small><input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+        </div>
+        <button type="submit" class="al-btn">{diag.gate.btn}</button>
+        <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+      </form>
       <button type="button" class="al-back" data-q="back">← Question précédente</button>
-    </form>
+    </div>
 
     <div class="al-res" data-screen="res" hidden>
+      <div class="s227" data-r="stitle"></div>
+      <div class="al-score-n al-score-n--sm"><b data-r="n"></b><span>sur 100</span></div>
+      <div data-r="gauges"></div>
+      <div class="al-lever" data-r="lever"></div>
+      <div class="al-res-sep"></div>
       <div class="s227" data-r="seg"></div>
       <h1 class="al-h1" data-r="h"></h1>
       <p class="al-res-p" data-r="p"></p>
@@ -58,84 +80,187 @@ const q0 = questions[0];
     </div>
   </main>
 
-  <script is:inline define:vars={{ Q: questions, RES: resultats, LINKS: url }}>
-    var st = { step: 0, ans: {} };
+  <script is:inline define:vars={{ D: diag, LINKS: url }}>
+    var Q = D.questions;
+    var st = { cur: Q[0].id, hist: [], ans: {}, started: false };
     var $ = function (s) { return document.querySelector(s); };
     var dl = function (o) { (window.dataLayer = window.dataLayer || []).push(o); };
     var ACC = '#C2874A';
-    // Règles de la maquette (à valider, brief D3)
+    var byId = function (id) { return Q.find(function (q) { return q.id === id; }); };
+    function visible(q) {
+      if (!q.showIf) return true;
+      var a = st.ans[q.showIf.q];
+      return a != null && q.showIf.in.indexOf(a) >= 0;
+    }
+    function asked() { return Q.filter(visible); }
+    function nextId(fromId) {
+      var i = Q.findIndex(function (q) { return q.id === fromId; });
+      for (var k = i + 1; k < Q.length; k++) if (visible(Q[k])) return Q[k].id;
+      return 'gate';
+    }
+    // Résultat : première règle vraie, sinon fallback
     function segment() {
-      var a = st.ans;
-      if (a[0] === 0 || a[6] === 0) return 'OUVERTURE';
-      if (a[8] === 2) return 'FORMATION';
-      if (a[1] === 3 || (a[1] === 2 && (a[6] === 1 || a[6] === 2))) return 'ACCOMPAGNEMENT';
-      return 'FORMATION';
+      for (var i = 0; i < D.rules.length; i++) {
+        var r = D.rules[i];
+        if (r.when.length && r.when.every(function (c) { var a = st.ans[c.q]; return a != null && c.in.indexOf(a) >= 0 && visible(byId(c.q)); })) return r.seg;
+      }
+      return D.fallback;
+    }
+    // Score : moyenne des questions notées posées, par pilier ; score final = moyenne des piliers
+    function score() {
+      var acc = {};
+      D.pillars.forEach(function (p) { acc[p.k] = [0, 0]; });
+      Q.forEach(function (q) {
+        if (!q.p || !acc[q.p] || !visible(q) || st.ans[q.id] == null) return;
+        acc[q.p][0] += q.sc[st.ans[q.id]] || 0; acc[q.p][1] += 1;
+      });
+      var ps = D.pillars.filter(function (p) { return acc[p.k][1] > 0; }).map(function (p) { return { p: p, v: Math.round(acc[p.k][0] / acc[p.k][1]) }; });
+      if (!ps.length) return null;
+      var total = Math.round(ps.reduce(function (s, x) { return s + x.v; }, 0) / ps.length);
+      var weak = ps.reduce(function (m, x) { return x.v < m.v ? x : m; }, ps[0]);
+      var alt = st.ans[D.branch.q] != null && D.branch.in.indexOf(st.ans[D.branch.q]) >= 0;
+      var band = D.bands.find(function (b) { return total < b.max; }) || D.bands[D.bands.length - 1];
+      return {
+        total: total, ps: ps, weak: weak,
+        title: (alt && D.scoreTitle.tAlt) || D.scoreTitle.t,
+        phrase: (alt && band.tAlt) || band.t,
+        lever: { h: weak.p.lever, p: (alt && weak.p.txtAlt) || weak.p.txt },
+        showLever: weak.v < 75,
+      };
+    }
+    var level = function (v) { return v >= 75 ? 'Solide' : v >= 40 ? 'En construction' : 'À reprendre en main'; };
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function gauges(sc) {
+      var box = el('div', 'al-gauges');
+      sc.ps.forEach(function (x) {
+        var row = el('div'), top = el('div', 'al-gauge-top');
+        top.appendChild(el('b', null, x.p.n)); top.appendChild(el('span', null, level(x.v)));
+        var tr = el('div', 'al-track'); tr.setAttribute('role', 'img'); tr.setAttribute('aria-label', x.p.n + ' : ' + x.v + ' sur 100');
+        var bar = el('i', x === sc.weak && sc.ps.length > 1 ? 'weak' : ''); bar.style.width = Math.max(x.v, 4) + '%';
+        tr.appendChild(bar); row.appendChild(top); row.appendChild(tr); box.appendChild(row);
+      });
+      return box;
+    }
+    function lever(sc, target) {
+      target.innerHTML = '';
+      target.hidden = !sc.showLever;
+      target.appendChild(el('b', null, sc.lever.h)); target.appendChild(el('p', null, sc.lever.p));
     }
     function show(k) { ['q', 'gate', 'res'].forEach(function (s) { $('[data-screen="' + s + '"]').hidden = s !== k; }); window.scrollTo(0, 0); }
     function render() {
-      var n = Q.length, step = st.step, isQ = step < n, isGate = step === n;
-      $('[data-q="counter"]').textContent = isQ ? 'Question ' + (step + 1) + ' sur ' + n : (isGate ? 'Dernière étape' : 'Résultat');
-      $('[data-q="bar"]').style.width = (step > n ? 100 : Math.round(step / (n + 1) * 100)) + '%';
-      if (isQ) {
-        var cq = Q[step];
-        $('[data-q="num"]').textContent = String(step + 1).padStart(2, '0') + ' / ' + n;
+      var list = asked(), n = list.length;
+      if (st.cur !== 'gate' && st.cur !== 'res') {
+        var cq = byId(st.cur), idx = list.indexOf(cq);
+        $('[data-q="counter"]').textContent = 'Question ' + (idx + 1);
+        $('[data-q="bar"]').style.width = Math.round(idx / (n + 1) * 100) + '%';
+        $('[data-q="num"]').textContent = String(idx + 1).padStart(2, '0');
         $('[data-q="q"]').textContent = cq.q;
-        $('[data-q="sub"]').textContent = cq.sub;
-        $('[data-q="opts"]').innerHTML = '';
-        cq.o.forEach(function (label, i) {
-          var b = document.createElement('button'), sel = st.ans[step] === i;
-          b.type = 'button'; b.className = 's231'; b.setAttribute('data-opt', i);
-          if (sel) { b.style.background = 'rgba(194,135,74,.12)'; b.style.border = '1px solid ' + ACC; }
-          var d = document.createElement('span'); d.className = 's232';
-          if (sel) { d.style.borderColor = ACC; d.style.background = ACC; }
-          b.appendChild(d); b.appendChild(document.createTextNode(label));
-          $('[data-q="opts"]').appendChild(b);
-        });
-        $('[data-screen="q"] [data-q="back"]').hidden = step === 0;
+        $('[data-q="sub"]').textContent = cq.sub || '';
+        var opts = $('[data-q="opts"]'), nf = $('[data-q="numform"]');
+        opts.innerHTML = '';
+        if (cq.type === 'number') {
+          opts.hidden = true; nf.hidden = false;
+          nf.elements.v.value = st.ans[cq.id] != null ? st.ans[cq.id] : '';
+          nf.elements.v.placeholder = cq.ph || '';
+          $('[data-q="unit"]').textContent = cq.unit || '';
+        } else {
+          opts.hidden = false; nf.hidden = true;
+          cq.o.forEach(function (label, i) {
+            var b = el('button', 's231'), sel = st.ans[cq.id] === i;
+            b.type = 'button'; b.setAttribute('data-opt', i);
+            if (sel) { b.style.background = 'rgba(194,135,74,.12)'; b.style.border = '1px solid ' + ACC; }
+            var d = el('span', 's232');
+            if (sel) { d.style.borderColor = ACC; d.style.background = ACC; }
+            b.appendChild(d); b.appendChild(document.createTextNode(label));
+            opts.appendChild(b);
+          });
+        }
+        $('[data-screen="q"] [data-q="back"]').hidden = !st.hist.length;
         show('q');
-      } else if (isGate) show('gate');
-      else {
-        var seg = segment(), r = RES[seg], fn = st.fn || 'Camille';
-        $('[data-r="seg"]').textContent = 'Ton diagnostic · ' + seg.charAt(0) + seg.slice(1).toLowerCase();
-        $('[data-r="h"]').textContent = r.h.replace('{fn}', fn);
-        $('[data-r="p"]').textContent = r.p;
-        $('[data-r="facts"]').innerHTML = '';
-        r.facts.forEach(function (f) {
-          var c = document.createElement('div'); c.className = 'al-fact';
-          var k = document.createElement('div'); k.textContent = f.k;
-          var v = document.createElement('b'); v.textContent = f.v;
-          c.appendChild(k); c.appendChild(v); $('[data-r="facts"]').appendChild(c);
-        });
-        $('[data-r="cta"]').textContent = r.cta;
-        $('[data-r="ctaSub"]').textContent = r.ctaSub;
-        $('[data-r="go"]').href = r.go === 'form' ? LINKS.formations + '#cat' : LINKS.reserver;
-        dl({ event: 'diag_complete', segment: seg });
-        show('res');
+        return;
       }
+      var sc = score();
+      if (st.cur === 'gate') {
+        $('[data-q="counter"]').textContent = 'Ton score';
+        $('[data-q="bar"]').style.width = Math.round(n / (n + 1) * 100) + '%';
+        $('[data-screen="gate"]').classList.toggle('al-score--none', !sc);
+        if (sc) {
+          $('[data-s="title"]').textContent = sc.title;
+          $('[data-s="n"]').textContent = sc.total;
+          $('[data-s="emo"]').textContent = sc.phrase;
+          var pv = $('[data-s="preview"]'); pv.innerHTML = '';
+          pv.appendChild(gauges(sc));
+          var lv = el('div', 'al-lever'); lever(sc, lv); pv.appendChild(lv);
+        }
+        show('gate');
+        return;
+      }
+      // Résultat complet
+      var seg = segment(), r = D.results[seg], fn = st.fn || 'Camille';
+      $('[data-q="counter"]').textContent = 'Résultat';
+      $('[data-q="bar"]').style.width = '100%';
+      ['stitle', 'n', 'gauges', 'lever'].forEach(function (k) { $('[data-r="' + k + '"]').hidden = !sc; });
+      if (sc) {
+        $('[data-r="stitle"]').textContent = sc.title;
+        $('[data-r="n"]').textContent = sc.total;
+        var gw = $('[data-r="gauges"]'); gw.innerHTML = ''; gw.appendChild(gauges(sc));
+        lever(sc, $('[data-r="lever"]'));
+      }
+      $('[data-r="seg"]').textContent = 'Ton diagnostic · ' + seg.charAt(0) + seg.slice(1).toLowerCase();
+      $('[data-r="h"]').textContent = r.h.replace('{fn}', fn);
+      $('[data-r="p"]').textContent = r.p;
+      $('[data-r="facts"]').innerHTML = '';
+      r.facts.forEach(function (f) {
+        var c = el('div', 'al-fact'); c.appendChild(el('div', null, f.k)); c.appendChild(el('b', null, f.v));
+        $('[data-r="facts"]').appendChild(c);
+      });
+      $('[data-r="cta"]').textContent = r.cta;
+      $('[data-r="ctaSub"]').textContent = r.ctaSub;
+      $('[data-r="go"]').href = r.go === 'form' ? LINKS.formations + '#cat' : LINKS.reserver;
+      dl({ event: 'diag_complete', segment: seg, score: sc ? sc.total : null });
+      show('res');
+    }
+    function answer(v) {
+      if (!st.started) { st.started = true; dl({ event: 'diag_start' }); }
+      st.ans[st.cur] = v;
+      // une réponse modifiée peut masquer des questions déjà répondues : on oublie leurs réponses
+      Q.forEach(function (q) { if (!visible(q)) delete st.ans[q.id]; });
+      st.hist.push(st.cur); st.cur = nextId(st.cur);
+      dl({ event: 'diag_step', step: st.hist.length });
+      render();
     }
     document.addEventListener('click', function (e) {
       var o = e.target.closest('[data-opt]');
-      if (o) {
-        if (st.step === 0 && st.ans[0] === undefined) dl({ event: 'diag_start' });
-        st.ans[st.step] = +o.getAttribute('data-opt'); st.step++; dl({ event: 'diag_step', step: st.step }); render(); return;
-      }
-      if (e.target.closest('[data-q="back"]')) { st.step = Math.max(0, st.step - 1); render(); return; }
-      if (e.target.closest('[data-q="restart"]')) { st = { step: 0, ans: {} }; render(); }
+      if (o) { answer(+o.getAttribute('data-opt')); return; }
+      if (e.target.closest('[data-q="back"]')) { if (st.hist.length) { st.cur = st.hist.pop(); render(); } return; }
+      if (e.target.closest('[data-q="restart"]')) { st = { cur: Q[0].id, hist: [], ans: {}, started: false }; render(); }
+    });
+    $('[data-q="numform"]').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = (this.elements.v.value || '').trim();
+      if (v) answer(v);
     });
     // Sortie (croix) : retour à la page précédente du site si elle existe, sinon accueil formation
     $('[data-q="close"]').addEventListener('click', function (e) {
-      dl({ event: 'diag_exit', step: st.step });
+      dl({ event: 'diag_exit', step: st.hist.length });
       try {
         if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); }
       } catch (err) {}
     });
-    $('[data-screen="gate"]').addEventListener('submit', function (e) {
+    $('[data-q="gate"]').addEventListener('submit', function (e) {
       e.preventDefault();
-      var f = this.elements, seg = segment();
+      var f = this.elements, seg = segment(), sc = score();
       st.fn = (f.fn.value || '').trim();
       var lead = { fn: st.fn, ln: (f.ln.value || '').trim(), em: (f.em.value || '').trim(), tel: (f.tel.value || '').trim(), seg: seg, contactId: '' };
       var utm = {}; try { utm = JSON.parse(sessionStorage.getItem('al_utm') || '{}'); } catch (err) {}
-      var answers = Q.map(function (q, i) { return { q: q.q, a: st.ans[i] != null ? q.o[st.ans[i]] : '' }; });
+      var answers = asked().filter(function (q) { return st.ans[q.id] != null; }).map(function (q) {
+        return { q: q.q, a: q.type === 'number' ? st.ans[q.id] + ' ' + (q.unit || '') : q.o[st.ans[q.id]] };
+      });
+      if (sc) {
+        answers.push({ q: 'Score', a: sc.total + ' / 100' });
+        sc.ps.forEach(function (x) { answers.push({ q: 'Pilier ' + x.p.n, a: x.v + ' / 100' }); });
+        answers.push({ q: 'Levier n°1', a: sc.weak.p.n });
+      }
       var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
       save();
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.
@@ -144,7 +269,7 @@ const q0 = questions[0];
         body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
       }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
       dl({ event: 'lead_submit', form: 'diagnostic', segment: seg });
-      st.step = Q.length + 1; render();
+      st.hist.push('gate'); st.cur = 'res'; render();
     });
   </script>
 </FormationLayout>
