@@ -537,3 +537,29 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-err-pills button{min-height:40px;min-width:44px;font-family:inherit}
 .al-err-note{margin-top:16px;padding-top:14px;border-top:1px solid rgba(248,244,237,.14);font-size:15px;color:#D8CFC2}
 .al-err-note b{color:#F8F4ED}
+
+/* ---------- Cartes parcours (home) : éditorial premium ---------- */
+.al-card{position:relative;overflow:hidden;padding:34px 30px 30px;border-radius:12px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
+.al-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#8A5A2B,#C2874A,#E2B47E);transform:scaleX(.18);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.al-card:hover{transform:translateY(-6px);box-shadow:0 28px 60px -28px rgba(60,36,14,.45);border-color:rgba(194,135,74,.45)}
+.al-card:hover::before{transform:scaleX(1)}
+.al-card-n{position:absolute;top:14px;right:22px;font-size:76px;font-weight:600;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(138,90,43,.28);pointer-events:none;transition:-webkit-text-stroke-color .35s}
+.al-card:hover .al-card-n{-webkit-text-stroke-color:rgba(194,135,74,.7)}
+.al-card .s38{display:inline-flex;align-items:center;gap:8px;color:#8A5A2B;padding-right:70px}
+.al-card .s38::before{content:"";width:6px;height:6px;border-radius:50%;background:#C2874A;flex:none}
+.al-card .s39{font-size:28px}
+.al-card .s41{display:inline-block;align-self:flex-start;padding:6px 11px;border-radius:14px;background:rgba(138,90,43,.08);color:#6B5A48;font-size:12.5px}
+.al-card .s43{font-size:18px;letter-spacing:-.01em}
+.al-card .s45{display:flex;justify-content:space-between;align-items:center;border-radius:6px;transition:background .3s,color .3s}
+.al-card:hover .s45{background:#C2874A;color:#14100D}
+/* carte centrale : le cœur de l'offre, en négatif */
+.al-card--dark{background:#14100D;border-color:#14100D;color:#F5F1E8;box-shadow:0 30px 70px -36px rgba(20,16,13,.7)}
+.al-card--dark .s38{color:#E2B47E}
+.al-card--dark .s40{color:#D8CFC2}
+.al-card--dark .s41{background:rgba(226,180,126,.12);color:#E2B47E}
+.al-card--dark .s42{border-top-color:rgba(248,244,237,.14)}
+.al-card--dark .s44{color:#E2B47E}
+.al-card--dark .s45{background:#C2874A;color:#14100D}
+.al-card--dark:hover .s45{background:#E2B47E}
+.al-card--dark .al-card-n{-webkit-text-stroke-color:rgba(226,180,126,.35)}
+@media (prefers-reduced-motion:reduce){.al-card,.al-card::before{transition:none}.al-card:hover{transform:none}}

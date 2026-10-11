@@ -39,7 +39,7 @@ export const parcours = [
   {
     sit: "Tu as un projet d'ouverture",
     h: 'Ouvre un salon de coiffure rentable',
-    p: "7 étapes menées avec toi, de l'étude du projet, jusqu'à la fin de ta deuxième année, nous garantissons le succès de ton projet.",
+    p: "Chaque erreur coûte cher à l'ouverture. On te guide dans les 7 étapes incontournables qui la précèdent, puis on reste à tes côtés pendant 2 ans.",
     tag: 'Création ou reprise - Salon premium à équipe',
     price: 'Sur sélection',
     cap: '1 projet / mois',
@@ -49,7 +49,7 @@ export const parcours = [
   {
     sit: 'Tu as un salon qui fait 300K+',
     h: 'Rends ton salon autonome',
-    p: 'De 40 h à 4 h par semaine. Six mois de coaching individuel pour rendre ton salon autonome et te concentrer sur tes projets ou ta vie perso.',
+    p: 'Passe de 40 h à 4 h de coupe par semaine. Six mois de coaching individuel pour rendre ton salon autonome et lancer enfin les projets qui attendent.',
     tag: "6 mois · 6 Outils · 20 000 € d'outils offerts",
     price: 'Sur sélection',
     cap: '4 gérants / mois',
@@ -59,7 +59,7 @@ export const parcours = [
   {
     sit: 'Fais progresser ton équipe',
     h: 'Forme ton équipe dans ton salon',
-    p: '9 formations, 1 à 2 jours, chez toi ou en visio. Pour les coiffeurs visant le premium et qui en veulent toujours plus.',
+    p: "9 formations pour les coiffeurs qui visent le premium. Des parcours sur mesure où l'on livre tous les secrets techniques et d'organisation de nos salons.",
     tag: 'Certifié Qualiopi · OPCO EP ou FAFCEA',
     price: '0 € de reste à charge*',
     cap: "Jusqu'à 8 pers.",
@@ -74,8 +74,8 @@ export const methode = {
     "On t'a appris à couper et à faire des techniques. Personne ne t'a appris à lire une marge, à tenir une équipe, contrôler le flux de tes clients, à maîtriser ta rentabilité sans ton comptable, ni à organiser ta croissance. Toutes nos offres partent du même point.",
   items: [
     { n: '01', h: "Le chiffre avant l'avis", p: "On analyse ta situation managériale, financière et marketing. On valide ton processus de décision et on avance avec toi jusqu'à l'atteinte de tes projets." },
-    { n: '02', h: 'Un processus clair', p: "Chaque étape est adaptée à ton avancement, mais l'ordre reste le même. Rentabilité, puis prix, puis flux client, puis équipe, puis panier moyen." },
-    { n: '03', h: 'Testé dans nos murs', p: "Tout ce qu'on t'apprend tourne dans nos quatre salons. On ne transmet rien que l'on n'ait pas testé et appliqué dans nos propres salons." },
+    { n: '02', h: 'Testé dans nos murs', p: "Tout ce qu'on t'apprend tourne dans nos quatre salons. On ne transmet rien que l'on n'ait pas testé et appliqué dans nos propres salons." },
+    { n: '03', h: 'Un accompagnement humain', p: "Pas une plateforme qui te laisse seul face à des vidéos. Les associés te suivent en individuel, répondent à tes questions et ajustent le plan avec toi jusqu'au résultat." },
   ],
 };
 
@@ -96,7 +96,7 @@ export const faq: Qa[] = [
   { q: 'Les formations sont-elles financées ?', a: "Oui. L'OPCO EP prend en charge 25 € HT de l'heure sur les formations métier et 30 € HT sur les transverses, pour les salariés. Les gérants TNS relèvent du FAFCEA. Le reste à charge peut tomber à 0 €, sous réserve de ton plafond annuel." },
   { q: 'Où intervenez-vous ?', a: "Les formations présentielles ont lieu dans ton salon, partout en France, avec un forfait de déplacement selon la zone. L'accompagnement et les formations IA se font en visio." },
   { q: 'Qui sont les formateurs ?', a: "Eric Di Martino, Xavier Paolucci et Lucie Shobbrook, associés d'EDXP Formation. Ils dirigent quatre salons (Grenoble, Montbonnot, Voiron, Aix-les-Bains), 27 collaborateurs et 1,5 M€ de chiffre d'affaires." },
-  { q: "Combien coûte l'accompagnement ?", a: "L'accompagnement Salon Autonome commence à 7 000 € HT pour six mois, facturé à la société. Le montant exact t'est donné à la fin du diagnostic, sans appel." },
+  { q: "Combien coûte l'accompagnement ?", a: "Il dépend de ton salon, c'est pourquoi on ne l'affiche pas ici. Ce que l'on peut te dire : nos membres le rentabilisent en 1 à 3 mois selon leur chiffre d'affaires de départ. La vraie question, c'est de savoir si tu fais partie de ceux qui passent à l'action. Le diagnostic te le dit en 2 minutes." },
 ];
 
 export const finalCta: FinalCta = {
