@@ -20,7 +20,7 @@ export const seo = {
 
 export const hero = {
   eyebrow: 'Formations et accompagnement · gérants de salon de coiffure',
-  cta: { label: 'Découvre quelle offre est faite pour toi', sub: '2 minutes · prix affiché à la fin · sans appel', href: url.diagnostic },
+  cta: { label: 'Découvre quelle offre est faite pour toi', sub: '2 minutes · réponse immédiate · sans appel', href: url.diagnostic },
   photo: { src: heroImg, alt: "Eric Di Martino, coiffeur et formateur Academy Leader, en consultation avec une cliente dans son salon" },
 };
 
@@ -92,7 +92,7 @@ export const equipe = {
 };
 
 export const faq: Qa[] = [
-  { q: 'Quelle offre choisir entre formation, accompagnement et ouverture ?', a: "Ça dépend de ta situation : un projet d'ouverture relève de l'accompagnement ouverture, un salon à partir de ~300 000 € de CA de l'accompagnement Salon Autonome, une équipe à faire monter d'une formation financée. Le diagnostic de 2 minutes te le dit avec le prix." },
+  { q: 'Quelle offre choisir entre formation, accompagnement et ouverture ?', a: "Ça dépend de ta situation : un projet d'ouverture relève de l'accompagnement ouverture, un salon à partir de ~300 000 € de CA de l'accompagnement Salon Autonome, une équipe à faire monter d'une formation financée. Le diagnostic de 2 minutes te le dit." },
   { q: 'Les formations sont-elles financées ?', a: "Oui. L'OPCO EP prend en charge 25 € HT de l'heure sur les formations métier et 30 € HT sur les transverses, pour les salariés. Les gérants TNS relèvent du FAFCEA. Le reste à charge peut tomber à 0 €, sous réserve de ton plafond annuel." },
   { q: 'Où intervenez-vous ?', a: "Les formations présentielles ont lieu dans ton salon, partout en France, avec un forfait de déplacement selon la zone. L'accompagnement et les formations IA se font en visio." },
   { q: 'Qui sont les formateurs ?', a: "Eric Di Martino, Xavier Paolucci et Lucie Shobbrook, associés d'EDXP Formation. Ils dirigent quatre salons (Grenoble, Montbonnot, Voiron, Aix-les-Bains), 27 collaborateurs et 1,5 M€ de chiffre d'affaires." },
@@ -102,7 +102,7 @@ export const faq: Qa[] = [
 export const finalCta: FinalCta = {
   label: 'Par où tu commences',
   h: 'Deux minutes pour savoir quelle offre est faite pour toi.',
-  p: 'Neuf questions. À la fin, tu sais laquelle de nos trois offres correspond à ton moment, et son prix. Sans appel.',
+  p: 'Neuf questions. À la fin, tu sais laquelle de nos trois offres correspond à ton moment. Sans appel.',
   cta: 'Faire le diagnostic',
   sub: '2 minutes · gratuit',
   href: url.diagnostic,

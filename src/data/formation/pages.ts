@@ -77,7 +77,7 @@ export const accFaq: Qa[] = [
 export const accFin: FinalCta = { ...{
   "label": "Quatre places par mois",
   "h": "Tu ne sais pas si c'est ton moment ?",
-  "p": "Le diagnostic te le dit en deux minutes, avec le prix. Si ce n'est pas encore l'accompagnement, on te le dira.",
+  "p": "Le diagnostic te le dit en deux minutes. Si ce n'est pas encore l'accompagnement, on te le dira.",
   "cta": "Découvre si c'est ton moment",
   "sub": "2 minutes · gratuit, sans appel"
 }, href: url.diagnostic };
