@@ -31,6 +31,7 @@ const q0 = diag.questions[0];
       <div class="s230" data-q="opts">
         {q0.o.map((o, i) => <button type="button" class="s231" data-opt={i}><span class="s232"></span>{o}</button>)}
       </div>
+      <button type="button" class="al-btn al-multi-next" data-q="multinext" hidden>Continuer</button>
       <form class="al-num" data-q="numform" hidden>
         <div class="al-num-row"><input name="v" inputmode="decimal" autocomplete="off" required /><span data-q="unit"></span></div>
         <button type="submit" class="al-btn">Continuer</button>
@@ -70,6 +71,7 @@ const q0 = diag.questions[0];
       <div class="al-score-n al-score-n--sm"><b data-r="n"></b><span>sur 100</span></div>
       <div data-r="gauges"></div>
       <div class="al-lever" data-r="lever"></div>
+      <div class="al-cm" data-r="cm" hidden></div>
       <div class="al-res-sep"></div>
       <div class="s227" data-r="seg"></div>
       <h1 class="al-h1" data-r="h"></h1>
@@ -87,10 +89,30 @@ const q0 = diag.questions[0];
     var dl = function (o) { (window.dataLayer = window.dataLayer || []).push(o); };
     var ACC = '#C2874A';
     var byId = function (id) { return Q.find(function (q) { return q.id === id; }); };
+    // une réponse = index (choix simple), tableau d'index (choix multiple) ou texte (chiffre)
+    function hit(a, list) {
+      if (a == null) return false;
+      return Array.isArray(a) ? a.some(function (x) { return list.indexOf(x) >= 0; }) : list.indexOf(a) >= 0;
+    }
     function visible(q) {
       if (!q.showIf) return true;
-      var a = st.ans[q.showIf.q];
-      return a != null && q.showIf.in.indexOf(a) >= 0;
+      return hit(st.ans[q.showIf.q], q.showIf.in);
+    }
+    // Lecture du coût minute saisi (question chiffre avec seuils)
+    function coutMinute() {
+      var q = Q.find(function (x) { return x.thresholds && visible(x) && st.ans[x.id] != null; });
+      if (!q) return null;
+      var v = parseFloat(String(st.ans[q.id]).replace(',', '.').replace(/[^0-9.]/g, ''));
+      if (!(v > 0)) return null;
+      if (v >= 10) v = v / 100; // saisi en centimes
+      var t = q.thresholds, k = v < t.low ? 'Low' : v > t.high ? 'High' : 'Mid';
+      return { v: v.toFixed(2).replace('.', ',') + ' ' + (q.unit || ''), l: t['l' + k], t: t['t' + k], k: k };
+    }
+    function cmBox(cm, target) {
+      target.innerHTML = ''; target.hidden = !cm; if (!cm) return;
+      target.className = 'al-cm al-cm--' + cm.k.toLowerCase();
+      var top = el('div', 'al-cm-top'); top.appendChild(el('span', null, 'Ton coût minute · ' + cm.v)); top.appendChild(el('b', null, cm.l));
+      target.appendChild(top); target.appendChild(el('p', null, cm.t));
     }
     function asked() { return Q.filter(visible); }
     function nextId(fromId) {
@@ -102,7 +124,7 @@ const q0 = diag.questions[0];
     function segment() {
       for (var i = 0; i < D.rules.length; i++) {
         var r = D.rules[i];
-        if (r.when.length && r.when.every(function (c) { var a = st.ans[c.q]; return a != null && c.in.indexOf(a) >= 0 && visible(byId(c.q)); })) return r.seg;
+        if (r.when.length && r.when.every(function (c) { return hit(st.ans[c.q], c.in) && visible(byId(c.q)); })) return r.seg;
       }
       return D.fallback;
     }
@@ -156,8 +178,8 @@ const q0 = diag.questions[0];
         $('[data-q="num"]').textContent = String(idx + 1).padStart(2, '0');
         $('[data-q="q"]').textContent = cq.q;
         $('[data-q="sub"]').textContent = cq.sub || '';
-        var opts = $('[data-q="opts"]'), nf = $('[data-q="numform"]');
-        opts.innerHTML = '';
+        var opts = $('[data-q="opts"]'), nf = $('[data-q="numform"]'), mn = $('[data-q="multinext"]');
+        opts.innerHTML = ''; mn.hidden = true;
         if (cq.type === 'number') {
           opts.hidden = true; nf.hidden = false;
           nf.elements.v.value = st.ans[cq.id] != null ? st.ans[cq.id] : '';
@@ -165,11 +187,13 @@ const q0 = diag.questions[0];
           $('[data-q="unit"]').textContent = cq.unit || '';
         } else {
           opts.hidden = false; nf.hidden = true;
+          if (cq.multi) { if (!Array.isArray(st.pick)) st.pick = Array.isArray(st.ans[cq.id]) ? st.ans[cq.id].slice() : []; mn.hidden = false; mn.disabled = !st.pick.length; }
           cq.o.forEach(function (label, i) {
-            var b = el('button', 's231'), sel = st.ans[cq.id] === i;
+            var b = el('button', 's231'), sel = cq.multi ? st.pick.indexOf(i) >= 0 : st.ans[cq.id] === i;
+            if (cq.multi) b.setAttribute('aria-pressed', sel ? 'true' : 'false');
             b.type = 'button'; b.setAttribute('data-opt', i);
             if (sel) { b.style.background = 'rgba(194,135,74,.12)'; b.style.border = '1px solid ' + ACC; }
-            var d = el('span', 's232');
+            var d = el('span', 's232' + (cq.multi ? ' al-check' : ''));
             if (sel) { d.style.borderColor = ACC; d.style.background = ACC; }
             b.appendChild(d); b.appendChild(document.createTextNode(label));
             opts.appendChild(b);
@@ -191,6 +215,7 @@ const q0 = diag.questions[0];
           var pv = $('[data-s="preview"]'); pv.innerHTML = '';
           pv.appendChild(gauges(sc));
           var lv = el('div', 'al-lever'); lever(sc, lv); pv.appendChild(lv);
+          var cmv = el('div'); cmBox(coutMinute(), cmv); pv.appendChild(cmv);
         }
         show('gate');
         return;
@@ -206,6 +231,7 @@ const q0 = diag.questions[0];
         var gw = $('[data-r="gauges"]'); gw.innerHTML = ''; gw.appendChild(gauges(sc));
         lever(sc, $('[data-r="lever"]'));
       }
+      cmBox(coutMinute(), $('[data-r="cm"]'));
       $('[data-r="seg"]').textContent = 'Ton diagnostic · ' + seg.charAt(0) + seg.slice(1).toLowerCase();
       $('[data-r="h"]').textContent = r.h.replace('{fn}', fn);
       $('[data-r="p"]').textContent = r.p;
@@ -221,6 +247,7 @@ const q0 = diag.questions[0];
       show('res');
     }
     function answer(v) {
+      st.pick = null;
       if (!st.started) { st.started = true; dl({ event: 'diag_start' }); }
       st.ans[st.cur] = v;
       // une réponse modifiée peut masquer des questions déjà répondues : on oublie leurs réponses
@@ -231,8 +258,13 @@ const q0 = diag.questions[0];
     }
     document.addEventListener('click', function (e) {
       var o = e.target.closest('[data-opt]');
-      if (o) { answer(+o.getAttribute('data-opt')); return; }
-      if (e.target.closest('[data-q="back"]')) { if (st.hist.length) { st.cur = st.hist.pop(); render(); } return; }
+      if (o) {
+        var i = +o.getAttribute('data-opt'), cq = byId(st.cur);
+        if (cq && cq.multi) { var k = st.pick.indexOf(i); if (k >= 0) st.pick.splice(k, 1); else st.pick.push(i); st.pick.sort(); render(); return; }
+        answer(i); return;
+      }
+      if (e.target.closest('[data-q="multinext"]')) { if (st.pick && st.pick.length) answer(st.pick.slice()); return; }
+      if (e.target.closest('[data-q="back"]')) { if (st.hist.length) { st.cur = st.hist.pop(); st.pick = null; render(); } return; }
       if (e.target.closest('[data-q="restart"]')) { st = { cur: Q[0].id, hist: [], ans: {}, started: false }; render(); }
     });
     $('[data-q="numform"]').addEventListener('submit', function (e) {
@@ -254,13 +286,15 @@ const q0 = diag.questions[0];
       var lead = { fn: st.fn, ln: (f.ln.value || '').trim(), em: (f.em.value || '').trim(), tel: (f.tel.value || '').trim(), seg: seg, contactId: '' };
       var utm = {}; try { utm = JSON.parse(sessionStorage.getItem('al_utm') || '{}'); } catch (err) {}
       var answers = asked().filter(function (q) { return st.ans[q.id] != null; }).map(function (q) {
-        return { q: q.q, a: q.type === 'number' ? st.ans[q.id] + ' ' + (q.unit || '') : q.o[st.ans[q.id]] };
+        var a = st.ans[q.id];
+        return { q: q.q, a: q.type === 'number' ? a + ' ' + (q.unit || '') : Array.isArray(a) ? a.map(function (i) { return q.o[i]; }).join(' + ') : q.o[a] };
       });
       if (sc) {
         answers.push({ q: 'Score', a: sc.total + ' / 100' });
         sc.ps.forEach(function (x) { answers.push({ q: 'Pilier ' + x.p.n, a: x.v + ' / 100' }); });
         answers.push({ q: 'Levier n°1', a: sc.weak.p.n });
       }
+      var cm = coutMinute(); if (cm) answers.push({ q: 'Lecture coût minute', a: cm.l });
       var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
       save();
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.

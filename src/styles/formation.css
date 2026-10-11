@@ -594,3 +594,15 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-lever b{display:block;font-size:18px;color:#E2B47E}
 .al-lever p{margin-top:6px;color:#D8CFC2}
 .al-res-sep{height:1px;background:rgba(248,244,237,.1);margin:44px 0 30px}
+.al-multi-next{margin-top:18px}
+.al-multi-next:disabled{opacity:.4;cursor:not-allowed}
+.s232.al-check{border-radius:4px}
+.al-cm{margin-top:16px;border-radius:10px;padding:16px 20px;border:1px solid rgba(248,244,237,.14);background:#14100D}
+.al-cm-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:baseline}
+.al-cm-top span{font:600 12.5px ui-monospace,Menlo,monospace;color:#9B8F83}
+.al-cm-top b{font-size:16px}
+.al-cm p{margin-top:6px;color:#D8CFC2}
+.al-cm--mid .al-cm-top b{color:#E2B47E}
+.al-cm--low .al-cm-top b{color:#B9B0A4}
+.al-cm--high{border-color:rgba(232,160,143,.45)}
+.al-cm--high .al-cm-top b{color:#E8A08F}
