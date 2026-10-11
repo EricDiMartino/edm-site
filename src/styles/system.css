@@ -7,31 +7,31 @@
 
 /* ---------- TOKENS ---------- */
 :root {
-  --bg: #ffffff;             /* blanc pur — cartes, éléments qui doivent « ressortir » */
-  --shell: #faf8f4;          /* coquille d'œuf très léger — fond de page (chaleur sans jaune) */
+  --bg: #fffdf9;             /* blanc chaud — cartes (valeur maquette) */
+  --shell: #f4efe7;          /* coquille d'œuf, fond de page (valeur maquette) */
   --cream: #f7f3ea;
   --cream-deep: #efe8d8;
-  --ink: #31302e;            /* anthracite (charte) — texte & logo */
-  --muted: #807f70;
-  --olive: #81806c;          /* olive de marque (charte) */
-  --olive-deep: #5e5d4d;
-  --espresso: #2a231d;       /* moment sombre (head spa) */
-  --terracotta: #c25510;     /* terracotta (action) — normal */
-  --terracotta-deep: #b0392a; /* brique — survol */
+  --ink: #2b2723;            /* anthracite chaud — texte & logo (valeur maquette) */
+  --muted: #6a6358;          /* texte secondaire (valeur maquette) */
+  --olive: #7b7960;          /* olive (valeur maquette) */
+  --olive-deep: #55543f;
+  --espresso: #201b16;       /* moment sombre (valeur maquette) */
+  --terracotta: #bd521d;     /* terracotta (action) — valeur maquette */
+  --terracotta-deep: #9c3f13; /* brique — survol (valeur maquette) */
   /* sémantiques (formulaires/messages, charte) */
   --c-success: #6b7a4f; --c-warning: #b8862a; --c-error: #8b3a2e; --c-info: #4a5c66;
-  --line: rgba(38, 38, 31, 0.10);
+  --line: rgba(43, 39, 35, 0.12);
   --line-light: rgba(247, 243, 234, 0.18);
-  /* profondeur — ombres chaudes (élève le rendu, remplace le plat) */
-  --shadow: 24px 30px 60px -36px rgba(43, 30, 20, 0.34);
-  --shadow-sm: 12px 16px 34px -24px rgba(43, 30, 20, 0.28);
+  /* profondeur — ombres chaudes (valeurs maquette) */
+  --shadow: 24px 30px 60px -36px rgba(43, 30, 20, 0.38);
+  --shadow-sm: 12px 16px 34px -24px rgba(43, 30, 20, 0.34);
   --serif: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Poppins", -apple-system, system-ui, sans-serif;
   /* largeurs & rythme */
   --maxw: 1200px;
   --gutter: clamp(1.25rem, 5vw, 4.5rem);   /* marge horizontale de section */
   --section-y: clamp(4rem, 8vw, 7rem);     /* rythme vertical de section */
-  --radius: 12px;
+  --radius: 14px;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --header-h: 4.2rem;        /* hauteur header sticky (hero plein écran) */
   --bp: 820px;               /* breakpoint unique desktop (réf) */
