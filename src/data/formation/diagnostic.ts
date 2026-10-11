@@ -3,7 +3,8 @@
 // Source : atelier « Diagnostic Academy Leader » (artefact claude.ai 4YGbAMJLqCKg2iRHTsiuJ2),
 // version validée par Xavier le 11/10/2026. Pour modifier : retravailler l'atelier, puis régénérer ce fichier.
 // - questions : ordre d'affichage ; showIf = posée seulement si la réponse à la question q est dans `in` (index d'options).
-//   type 'number' = chiffre à saisir (non noté). p + sc = pilier noté et points (0-100) par réponse.
+//   type 'number' = chiffre à saisir (non noté ; thresholds = lecture du coût minute). multi = plusieurs réponses.
+//   p + sc = pilier noté et points (0-100) par réponse.
 // - rules : lues dans l'ordre, la première vraie donne le résultat ; sinon `fallback`.
 // - branch : profil « projet d'ouverture » (textes alternatifs tAlt / txtAlt).
 // ============================================================
@@ -286,8 +287,9 @@ export const diag = {
         ],
         "q": "q1"
       },
-      "sub": "Choisis le plus important.",
-      "type": "choice"
+      "sub": "Plusieurs réponses possibles.",
+      "type": "choice",
+      "multi": true
     },
     {
       "id": "q6",
@@ -328,7 +330,17 @@ export const diag = {
       },
       "sub": "Ton chiffre actuel, même approximatif.",
       "type": "number",
-      "unit": "€ / min"
+      "unit": "€ / min",
+      "thresholds": {
+        "low": 0.6,
+        "high": 1,
+        "lLow": "Entrée de gamme",
+        "tLow": "Ton modèle repose sur le volume : la moindre minute vide au planning se paie directement sur ta marge.",
+        "lMid": "Positionnement qualité",
+        "tMid": "Tes clients paient pour l'exigence : chaque prestation et chaque moment de l'expérience doivent être irréprochables.",
+        "lHigh": "Zone de danger",
+        "tHigh": "Chaque minute te coûte cher. Si tes tarifs ne suivent pas, une partie de tes prestations te fait perdre de l'argent."
+      }
     },
     {
       "id": "qr",
@@ -391,7 +403,7 @@ export const diag = {
         "Quand il y a un souci"
       ],
       "p": "equipe",
-      "q": "Un échange planifié avec tes collaborateurs, ça arrive…",
+      "q": "Un échange planifié avec tes collaborateurs, c'est prévu…",
       "sc": [
         100,
         66,
@@ -426,8 +438,9 @@ export const diag = {
         ],
         "q": "q1"
       },
-      "sub": "",
-      "type": "choice"
+      "sub": "Plusieurs réponses possibles.",
+      "type": "choice",
+      "multi": true
     },
     {
       "id": "q9",
