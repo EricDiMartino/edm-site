@@ -45,7 +45,7 @@ const schema = {
         <div>
           <div class="s12">{hero.eyebrow}</div>
           <h1 class="s13">Diriger un salon de coiffure, <span class="s5">ça s'apprend.</span></h1>
-          <p class="s14">Ouvrir un salon rentable ; Rendre ton salon <b class="s15">capable de tourner sans toi ;</b> Faire monter ton équipe de niveau avec des parcours totalement personnalisés <b>imaginés par des coiffeurs</b> pour des coiffeurs.</p>
+          <p class="s14">Ouvrir un salon rentable ; Rendre ton salon <b class="s15">capable de tourner sans toi ;</b> Former ton équipe avec des parcours totalement personnalisés <b>imaginés par des coiffeurs</b> pour des coiffeurs.</p>
           <div class="s16">
             <a href={hero.cta.href} class="s17"><b class="s18">{hero.cta.label}</b><span class="s19">{hero.cta.sub}</span></a>
           </div>
@@ -77,8 +77,9 @@ const schema = {
         <div class="s28">Trois parcours dédiés</div>
         <h2 class="s34">Des parcours pour <span class="s35"><br />chaque situation.</span></h2>
         <div class="s36">
-          {parcours.map((c) => (
-            <div class="s37">
+          {parcours.map((c, i) => (
+            <div class={`s37 al-card${i === 1 ? ' al-card--dark' : ''}`}>
+              <span class="al-card-n" aria-hidden="true">0{i + 1}</span>
               <div class="s38">{c.sit}</div>
               <h3 class="s39">{c.h}</h3>
               <p class="s40">{c.p}</p>
