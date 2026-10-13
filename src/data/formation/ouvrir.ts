@@ -11,7 +11,7 @@ export const heroClaim = { h: "Tout ce qu'apporte une franchise.", chips: ["0 �
 export const piliers = [
   { k: 'Formation', img: 'pilier-formation-coiffure', alt: 'Eric Di Martino accompagnant une coupe en salon', t: 'La formation au centre', p: 'Chaque collaborateur suit un parcours pensé pour lui.', list: ['Collaborateurs accompagnés', 'Parcours de formation personnalisé', 'Coupe et technique'] },
   { k: 'Fournisseurs', img: 'pilier-fournisseurs-coiffure', alt: 'Produits professionnels de coiffure en salon', big: '-30 %', t: 'Des tarifs négociés', p: "Jusqu'à -30 % grâce aux conditions obtenues avec nos partenaires.", partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
-  { k: 'Communication', img: 'pilier-communication-salon-coiffure', alt: 'Photo de coiffure prise pour les réseaux sociaux du salon', t: 'Ta communication prise en charge', p: "Ton salon est visible avant même d'ouvrir.", list: ['Stratégie de lancement', 'Site internet', 'Réseaux sociaux'] },
+  { k: 'Communication', img: 'pilier-communication-salon-coiffure', alt: 'Eric Di Martino dans son salon de Montbonnot, lors d\'un shooting presse', t: 'Ta communication prise en charge', p: "Ton salon est visible avant même d'ouvrir.", list: ['Stratégie de lancement', 'Site internet', 'Réseaux sociaux'] },
 ];
 
 export const erreur = {
@@ -24,9 +24,9 @@ export const erreur = {
 };
 
 export const gains = {
-  label: 'Ce que tu gagnes',
-  h2a: "Avant même d'ouvrir,",
-  h2b: 'ton projet est bouclé.',
+  label: 'Le financement',
+  h2a: 'Tu arrives à la banque',
+  h2b: 'avec un dossier qui convainc.',
   ouverture: [
     { t: 'Un business plan préparé et précis', p: 'Prévisionnel, coût minute, grille tarifaire : des chiffres solides pour décider, et pour convaincre ta banque.', tags: ['Prévisionnel', 'Coût minute', 'Grille tarifaire'] },
     { t: 'Un concept complet', p: "Ton identité, prête le jour de l'ouverture.", tags: ['Dossier de présentation', 'Dossier bancaire', 'Décoration', 'Plan du salon'] },

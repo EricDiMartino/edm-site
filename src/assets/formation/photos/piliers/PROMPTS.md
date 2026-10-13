@@ -5,4 +5,4 @@ Photos réelles du Drive (dossier « DOSSIER GREENBULL > PHOTO »), même série
 
 - pilier-formation-coiffure.webp : ERIC CONSULT.jpg (Eric en consultation)
 - pilier-fournisseurs-coiffure.webp : PRODUIT.jpg (gamme Eric Di Martino en rayon)
-- pilier-communication-salon-coiffure.webp : ARTICLE.jpg (magazine ouvert sur l'article Eric Di Martino), à recadrer en 4:3 sur le titre de l'article
+- pilier-communication-salon-coiffure.webp : 01_Eric Di Martino - Photo Thierry Chenu.jpg (shooting presse Beaux Quartiers, © Thierry Chenu 2024)
