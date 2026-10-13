@@ -4,7 +4,6 @@
 // Textes du hero / bloc franchise : franchise.ts. SEO / FAQ / appel final : pages.ts.
 // ============================================================
 
-export const heroSub = "Une équipe formée, une communication prise en charge, et tu gardes la liberté de ton concept.";
 /** Phrase-clé du persona, mise en avant sous le titre (13/10/2026). */
 export const heroClaim = { h: "Tout ce qu'apporte une franchise.", chips: ["0 € de droit d'entrée", '0 € de redevance'] };
 
@@ -26,11 +25,9 @@ export const erreur = {
 
 export const gains = {
   label: 'Ce que tu gagnes',
-  h2a: "Le jour de l'ouverture,",
-  h2b: "tu n'as plus qu'à coiffer.",
+  h2a: "Avant même d'ouvrir,",
+  h2b: 'ton projet est bouclé.',
   ouverture: [
-    { t: 'Une communication gérée', p: "Stratégie, site internet et réseaux sociaux : on la prend en charge pour que tes premiers rendez-vous soient pris avant l'ouverture.", tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
-    { t: 'Un plan de formation pour ton équipe', p: 'Un parcours personnalisé pour chaque collaborateur, de la technique à la consultation, construit avec toi.', tags: ['Parcours personnalisé', 'Technique', 'Consultation'] },
     { t: 'Un business plan préparé et précis', p: 'Prévisionnel, coût minute, grille tarifaire : des chiffres solides pour décider, et pour convaincre ta banque.', tags: ['Prévisionnel', 'Coût minute', 'Grille tarifaire'] },
     { t: 'Un concept complet', p: "Ton identité, prête le jour de l'ouverture.", tags: ['Dossier de présentation', 'Dossier bancaire', 'Décoration', 'Plan du salon'] },
     { t: 'Des partenaires financiers', p: 'Banque, comptable, assurance : on te met en lien avec des partenaires de confiance.', tags: ['Banque', 'Comptable', 'Assurance'] },
@@ -93,6 +90,6 @@ export const sim = {
   ],
   gate: { h: "Débloque ton plan d'ouverture", p: "L'équipe à recruter, tes priorités d'accompagnement et ce que tu gagnes avec nous. On t'en envoie aussi une copie.", btn: 'Voir mon plan' },
   /** gain mis en avant selon la priorité n°1 */
-  prioGain: { com: 'Une communication gérée', gestion: 'Un business plan préparé et précis', management: 'Un plan de formation pour ton équipe' },
+  prioGain: { com: 'Ta communication prise en charge', gestion: 'Un business plan préparé et précis', management: 'La formation au centre' },
   cta: { label: 'Réserver mon appel offert', sub: '30 min · avec un associé · sans engagement' },
 };

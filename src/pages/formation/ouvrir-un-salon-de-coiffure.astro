@@ -10,7 +10,7 @@ import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
 import { heroFranchise, franchise } from '../../data/formation/franchise';
-import { heroSub, heroClaim, piliers, gains, engagement, sim } from '../../data/formation/ouvrir';
+import { heroClaim, piliers, gains, engagement, sim } from '../../data/formation/ouvrir';
 import type { ImageMetadata } from 'astro';
 import { orgRef, SITE, url } from '../../data/formation/site';
 // Photos des 3 piliers : src/assets/formation/photos/piliers/{img}.webp (1200×900). Absente = visuel de remplacement.
@@ -37,26 +37,17 @@ const schema = {
 <FormationLayout title={seo.title} description={seo.description}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <main>
-    <section class="s10">
+    <section class="s10 al-hero-ouvrir">
       <div class="s11">
         <div>
           <div class="s12">{heroFranchise.eyebrow}</div>
           <h1 class="s80 al-h1-ouvrir">{heroFranchise.h1a} <span class="s5">{heroFranchise.h1b}</span></h1>
-          <p class="s81">{heroSub}</p>
           <p class="al-claim"><b>{heroClaim.h}</b> <span>{heroClaim.chips.join(' · ')}</span></p>
           <div class="s83">
-            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment</b><span class="s19">2 minutes · réponse immédiate</span></a>
+            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment</b></a>
           </div>
         </div>
         <div class="s86 al-media"><Image src={salonImg} alt="Salon de coiffure Eric Di Martino ouvert en février 2026, place Victor Hugo à Grenoble" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" /></div>
-      </div>
-      <div class="s21">
-        <div class="s87">
-            <div class="s88"><div class="s89">4</div><div class="s25">salons ouverts pour nous-mêmes</div></div>
-            <div class="s88"><div class="s89">90 → 600 K€</div><div class="s25">taille des projets menés</div></div>
-            <div class="s88"><div class="s89">24 mois</div><div class="s25">de suivi + outils et formations offerts</div></div>
-            <div class="s88"><div class="s89">0 €</div><div class="s25">de droit d'entrée et de redevance</div></div>
-        </div>
       </div>
     </section>
     <section id="franchise" class="al-fr">
@@ -191,7 +182,7 @@ const schema = {
         </div>
       </div>
     </section>
-    <script is:inline define:vars={{ SIM: sim, GAINS: gains.ouverture }}>
+    <script is:inline define:vars={{ SIM: sim, GAINS: [...gains.ouverture, ...piliers] }}>
       (function () {
         var Q = SIM.questions, root = document.querySelector('[data-sim]');
         var $ = function (k) { return root.querySelector('[data-sim="' + k + '"]'); };
