@@ -12,6 +12,14 @@ export const ouvrirSeo = {
 };
 export const ouvrirFaq: Qa[] = [
   {
+    "q": "Quelles sont les 7 étapes pour ouvrir un salon de coiffure rentable ?",
+    "a": "Étapes 1 et 2 : savoir si le projet tient debout, avec l'étude de zone et le coût minute. Étapes 3 et 4 : écrire ton concept et dessiner tes murs, du positionnement à la grille tarifaire et à l'agencement. Étapes 5 et 6 : choisir tes partenaires et monter ton équipe. Étape 7 : ouvrir avec des plannings remplis, puis deux ans de suivi pour corriger les écarts."
+  },
+  {
+    "q": "Quelles erreurs coûtent le plus cher à l'ouverture d'un salon de coiffure ?",
+    "a": "Le positionnement tarifaire, le recrutement, l'agencement, les travaux, la négociation, la localisation. Aucune de ces décisions ne relève de la coiffure : toutes se prennent avant d'ouvrir, et tu les paies ensuite pendant des années. Un exemple : 5 € d'écart de prix sur une prestation faite 200 fois par mois, c'est 12 000 € de manque à gagner chaque année. C'est pour ça qu'on intervient au démarrage du projet, et pas à l'ouverture."
+  },
+  {
     "q": "Franchise ou salon indépendant : que choisir pour ouvrir un salon de coiffure ?",
     "a": "Une franchise t'apporte une marque connue, en échange d'un droit d'entrée, d'une redevance sur ton chiffre d'affaires et d'un concept imposé. En indépendant, tu gardes ta marge et ta liberté, mais tu dois tout construire : c'est là qu'on intervient, avec 7 étapes menées avec toi et 24 mois de suivi."
   },
@@ -39,9 +47,9 @@ export const ouvrirFaq: Qa[] = [
 export const ouvrirFin: FinalCta = { ...{
   "label": "Avant de signer quoi que ce soit",
   "h": "Parle-nous avant, pas après.",
-  "p": "Franchise ou indépendant, on te dit où tu en es sur les 7 étapes et ce qu'il faut avoir calculé avant la banque. 1 nouveau projet par mois.",
+  "p": "Franchise ou indépendant, on te dit ce que ton projet peut te rapporter et ce qu'il faut avoir calculé avant la banque. 1 nouveau projet par mois.",
   "cta": "Découvre si c'est le bon moment pour ouvrir",
-  "sub": "2 minutes · réponse immédiate"
+  "sub": "2 minutes de diagnostic, puis 30 minutes d'appel offert avec un associé"
 }, href: url.diagnostic };
 
 export const accSeo = {

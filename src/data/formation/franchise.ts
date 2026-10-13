@@ -6,9 +6,9 @@
 // ============================================================
 
 export const heroFranchise = {
-  // Hero retenu : proposition 3 du canevas (« Sans être seul »), retouchée par Xavier le 02/10/2026.
+  // Hero retenu : proposition 3 du canevas (« Sans être seul »), retouchée par Xavier le 02/10 puis le 13/10/2026.
   eyebrow: "Accompagnement à l'ouverture · 1 projet par mois",
-  h1a: 'Ouvrir ton salon de coiffure rentable,',
+  h1a: 'Ouvrir ton salon de coiffure,',
   h1b: 'sans être seul.',
 };
 
@@ -39,5 +39,5 @@ export const franchise = {
     h: 'Tu veux une marque connue dès l\'ouverture ?',
     p: "Si c'est ce qui compte le plus pour ton projet, nous pouvons te proposer une solution. Pour être sûr(e) de faire le bon choix, réserve un créneau dans notre agenda : on étudiera ça avec toi, et c'est évidemment offert.",
   },
-  cta: { label: 'Franchise ou indépendant : fais le diagnostic', sub: '2 minutes · réponse immédiate' },
+  cta: { label: 'Découvre si tu es éligible', sub: '2 minutes · réponse immédiate' },
 };
