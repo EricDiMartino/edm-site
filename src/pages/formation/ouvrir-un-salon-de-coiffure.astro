@@ -10,7 +10,7 @@ import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
 import { heroFranchise, franchise } from '../../data/formation/franchise';
-import { url } from '../../data/formation/site';
+import { heroSub, erreur, gains, engagement, sim } from '../../data/formation/ouvrir';
 import { orgRef, SITE, url } from '../../data/formation/site';
 
 // JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
@@ -38,7 +38,7 @@ const schema = {
         <div>
           <div class="s12">{heroFranchise.eyebrow}</div>
           <h1 class="s80 al-h1-ouvrir">{heroFranchise.h1a} <span class="s5">{heroFranchise.h1b}</span></h1>
-          <p class="s81">7 étapes menées avec toi, 24 mois de suivi, les partenariats de 4 salons en exploitation. Tout ce qu'on cherche dans une franchise, <b>sans droit d'entrée ni redevance.</b></p>
+          <p class="s81" set:html={heroSub} />
           <div class="s83">
             <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment</b><span class="s19">2 minutes · réponse immédiate</span></a>
           </div>
@@ -52,32 +52,6 @@ const schema = {
             <div class="s88"><div class="s89">24 mois</div><div class="s25">de suivi + outils et formations offerts</div></div>
             <div class="s88"><div class="s89">0 €</div><div class="s25">de droit d'entrée et de redevance</div></div>
         </div>
-      </div>
-    </section>
-    <section class="s59">
-      <div class="s90">
-        <div>
-          <div class="s28">Ce que coûte une erreur</div>
-          <h2 class="s91">Chaque mauvais choix <span class="s35">se paye pendant 7 ans.</span></h2>
-          <p class="s92">Le positionnement tarifaire. Le recrutement. L'agencement. Les travaux. La négociation. La localisation. <br>Aucune de ces décisions ne relève de la coiffure. Toutes se prennent avant d'ouvrir, et tu les paies ensuite pendant toute la durée de ton bail.</p>
-          <p class="s93">C'est pour ça qu'on intervient au démarrage du projet, et pas à l'ouverture.</p>
-        </div>
-        <div class="s94">
-          <div class="s95">Exemple · <span class="s96" data-err="titre">un prix mal posé sur 1 prestation</span></div>
-          <div class="s97">
-            <div class="s98"><span>Écart de prix</span><b class="s15">− 5 €</b></div>
-            <div class="s98"><span>Prestations concernées / mois</span><b class="s15">200</b></div>
-            <div class="s98"><span>Prestations mal tarifées</span><b class="s15" data-err="n">1</b></div>
-            <div class="al-err-pills" role="group" aria-label="Nombre de prestations mal tarifées">
-              {[1, 2, 3, 4, 5].map((n) => <button type="button" class={n === 1 ? 's204' : 's205'} data-err-n={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
-            </div>
-            <div class="s99"><span>Manque à gagner / an</span><b class="s100" data-err="an">12 000 €</b></div>
-            <div class="s98"><span>Sur un bail de 9 ans</span><b class="s100" data-err="bail">108 000 €</b></div>
-            <p class="al-err-note">Et ça, c'est <b>une seule erreur</b>, sur <b>une seule des 7 étapes</b>.</p>
-          </div>
-        </div>
-      </div>
-      <div class="s33">
       </div>
     </section>
     <section id="franchise" class="al-fr">
@@ -110,6 +84,292 @@ const schema = {
         <a href={url.diagnostic} class="s84 al-fr-cta"><b class="s18">{franchise.cta.label}</b><span class="s19">{franchise.cta.sub}</span></a>
       </div>
     </section>
+    <section class="s59">
+      <div class="s90">
+        <div>
+          <div class="s28">{erreur.label}</div>
+          <h2 class="s91">{erreur.h2a} <span class="s35">{erreur.h2b}</span></h2>
+          <p class="s92">{erreur.p}</p>
+          <p class="s93">{erreur.fin}</p>
+        </div>
+        <div class="s94">
+          <div class="s95">Exemple · <span class="s96" data-err="titre">un prix mal posé sur 1 prestation</span></div>
+          <div class="s97">
+            <div class="s98"><span>Écart de prix</span><b class="s15">− 5 €</b></div>
+            <div class="s98"><span>Prestations concernées / mois</span><b class="s15">200</b></div>
+            <div class="s98"><span>Prestations mal tarifées</span><b class="s15" data-err="n">1</b></div>
+            <div class="al-err-pills" role="group" aria-label="Nombre de prestations mal tarifées">
+              {[1, 2, 3, 4, 5].map((n) => <button type="button" class={n === 1 ? 's204' : 's205'} data-err-n={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
+            </div>
+            <div class="s99"><span>Manque à gagner / an</span><b class="s100" data-err="an">12 000 €</b></div>
+            <div class="s98"><span>Sur {erreur.annees} ans</span><b class="s100" data-err="bail">{(5 * 200 * 12 * erreur.annees).toLocaleString('fr-FR')} €</b></div>
+            <p class="al-err-note">Et ça, c'est <b>une seule erreur</b>, sur <b>une seule des 7 étapes</b>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="s46 al-gains">
+      <div class="s33">
+        <div class="s47">{gains.label}</div>
+        <h2 class="s34">{gains.h2a} <span class="s5"><br />{gains.h2b}</span></h2>
+        <div class="al-gains-grid">
+          {gains.ouverture.map((g, i) => (
+            <div class={`al-gain${i === 0 ? ' al-gain--lead' : ''}`}>
+              <span class="al-gain-n" aria-hidden="true">0{i + 1}</span>
+              <h3>{g.t}</h3>
+              <p>{g.p}</p>
+              {g.tags.length > 0 && <div class="al-gain-tags">{g.tags.map((t) => <span>{t}</span>)}</div>}
+            </div>
+          ))}
+        </div>
+        <div class="al-2ans">
+          <div class="al-2ans-label"><b>{gains.deuxAnsLabel}</b><span>après l'ouverture</span></div>
+          <div class="al-2ans-grid">
+            {gains.deuxAns.map((g) => <div><h3>{g.t}</h3><p>{g.p}</p></div>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="s59 al-engage">
+      <div class="s33">
+        <div class="al-engage-grid">
+          <div class="al-engage-card">
+            <div class="s28">{engagement.label}</div>
+            <h2 class="al-engage-h">{engagement.h}</h2>
+            <p>{engagement.p}</p>
+            <small>{engagement.fine} · <a href="/formation/cgv">CGV, art. 11 bis</a>.</small>
+          </div>
+          <div class="al-proof">
+            <div class="al-proof-img al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900]} sizes="(max-width: 900px) 100vw, 480px" /></div>
+            <div class="s28">{engagement.preuveLabel}</div>
+            <div class="al-proof-big">{engagement.preuveChiffre}</div>
+            <p>{engagement.preuveTexte}</p>
+            <small>{engagement.preuveFine}</small>
+          </div>
+        </div>
+        <form class="s117 al-plaquette" data-plaquette>
+          <div class="s118">PDF</div>
+          <div class="s119"><b class="s43">{engagement.plaquette.h}</b><p class="s120">{engagement.plaquette.p}</p></div>
+          <div class="s121 al-plaquette-f" data-plaquette-f>
+            <input name="fn" placeholder="ton prénom" autocomplete="given-name" class="s122" required />
+            <input name="em" type="email" placeholder="ton email" autocomplete="email" class="s122" required />
+            <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+            <button type="submit" class="s123">{engagement.plaquette.btn}</button>
+          </div>
+          <a class="s123 al-plaquette-dl" href={engagement.plaquette.file} download data-plaquette-dl hidden>Télécharger la plaquette (PDF)</a>
+        </form>
+      </div>
+    </section>
+
+    <section id="simulateur" class="s59 al-sim-sec">
+      <div class="s33">
+        <div class="s28">{sim.label}</div>
+        <h2 class="s34">{sim.h2a} <span class="s111">{sim.h2b}</span></h2>
+        <p class="al-sim-intro">{sim.intro}</p>
+        <div class="al-sim" data-sim>
+          <div class="al-sim-top"><span data-sim="count">Question 1</span><div class="al-sim-bar"><i data-sim="bar"></i></div></div>
+          <div data-sim-screen="q">
+            <h3 class="al-sim-q" data-sim="q">{sim.questions[0].q}</h3>
+            <div class="al-sim-opts" data-sim="opts"></div>
+            <div class="al-sim-scales" data-sim="scales" hidden></div>
+            <button type="button" class="al-btn al-sim-next" data-sim="next" hidden>Continuer</button>
+            <button type="button" class="al-back" data-sim="back" hidden>← Question précédente</button>
+          </div>
+          <div data-sim-screen="gate" hidden>
+            <div class="s227">{sim.scoreTitle}</div>
+            <div class="al-score-n"><b data-sim="n"></b><span>sur 100</span></div>
+            <p class="al-score-emo" data-sim="emo"></p>
+            <div class="al-blur" aria-hidden="true">
+              <div class="al-blur-in" data-sim="preview"></div>
+              <div class="al-blur-lock">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+                <b>Ton plan est prêt</b><span>Piliers, équipe, priorités et gains</span>
+              </div>
+            </div>
+            <form data-sim="gate">
+              <h3 class="al-sim-gate-h">{sim.gate.h}</h3>
+              <p class="s229">{sim.gate.p}</p>
+              <div class="al-fields">
+                <label class="al-field">Prénom<input name="fn" autocomplete="given-name" placeholder="Camille" required /></label>
+                <label class="al-field">Nom<input name="ln" autocomplete="family-name" placeholder="Martin" required /></label>
+                <label class="al-field">Email<input name="em" type="email" autocomplete="email" placeholder="camille@monprojet.fr" required /></label>
+                <label class="al-field">Téléphone <small>uniquement pour le rappel SMS si tu réserves un appel</small><input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
+                <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+              </div>
+              <button type="submit" class="al-btn">{sim.gate.btn}</button>
+              <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+            </form>
+            <button type="button" class="al-back" data-sim="back2">← Question précédente</button>
+          </div>
+          <div data-sim-screen="res" hidden>
+            <div class="s227">{sim.scoreTitle}</div>
+            <div class="al-score-n al-score-n--sm"><b data-sim="n2"></b><span>sur 100</span></div>
+            <div data-sim="gauges"></div>
+            <div class="al-lever" data-sim="lever"></div>
+            <h3 class="al-sim-plan-h" data-sim="planh"></h3>
+            <div class="al-plan" data-sim="plan"></div>
+            <a class="al-res-cta" href="/formation/reserver"><b>{sim.cta.label}</b><span>{sim.cta.sub}</span></a>
+            <button type="button" class="al-back" data-sim="restart">Refaire le simulateur</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script is:inline define:vars={{ SIM: sim, GAINS: gains.ouverture }}>
+      (function () {
+        var Q = SIM.questions, root = document.querySelector('[data-sim]');
+        var $ = function (k) { return root.querySelector('[data-sim="' + k + '"]'); };
+        var dl = function (o) { (window.dataLayer = window.dataLayer || []).push(o); };
+        var st = { cur: Q[0].id, hist: [], ans: {}, started: false };
+        var byId = function (id) { return Q.find(function (q) { return q.id === id; }); };
+        var visible = function (q) { return !q.showIf || (st.ans[q.showIf.q] != null && q.showIf.in.indexOf(st.ans[q.showIf.q]) >= 0); };
+        var asked = function () { return Q.filter(visible); };
+        function nextId(id) { var i = Q.findIndex(function (q) { return q.id === id; }); for (var k = i + 1; k < Q.length; k++) if (visible(Q[k])) return Q[k].id; return 'gate'; }
+        function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+        function score() {
+          var acc = {}; SIM.pillars.forEach(function (p) { acc[p.k] = [0, 0]; });
+          Q.forEach(function (q) { if (q.p && visible(q) && st.ans[q.id] != null) { acc[q.p][0] += q.sc[st.ans[q.id]]; acc[q.p][1]++; } });
+          var ps = SIM.pillars.filter(function (p) { return acc[p.k][1]; }).map(function (p) { return { p: p, v: Math.round(acc[p.k][0] / acc[p.k][1]) }; });
+          var total = Math.round(ps.reduce(function (s, x) { return s + x.v; }, 0) / ps.length);
+          var weak = ps.reduce(function (m, x) { return x.v < m.v ? x : m; }, ps[0]);
+          var band = SIM.bands.find(function (b) { return total < b.max; });
+          return { total: total, ps: ps, weak: weak, phrase: band.t };
+        }
+        var level = function (v) { return v >= 75 ? 'Solide' : v >= 40 ? 'En construction' : 'À travailler'; };
+        function gauges(sc) {
+          var box = el('div', 'al-gauges');
+          sc.ps.forEach(function (x) {
+            var row = el('div'), top = el('div', 'al-gauge-top'), tr = el('div', 'al-track'), bar = el('i', x === sc.weak ? 'weak' : '');
+            top.appendChild(el('b', null, x.p.n)); top.appendChild(el('span', null, level(x.v)));
+            tr.setAttribute('role', 'img'); tr.setAttribute('aria-label', x.p.n + ' : ' + x.v + ' sur 100');
+            bar.style.width = Math.max(x.v, 4) + '%'; tr.appendChild(bar); row.appendChild(top); row.appendChild(tr); box.appendChild(row);
+          });
+          return box;
+        }
+        function lever(sc, t) { t.innerHTML = ''; t.hidden = sc.weak.v >= 75; t.appendChild(el('b', null, sc.weak.p.lever)); t.appendChild(el('p', null, sc.weak.p.txt)); }
+        function plan(target) {
+          target.innerHTML = '';
+          var a = st.ans, q = function (id) { return byId(id); };
+          var card = function (k, h, p) { var c = el('div', 'al-plan-c'); c.appendChild(el('div', 'al-plan-k', k)); c.appendChild(el('b', null, h)); if (p) c.appendChild(el('p', null, p)); target.appendChild(c); };
+          // Équipe
+          if (a.s5 === 0) card('Ton équipe', 'Tu démarres seul', 'On prépare avec toi ton premier recrutement, au bon moment.');
+          else card('Ton équipe', q('s5').o[a.s5] + ' collaborateurs à recruter et former', a.s6 === 0 ? 'Déjà trouvés : on les forme à nos méthodes avant l\'ouverture.' : a.s6 === 1 ? 'Une partie est trouvée : on recrute le reste avec toi.' : 'On recrute avec toi, puis on les forme avant l\'ouverture.');
+          // Priorités
+          var sc = a.s7 || {}, list = q('s7').scales.slice().sort(function (x, y) { return (sc[y.k] || 0) - (sc[x.k] || 0); });
+          card('Tes priorités d\'accompagnement', list.map(function (x, i) { return (i + 1) + '. ' + x.l + ' (' + (sc[x.k] || 0) + '/10)'; }).join('  ·  '), null);
+          // Objectif
+          card('Ton objectif', q('s8').o[a.s8] + ' au fauteuil par semaine · ' + q('s9').o[a.s9] + ' salon' + (a.s9 > 0 ? 's' : '') + ' à terme', a.s8 >= 2 ? 'Un salon qui tourne sans toi au fauteuil : on le construit dès l\'ouverture.' : null);
+          // Gain mis en avant
+          var g = GAINS.find(function (x) { return x.t === SIM.prioGain[list[0].k]; });
+          if (g) card('Ce que tu gagnes en priorité', g.t, g.p);
+          if (a.s2 === 1) { var c = el('div', 'al-plan-c'); c.appendChild(el('div', 'al-plan-k', 'Tu regardais une franchise')); var l = el('a', null, 'Compare point par point : franchise ou indépendant →'); l.href = '#franchise'; c.appendChild(l); target.appendChild(c); }
+        }
+        function show(k) { ['q', 'gate', 'res'].forEach(function (s) { root.querySelector('[data-sim-screen="' + s + '"]').hidden = s !== k; }); }
+        function render() {
+          var list = asked(), n = list.length;
+          if (st.cur === 'gate' || st.cur === 'res') {
+            var sc = score();
+            $('count').textContent = st.cur === 'gate' ? 'Ton score' : 'Ton plan';
+            $('bar').style.width = st.cur === 'gate' ? Math.round(n / (n + 1) * 100) + '%' : '100%';
+            if (st.cur === 'gate') {
+              $('n').textContent = sc.total; $('emo').textContent = sc.phrase;
+              var pv = $('preview'); pv.innerHTML = ''; pv.appendChild(gauges(sc));
+              var lv = el('div', 'al-lever'); lever(sc, lv); pv.appendChild(lv);
+              show('gate');
+            } else {
+              $('n2').textContent = sc.total;
+              var g = $('gauges'); g.innerHTML = ''; g.appendChild(gauges(sc));
+              lever(sc, $('lever'));
+              $('planh').textContent = (st.fn ? st.fn + ', voici' : 'Voici') + ' ton plan d\'ouverture';
+              plan($('plan'));
+              show('res');
+            }
+            return;
+          }
+          var cq = byId(st.cur), idx = list.indexOf(cq);
+          $('count').textContent = 'Question ' + (idx + 1);
+          $('bar').style.width = Math.round(idx / (n + 1) * 100) + '%';
+          $('q').textContent = cq.q;
+          var opts = $('opts'), scales = $('scales'), next = $('next');
+          opts.innerHTML = ''; scales.innerHTML = '';
+          if (cq.type === 'scales') {
+            opts.hidden = true; scales.hidden = false; next.hidden = false;
+            var cur = st.pick || (st.pick = Object.assign({}, st.ans[cq.id] || {}));
+            cq.scales.forEach(function (s) {
+              var row = el('div', 'al-scale'), lab = el('div', 'al-scale-l', s.l), dots = el('div', 'al-scale-dots');
+              dots.setAttribute('role', 'radiogroup'); dots.setAttribute('aria-label', s.l);
+              for (var v = 1; v <= 10; v++) {
+                var b = el('button', 'al-scale-b' + (cur[s.k] === v ? ' on' : ''), String(v));
+                b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', String(cur[s.k] === v));
+                b.setAttribute('data-scale', s.k); b.setAttribute('data-v', v); dots.appendChild(b);
+              }
+              row.appendChild(lab); row.appendChild(dots); scales.appendChild(row);
+            });
+            next.disabled = cq.scales.some(function (s) { return !cur[s.k]; });
+          } else {
+            opts.hidden = false; scales.hidden = true; next.hidden = true;
+            cq.o.forEach(function (label, i) {
+              var b = el('button', 's231' + (st.ans[cq.id] === i ? ' al-on' : '')); b.type = 'button'; b.setAttribute('data-sim-opt', i);
+              b.appendChild(el('span', 's232')); b.appendChild(document.createTextNode(label)); opts.appendChild(b);
+            });
+          }
+          $('back').hidden = !st.hist.length;
+          show('q');
+        }
+        function answer(v) {
+          if (!st.started) { st.started = true; dl({ event: 'sim_start' }); }
+          st.ans[st.cur] = v; st.pick = null;
+          Q.forEach(function (q) { if (!visible(q)) delete st.ans[q.id]; });
+          st.hist.push(st.cur); st.cur = nextId(st.cur); render();
+        }
+        root.addEventListener('click', function (e) {
+          var o = e.target.closest('[data-sim-opt]'); if (o) { answer(+o.getAttribute('data-sim-opt')); return; }
+          var sb = e.target.closest('[data-scale]'); if (sb) { st.pick[sb.getAttribute('data-scale')] = +sb.getAttribute('data-v'); render(); return; }
+          if (e.target.closest('[data-sim="next"]')) { answer(Object.assign({}, st.pick)); return; }
+          if (e.target.closest('[data-sim="back"]') || e.target.closest('[data-sim="back2"]')) { if (st.hist.length) { st.cur = st.hist.pop(); st.pick = null; render(); } return; }
+          if (e.target.closest('[data-sim="restart"]')) { st = { cur: Q[0].id, hist: [], ans: {}, started: false }; render(); }
+        });
+        $('gate').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var f = this.elements, sc = score();
+          st.fn = (f.fn.value || '').trim();
+          var lead = { fn: st.fn, ln: (f.ln.value || '').trim(), em: (f.em.value || '').trim(), tel: (f.tel.value || '').trim(), seg: 'OUVERTURE', contactId: '' };
+          var utm = {}; try { utm = JSON.parse(sessionStorage.getItem('al_utm') || '{}'); } catch (err) {}
+          var answers = [{ q: 'Origine', a: 'Simulateur page Ouvrir un salon' }];
+          asked().forEach(function (q) {
+            var a = st.ans[q.id]; if (a == null) return;
+            answers.push({ q: q.q, a: q.type === 'scales' ? q.scales.map(function (s) { return s.l + ' ' + a[s.k] + '/10'; }).join(' · ') : q.o[a] });
+          });
+          answers.push({ q: 'Score', a: sc.total + ' / 100' });
+          sc.ps.forEach(function (x) { answers.push({ q: 'Pilier ' + x.p.n, a: x.v + ' / 100' }); });
+          var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
+          save();
+          fetch('/api/formation/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: 'OUVERTURE', answers: answers, utm: utm, page: location.href, website: f.website.value })
+          }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
+          dl({ event: 'lead_submit', form: 'simulateur-ouverture', segment: 'OUVERTURE' });
+          dl({ event: 'sim_complete', score: sc.total });
+          st.hist.push('gate'); st.cur = 'res'; render();
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        render();
+      })();
+      // Plaquette : prénom + email (envoyés à GoHighLevel), puis lien de téléchargement
+      (function () {
+        var f = document.querySelector('[data-plaquette]'); if (!f) return;
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var x = f.elements;
+          fetch('/api/formation/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fn: x.fn.value.trim(), em: x.em.value.trim(), segment: 'PLAQUETTE', answers: [{ q: 'Demande', a: 'Plaquette ouverture de salon' }], page: location.href, website: x.website.value })
+          }).catch(function () {});
+          (window.dataLayer = window.dataLayer || []).push({ event: 'lead_submit', form: 'plaquette-ouverture' });
+          f.querySelector('[data-plaquette-f]').hidden = true;
+          var dlk = f.querySelector('[data-plaquette-dl]'); dlk.hidden = false; dlk.click();
+        });
+      })();
+    </script>
+
     <section class="s46">
       <div class="s33">
         <div class="s47">C'est pour qui</div>
@@ -130,84 +390,9 @@ const schema = {
         </div>
       </div>
     </section>
-    <section class="s59">
-      <div class="s33">
-        <div class="s28">Les 7 étapes</div>
-        <h2 class="s34">Un projet rentable se construit <br><span class="s111">dans un ordre précis.</span></h2>
-        <div class="s112">
-            <div class="s113">
-              <div class="s114">Étapes 1 · 2</div>
-              <div><h3 class="s115">Savoir si le projet tient debout</h3><p class="s116">Ce que ta zone absorbe vraiment, et ce que chaque prestation te laissera à la minute. Calculé et analysé avant de décider.</p></div>
-            </div>
-            <div class="s113">
-              <div class="s114">Étapes 3 · 4</div>
-              <div><h3 class="s115">Écrire ton concept, dessiner tes murs</h3><p class="s116">Positionnement, grille tarifaire et agencement se décident avant l'ouverture. Pas une fois les équipes en place. C'est ce trio qui fixe ta marge pour toute la durée du bail.</p></div>
-            </div>
-            <div class="s113">
-              <div class="s114">Étapes 5 · 6</div>
-              <div><h3 class="s115">Choisir tes partenaires, monter ton équipe</h3><p class="s116">Conditions fournisseur et première embauche, on négocie avec toi au moment où tu as le moins de pouvoir de négociation.</p></div>
-            </div>
-            <div class="s113">
-              <div class="s114">Étape 7 · après</div>
-              <div><h3 class="s115">Ouvrir avec des plannings remplis et un résultat garanti</h3><p class="s116">Des clients le premier jour. Six mois de correction des écarts, et on reste avec toi les deux premières années pour garantir tes résultats</p></div>
-            </div>
-        </div>
-        <div class="s117">
-          <div class="s118">PDF</div>
-          <div class="s119"><b class="s43">Les 7 étapes d'une ouverture rentable</b><p class="s120">Découvre notre mini-guide pour accompagner chaque décision, ce qu'on regarde, et les pièges dans lesquels tombent la plupart des projets.</p></div>
-          <div class="s121"><input placeholder="ton email" class="s122"><a data-todo="pdf" class="s123">Recevoir le PDF</a></div>
-        </div>
-      </div>
-    </section>
-    <section class="s46">
-      <div class="s124">
-        <div>
-          <div class="s47">La preuve</div>
-          <h2 class="s60">Notre dernier projet personnel : <span class="s125">Février 2026.</span></h2>
-          <p class="s126">200 m² place Victor Hugo, à Grenoble, un salon de coiffure avec un Head Spa, Espace Barbier et Complément capillaire. Le quatrième salon du groupe. C'est le déroulé de cette page, appliqué avec notre propre argent.</p>
-          <h3 class="s127">On reste avec toi 24 mois.</h3>
-          <p class="s128">Pendant les 24 mois qui suivent ton ouverture, tes choix et tes analyses sont pris en charge. Un devis à arbitrer, une embauche à décider, un prix à revoir : tu nous appelles, on regarde ensemble. <b class="s15">Et tous nos outils et notre bibliothèque de formation te sont offerts pendant ces 24 mois.</b></p>
-          <div class="s129">
-            <span class="s130">Schwarzkopf</span><span class="s130">Mizutani</span><span class="s130">ghd</span><span class="s130">Planity</span>
-          </div>
-        </div>
-        <div class="s131">
-          <div class="s132 al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900, 1400]} sizes="(max-width: 900px) 100vw, 560px" /></div>
-          <div class="s133">
-            <div class="s134">ÉTUDE DE CAS · OUVERTURE GRENOBLE</div>
-            <div><b class="s82">Avant.</b>&nbsp;Salon de 180 m² et 180K</div>
-            <div><b class="s82">Budget.</b>&nbsp;Achat + Travaux : 240K</div>
-            <div><b class="s82">Point à date.</b>&nbsp; Projection fin de première année : 340K</div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="s59">
-      <div class="s33">
-        <div class="s28">Comment ça se passe</div>
-        <h2 class="s34">Parle-nous <span class="s111">avant</span> de signer, <br>pas après.</h2>
-        <div class="s135">
-            <div class="s136">
-              <div class="s137"><span>01</span><span>2 min</span></div>
-              <h3 class="s138">Le diagnostic en ligne</h3>
-              <p class="s139">Neuf questions sur ton projet. Tu sais tout de suite si c'est le bon moment.</p>
-            </div>
-            <div class="s136">
-              <div class="s137"><span>02</span><span>30 min</span></div>
-              <h3 class="s138">On regarde tes chiffres</h3>
-              <p class="s139">Zone, budget, local éventuel. On te dit où tu en es sur les 7 étapes et on te donne le montant.</p>
-            </div>
-            <div class="s136">
-              <div class="s137"><span>03</span><span>offert</span></div>
-              <h3 class="s138">Tu repars avec ta liste</h3>
-              <p class="s139">Ce qu'il faut avoir calculé avant la banque. Même si tu ne travailles pas avec nous.</p>
-            </div>
-        </div>
-      </div>
-    </section>
   </main>
   <script is:inline>
-    // Exemple « prix mal posé » : 5 € d'écart × 200 prestations/mois × 12 mois × N prestations mal tarifées (× 9 ans de bail)
+    // Exemple « prix mal posé » : 5 € d'écart × 200 prestations/mois × 12 mois × N prestations mal tarifées (× 7 ans)
     (function () {
       var eur = function (v) { return Math.round(v).toLocaleString('fr-FR') + ' €'; };
       document.addEventListener('click', function (e) {
@@ -217,7 +402,7 @@ const schema = {
         document.querySelector('[data-err="n"]').textContent = String(n);
         document.querySelector('[data-err="titre"]').textContent = 'un prix mal posé sur ' + n + ' prestation' + (n > 1 ? 's' : '');
         document.querySelector('[data-err="an"]').textContent = eur(5 * 200 * 12 * n);
-        document.querySelector('[data-err="bail"]').textContent = eur(5 * 200 * 12 * 9 * n);
+        document.querySelector('[data-err="bail"]').textContent = eur(5 * 200 * 12 * 7 * n);
       });
     })();
   </script>
