@@ -10,9 +10,9 @@ export const heroClaim = { h: "Tout ce qu'apporte une franchise.", chips: ["0 �
 
 /** Bloc « Franchise ou indépendant » : 3 piliers (remplace colonnes + comparatif, 13/10/2026). */
 export const piliers = [
-  { k: 'Formation', img: 'pilier-formation-coiffure', alt: 'Eric Di Martino accompagnant une coupe en salon', t: 'La formation au centre', p: 'Des collaborateurs accompagnés, un parcours de formation personnalisé pour chacun, de la coupe à la technique.', tags: ['Accompagnement des collaborateurs', 'Parcours personnalisé', 'Coupe et technique'] },
-  { k: 'Fournisseurs', img: 'pilier-fournisseurs-coiffure', alt: 'Produits professionnels de coiffure en salon', t: "Jusqu'à -30 % chez nos fournisseurs", p: 'Tu profites des conditions négociées avec nos partenaires.', partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
-  { k: 'Communication', img: 'pilier-communication-salon-coiffure', alt: 'Photo de coiffure prise pour les réseaux sociaux du salon', t: 'Ta communication prise en charge', p: 'Stratégie, site internet et réseaux sociaux : ton salon est visible avant même d\'ouvrir.', tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
+  { k: 'Formation', img: 'pilier-formation-coiffure', alt: 'Eric Di Martino accompagnant une coupe en salon', t: 'La formation au centre', p: 'Chaque collaborateur suit un parcours pensé pour lui.', list: ['Collaborateurs accompagnés', 'Parcours de formation personnalisé', 'Coupe et technique'] },
+  { k: 'Fournisseurs', img: 'pilier-fournisseurs-coiffure', alt: 'Produits professionnels de coiffure en salon', big: '-30 %', t: 'Des tarifs négociés', p: "Jusqu'à -30 % grâce aux conditions obtenues avec nos partenaires.", partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
+  { k: 'Communication', img: 'pilier-communication-salon-coiffure', alt: 'Photo de coiffure prise pour les réseaux sociaux du salon', t: 'Ta communication prise en charge', p: "Ton salon est visible avant même d'ouvrir.", list: ['Stratégie de lancement', 'Site internet', 'Réseaux sociaux'] },
 ];
 
 export const erreur = {
@@ -48,7 +48,7 @@ export const engagement = {
   h: 'Une garantie de résultat sur tes deux premières années.',
   p: "Au démarrage, on s'engage par écrit sur un objectif de résultat pour tes deux premières années. Si tu as appliqué toutes nos recommandations et qu'il n'est pas atteint, la garantie s'applique.",
   fine: "Modalités fixées dans ta convention d'accompagnement",
-  preuveTitre: 'Notre dernière ouverture : de 180 K€ à 340 K€',
+  preuveTitre: ['Notre dernière ouverture', 'de 180 K€ à 340 K€'],
   preuveSous: 'Grenoble, février 2026',
   preuveTexte: "200 m² place Victor Hugo, avec Head Spa et espace barbier : 180 000 € de chiffre d'affaires avant reprise, 340 000 € projetés en fin de première année.",
   preuveFine: '340 000 € : projection à date.',
