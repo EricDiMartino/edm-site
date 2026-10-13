@@ -10,8 +10,12 @@ import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
 import { heroFranchise, franchise } from '../../data/formation/franchise';
-import { heroSub, piliers, gains, engagement, sim } from '../../data/formation/ouvrir';
+import { heroSub, heroClaim, piliers, gains, engagement, sim } from '../../data/formation/ouvrir';
+import type { ImageMetadata } from 'astro';
 import { orgRef, SITE, url } from '../../data/formation/site';
+// Photos des 3 piliers : src/assets/formation/photos/piliers/{img}.webp (1200×900). Absente = visuel de remplacement.
+const pilierImgs = import.meta.glob<{ default: ImageMetadata }>('../../assets/formation/photos/piliers/*.webp', { eager: true });
+const piliersV = piliers.map((p) => ({ ...p, image: pilierImgs[`../../assets/formation/photos/piliers/${p.img}.webp`]?.default }));
 
 // JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
 const pageUrl = `${SITE}${url.ouvrir}`;
@@ -38,7 +42,11 @@ const schema = {
         <div>
           <div class="s12">{heroFranchise.eyebrow}</div>
           <h1 class="s80 al-h1-ouvrir">{heroFranchise.h1a} <span class="s5">{heroFranchise.h1b}</span></h1>
-          <p class="s81" set:html={heroSub} />
+          <p class="s81">{heroSub}</p>
+          <div class="al-claim">
+            <b>{heroClaim.h}</b>
+            <div class="al-claim-chips">{heroClaim.chips.map((c) => <span>{c}</span>)}</div>
+          </div>
           <div class="s83">
             <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est le bon moment</b><span class="s19">2 minutes · réponse immédiate</span></a>
           </div>
@@ -60,20 +68,19 @@ const schema = {
         <h2 class="s34">Les avantages d'une franchise, <span class="s5"><br />la liberté d'un indépendant.</span></h2>
         <p class="al-fr-intro">{franchise.intro}</p>
         <div class="al-piliers">
-          {piliers.map((x, i) => (
+          {piliersV.map((x, i) => (
             <div class={`al-pilier${i === 1 ? ' al-pilier--acc' : ''}`}>
-              <div class="al-fr-kicker">{x.k}</div>
+              <div class="al-pilier-img">
+                {x.image && <Image src={x.image} alt={x.alt} widths={[400, 800]} sizes="(max-width: 900px) 100vw, 380px" />}
+                {!x.image && <div class="al-pilier-ph"><span>Photo à venir</span><small>{`${x.img}.webp`}</small></div>}
+                <span class="al-pilier-k">{x.k}</span>
+              </div>
               <h3>{x.t}</h3>
               <p>{x.p}</p>
               {x.tags && <div class="al-gain-tags">{x.tags.map((t) => <span>{t}</span>)}</div>}
               {x.partners && <div class="al-partners">{x.partners.map((t) => <span>{t}</span>)}</div>}
             </div>
           ))}
-        </div>
-        <div class="al-fr-card al-fr-honest">
-          <div class="al-fr-kicker">{franchise.honnete.label}</div>
-          <h3>{franchise.honnete.h}</h3>
-          <p>{franchise.honnete.p}</p>
         </div>
         <a href={url.diagnostic} class="s84 al-fr-cta"><b class="s18">{franchise.cta.label}</b><span class="s19">{franchise.cta.sub}</span></a>
       </div>
@@ -100,22 +107,35 @@ const schema = {
         <div class="al-proof al-proof--wide">
           <div class="al-proof-img al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900]} sizes="(max-width: 900px) 100vw, 520px" /></div>
           <div class="al-proof-txt">
-            <div class="s28">{engagement.preuveLabel}</div>
-            <div class="al-proof-big">{engagement.preuveChiffre}</div>
+            <h2 class="al-proof-big">{engagement.preuveTitre}</h2>
+            <div class="al-proof-sub">{engagement.preuveSous}</div>
             <p>{engagement.preuveTexte}</p>
             <small>{engagement.preuveFine}</small>
           </div>
         </div>
-        <form class="s117 al-plaquette" data-plaquette>
-          <div class="s118">PDF</div>
-          <div class="s119"><b class="s43">{engagement.plaquette.h}</b><p class="s120">{engagement.plaquette.p}</p></div>
-          <div class="s121 al-plaquette-f" data-plaquette-f>
-            <input name="fn" placeholder="ton prénom" autocomplete="given-name" class="s122" required />
-            <input name="em" type="email" placeholder="ton email" autocomplete="email" class="s122" required />
-            <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
-            <button type="submit" class="s123">{engagement.plaquette.btn}</button>
+        <form class="al-plaq" data-plaquette>
+          <div class="al-plaq-visual" aria-hidden="true">
+            <div class="al-plaq-page al-plaq-page--back"></div>
+            <div class="al-plaq-page al-plaq-page--mid"></div>
+            <div class="al-plaq-page al-plaq-cover">
+              <div class="al-plaq-brand">Academy <span>Leader</span></div>
+              <div class="al-plaq-cover-img"><Image src={salonImg} alt="" widths={[400]} sizes="220px" /></div>
+              <b>Ouvrir ton salon de coiffure, <em>sans être seul.</em></b>
+            </div>
           </div>
-          <a class="s123 al-plaquette-dl" href={engagement.plaquette.file} download data-plaquette-dl hidden>Télécharger la plaquette (PDF)</a>
+          <div class="al-plaq-body">
+            <div class="s47">{engagement.plaquette.label}</div>
+            <h2 class="al-plaq-h">{engagement.plaquette.h}</h2>
+            <ul class="al-plaq-list">{engagement.plaquette.points.map((x) => <li>{x}</li>)}</ul>
+            <div class="al-plaq-f" data-plaquette-f>
+              <input name="fn" placeholder="Ton prénom" autocomplete="given-name" required aria-label="Prénom" />
+              <input name="em" type="email" placeholder="Ton email" autocomplete="email" required aria-label="Email" />
+              <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
+              <button type="submit" class="al-btn">{engagement.plaquette.btn}</button>
+            </div>
+            <a class="al-btn al-plaquette-dl" href={engagement.plaquette.file} download data-plaquette-dl hidden>Télécharger la plaquette (PDF)</a>
+            <p class="al-note">{engagement.plaquette.fine}</p>
+          </div>
         </form>
       </div>
     </section>

@@ -4,14 +4,15 @@
 // Textes du hero / bloc franchise : franchise.ts. SEO / FAQ / appel final : pages.ts.
 // ============================================================
 
-export const heroSub =
-  "Une équipe formée, une communication prise en charge, et tu gardes la liberté de ton concept. Tout ce qu'apporte une franchise, <b>sans droit d'entrée ni redevance.</b>";
+export const heroSub = "Une équipe formée, une communication prise en charge, et tu gardes la liberté de ton concept.";
+/** Phrase-clé du persona, mise en avant sous le titre (13/10/2026). */
+export const heroClaim = { h: "Tout ce qu'apporte une franchise.", chips: ["0 € de droit d'entrée", '0 € de redevance'] };
 
 /** Bloc « Franchise ou indépendant » : 3 piliers (remplace colonnes + comparatif, 13/10/2026). */
 export const piliers = [
-  { k: 'Formation', t: 'La formation au centre', p: 'Des collaborateurs accompagnés, un parcours de formation personnalisé pour chacun, de la coupe à la technique.', tags: ['Accompagnement des collaborateurs', 'Parcours personnalisé', 'Coupe et technique'] },
-  { k: 'Fournisseurs', t: "Jusqu'à -30 % chez nos fournisseurs", p: 'Tu profites des conditions négociées avec nos partenaires.', partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
-  { k: 'Communication', t: 'Ta communication prise en charge', p: 'Stratégie, site internet et réseaux sociaux : ton salon est visible avant même d\'ouvrir.', tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
+  { k: 'Formation', img: 'pilier-formation-coiffure', alt: 'Eric Di Martino accompagnant une coupe en salon', t: 'La formation au centre', p: 'Des collaborateurs accompagnés, un parcours de formation personnalisé pour chacun, de la coupe à la technique.', tags: ['Accompagnement des collaborateurs', 'Parcours personnalisé', 'Coupe et technique'] },
+  { k: 'Fournisseurs', img: 'pilier-fournisseurs-coiffure', alt: 'Produits professionnels de coiffure en salon', t: "Jusqu'à -30 % chez nos fournisseurs", p: 'Tu profites des conditions négociées avec nos partenaires.', partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
+  { k: 'Communication', img: 'pilier-communication-salon-coiffure', alt: 'Photo de coiffure prise pour les réseaux sociaux du salon', t: 'Ta communication prise en charge', p: 'Stratégie, site internet et réseaux sociaux : ton salon est visible avant même d\'ouvrir.', tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
 ];
 
 export const erreur = {
@@ -26,7 +27,7 @@ export const erreur = {
 export const gains = {
   label: 'Ce que tu gagnes',
   h2a: "Le jour de l'ouverture,",
-  h2b: 'tout est déjà en place.',
+  h2b: "tu n'as plus qu'à coiffer.",
   ouverture: [
     { t: 'Une communication gérée', p: "Stratégie, site internet et réseaux sociaux : on la prend en charge pour que tes premiers rendez-vous soient pris avant l'ouverture.", tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
     { t: 'Un plan de formation pour ton équipe', p: 'Un parcours personnalisé pour chaque collaborateur, de la technique à la consultation, construit avec toi.', tags: ['Parcours personnalisé', 'Technique', 'Consultation'] },
@@ -47,14 +48,17 @@ export const engagement = {
   h: 'Une garantie de résultat sur tes deux premières années.',
   p: "Au démarrage, on s'engage par écrit sur un objectif de résultat pour tes deux premières années. Si tu as appliqué toutes nos recommandations et qu'il n'est pas atteint, la garantie s'applique.",
   fine: "Modalités fixées dans ta convention d'accompagnement",
-  preuveLabel: 'Notre dernière ouverture · Grenoble, février 2026',
-  preuveChiffre: '180 K€ → 340 K€',
+  preuveTitre: 'Notre dernière ouverture : de 180 K€ à 340 K€',
+  preuveSous: 'Grenoble, février 2026',
   preuveTexte: "200 m² place Victor Hugo, avec Head Spa et espace barbier : 180 000 € de chiffre d'affaires avant reprise, 340 000 € projetés en fin de première année.",
   preuveFine: '340 000 € : projection à date.',
   plaquette: {
-    h: "Tout le détail de l'accompagnement",
+    label: 'La plaquette',
+    h: "Tout le détail de l'accompagnement, en 4 pages.",
+    points: ['Ce que tu as en main le jour de l\'ouverture', 'Les 7 étapes, une par une', 'Le cas de Grenoble en chiffres', 'Franchise ou indépendant, point par point'],
     p: 'Télécharge la plaquette : tout ce qu\'on prépare avec toi avant l\'ouverture, en détail.',
     btn: 'Recevoir la plaquette',
+    fine: 'PDF envoyé tout de suite. Pas de spam.',
     file: '/formation/plaquette-ouverture-salon-de-coiffure-academy-leader.pdf',
   },
 };
