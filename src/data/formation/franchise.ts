@@ -6,9 +6,9 @@
 // ============================================================
 
 export const heroFranchise = {
-  // Hero retenu : proposition 3 du canevas (« Sans être seul »), retouchée par Xavier le 02/10/2026.
+  // Hero retenu : proposition 3 du canevas (« Sans être seul »), retouchée par Xavier le 02/10 puis le 13/10/2026.
   eyebrow: "Accompagnement à l'ouverture · 1 projet par mois",
-  h1a: 'Ouvrir ton salon de coiffure rentable,',
+  h1a: 'Ouvrir ton salon de coiffure,',
   h1b: 'sans être seul.',
 };
 

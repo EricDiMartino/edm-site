@@ -10,7 +10,7 @@ import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { ouvrirSeo as seo, ouvrirFaq as faq, ouvrirFin as fin } from '../../data/formation/pages';
 import { heroFranchise, franchise } from '../../data/formation/franchise';
-import { heroSub, erreur, gains, engagement, sim } from '../../data/formation/ouvrir';
+import { heroSub, piliers, gains, engagement, sim } from '../../data/formation/ouvrir';
 import { orgRef, SITE, url } from '../../data/formation/site';
 
 // JSON-LD (maquette : Service · HowTo · FAQPage — la FAQ est balisée par FormationFaq)
@@ -59,53 +59,23 @@ const schema = {
         <div class="s47">{franchise.label}</div>
         <h2 class="s34">Les avantages d'une franchise, <span class="s5"><br />la liberté d'un indépendant.</span></h2>
         <p class="al-fr-intro">{franchise.intro}</p>
-        <div class="al-fr-cols">
-          <div class="al-fr-card">
-            <div class="al-fr-kicker">Ce qu'on prend à la franchise</div>
-            {franchise.prisALaFranchise.map((x) => <div class="al-fr-item"><h3>{x.t}</h3><p>{x.p}</p></div>)}
-          </div>
-          <div class="al-fr-card al-fr-card--acc">
-            <div class="al-fr-kicker al-fr-kicker--acc">Ce que tu gardes de l'indépendant</div>
-            {franchise.gardeDeLIndependant.map((x) => <div class="al-fr-item"><h3>{x.t}</h3><p>{x.p}</p></div>)}
-          </div>
+        <div class="al-piliers">
+          {piliers.map((x, i) => (
+            <div class={`al-pilier${i === 1 ? ' al-pilier--acc' : ''}`}>
+              <div class="al-fr-kicker">{x.k}</div>
+              <h3>{x.t}</h3>
+              <p>{x.p}</p>
+              {x.tags && <div class="al-gain-tags">{x.tags.map((t) => <span>{t}</span>)}</div>}
+              {x.partners && <div class="al-partners">{x.partners.map((t) => <span>{t}</span>)}</div>}
+            </div>
+          ))}
         </div>
-        <div class="al-fr-kicker al-fr-tabletitle">Le comparatif, point par point</div>
-        <table class="al-fr-table">
-          <thead><tr><th scope="col">Ce qui compte</th><th scope="col">Franchise de coiffure</th><th scope="col" class="al-fr-us">Academy Leader</th></tr></thead>
-          <tbody>
-            {franchise.comparatif.map((r) => <tr><th scope="row">{r.c}</th><td data-l="Franchise">{r.f}</td><td data-l="Academy Leader" class="al-fr-us">{r.a}</td></tr>)}
-          </tbody>
-        </table>
         <div class="al-fr-card al-fr-honest">
           <div class="al-fr-kicker">{franchise.honnete.label}</div>
           <h3>{franchise.honnete.h}</h3>
           <p>{franchise.honnete.p}</p>
         </div>
         <a href={url.diagnostic} class="s84 al-fr-cta"><b class="s18">{franchise.cta.label}</b><span class="s19">{franchise.cta.sub}</span></a>
-      </div>
-    </section>
-    <section class="s59">
-      <div class="s90">
-        <div>
-          <div class="s28">{erreur.label}</div>
-          <h2 class="s91">{erreur.h2a} <span class="s35">{erreur.h2b}</span></h2>
-          <p class="s92">{erreur.p}</p>
-          <p class="s93">{erreur.fin}</p>
-        </div>
-        <div class="s94">
-          <div class="s95">Exemple · <span class="s96" data-err="titre">un prix mal posé sur 1 prestation</span></div>
-          <div class="s97">
-            <div class="s98"><span>Écart de prix</span><b class="s15">− 5 €</b></div>
-            <div class="s98"><span>Prestations concernées / mois</span><b class="s15">200</b></div>
-            <div class="s98"><span>Prestations mal tarifées</span><b class="s15" data-err="n">1</b></div>
-            <div class="al-err-pills" role="group" aria-label="Nombre de prestations mal tarifées">
-              {[1, 2, 3, 4, 5].map((n) => <button type="button" class={n === 1 ? 's204' : 's205'} data-err-n={n} aria-pressed={n === 1 ? 'true' : 'false'}>{n}</button>)}
-            </div>
-            <div class="s99"><span>Manque à gagner / an</span><b class="s100" data-err="an">12 000 €</b></div>
-            <div class="s98"><span>Sur {erreur.annees} ans</span><b class="s100" data-err="bail">{(5 * 200 * 12 * erreur.annees).toLocaleString('fr-FR')} €</b></div>
-            <p class="al-err-note">Et ça, c'est <b>une seule erreur</b>, sur <b>une seule des 7 étapes</b>.</p>
-          </div>
-        </div>
       </div>
     </section>
     <section class="s46 al-gains">
@@ -122,26 +92,14 @@ const schema = {
             </div>
           ))}
         </div>
-        <div class="al-2ans">
-          <div class="al-2ans-label"><b>{gains.deuxAnsLabel}</b><span>après l'ouverture</span></div>
-          <div class="al-2ans-grid">
-            {gains.deuxAns.map((g) => <div><h3>{g.t}</h3><p>{g.p}</p></div>)}
-          </div>
-        </div>
       </div>
     </section>
 
     <section class="s59 al-engage">
       <div class="s33">
-        <div class="al-engage-grid">
-          <div class="al-engage-card">
-            <div class="s28">{engagement.label}</div>
-            <h2 class="al-engage-h">{engagement.h}</h2>
-            <p>{engagement.p}</p>
-            <small>{engagement.fine} · <a href="/formation/cgv">CGV, art. 11 bis</a>.</small>
-          </div>
-          <div class="al-proof">
-            <div class="al-proof-img al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900]} sizes="(max-width: 900px) 100vw, 480px" /></div>
+        <div class="al-proof al-proof--wide">
+          <div class="al-proof-img al-media"><Image src={ouvertureImg} alt="Espace coiffure du salon de Grenoble le jour de l'ouverture" widths={[480, 900]} sizes="(max-width: 900px) 100vw, 520px" /></div>
+          <div class="al-proof-txt">
             <div class="s28">{engagement.preuveLabel}</div>
             <div class="al-proof-big">{engagement.preuveChiffre}</div>
             <p>{engagement.preuveTexte}</p>
@@ -391,21 +349,6 @@ const schema = {
       </div>
     </section>
   </main>
-  <script is:inline>
-    // Exemple « prix mal posé » : 5 € d'écart × 200 prestations/mois × 12 mois × N prestations mal tarifées (× 7 ans)
-    (function () {
-      var eur = function (v) { return Math.round(v).toLocaleString('fr-FR') + ' €'; };
-      document.addEventListener('click', function (e) {
-        var b = e.target.closest('[data-err-n]'); if (!b) return;
-        var n = +b.getAttribute('data-err-n');
-        document.querySelectorAll('[data-err-n]').forEach(function (x) { var on = x === b; x.className = on ? 's204' : 's205'; x.setAttribute('aria-pressed', String(on)); });
-        document.querySelector('[data-err="n"]').textContent = String(n);
-        document.querySelector('[data-err="titre"]').textContent = 'un prix mal posé sur ' + n + ' prestation' + (n > 1 ? 's' : '');
-        document.querySelector('[data-err="an"]').textContent = eur(5 * 200 * 12 * n);
-        document.querySelector('[data-err="bail"]').textContent = eur(5 * 200 * 12 * 7 * n);
-      });
-    })();
-  </script>
   <FormationFaq items={faq} />
   <FormationFinalCta data={fin} />
 </FormationLayout>

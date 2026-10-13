@@ -5,7 +5,14 @@
 // ============================================================
 
 export const heroSub =
-  "Une équipe formée, des plannings remplis, un concept qui t'appartient et deux ans à tes côtés. Tout ce qu'apporte une franchise, <b>sans droit d'entrée ni redevance.</b>";
+  "Une équipe formée, une communication prise en charge, et tu gardes la liberté de ton concept. Tout ce qu'apporte une franchise, <b>sans droit d'entrée ni redevance.</b>";
+
+/** Bloc « Franchise ou indépendant » : 3 piliers (remplace colonnes + comparatif, 13/10/2026). */
+export const piliers = [
+  { k: 'Formation', t: 'La formation au centre', p: 'Des collaborateurs accompagnés, un parcours de formation personnalisé pour chacun, de la coupe à la technique.', tags: ['Accompagnement des collaborateurs', 'Parcours personnalisé', 'Coupe et technique'] },
+  { k: 'Fournisseurs', t: "Jusqu'à -30 % chez nos fournisseurs", p: 'Tu profites des conditions négociées avec nos partenaires.', partners: ["L'Oréal", 'Mobicoif', 'Ybera', 'ghd', 'Schwarzkopf'] },
+  { k: 'Communication', t: 'Ta communication prise en charge', p: 'Stratégie, site internet et réseaux sociaux : ton salon est visible avant même d\'ouvrir.', tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
+];
 
 export const erreur = {
   label: 'Ce que coûte une erreur',
@@ -21,11 +28,11 @@ export const gains = {
   h2a: "Le jour de l'ouverture,",
   h2b: 'tout est déjà en place.',
   ouverture: [
-    { t: 'Des plannings déjà remplis', p: "Ta communication démarre avant l'ouverture : réseaux, site et stratégie de lancement. Tes premiers rendez-vous sont pris avant que tu lèves le rideau.", tags: ['Réseaux sociaux', 'Site', 'Stratégie de lancement'] },
-    { t: 'Une équipe complète et formée', p: 'De 2 à 5 personnes selon ton projet, recrutées avec toi et formées à nos méthodes, prêtes le premier jour.', tags: ['Recrutement', 'Formation à nos méthodes'] },
-    { t: 'Des chiffres qui tiennent', p: "Du prévisionnel à ta grille tarifaire, chaque prix est calculé pour te laisser une marge avant même d'ouvrir.", tags: ['Prévisionnel', 'Coût minute', 'Grille tarifaire'] },
-    { t: "Un concept qui t'appartient", p: 'Ton nom, ton identité, prêts à convaincre ta banque.', tags: ['Dossier de présentation', 'Dossier bancaire', 'Décoration', 'Plan du salon'] },
-    { t: 'Nos outils de gestion', p: 'Les outils développés pour piloter nos propres salons, réservés à nos membres.', tags: [] },
+    { t: 'Une communication gérée', p: "Stratégie, site internet et réseaux sociaux : on la prend en charge pour que tes premiers rendez-vous soient pris avant l'ouverture.", tags: ['Stratégie', 'Site internet', 'Réseaux sociaux'] },
+    { t: 'Un plan de formation pour ton équipe', p: 'Un parcours personnalisé pour chaque collaborateur, de la technique à la consultation, construit avec toi.', tags: ['Parcours personnalisé', 'Technique', 'Consultation'] },
+    { t: 'Un business plan préparé et précis', p: 'Prévisionnel, coût minute, grille tarifaire : des chiffres solides pour décider, et pour convaincre ta banque.', tags: ['Prévisionnel', 'Coût minute', 'Grille tarifaire'] },
+    { t: 'Un concept complet', p: "Ton identité, prête le jour de l'ouverture.", tags: ['Dossier de présentation', 'Dossier bancaire', 'Décoration', 'Plan du salon'] },
+    { t: 'Des partenaires financiers', p: 'Banque, comptable, assurance : on te met en lien avec des partenaires de confiance.', tags: ['Banque', 'Comptable', 'Assurance'] },
   ],
   deuxAnsLabel: 'Pendant 2 ans',
   deuxAns: [
@@ -46,7 +53,7 @@ export const engagement = {
   preuveFine: '340 000 € : projection à date.',
   plaquette: {
     h: "Tout le détail de l'accompagnement",
-    p: 'Télécharge la plaquette : ce qui est fait avant l\'ouverture, ce qui est inclus pendant 2 ans, notre engagement.',
+    p: 'Télécharge la plaquette : tout ce qu\'on prépare avec toi avant l\'ouverture, en détail.',
     btn: 'Recevoir la plaquette',
     file: '/formation/plaquette-ouverture-salon-de-coiffure-academy-leader.pdf',
   },
@@ -82,6 +89,6 @@ export const sim = {
   ],
   gate: { h: "Débloque ton plan d'ouverture", p: "L'équipe à recruter, tes priorités d'accompagnement et ce que tu gagnes avec nous. On t'en envoie aussi une copie.", btn: 'Voir mon plan' },
   /** gain mis en avant selon la priorité n°1 */
-  prioGain: { com: 'Des plannings déjà remplis', gestion: 'Des chiffres qui tiennent', management: 'Une équipe complète et formée' },
+  prioGain: { com: 'Une communication gérée', gestion: 'Un business plan préparé et précis', management: 'Un plan de formation pour ton équipe' },
   cta: { label: 'Réserver mon appel offert', sub: '30 min · avec un associé · sans engagement' },
 };
