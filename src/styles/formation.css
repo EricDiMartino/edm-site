@@ -727,3 +727,8 @@ header nav a.s8:hover{color:#F8F4ED}
 .al-partners b{font-size:15px;font-weight:600;color:#F8F4ED}
 .al-proof-big span{display:block;color:#8A5A2B}
 .al-hero-ouvrir{padding-bottom:96px;border-bottom:1px solid rgba(248,244,237,.08)}
+.al-hero-ouvrir .s12{margin-bottom:22px}
+.al-hero-ouvrir .al-claim{margin-top:30px;line-height:1.45;font-size:clamp(17px,1.7vw,20px)}
+.al-hero-ouvrir .al-claim b{display:block;margin-bottom:4px}
+.al-hero-ouvrir .s83{margin-top:36px}
+.al-hero-ouvrir .s86{max-height:520px}
