@@ -43,8 +43,7 @@ import { url, edxp } from '../../data/formation/site';
   <script is:inline define:vars={{ LINKS: url, TEL: edxp.tel }}>
     var $ = function (s) { return document.querySelector(s); };
     var ACC = '#C2874A', TZ = 'Europe/Paris';
-    // Calendrier dédié selon la provenance (?cal=ouverture : simulateur page Ouvrir), sinon calendrier par défaut
-    var CAL = (new URLSearchParams(location.search).get('cal') || '').replace(/[^a-z]/g, '');
+    var CAL = ''; // calendrier GHL par défaut (entretien de validation)
     var diag = {}; try { diag = JSON.parse(sessionStorage.getItem('al_diag') || '{}'); } catch (e) {}
     if (diag.fn) $('[data-r="title"]').textContent = diag.fn + ', choisis ton créneau.';
     var needFields = !(diag.contactId || (diag.fn && diag.em));

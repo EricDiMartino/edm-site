@@ -3,6 +3,8 @@
 import { nav, ctaDiagnostic, url } from '../../data/formation/site';
 const path = Astro.url.pathname.replace(/\/$/, '');
 const isCurrent = (href: string) => path === href.replace(/\/$/, '');
+// Sur la page Ouvrir, le bouton mène au simulateur de la page (questionnaire dédié à l'ouverture).
+const cta = isCurrent(url.ouvrir) ? { ...ctaDiagnostic, href: '#simulateur' } : ctaDiagnostic;
 ---
 
 <header class="s1">
@@ -13,7 +15,7 @@ const isCurrent = (href: string) => path === href.replace(/\/$/, '');
     </a>
     <nav class="s7" aria-label="Parcours">
       {nav.map((l) => <a href={l.href} class="s8" aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>)}
-      <a href={ctaDiagnostic.href} class="s9">{ctaDiagnostic.label}</a>
+      <a href={cta.href} class="s9">{cta.label}</a>
     </nav>
     <button class="al-burger" type="button" aria-expanded="false" aria-controls="al-mnav" aria-label="Menu">
       <span></span><span></span><span></span>
