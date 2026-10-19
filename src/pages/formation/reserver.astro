@@ -43,6 +43,7 @@ import { url, edxp } from '../../data/formation/site';
   <script is:inline define:vars={{ LINKS: url, TEL: edxp.tel }}>
     var $ = function (s) { return document.querySelector(s); };
     var ACC = '#C2874A', TZ = 'Europe/Paris';
+    var CAL = ''; // calendrier GHL par défaut (entretien de validation)
     var diag = {}; try { diag = JSON.parse(sessionStorage.getItem('al_diag') || '{}'); } catch (e) {}
     if (diag.fn) $('[data-r="title"]').textContent = diag.fn + ', choisis ton créneau.';
     var needFields = !(diag.contactId || (diag.fn && diag.em));
@@ -96,7 +97,7 @@ import { url, edxp } from '../../data/formation/site';
     }
     function load() {
       msg('Chargement des créneaux…');
-      fetch('/api/formation/slots').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      fetch('/api/formation/slots' + (CAL ? '?cal=' + CAL : '')).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
         var map = {}; (d.days || []).forEach(function (x) { map[x.date] = x.slots; });
         build(map); msg(''); render();
         if (D.every(function (x) { return x.full; })) msg('Aucun créneau libre ces prochains jours. Appelle-nous au ' + TEL + '.', true);
@@ -114,7 +115,7 @@ import { url, edxp } from '../../data/formation/site';
       st.busy = true; msg(''); render();
       fetch('/api/formation/book', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ startTime: slot }, who))
+        body: JSON.stringify(Object.assign({ startTime: slot, cal: CAL }, who))
       }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
         st.busy = false;
         if (res.ok && res.d.ok) {

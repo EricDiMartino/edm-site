@@ -1,7 +1,7 @@
 // POST /api/formation/book — réserve le créneau choisi dans le calendrier GHL.
 // Sans contactId (visiteur hors diagnostic), le contact est d'abord créé.
 // Réponse : { ok: true, startTime } ou { error: 'slot_taken' | 'invalid' | … }
-import { upsertContact, bookAppointment, json, sameOrigin, clean, isEmail } from './_ghl.js';
+import { upsertContact, bookAppointment, calendarFor, json, sameOrigin, clean, isEmail } from './_ghl.js';
 
 export async function POST(request) {
   if (!sameOrigin(request)) return json({ error: 'forbidden' }, 403);
@@ -28,7 +28,7 @@ export async function POST(request) {
         source: 'Réservation ericdimartino.com/formation',
       });
     }
-    await bookAppointment(contactId, startTime, `Ton appel offert ${firstName} ${lastName}`.replace(/\s+/g, ' ').trim());
+    await bookAppointment(contactId, startTime, `Ton appel offert ${firstName} ${lastName}`.replace(/\s+/g, ' ').trim(), calendarFor(clean(b.cal, 30)));
     return json({ ok: true, startTime });
   } catch (e) {
     console.error('[book]', e?.message, e?.data);
