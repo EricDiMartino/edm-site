@@ -17,6 +17,13 @@ export const callFlow = [
   { n: '3', t: "On te dit si c'est ton moment", p: 'Et sinon, par quoi commencer. Sans relance.' },
 ];
 
+/** Appel « projet d'ouverture » (page /formation/reserver-ouverture). */
+export const callFlowOuverture = [
+  { n: '1', t: 'On parle de ton projet', p: "Ta ville, ton local, ton budget : où tu en es aujourd'hui." },
+  { n: '2', t: 'On te partage nos conseils', p: "Ce qu'on a appris en ouvrant nos propres salons, appliqué à ton projet." },
+  { n: '3', t: 'On valide ton éligibilité', p: "Si tu souhaites aller plus loin. Un seul projet par mois, sans relance." },
+];
+
 export const merciTodo = [
   { n: '01', t: 'Réponds « OK » au SMS', p: 'Tu viens de le recevoir. Ça confirme ton créneau.' },
   { n: '02', t: 'Prépare ton dernier bilan', p: 'Et le prix de tes 3 prestations principales.' },
