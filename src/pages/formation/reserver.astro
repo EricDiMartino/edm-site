@@ -4,6 +4,8 @@
 // le rendez-vous dans GHL (via /api/formation/book), qui envoie confirmations et rappels.
 // Coordonnées : reprises du diagnostic (sessionStorage al_diag) ; sinon demandées ici.
 import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { Image } from 'astro:assets';
+import xavierImg from '../../assets/formation/photos/xavier-paolucci-portrait.webp';
 import { tunnelSeo, callFlow } from '../../data/formation/tunnel';
 import { url, edxp } from '../../data/formation/site';
 ---
@@ -19,7 +21,7 @@ import { url, edxp } from '../../data/formation/site';
           {callFlow.map((c) => <div class="s238"><b class="s239">{c.n}</b><div><b>{c.t}</b><p class="s240">{c.p}</p></div></div>)}
         </div>
         <div class="s241"><b class="s15">Tu repars avec ton coût minute calculé sur tes 3 prestations principales</b>, écrit, même si tu n'achètes rien.</div>
-        <div class="s242"><div class="s243"></div><div class="s244"><b>Xavier Paolucci</b><div class="s77">Associé · 4 salons en exploitation</div></div></div>
+        <div class="s242"><div class="s243 al-avatar"><Image src={xavierImg} alt="Xavier Paolucci" width={88} height={88} /></div><div class="s244"><b>Xavier Paolucci</b><div class="s77">Associé · 4 salons en exploitation</div></div></div>
       </div>
       <div class="s245">
         <div class="s246"><b class="s43">Choisis ton créneau</b><span class="s247">Heure de Paris</span></div>
