@@ -9,7 +9,9 @@
 export const GHL = {
   base: 'https://services.leadconnectorhq.com',
   locationId: 'YAnexmjlEQWx4ii9j82p',
-  calendarId: 'SnP8lLdQOua0TtyKsXKn', // entretien de validation 30 min
+  calendarId: 'SnP8lLdQOua0TtyKsXKn', // entretien de validation 30 min (par défaut)
+  // Calendriers dédiés, choisis par la page via ?cal= (liste fermée)
+  calendars: { ouverture: 'CPGDib4D2kIOntwww7ZE' }, // simulateur page Ouvrir un salon
   timezone: 'Europe/Paris',
 };
 
@@ -39,9 +41,12 @@ async function call(path, { method = 'GET', body, version }) {
 }
 
 /** Créneaux libres → { 'AAAA-MM-JJ': ['2026-10-05T09:30:00+02:00', …] } */
-export async function freeSlots(start, end) {
+/** Id du calendrier pour une clé (« ouverture »…), sinon celui par défaut. */
+export const calendarFor = (key) => GHL.calendars[key] || GHL.calendarId;
+
+export async function freeSlots(start, end, calendarId = GHL.calendarId) {
   const q = new URLSearchParams({ startDate: String(start.getTime()), endDate: String(end.getTime()), timezone: GHL.timezone });
-  const data = await call(`/calendars/${GHL.calendarId}/free-slots?${q}`, { version: '2021-04-15' });
+  const data = await call(`/calendars/${calendarId}/free-slots?${q}`, { version: '2021-04-15' });
   const out = {};
   for (const [k, v] of Object.entries(data || {})) {
     if (/^\d{4}-\d{2}-\d{2}$/.test(k) && v && Array.isArray(v.slots)) out[k] = v.slots;
@@ -67,11 +72,11 @@ export function addNote(contactId, body) {
 }
 
 /** Réserve un créneau (GHL refuse si le créneau n'est plus libre). */
-export function bookAppointment(contactId, startTime, title) {
+export function bookAppointment(contactId, startTime, title, calendarId = GHL.calendarId) {
   return call('/calendars/events/appointments', {
     method: 'POST',
     version: '2021-04-15',
-    body: { calendarId: GHL.calendarId, locationId: GHL.locationId, contactId, startTime, title, appointmentStatus: 'confirmed' },
+    body: { calendarId, locationId: GHL.locationId, contactId, startTime, title, appointmentStatus: 'confirmed' },
   });
 }
 
