@@ -1,33 +1,49 @@
 ---
-// Page « Eric Di Martino » — /eric-di-martino. Entité personne (SEO / GEO, E-E-A-T).
+// Page « Eric Di Martino » — /eric-di-martino. Pour le client qui hésite à réserver (et pour Google / les IA : entité Person).
 // Faits validés par Eric (questionnaire du 22/10/2026) et vérifiés (SIREN 509 460 473, actes de cession).
-// Ne rien ajouter sans source : années, distinctions et presse uniquement si confirmées.
+// Ne rien ajouter sans source. Avis : données Google réelles récupérées au build (comme l'accueil).
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import { Image } from 'astro:assets';
 import { salonsNav } from '../lib/prestations-shared';
 import { buildBreadcrumb } from '../lib/schema';
+import { getGoogleReviews } from '../lib/places';
 import SiteFooter from '../components/SiteFooter.astro';
 import CtaBlock from '../components/CtaBlock.astro';
+import { grenoble } from '../data/grenoble';
+import { montbonnot } from '../data/montbonnot';
+import { voiron } from '../data/voiron';
+import { aixLesBains } from '../data/aix-les-bains';
 import portrait from '../assets/formation/photos/eric-di-martino-portrait.webp';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const annees = new Date().getFullYear() - 2008; // premier salon en 2008
+
+// Avis Google cumulés des 4 salons
+const live = (await Promise.all([grenoble, montbonnot, voiron, aixLesBains].map((s) => getGoogleReviews(s.googlePlaceId, 0)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getGoogleReviews>>>[];
+const totalAvis = live.reduce((s, a) => s + (a.total || 0), 0);
+const avgNote = totalAvis ? live.reduce((s, a) => s + (a.noteRaw || 0) * (a.total || 0), 0) / totalAvis : null;
+const note = avgNote ? avgNote.toFixed(1).replace('.', ',') : null;
+const totalArrondi = totalAvis ? Math.floor(totalAvis / 100) * 100 : 0;
+
+const benefices = [
+  { titre: 'Une exigence héritée d’une Meilleure Ouvrière de France', texte: 'Eric s’est formé auprès de Marie-Pierre Maino, MOF coiffure. Le geste précis, la coupe qui tient dans le temps : c’est ce niveau qu’il attend dans chacun de ses salons.' },
+  { titre: 'Une consultation avant chaque coupe', texte: 'Votre visage, votre cheveu, votre quotidien et vos envies, avant de toucher aux ciseaux ou à la couleur. Pour un résultat qui vous ressemble, et qui reste simple à coiffer chez vous.' },
+  { titre: 'Des équipes formées à sa méthode', texte: 'Que vous soyez à Grenoble, Montbonnot, Voiron ou Aix-les-Bains, votre coiffeur applique la même méthode, transmise et suivie par Eric.' },
+];
 
 const parcours = [
-  { annee: 'Les débuts', titre: 'Une passion trouvée en bas de chez ses parents', texte: 'Après un parcours scolaire difficile, Eric découvre le métier dans le salon de coiffure situé en bas de chez ses parents, à Grenoble. Il obtient son CAP en un an, puis son BP, et remporte plusieurs concours pendant ses études.' },
-  { annee: 'La formation', titre: 'Aux côtés d’une Meilleure Ouvrière de France', texte: 'Pendant ses études, il se forme auprès de Marie-Pierre Maino, Meilleure Ouvrière de France coiffure. Une exigence du geste qu’il transmet aujourd’hui à ses équipes.' },
-  { annee: '2008', titre: 'Son premier salon, à 21 ans', texte: 'Il ouvre son propre salon cours Jean Jaurès, à Grenoble, sans passer par d’autres maisons.' },
-  { annee: '2019 – 2023', titre: 'Coiffeur officiel des élections Miss Isère', texte: 'Pendant cinq ans, il coiffe les candidates et les invitées des élections Miss Isère, dont plusieurs Miss France.' },
-  { annee: '2021', titre: 'Montbonnot', texte: 'Ouverture du salon de Montbonnot-Saint-Martin.' },
-  { annee: '2024', titre: 'Voiron et Aix-les-Bains', texte: 'Reprise des salons de Voiron et d’Aix-les-Bains, en gardant leurs équipes.' },
-  { annee: '2026', titre: 'Place Victor Hugo, à Grenoble', texte: 'Il installe son salon principal au 6 place Victor Hugo : 200 m², ouverts en février après travaux, avec un head spa japonais et un espace barbier.' },
+  { annee: '2008', texte: 'Après son CAP et son BP, il ouvre son premier salon à Grenoble, à 21 ans.' },
+  { annee: '2021', texte: 'Ouverture du salon de Montbonnot-Saint-Martin.' },
+  { annee: '2024', texte: 'Reprise des salons de Voiron et d’Aix-les-Bains, en gardant leurs équipes.' },
+  { annee: '2026', texte: 'Le salon principal s’installe au 6 place Victor Hugo, à Grenoble : 200 m², head spa japonais et espace barbier.' },
 ];
 
 const faq = [
-  { question: 'Qui est Eric Di Martino ?', reponse: 'Eric Di Martino est un coiffeur visagiste grenoblois. Titulaire d’un CAP et d’un BP, formé auprès de Marie-Pierre Maino, Meilleure Ouvrière de France coiffure, il a ouvert son premier salon à Grenoble en 2008, à 21 ans. Il dirige aujourd’hui quatre salons en Isère et en Savoie : Grenoble, Montbonnot-Saint-Martin, Voiron et Aix-les-Bains.' },
+  { question: 'Qui est Eric Di Martino ?', reponse: `Eric Di Martino est un coiffeur visagiste grenoblois. Titulaire d’un CAP et d’un BP, formé auprès de Marie-Pierre Maino, Meilleure Ouvrière de France coiffure, il a ouvert son premier salon à Grenoble en 2008. Il dirige aujourd’hui quatre salons en Isère et en Savoie : Grenoble, Montbonnot-Saint-Martin, Voiron et Aix-les-Bains.` },
+  { question: 'Est-ce Eric qui me coiffera ?', reponse: 'Pas forcément : Eric dirige quatre salons. Mais chaque coiffeur est formé à sa méthode, et chaque prestation commence par la même consultation visagiste, quel que soit le salon.' },
   { question: 'Où se trouvent les salons Eric Di Martino ?', reponse: 'Au 6 place Victor Hugo à Grenoble (salon principal), 1435 avenue de l’Europe à Montbonnot-Saint-Martin, 29 avenue du 8 Mai 1945 à Voiron et 433 boulevard Président Wilson à Aix-les-Bains.' },
-  { question: 'Eric Di Martino a-t-il coiffé des Miss ?', reponse: 'Oui. De 2019 à 2023, il a été le coiffeur officiel des élections Miss Isère : il y a coiffé les candidates et les invitées, dont plusieurs Miss France.' },
-  { question: 'Eric Di Martino forme-t-il d’autres coiffeurs ?', reponse: 'Oui, avec Academy Leader, l’organisme de formation certifié Qualiopi qu’il a cofondé : formations d’équipe en salon et accompagnement des gérants de salon de coiffure. Plus de 80 salons ont été formés ou accompagnés.' },
+  { question: 'Eric Di Martino forme-t-il d’autres coiffeurs ?', reponse: 'Oui, avec Academy Leader, l’organisme de formation certifié Qualiopi qu’il a fondé avec ses associés : formations d’équipe en salon et accompagnement des gérants. Plus de 80 salons ont été formés ou accompagnés.' },
 ];
 
 const person = {
@@ -59,7 +75,7 @@ const faqSchema = {
 };
 ---
 
-<Layout title="Eric Di Martino, coiffeur visagiste à Grenoble | Parcours" description="Coiffeur visagiste grenoblois formé auprès d'une MOF, premier salon à 21 ans, coiffeur officiel Miss Isère de 2019 à 2023, 4 salons en Isère et Savoie." canonical={canonical}>
+<Layout title="Eric Di Martino, coiffeur visagiste à Grenoble | Fondateur" description={`Coiffeur visagiste grenoblois formé auprès d'une MOF, Eric Di Martino dirige 4 salons en Isère et Savoie depuis ${annees} ans et forme chaque coiffeur à sa méthode.`} canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
@@ -71,52 +87,54 @@ const faqSchema = {
       <div class="ed-hero-copy">
         <p class="label">Le fondateur</p>
         <h1 class="editorial ed-h1">Eric Di Martino, <em>coiffeur visagiste</em>.</h1>
-        <p class="lede ed-lede">Grenoblois, il a trouvé sa passion dans le salon en bas de chez ses parents. À 21 ans, il ouvrait son premier salon. Aujourd’hui, il dirige quatre salons en Isère et en Savoie, et transmet sa méthode à d’autres coiffeurs.</p>
-        <ul class="ed-tags">
-          <li>CAP &amp; BP coiffure</li>
-          <li>Formé auprès d’une MOF</li>
-          <li>Miss Isère 2019 – 2023</li>
-          <li>4 salons</li>
-        </ul>
+        <p class="lede ed-lede">{annees} ans à exiger le meilleur pour vos cheveux, et à l’apprendre à chaque coiffeur de ses salons.</p>
+        <div class="ed-actions">
+          <a class="btn btn-action" href="#reserver">Réserver une consultation</a>
+          {note && <p class="ed-trust"><strong>★ {note}</strong> · {totalArrondi}+ avis Google sur nos 4 salons</p>}
+        </div>
       </div>
       <div class="ed-hero-visual">
         <div class="frame ed-frame"><Image src={portrait} alt="Portrait d'Eric Di Martino, coiffeur visagiste à Grenoble" widths={[400, 700, 900]} sizes="(min-width: 820px) 40vw, 100vw" loading="eager" fetchpriority="high" /></div>
       </div>
     </section>
 
+    <section class="section ed-benef-sec">
+      <header class="section-head reveal">
+        <p class="label">Ce que ça change pour vous</p>
+        <h2 class="h-seo">La même exigence, dans chacun de ses salons</h2>
+      </header>
+      <ul class="ed-benef reveal" data-d="1">
+        {benefices.map((b, i) => (
+          <li>
+            <span class="ed-num" aria-hidden="true">0{i + 1}</span>
+            <h3>{b.titre}</h3>
+            <p>{b.texte}</p>
+          </li>
+        ))}
+      </ul>
+      <a class="link-arrow link-olive ed-link" href="/consultation-visagiste-coloriste/">Comment se passe la consultation<span class="arrow" aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="section ed-proof-sec">
+      <div class="ed-proof reveal">
+        {note && (
+          <div><b>★ {note}<small>/5</small></b><span>{totalArrondi}+ avis Google sur les 4 salons</span></div>
+        )}
+        <div><b>4</b><span>salons en Isère et en Savoie</span></div>
+        <div><b>80+</b><span>salons formés à sa méthode avec Academy Leader</span></div>
+      </div>
+    </section>
+
     <section class="section ed-parcours-sec">
       <header class="section-head reveal">
-        <p class="label">Parcours</p>
-        <h2 class="h-seo">Du premier salon aux quatre adresses</h2>
+        <p class="label">Son parcours, en bref</p>
+        <h2 class="h-seo">Une passion trouvée au salon en bas de chez ses parents</h2>
       </header>
       <ol class="ed-parcours reveal" data-d="1">
         {parcours.map((p) => (
-          <li class="ed-step">
-            <span class="ed-year">{p.annee}</span>
-            <div>
-              <h3>{p.titre}</h3>
-              <p>{p.texte}</p>
-            </div>
-          </li>
+          <li class="ed-step"><span class="ed-year">{p.annee}</span><p>{p.texte}</p></li>
         ))}
       </ol>
-    </section>
-
-    <section class="section nv-split">
-      <div class="nv-split-copy reveal">
-        <p class="label">Sa méthode</p>
-        <h2 class="h-seo">La consultation, avant chaque coupe</h2>
-        <p class="body">Chaque prestation commence par une consultation visagiste : le visage, le cheveu, le mode de vie et les envies, avant de toucher aux ciseaux ou à la couleur. C’est la méthode qu’il a construite et que suivent toutes ses équipes.</p>
-        <p class="body">Ses salons travaillent avec des soins vegan et cruelty-free, recyclent les cheveux coupés avec Capillum et accompagnent les personnes touchées par le cancer.</p>
-        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste/">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
-        <a class="link-arrow link-olive" href="/nos-valeurs/">Nos engagements<span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-      <div class="nv-split-copy reveal" data-d="1">
-        <p class="label">Transmettre</p>
-        <h2 class="h-seo">Former les coiffeurs et les gérants</h2>
-        <p class="body">Avec ses associés, il a fondé Academy Leader, un organisme de formation certifié Qualiopi. Il y anime les formations en salon et accompagne les gérants qui veulent ouvrir ou faire grandir leur salon. Plus de 80 salons ont déjà été formés ou accompagnés.</p>
-        <a class="link-arrow link-olive" href="/formation/">Découvrir Academy Leader<span class="arrow" aria-hidden="true">→</span></a>
-      </div>
     </section>
 
     <section class="section nv-faq-sec">
@@ -134,7 +152,7 @@ const faqSchema = {
       </div>
     </section>
 
-    <CtaBlock title="Une consultation avec ses équipes." lede="Dans l’un des quatre salons, à Grenoble, Montbonnot, Voiron ou Aix-les-Bains."><a class="btn btn-action" href="#reserver">Réserver</a><a class="link-arrow link-cream" href="/nos-salons-de-coiffure/">Nos salons<span class="arrow" aria-hidden="true">→</span></a></CtaBlock>
+    <CtaBlock title="Votre consultation, dans l’un de ses salons." lede="Grenoble, Montbonnot, Voiron ou Aix-les-Bains : la même méthode, partout."><a class="btn btn-action" href="#reserver">Réserver</a><a class="link-arrow link-cream" href="/nos-salons-de-coiffure/">Nos salons<span class="arrow" aria-hidden="true">→</span></a></CtaBlock>
   </main>
 
   <SiteFooter sub="Salons de coiffure · Grenoble · Montbonnot · Voiron · Aix-les-Bains" />
@@ -143,29 +161,36 @@ const faqSchema = {
     .ed-hero { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
     .ed-h1 { max-width: 15ch; }
     .ed-h1 em { font-style: italic; color: var(--olive); }
-    .ed-lede { max-width: 54ch; }
-    .ed-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
-    .ed-tags li { font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive-deep); background: var(--cream); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem; }
+    .ed-lede { max-width: 46ch; }
+    .ed-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.4rem; margin-top: 1.8rem; }
+    .ed-trust { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    .ed-trust strong { color: var(--terracotta); }
     .ed-frame { aspect-ratio: 1; overflow: hidden; }
     .ed-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .ed-parcours { list-style: none; margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); }
-    .ed-step { display: grid; grid-template-columns: minmax(7rem, 9rem) 1fr; gap: clamp(1rem, 3vw, 2rem); padding: clamp(1.25rem, 3vw, 1.75rem) 0; border-bottom: 1px solid var(--line); }
-    .ed-year { font-family: var(--serif); font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem); color: var(--terracotta); }
-    .ed-step h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); margin: 0 0 0.4rem; color: var(--ink); }
-    .ed-step p { color: var(--muted); font-size: 0.98rem; line-height: 1.65; margin: 0; max-width: 64ch; }
+    .ed-benef { list-style: none; margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; padding: 0; display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
+    .ed-benef li { border-top: 1px solid var(--line); padding-top: 1.25rem; }
+    .ed-num { font-family: var(--serif); font-size: 1.1rem; color: var(--terracotta); }
+    .ed-benef h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); margin: 0.4rem 0 0.5rem; color: var(--ink); }
+    .ed-benef p { color: var(--muted); font-size: 0.98rem; line-height: 1.65; margin: 0; }
+    .ed-link { display: inline-flex; margin-top: 1.75rem; }
 
-    .nv-split { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
-    .nv-split-copy .body { margin: 1rem 0; }
-    .nv-split-copy .link-arrow { margin-right: 1.25rem; }
+    .ed-proof-sec { max-width: none; background: var(--cream); }
+    .ed-proof { max-width: 980px; margin-inline: auto; display: grid; gap: 1.5rem; text-align: center; }
+    .ed-proof b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 1.8rem + 2vw, 3.2rem); color: var(--ink); line-height: 1; }
+    .ed-proof b small { font-size: 0.45em; color: var(--muted); }
+    .ed-proof span { display: block; margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem; }
+
+    .ed-parcours { list-style: none; margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; padding: 0; border-top: 1px solid var(--line); max-width: 820px; }
+    .ed-step { display: grid; grid-template-columns: 5rem 1fr; gap: 1.25rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .ed-year { font-family: var(--serif); font-size: 1.3rem; color: var(--terracotta); }
+    .ed-step p { margin: 0; color: var(--ink); line-height: 1.6; }
     .nv-faq { border-top: 1px solid var(--line); max-width: 820px; }
 
     @media (min-width: 820px) {
       .ed-hero { grid-template-columns: 1.1fr 0.9fr; }
-      .nv-split { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px) {
-      .ed-step { grid-template-columns: 1fr; gap: 0.35rem; }
+      .ed-benef { grid-template-columns: repeat(3, 1fr); }
+      .ed-proof { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </Layout>
