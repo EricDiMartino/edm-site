@@ -48,8 +48,8 @@ export const aixLesBains: SalonData = {
   googlePlaceId: 'ChIJQ3cxzqSgi0cRw4n61YLpKnA', // Salon Eric Di Martino Aix-les-Bains (4,6★ · 235 avis)
 
   acces: [
-    { label: 'Parking', detail: 'Stationnement à proximité' },
-    { label: 'Centre-ville', detail: 'Boulevard Président Wilson' },
+    { label: 'Gare à 2 min', detail: 'Bus : arrêt Gare d’Aix-les-Bains' },
+    { label: 'Parkings publics', detail: 'Gare et Victoria, à 3 min' },
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
@@ -80,8 +80,9 @@ export const aixLesBains: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon d’Aix-les-Bains.',
     paragraphes: [
-      'Boulevard Président Wilson, au cœur d’Aix-les-Bains, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu. Un point de rendez-vous pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
-      'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+      'Boulevard Président Wilson, à deux pas de la gare, notre salon de coiffure d’Aix-les-Bains déploie 120 m² en centre-ville. Ancien salon Why Not, il a rejoint Eric Di Martino en 2024, avec son équipe.',
+      'Une clientèle exigeante et moderne y vient chercher une vraie expertise de la coupe et de la technique : visagisme et morphologie, balayages techniques, rattrapages de couleur. Chaque rendez-vous commence par une consultation, jamais par une grille tarifaire.',
+      'Gare et arrêt de bus Gare d’Aix-les-Bains à deux minutes à pied, parkings publics à proximité. Un rendez-vous aussi pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },

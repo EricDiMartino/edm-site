@@ -51,8 +51,8 @@ export const voiron: SalonData = {
   googlePlaceId: 'ChIJIT79Vj7kikcR5wHgFGsalkI', // Eric Di Martino - Voiron (4,7★ · 394 avis)
 
   acces: [
-    { label: 'Parking', detail: 'Stationnement à proximité' },
-    { label: 'Centre-ville', detail: 'Avenue du 8 Mai 1945' },
+    { label: 'Parking gratuit', detail: 'À proximité immédiate' },
+    { label: 'Bus', detail: 'Arrêt Pôle de Vouise, à 1 min' },
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
@@ -83,8 +83,9 @@ export const voiron: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de Voiron.',
     paragraphes: [
-      'Avenue du 8 Mai 1945, notre salon de coiffure est une référence à Voiron et dans le Pays Voironnais : coupe femme et homme, dégradé, brushing, balayage et coloration menés avec exigence, dans un cadre soigné. Nos clientes et clients viennent aussi de Coublevie, Saint-Jean-de-Moirans, Moirans, La Buisse et Rives.',
-      'Coupe pensée selon la forme du visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation visagiste, jamais par une grille tarifaire.',
+      'Avenue du 8 Mai 1945, à deux pas de Mobalpa et de la zone des Blanchisseries, notre salon de coiffure de Voiron est l’ancien salon Why Not, une institution voironnaise depuis plus de quinze ans. Il a rejoint Eric Di Martino en 2024, avec son équipe.',
+      'Une clientèle moderne, soucieuse de la santé de ses cheveux, y vient pour l’exigence technique : extensions, balayages et couleurs, et rattrapages de colorations ratées ailleurs. Chaque rendez-vous commence par une vraie consultation visagiste.',
+      'Parking gratuit, et arrêt de bus Pôle de Vouise à une minute à pied. Nos clientes et clients viennent aussi de Coublevie, Saint-Jean-de-Moirans, Moirans, La Buisse et Rives.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
