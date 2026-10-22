@@ -110,10 +110,6 @@ const schema = {
             <div class="s190"><span data-fsel="meta">2 jours · 14 h · dans ton salon · jusqu'à 8 personnes</span></div>
             <p class="s191" data-fsel="hook">Ta cliente s'assoit, tu demandes « on fait comme d'habitude ? », et tu viens de renoncer à 30 € de ticket.</p>
             <p class="s192"><b class="s193">Pour toi si</b> <span data-fsel="why">tes prix sont corrects mais le ticket ne monte pas. C'est le levier le plus direct sur ton panier moyen.</span></p>
-            <div class="s194">
-              <a data-todo="pdf" class="s195">Télécharger le programme (PDF) ↓</a>
-                <a data-todo="fiche" class="s195">Page complète de la formation →</a>
-            </div>
           </div>
           <div class="s196">
             <div class="s95">Ton reste à charge</div>
@@ -185,7 +181,7 @@ const schema = {
       set('sim', 'nLabel', f.type === 'personne' ? 'Nombre de participants' : 'Personnes à former');
       set('sim', 'n', String(n));
       set('sim', 'cap', f.min > 1 ? f.min + ' participants minimum' : (f.max === 1 ? 'Formation individuelle' : "Forfait groupe, jusqu'à " + f.max + ' personnes'));
-      set('sim', 'cout', eur(cout)); set('sim', 'depl', f.depl ? eur(depl) : '—');
+      set('sim', 'cout', eur(cout)); set('sim', 'depl', f.depl ? eur(depl) : 'aucun');
       set('sim', 'org', f.aide === 'flat' ? 'FAFCEA' : 'OPCO EP'); set('sim', 'aide', eur(aide));
       set('sim', 'rac', eur(rac)); set('sim', 'per', n > 1 ? 'soit ' + eur(rac / n) + ' par personne' : '');
       var z = document.querySelector('[data-sim="zones"]'); if (z) z.hidden = !f.depl;

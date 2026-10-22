@@ -242,7 +242,7 @@ const q0 = diag.questions[0];
       });
       $('[data-r="cta"]').textContent = r.cta;
       $('[data-r="ctaSub"]').textContent = r.ctaSub;
-      $('[data-r="go"]').href = r.go === 'form' ? LINKS.formations + '#cat' : LINKS.reserver;
+      $('[data-r="go"]').href = r.go === 'form' ? LINKS.formations + '#cat' : (seg === 'OUVERTURE' ? LINKS.reserverOuverture : LINKS.reserver);
       dl({ event: 'diag_complete', segment: seg, score: sc ? sc.total : null });
       show('res');
     }
@@ -299,7 +299,7 @@ const q0 = diag.questions[0];
       save();
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.
       fetch('/api/formation/lead', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
       }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
       dl({ event: 'lead_submit', form: 'diagnostic', segment: seg });

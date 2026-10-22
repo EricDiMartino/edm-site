@@ -42,7 +42,7 @@ async function call(path, { method = 'GET', body, version }) {
 
 /** Créneaux libres → { 'AAAA-MM-JJ': ['2026-10-05T09:30:00+02:00', …] } */
 /** Id du calendrier pour une clé (« ouverture »…), sinon celui par défaut. */
-export const calendarFor = (key) => GHL.calendars[key] || GHL.calendarId;
+export const calendarFor = (key) => (Object.hasOwn(GHL.calendars, key) ? GHL.calendars[key] : GHL.calendarId);
 
 export async function freeSlots(start, end, calendarId = GHL.calendarId) {
   const q = new URLSearchParams({ startDate: String(start.getTime()), endDate: String(end.getTime()), timezone: GHL.timezone });
@@ -84,10 +84,10 @@ export function bookAppointment(contactId, startTime, title, calendarId = GHL.ca
 export const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
-/** Refuse les appels venant d'un autre site. */
+/** Refuse les appels venant d'un autre site (ou sans en-tête Origin). */
 export function sameOrigin(request) {
   const o = request.headers.get('origin');
-  if (!o) return true;
+  if (!o) return false; // les navigateurs envoient toujours Origin sur un POST : son absence = appel scripté
   try {
     const h = new URL(o).hostname;
     return h === 'www.ericdimartino.com' || h === 'ericdimartino.com' || h.endsWith('.vercel.app') || h === 'localhost';

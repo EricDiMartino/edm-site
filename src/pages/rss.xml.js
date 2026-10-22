@@ -7,7 +7,7 @@ export async function GET(context) {
     (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   );
   return rss({
-    title: 'Eric Di Martino — Le journal',
+    title: 'Eric Di Martino · Le journal',
     description: 'Conseils soin du cheveu, focus prestations et actualités des salons Eric Di Martino.',
     site: context.site,
     items: posts.map((p) => ({

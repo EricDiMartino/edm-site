@@ -12,6 +12,7 @@ export const url = {
   formations: `${BASE}/formations-coiffure`,
   diagnostic: `${BASE}/diagnostic`,
   reserver: `${BASE}/reserver`,
+  reserverOuverture: `${BASE}/reserver-ouverture`, // calendrier GHL « ouverture »
   merci: `${BASE}/merci`,
   mentions: `${BASE}/mentions-legales`,
   cgv: `${BASE}/cgv`,

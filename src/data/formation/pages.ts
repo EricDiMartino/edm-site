@@ -54,12 +54,12 @@ export const ouvrirFin: FinalCta = { ...{
 
 export const accSeo = {
   "title": "Accompagnement gérant de salon de coiffure : 6 mois pour un salon autonome",
-  "description": "Coaching individuel de 6 mois pour salons dès ~300 K€ de CA : rentabilité, prix, flux client, management. À partir de 7 000 € HT."
+  "description": "Coaching individuel de 6 mois pour salons dès ~300 K€ de CA : rentabilité, prix, flux client, management. 4 nouveaux gérants par mois."
 };
 export const accFaq: Qa[] = [
   {
     "q": "Combien ça coûte ?",
-    "a": "À partir de 7 000 € HT pour six mois, facturé à la société. Le prix exact t'est donné à la fin du diagnostic, en deux minutes, sans appel."
+    "a": "Le prix dépend de ton salon, c'est pourquoi on ne l'affiche pas ici. Il est facturé à la société et nos membres le rentabilisent en 1 à 3 mois selon leur chiffre d'affaires de départ. On en parle pendant l'appel."
   },
   {
     "q": "Combien de temps faut-il y consacrer ?",

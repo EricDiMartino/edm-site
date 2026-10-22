@@ -7,6 +7,7 @@ export async function POST(request) {
   if (!sameOrigin(request)) return json({ error: 'forbidden' }, 403);
   let b;
   try { b = await request.json(); } catch { return json({ error: 'bad_request' }, 400); }
+  if (!b || typeof b !== 'object') return json({ error: 'bad_request' }, 400);
   if (clean(b.website)) return json({ ok: true }); // pot de miel
 
   const startTime = clean(b.startTime, 40);
@@ -19,14 +20,20 @@ export async function POST(request) {
     if (!contactId) {
       const email = clean(b.em, 160).toLowerCase();
       if (!firstName || !isEmail(email)) return json({ error: 'invalid' }, 400);
-      contactId = await upsertContact({
-        firstName,
-        lastName,
-        email,
-        phone: clean(b.tel, 30),
-        tags: ['academy-leader', 'rdv-site'],
-        source: 'Réservation ericdimartino.com/formation',
-      });
+      try {
+        contactId = await upsertContact({
+          firstName,
+          lastName,
+          email,
+          phone: clean(b.tel, 30),
+          tags: ['academy-leader', 'rdv-site'],
+          source: 'Réservation ericdimartino.com/formation',
+        });
+      } catch (e) {
+        // erreur sur le contact (téléphone invalide…) : ce n'est pas un créneau pris
+        console.error('[book] contact', e?.message, e?.data);
+        return json({ error: 'contact_invalid' }, 400);
+      }
     }
     await bookAppointment(contactId, startTime, `Ton appel offert ${firstName} ${lastName}`.replace(/\s+/g, ' ').trim(), calendarFor(clean(b.cal, 30)));
     return json({ ok: true, startTime });

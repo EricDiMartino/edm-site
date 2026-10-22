@@ -71,7 +71,7 @@ const PREST_ICONS: Record<string, string> = {
             src={salon.heroImage}
             widths={HERO_WIDTHS}
             sizes="(min-width: 820px) 58vw, 100vw"
-            alt={`Salon Eric Di Martino — ${salon.ville}`}
+            alt={`Salon Eric Di Martino, ${salon.ville}`}
             loading="eager"
             fetchpriority="high"
           />
@@ -140,8 +140,8 @@ const PREST_ICONS: Record<string, string> = {
     <section class="rattrapage">
       <div class="rattrapage-inner reveal">
         <p class="label">Rattrapage</p>
-        <h2 class="h-seo">Couleur ratée ailleurs ? On rattrape.</h2>
-        <p class="body">Couleur qui a viré, balayage raté, coupe à récupérer : à {salon.ville}, on commence par une consultation pour diagnostiquer, puis on corrige dans le respect du cheveu. On vous dit honnêtement ce qui est possible, avant d'agir.</p>
+        <h2 class="h-seo">Couleur ratée ailleurs ? Rattrapage couleur à {salon.ville}.</h2>
+        <p class="body">Couleur qui a viré, balayage raté, coupe à récupérer : à {salon.ville}, on commence par une consultation pour diagnostiquer, puis on corrige dans le respect du cheveu. On vous dit honnêtement ce qui est possible, avant d'agir. <a href="/coloration-rattrapage">Comment se passe un rattrapage couleur</a>.</p>
         <a class="btn btn-action" href="#reserver" data-reserve data-planity={salon.planityKey}>Réserver un rattrapage</a>
       </div>
     </section>
@@ -235,7 +235,7 @@ const PREST_ICONS: Record<string, string> = {
         </div>
         <div class="maison-map reveal" data-d="1">
           <iframe
-            title={`Carte — ${salon.nom}, ${salon.ville}`}
+            title={`Carte : ${salon.nom}, ${salon.ville}`}
             src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(', '))}&z=16&output=embed`}
             width="100%"
             height="100%"
@@ -272,7 +272,7 @@ const PREST_ICONS: Record<string, string> = {
                     src={m.photo}
                     widths={PORTRAIT_WIDTHS}
                     sizes="(min-width: 1000px) 18vw, (min-width: 820px) 30vw, 45vw"
-                    alt={`${m.prenom}${m.specialite ? ', ' + m.specialite : ''} — Eric Di Martino ${salon.ville}`}
+                    alt={`${m.prenom}${m.specialite ? ', ' + m.specialite : ''}, Eric Di Martino ${salon.ville}`}
                     loading="lazy"
                   />
                 ) : (

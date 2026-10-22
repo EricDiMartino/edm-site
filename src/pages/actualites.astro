@@ -17,7 +17,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
 
 <Layout title="Conseils coiffure & soin du cheveu | Eric Di Martino" description="Le journal Eric Di Martino : conseils coiffure, soin du cheveu et focus prestations par nos coiffeurs visagistes en Isère et Savoie. Lisez nos articles." canonical={canonical}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} slot="head" />
-  <link slot="head" rel="alternate" type="application/rss+xml" title="Eric Di Martino — Le journal" href={new URL('/rss.xml', Astro.site).href} />
+  <link slot="head" rel="alternate" type="application/rss+xml" title="Eric Di Martino · Le journal" href={new URL('/rss.xml', Astro.site).href} />
 
   <Header salons={salonsNav} current="blog" />
 

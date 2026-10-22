@@ -3,12 +3,14 @@
 // Balisage + texte = maquette (formation-src/code/dist, vérifié mot à mot contre formation-src/maquette.html).
 // SEO / FAQ / appel final : src/data/formation/pages.ts.
 import FormationLayout from '../../components/formation/FormationLayout.astro';
+import { Image } from 'astro:assets';
+import salonImg from '../../assets/formation/photos/salon-de-coiffure-grenoble-place-victor-hugo-ouverture.webp';
 import FormationFaq from '../../components/formation/FormationFaq.astro';
 import FormationFinalCta from '../../components/formation/FormationFinalCta.astro';
 import { accSeo as seo, accFaq as faq, accFin as fin } from '../../data/formation/pages';
 import { orgRef, SITE, url } from '../../data/formation/site';
 
-// JSON-LD (maquette : Service + Offer « à partir de 7 000 € HT » · FAQPage via FormationFaq). VideoObject : quand la VSL existera.
+// JSON-LD : Service · FAQPage via FormationFaq. Prix volontairement non affiché (décision 22/10/2026).
 const pageUrl = `${SITE}${url.accompagnement}`;
 const schema = {
   '@context': 'https://schema.org',
@@ -20,13 +22,6 @@ const schema = {
   provider: orgRef,
   areaServed: 'FR',
   audience: { '@type': 'BusinessAudience', audienceType: 'Gérants de salon de coiffure' },
-  offers: {
-    '@type': 'Offer',
-    url: pageUrl,
-    priceCurrency: 'EUR',
-    priceSpecification: { '@type': 'PriceSpecification', minPrice: 7000, priceCurrency: 'EUR', valueAddedTaxIncluded: false },
-    seller: orgRef,
-  },
 };
 ---
 
@@ -40,11 +35,11 @@ const schema = {
           <h1 class="s80">Rends ton salon de coiffure <span class="s125">autonome en 6 mois.</span></h1>
           <p class="s81">De 40 h à 4 h par semaine. Six mois de coaching individuel avec tes trois experts, sur ton salon, avec tes chiffres et tes équipes. <b class="s15"><br>Pour les salons à partir de ~300 000 € de CA, ou en passe de les atteindre.</b></p>
           <div class="s83">
-            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est ton moment</b><span class="s19">2 minutes · prix exact à la fin</span></a>
-            <div class="s85"><b class="s15">À partir de 7 000 € HT</b> · facturé à la société<br>4 nouveaux gérants par mois maximum</div>
+            <a href="/formation/diagnostic" class="s84"><b class="s18">Découvre si c'est ton moment</b><span class="s19">2 minutes · réponse immédiate</span></a>
+            <div class="s85"><b class="s15">4 nouveaux gérants par mois maximum</b></div>
           </div>
         </div>
-        <div class="s140"><div class="s141">▶</div>VSL 8–12 min · Xavier explique la méthode</div>
+        <div class="s140 al-media"><Image src={salonImg} alt="Salon de coiffure Eric Di Martino à Grenoble, piloté avec la méthode Salon Autonome" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" fetchpriority="high" /></div>
       </div>
       <div class="s21">
         <div class="s142">

@@ -206,7 +206,7 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
       <div class="hs-gallery reveal" data-d="1">
         {h.atmosphere.photos.map((p, i) => (
           <figure class={`hs-shot hs-shot-${i}`}>
-            <Image src={p.image} widths={i === 0 ? [640, 960, 1400] : [380, 560, 760]} sizes={i === 0 ? '(min-width: 820px) 64vw, 100vw' : '(min-width: 820px) 22vw, 100vw'} alt={`Head spa au salon de Grenoble — ${p.label}`} loading="lazy" />
+            <Image src={p.image} widths={i === 0 ? [640, 960, 1400] : [380, 560, 760]} sizes={i === 0 ? '(min-width: 820px) 64vw, 100vw' : '(min-width: 820px) 22vw, 100vw'} alt={`Head spa au salon de Grenoble : ${p.label}`} loading="lazy" />
             <figcaption>{p.label}</figcaption>
           </figure>
         ))}
