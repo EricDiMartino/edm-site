@@ -159,7 +159,7 @@ export const grenoble: SalonData = {
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
-  // Chiffres-clés (bandeau réassurance). « 200 m² » = salon flagship Grenoble.
+  // Chiffres-clés (bandeau réassurance). « 200 m² » = salon principal de Grenoble.
   // 4,7 ★ · 500 avis : PROVISOIRE — à brancher sur les vrais avis Google plus tard.
   chiffres: [
     { valeur: '5', label: 'artistes' },
