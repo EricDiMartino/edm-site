@@ -62,7 +62,7 @@ const faq = [
 // Schémas SEO / GEO
 const provider = {
   '@type': 'BeautySalon',
-  name: `Eric Di Martino — ${m.ville}`,
+  name: `Eric Di Martino, ${m.ville}`,
   telephone: m.telephone,
   address: { '@type': 'PostalAddress', streetAddress: m.adresse, postalCode: m.codePostal, addressLocality: m.ville, addressCountry: 'FR' },
   sameAs: [m.instagram.url],
@@ -71,7 +71,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   serviceType: 'Beauté du regard',
-  name: 'Beauté du regard — sourcils, maquillage permanent, cils',
+  name: 'Beauté du regard : sourcils, maquillage permanent, cils',
   description: 'Création et restructuration de la ligne de sourcils, épilation et entretien, consultation, maquillage permanent (sourcils, lèvres) et teinture des cils, à Montbonnot, avec Audrey.',
   url: canonical,
   areaServed: m.areaServed,
@@ -171,7 +171,7 @@ const seo = {
     <!-- LIEU -->
     <section class="section bdr-lieu">
       <div class="bdr-lieu-visual reveal">
-        <iframe title={`Carte — Salon ${m.ville}`} src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe title={`Carte : salon de ${m.ville}`} src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="bdr-lieu-copy reveal" data-d="1">
         <p class="label">Le lieu</p>

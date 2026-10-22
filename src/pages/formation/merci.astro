@@ -1,9 +1,9 @@
 ---
 // ACADEMY LEADER — Merci (/formation/merci), noindex. Écran de la maquette.
 // Prénom + créneau lus depuis /reserver (sessionStorage) ; à terme, depuis la redirection GoHighLevel.
-// ⏸️ Vidéo Xavier et étude de cas : emplacements de la maquette (contenus à fournir).
+// Vidéo Xavier, étude de cas et boutons « ajouter à l'agenda » retirés tant que les contenus n'existent pas (22/10/2026).
 import FormationLayout from '../../components/formation/FormationLayout.astro';
-import { tunnelSeo, merciTodo, calBtns } from '../../data/formation/tunnel';
+import { tunnelSeo, merciTodo } from '../../data/formation/tunnel';
 import { url } from '../../data/formation/site';
 ---
 
@@ -14,16 +14,8 @@ import { url } from '../../data/formation/site';
       <div class="s261">✓ Rendez-vous confirmé</div>
       <h1 class="s262" data-m="title">C'est confirmé.</h1>
       <p class="s263" data-m="when"></p>
-      <div class="s264"><div class="s141">▶</div>vidéo 60–90 s · Xavier : « voici ce qui va se passer »</div>
       <div class="s265">
         {merciTodo.map((m) => <div class="s266"><div class="s227">{m.n}</div><b class="s267">{m.t}</b><p class="s268">{m.p}</p></div>)}
-      </div>
-      <div class="s269">
-        {calBtns.map((c) => <button type="button" class="s270">+ {c}</button>)}
-      </div>
-      <div class="s271">
-        <div class="s272">En attendant l'appel</div>
-        <div class="s273"><b class="s15">[Étude de cas · Prénom, ville]</b> Avant → Après → Le pont, avec le chiffre clé. Lien vers la vidéo.</div>
       </div>
     </div>
   </main>
@@ -33,7 +25,8 @@ import { url } from '../../data/formation/site';
       var r = {}; try { r = JSON.parse(sessionStorage.getItem('al_rdv') || '{}'); } catch (e) {}
       document.querySelector('[data-m="title"]').textContent = r.fn ? "C'est confirmé, " + r.fn + '.' : "C'est confirmé.";
       document.querySelector('[data-m="when"]').textContent = r.when ? r.when + ' à ' + r.slot + ' · 30 min en visio avec Xavier Paolucci' : '30 min en visio avec Xavier Paolucci · le détail est dans l\'email de confirmation';
-      (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_confirme' });
+      // Conversion seulement après une vraie réservation (al_rdv posé par /reserver), une seule fois
+      if (r.when) { (window.dataLayer = window.dataLayer || []).push({ event: 'rdv_confirme' }); try { sessionStorage.removeItem('al_rdv'); } catch (e) {} }
     })();
   </script>
 </FormationLayout>

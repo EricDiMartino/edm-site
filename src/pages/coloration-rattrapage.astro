@@ -47,7 +47,7 @@ const seo = {
 
 const providers = SALONS.map((s) => ({
   '@type': 'HairSalon',
-  name: `Eric Di Martino — ${s.ville}`,
+  name: `Eric Di Martino, ${s.ville}`,
   telephone: s.telephone,
   address: { '@type': 'PostalAddress', streetAddress: s.adresse, postalCode: s.codePostal, addressLocality: s.ville, addressCountry: 'FR' },
 }));

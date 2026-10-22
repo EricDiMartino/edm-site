@@ -25,9 +25,8 @@ export const callFlowOuverture = [
 ];
 
 export const merciTodo = [
-  { n: '01', t: 'Réponds « OK » au SMS', p: 'Tu viens de le recevoir. Ça confirme ton créneau.' },
-  { n: '02', t: 'Prépare ton dernier bilan', p: 'Et le prix de tes 3 prestations principales.' },
-  { n: '03', t: 'Regarde la vidéo ci-dessus', p: '90 secondes pour savoir exactement comment ça se passe.' },
+  { n: '01', t: 'Vérifie ta confirmation', p: 'Par email, et par SMS si tu as laissé ton numéro.' },
+  { n: '02', t: 'Prépare tes chiffres', p: 'Ton dernier bilan si tu as un salon ; ta zone et ton budget si c\'est un projet.' },
+  { n: '03', t: 'Note tes questions', p: 'On y répond pendant l\'appel, sans engagement.' },
 ];
 
-export const calBtns = ['Google Agenda', 'Apple Calendar', 'Outlook'];
