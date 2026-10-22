@@ -9,10 +9,10 @@ import { aixLesBains } from '../data/aix-les-bains';
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
 
 export const salonsNav = [
-  { ville: grenoble.ville, href: '/salon-de-coiffure/grenoble' },
-  { ville: montbonnot.ville, href: '/salon-de-coiffure/montbonnot' },
-  { ville: voiron.ville, href: '/salon-de-coiffure/voiron' },
-  { ville: aixLesBains.ville, href: '/salon-de-coiffure/aix-les-bains' },
+  { ville: grenoble.ville, href: '/salon-de-coiffure/grenoble/' },
+  { ville: montbonnot.ville, href: '/salon-de-coiffure/montbonnot/' },
+  { ville: voiron.ville, href: '/salon-de-coiffure/voiron/' },
+  { ville: aixLesBains.ville, href: '/salon-de-coiffure/aix-les-bains/' },
 ];
 
 export const areaServed = [...new Set(SALONS.flatMap((s) => s.areaServed ?? []))];
@@ -59,7 +59,7 @@ export function buildPrestationSchemas(data: PrestationData, canonical: string, 
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Accueil', item: abs('/') },
-      { '@type': 'ListItem', position: 2, name: 'Prestations', item: abs('/prestations-coiffure') },
+      { '@type': 'ListItem', position: 2, name: 'Prestations', item: abs('/prestations-coiffure/') },
       { '@type': 'ListItem', position: 3, name: nom, item: canonical },
     ],
   };

@@ -19,6 +19,8 @@ const { gtmId, storageKey } = Astro.props;
   });
   try {
     var c = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    // Choix périmé (accord > 13 mois, refus > 6 mois) : on l'efface, la bannière redemande
+    if (c && c.ts && Date.now() - c.ts > ((c.analytics || c.marketing) ? 395 : 182) * 864e5) { localStorage.removeItem(storageKey); c = null; }
     if (c) {
       gtag('consent', 'update', {
         analytics_storage: c.analytics ? 'granted' : 'denied',

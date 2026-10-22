@@ -40,7 +40,7 @@ export const analyseCapillaire = {
       { titre: 'Des recommandations sur-mesure', texte: 'Un diagnostic objectif, pas une estimation à vue.' },
       { titre: 'Le suivi visite après visite', texte: 'On mesure l’évolution dans le temps et on ajuste.' },
     ] as AcBenefice[],
-    cta: { label: 'Découvrir la consultation', href: '/consultation-visagiste-coloriste' },
+    cta: { label: 'Découvrir la consultation', href: '/consultation-visagiste-coloriste/' },
   },
 
   // ════ Analyse seule — accueil / LP / page consultation (variantes courte & complète) ════
@@ -66,7 +66,7 @@ export const analyseCapillaire = {
   // COMPLÈTE — développé du suivi dans le temps.
   suivi:
     'Vos mesures sont conservées d’une visite à l’autre. On compare, on voit ce qui progresse, on ajuste le soin. Votre diagnostic devient un fil dans le temps, pas une photo isolée.',
-  cta: { label: 'Découvrir la consultation', href: '/consultation-visagiste-coloriste' },
+  cta: { label: 'Découvrir la consultation', href: '/consultation-visagiste-coloriste/' },
 
   // Photo de l'analyse (pince en action) — placeholder pour l'instant → cadre générique.
   image: undefined as ImageMetadata | undefined,

@@ -7,17 +7,17 @@ export const BASE = '/formation';
 
 export const url = {
   accueil: `${BASE}/`,
-  ouvrir: `${BASE}/ouvrir-un-salon-de-coiffure`,
-  accompagnement: `${BASE}/accompagnement-salon-de-coiffure`,
-  formations: `${BASE}/formations-coiffure`,
-  diagnostic: `${BASE}/diagnostic`,
-  reserver: `${BASE}/reserver`,
-  reserverOuverture: `${BASE}/reserver-ouverture`, // calendrier GHL « ouverture »
-  merci: `${BASE}/merci`,
-  mentions: `${BASE}/mentions-legales`,
-  cgv: `${BASE}/cgv`,
-  confidentialite: `${BASE}/confidentialite`,
-  qualiopi: `${BASE}/informations-qualiopi`,
+  ouvrir: `${BASE}/ouvrir-un-salon-de-coiffure/`,
+  accompagnement: `${BASE}/accompagnement-salon-de-coiffure/`,
+  formations: `${BASE}/formations-coiffure/`,
+  diagnostic: `${BASE}/diagnostic/`,
+  reserver: `${BASE}/reserver/`,
+  reserverOuverture: `${BASE}/reserver-ouverture/`, // calendrier GHL « ouverture »
+  merci: `${BASE}/merci/`,
+  mentions: `${BASE}/mentions-legales/`,
+  cgv: `${BASE}/cgv/`,
+  confidentialite: `${BASE}/confidentialite/`,
+  qualiopi: `${BASE}/informations-qualiopi/`,
 };
 
 /** Liens du header (hors CTA) */

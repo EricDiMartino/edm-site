@@ -72,7 +72,7 @@ export const aixLesBains: SalonData = {
     texte:
       'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature du cheveu, mode de vie. Un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
-    lien: '/consultation-visagiste-coloriste',
+    lien: '/consultation-visagiste-coloriste/',
   },
 
   maison: {
@@ -83,7 +83,7 @@ export const aixLesBains: SalonData = {
       'Boulevard Président Wilson, au cœur d’Aix-les-Bains et tout près du lac, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu. Un point de rendez-vous pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
       'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
-    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
 
   // Pas de service « signature » sur Aix-les-Bains.

@@ -14,10 +14,10 @@ import CtaBlock from '../components/CtaBlock.astro';
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
 const salonsNav = [
-  { ville: grenoble.ville, href: '/salon-de-coiffure/grenoble' },
-  { ville: montbonnot.ville, href: '/salon-de-coiffure/montbonnot' },
-  { ville: voiron.ville, href: '/salon-de-coiffure/voiron' },
-  { ville: aixLesBains.ville, href: '/salon-de-coiffure/aix-les-bains' },
+  { ville: grenoble.ville, href: '/salon-de-coiffure/grenoble/' },
+  { ville: montbonnot.ville, href: '/salon-de-coiffure/montbonnot/' },
+  { ville: voiron.ville, href: '/salon-de-coiffure/voiron/' },
+  { ville: aixLesBains.ville, href: '/salon-de-coiffure/aix-les-bains/' },
 ];
 const areaServed = [...new Set(SALONS.flatMap((s) => s.areaServed ?? []))];
 

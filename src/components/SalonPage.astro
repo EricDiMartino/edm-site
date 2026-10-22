@@ -52,7 +52,7 @@ const PREST_ICONS: Record<string, string> = {
   <main id="top">
     <!-- 1. HERO -->
     <section class="hero">
-      <div class="hero-copy reveal">
+      <div class="hero-copy">
         {salon.ville && <p class="label">Salon de coiffure · {salon.ville}</p>}
         {salon.accroche && <p class="editorial hero-editorial">{salon.accroche}</p>}
         <h1 class="h-seo hero-h1">{heroH1}</h1>
@@ -65,7 +65,7 @@ const PREST_ICONS: Record<string, string> = {
           </a>
         </div>
       </div>
-      <div class="hero-visual reveal" data-d="1">
+      <div class="hero-visual">
         <div class="frame frame-tall">
           <Image
             src={salon.heroImage}
@@ -141,7 +141,7 @@ const PREST_ICONS: Record<string, string> = {
       <div class="rattrapage-inner reveal">
         <p class="label">Rattrapage</p>
         <h2 class="h-seo">Couleur ratée ailleurs ? Rattrapage couleur à {salon.ville}.</h2>
-        <p class="body">Couleur qui a viré, balayage raté, coupe à récupérer : à {salon.ville}, on commence par une consultation pour diagnostiquer, puis on corrige dans le respect du cheveu. On vous dit honnêtement ce qui est possible, avant d'agir. <a href="/coloration-rattrapage">Comment se passe un rattrapage couleur</a>.</p>
+        <p class="body">Couleur qui a viré, balayage raté, coupe à récupérer : à {salon.ville}, on commence par une consultation pour diagnostiquer, puis on corrige dans le respect du cheveu. On vous dit honnêtement ce qui est possible, avant d'agir. <a href="/coloration-rattrapage/">Comment se passe un rattrapage couleur</a>.</p>
         <a class="btn btn-action" href="#reserver" data-reserve data-planity={salon.planityKey}>Réserver un rattrapage</a>
       </div>
     </section>
@@ -234,9 +234,10 @@ const PREST_ICONS: Record<string, string> = {
           )}
         </div>
         <div class="maison-map reveal" data-d="1">
+          <button type="button" class="map-load" data-map-load>Afficher la carte<small>Google Maps · chargée seulement si vous cliquez</small></button>
           <iframe
             title={`Carte : ${salon.nom}, ${salon.ville}`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(', '))}&z=16&output=embed`}
+            data-src={`https://www.google.com/maps?q=${encodeURIComponent([salon.adresse, salon.codePostal, salon.ville].filter(Boolean).join(', '))}&z=16&output=embed`}
             width="100%"
             height="100%"
             loading="lazy"
@@ -351,7 +352,7 @@ const PREST_ICONS: Record<string, string> = {
     <section class="section cta" id="reserver">
       <div class="cta-inner reveal">
         <p class="editorial cta-title">{salon.ctaTitre || 'Offrez-vous un vrai moment.'}</p>
-        {salon.ville && <p class="lede cta-lede">On a hâte de vous accueillir à {salon.ville}. Réservez votre visite, consultation comprise, sans supplément.</p>}
+        {salon.ville && <p class="lede cta-lede">On a hâte de vous accueillir à {salon.ville}. Réservez votre visite : la consultation (30 €) est offerte pour une première visite.</p>}
         <a class="btn btn-action btn-lg" href={salon.reservationUrl}>Réserver en ligne</a>
         {telHref && <p class="cta-phone">ou par téléphone : <a href={telHref}>{salon.telephone}</a></p>}
       </div>
@@ -484,7 +485,7 @@ const PREST_ICONS: Record<string, string> = {
   .maison-copy { max-width: 64ch; }
   .maison-p { margin: 0 0 1rem; }
   .maison-p:last-of-type { margin-bottom: 1.6rem; }
-  .maison-map { margin-top: clamp(2rem, 5vw, 3rem); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: inset 0 0 0 1px var(--line); }
+  .maison-map { position: relative; margin-top: clamp(2rem, 5vw, 3rem); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: inset 0 0 0 1px var(--line); }
   .maison-map iframe { display: block; width: 100%; height: 100%; border: 0; }
 
   /* ============ FAQ ============ */

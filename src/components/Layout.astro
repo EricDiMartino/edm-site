@@ -83,6 +83,16 @@ const isPreviewDeploy = !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== '
       }, true);
     </script>
     <script is:inline>
+      // Cartes Google Maps : iframe chargée seulement au clic (pas de cookie Google avant une action du visiteur)
+      addEventListener('click', function (e) {
+        var b = e.target.closest && e.target.closest('[data-map-load]');
+        if (!b) return;
+        var f = b.parentNode.querySelector('iframe[data-src]');
+        if (f) { f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+        b.remove();
+      });
+    </script>
+    <script is:inline>
       document.documentElement.classList.add("js");
       addEventListener("DOMContentLoaded", function () {
         var els = document.querySelectorAll(".reveal");

@@ -21,7 +21,7 @@ export const coloration: PrestationData = {
       'Une couleur réussie part d’un diagnostic : teint, couleur des yeux, géométrie du visage et santé du cheveu. C’est lui qui guide la teinte, la technique et la pose.',
       'Toute transformation (changement de couleur, éclaircissement, balayage) commence par une consultation : on établit le projet et un devis précis, et on protège la fibre à chaque étape.',
     ],
-    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
+    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste/' },
   },
 
   variantes: {
@@ -51,9 +51,9 @@ export const coloration: PrestationData = {
   maillage: {
     titre: 'À voir aussi',
     items: [
-      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste' },
-      { titre: 'Lissage & soins', href: '/lissage-soin' },
-      { titre: 'Head spa', href: '/head-spa-grenoble' },
+      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste/' },
+      { titre: 'Lissage & soins', href: '/lissage-soin/' },
+      { titre: 'Head spa', href: '/head-spa-grenoble/' },
     ],
   },
 

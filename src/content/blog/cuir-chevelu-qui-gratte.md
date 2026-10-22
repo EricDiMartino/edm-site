@@ -12,11 +12,11 @@ faq:
     answer: "Oui : il nettoie en profondeur, élimine les résidus, relance la microcirculation et apaise le cuir chevelu. C'est l'un des effets les plus appréciés du rituel."
 related:
   - titre: "Head spa à Grenoble"
-    href: "/head-spa-grenoble"
+    href: "/head-spa-grenoble/"
   - titre: "Lissage & soins"
-    href: "/lissage-soin"
+    href: "/lissage-soin/"
   - titre: "La consultation visagiste"
-    href: "/consultation-visagiste-coloriste"
+    href: "/consultation-visagiste-coloriste/"
 ---
 
 Ça démange, ça tiraille, parfois ça pèle un peu. Un cuir chevelu qui gratte, c'est inconfortable. Et surtout, **ce n'est pas une fatalité**. Dans la grande majorité des cas, il y a une cause identifiable… et une solution.
@@ -38,6 +38,6 @@ related:
 
 ## Quand passer en salon
 
-Si ça persiste, le bon point de départ reste le **diagnostic** : c'est tout l'objet de [notre consultation visagiste](/consultation-visagiste-coloriste), qui examine la nature et l'état réels de votre cuir chevelu avant de proposer le bon soin.
+Si ça persiste, le bon point de départ reste le **diagnostic** : c'est tout l'objet de [notre consultation visagiste](/consultation-visagiste-coloriste/), qui examine la nature et l'état réels de votre cuir chevelu avant de proposer le bon soin.
 
-Pour nettoyer en profondeur et apaiser durablement, le [head spa](/head-spa-grenoble) est particulièrement indiqué : vapeur, exfoliation douce aux huiles et massage crânien rééquilibrent le cuir chevelu. Et pour réparer la fibre, jetez un œil à nos [soins ciblés](/lissage-soin).
+Pour nettoyer en profondeur et apaiser durablement, le [head spa](/head-spa-grenoble/) est particulièrement indiqué : vapeur, exfoliation douce aux huiles et massage crânien rééquilibrent le cuir chevelu. Et pour réparer la fibre, jetez un œil à nos [soins ciblés](/lissage-soin/).

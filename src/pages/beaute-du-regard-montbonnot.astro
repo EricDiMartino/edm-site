@@ -126,7 +126,7 @@ const seo = {
         <p class="label">Notre approche</p>
         <h2 class="h-seo">Le regard, prolongement du visage</h2>
         <p class="body">Un regard se travaille comme une coupe : selon la géométrie du visage, la nature du poil et vos envies. Avant chaque création de ligne, épilation, restructuration ou maquillage permanent, Audrey prend le temps du diagnostic. Un doute sur votre forme ? On le lève en consultation, pour un résultat naturel, qui vous ressemble et se vit simplement au quotidien.</p>
-        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste/">Notre philosophie de la consultation<span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <div class="bdr-approche-video reveal" data-d="1">
         <button class="bdr-reel" type="button" data-bdr-video aria-label="Lire la présentation d'Audrey">
@@ -171,7 +171,8 @@ const seo = {
     <!-- LIEU -->
     <section class="section bdr-lieu">
       <div class="bdr-lieu-visual reveal">
-        <iframe title={`Carte : salon de ${m.ville}`} src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <button type="button" class="map-load" data-map-load>Afficher la carte<small>Google Maps · chargée seulement si vous cliquez</small></button>
+        <iframe title={`Carte : salon de ${m.ville}`} data-src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="bdr-lieu-copy reveal" data-d="1">
         <p class="label">Le lieu</p>
@@ -184,7 +185,7 @@ const seo = {
         </ul>
         <p class="bdr-lieu-note">Paiement en 3× ou 4× · sur rendez-vous</p>
         <div class="bdr-lieu-links">
-          <a class="link-arrow link-olive" href="/salon-de-coiffure/montbonnot">Découvrir le salon<span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow link-olive" href="/salon-de-coiffure/montbonnot/">Découvrir le salon<span class="arrow" aria-hidden="true">→</span></a>
           <a class="link-arrow link-olive" href={m.mapsUrl} target="_blank" rel="noopener">Itinéraire<span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>

@@ -18,7 +18,7 @@ export const headSpa = {
   ville: 'Grenoble',
   telephone: '04 76 46 07 04',
   reservationUrl: '#reserver', // déclenche la modale Planity (salon résolu via planityKey, voir BookingModal.astro)
-  salonHref: '/salon-de-coiffure/grenoble',
+  salonHref: '/salon-de-coiffure/grenoble/',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=6+place+Victor+Hugo+38000+Grenoble',
 
   hero: {

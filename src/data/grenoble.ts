@@ -146,8 +146,8 @@ export const grenoble: SalonData = {
     { jour: 'Dimanche', valeur: 'Fermé', ferme: true, jourEn: 'Sunday' },
   ],
 
-  // Geo/SEO local. Coordonnées place Victor Hugo (à affiner). areaServed = GEO local.
-  geo: { lat: 45.1909, lng: 5.7263 },
+  // Geo/SEO local. 6 place Victor Hugo (géocodage OpenStreetMap, vérifié le 22/10/2026). areaServed = GEO local.
+  geo: { lat: 45.1893, lng: 5.7238 },
   priceRange: '€€€',
   areaServed: ['Grenoble', 'Meylan', 'Saint-Martin-d’Hères', 'La Tronche', 'Échirolles'],
   googlePlaceId: 'ChIJ0Uu6VYT0ikcRBPdnb7f5mLc',
@@ -182,7 +182,7 @@ export const grenoble: SalonData = {
     texte:
       'Avant chaque coupe ou couleur, notre coiffeur visagiste prend le temps : morphologie du visage, nature du cheveu, mode de vie. Un diagnostic précis qui guide le geste, pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
-    lien: '/consultation-visagiste-coloriste',
+    lien: '/consultation-visagiste-coloriste/',
   },
 
   // Bloc « Notre maison » — texte local PROVISOIRE (porteur SEO/GEO : Grenoble, centre-ville, services).
@@ -194,7 +194,7 @@ export const grenoble: SalonData = {
       'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle, un écrin pensé pour que le geste prime. À deux pas du centre-ville, il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
       'Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
-    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
 
   services: [
@@ -202,12 +202,12 @@ export const grenoble: SalonData = {
       eyebrow: 'Signature exclusive',
       titre: 'Head spa japonais à Grenoble',
       texte:
-        'Une heure suspendue. Notre rituel d’inspiration japonaise associe massage crânien, vapeur tiède et soin profond du cuir chevelu, pour un cheveu apaisé et un esprit relâché.',
-      points: ['Diagnostic capillaire', 'Massage crânien 20 min', 'Soin du cuir chevelu sur-mesure', 'Brushing inclus'],
-      prix: '89 €',
-      prixDetail: '1h · soin signature',
+        'Un moment suspendu. Notre rituel d’inspiration japonaise associe massage crânien, vapeur tiède et soin profond du cuir chevelu, pour un cheveu apaisé et un esprit relâché.',
+      points: ['Diagnostic capillaire', 'Massage crânien', 'Soin du cuir chevelu sur-mesure', 'Brushing inclus'],
+      prix: 'dès 120 €',
+      prixDetail: '1h15 à 2h30 · selon le rituel',
       image: headspa,
-      lien: '/head-spa-grenoble',
+      lien: '/head-spa-grenoble/',
       lienLabel: 'Découvrir le head spa',
       sombre: true,
     },

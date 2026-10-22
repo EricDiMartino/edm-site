@@ -217,7 +217,8 @@ const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent([h.lieu.adr
     <section class="hs-sec hs-band">
       <div class="hs-place">
         <div class="hs-place-visual reveal">
-          <iframe title="Carte, Salon Grenoble" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <button type="button" class="map-load" data-map-load>Afficher la carte<small>Google Maps · chargée seulement si vous cliquez</small></button>
+          <iframe title="Carte, Salon Grenoble" data-src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="hs-place-copy reveal" data-d="1">
           <p class="hs-eyebrow">{h.lieu.eyebrow}</p>

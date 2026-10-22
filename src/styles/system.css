@@ -186,3 +186,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nr-atout, .nr-poste,
 .lp-inclus-item, .rattrapage-inner,
 .salon-card { box-shadow: var(--shadow-sm); }
+
+/* Carte Google Maps chargée au clic (RGPD) */
+[data-map-load] ~ iframe:not([src]) { visibility: hidden; }
+.map-load { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; width: 100%; border: 0; cursor: pointer; font: inherit; font-weight: 600; color: var(--ink); background: repeating-linear-gradient(135deg, rgba(43,39,35,.04) 0 10px, transparent 10px 20px), var(--bg); }
+.map-load small { font-weight: 400; font-size: .8rem; opacity: .7; }
+.map-load:hover, .map-load:focus-visible { background-color: #f3eee6; }

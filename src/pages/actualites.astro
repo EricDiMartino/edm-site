@@ -44,7 +44,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
         <ul class="jr-grid reveal" data-d="1">
           {posts.map((p) => (
             <li class="jr-card" data-category={p.data.category}>
-              <a class="jr-card-link" href={`/actualites/${p.id}`}>
+              <a class="jr-card-link" href={`/actualites/${p.id}/`}>
                 <span class="jr-card-media" style={p.data.cover ? `background-image:url(${p.data.cover})` : undefined}></span>
                 <span class="jr-card-body">
                   <span class="jr-card-cat">{p.data.category}</span>

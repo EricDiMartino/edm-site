@@ -20,7 +20,7 @@ export const mariage: PrestationData = {
       'Tout commence par un essai coiffure mariage : on teste le chignon ou l’attaché, on l’ajuste à votre robe, à la forme de votre visage et à votre style, puis on valide ensemble la coiffure de mariée avant le grand jour.',
       'Le jour J, vous êtes attendue pour une mise en beauté sereine : un chignon mariée ou une coiffure de cérémonie pensée pour tenir, du matin jusqu’à la dernière danse.',
     ],
-    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
+    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste/' },
   },
 
   variantes: {
@@ -48,9 +48,9 @@ export const mariage: PrestationData = {
   maillage: {
     titre: 'À voir aussi',
     items: [
-      { titre: 'Coloration & balayage', href: '/coloration-balayage' },
-      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste' },
-      { titre: 'Head spa', href: '/head-spa-grenoble' },
+      { titre: 'Coloration & balayage', href: '/coloration-balayage/' },
+      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste/' },
+      { titre: 'Head spa', href: '/head-spa-grenoble/' },
     ],
   },
 

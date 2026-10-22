@@ -20,7 +20,7 @@ export const coupe: PrestationData = {
       'Avant chaque coupe, un diagnostic : morphologie du visage, nature et implantation du cheveu, mode de vie. C’est lui qui dessine la ligne.',
       'Le résultat : une coupe qui vous ressemble, qui retombe bien et se coiffe simplement au quotidien, pas seulement le jour du rendez-vous.',
     ],
-    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
+    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste/' },
   },
 
   variantes: {
@@ -48,9 +48,9 @@ export const coupe: PrestationData = {
   maillage: {
     titre: 'À voir aussi',
     items: [
-      { titre: 'Coloration & balayage', href: '/coloration-balayage' },
-      { titre: 'Lissage & soins', href: '/lissage-soin' },
-      { titre: 'Head spa', href: '/head-spa-grenoble' },
+      { titre: 'Coloration & balayage', href: '/coloration-balayage/' },
+      { titre: 'Lissage & soins', href: '/lissage-soin/' },
+      { titre: 'Head spa', href: '/head-spa-grenoble/' },
     ],
   },
 

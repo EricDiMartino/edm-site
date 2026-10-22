@@ -14,10 +14,10 @@ import CtaBlock from '../components/CtaBlock.astro';
 
 const SALONS = [grenoble, montbonnot, voiron, aixLesBains];
 const accesSalons = [
-  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble', desc: 'Flagship · head spa & barbier', dot: 'var(--terracotta)' },
-  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot', desc: 'Beauté du regard · Isère', dot: 'var(--olive)' },
-  { ville: 'Aix-les-Bains', href: '/salon-de-coiffure/aix-les-bains', desc: 'Bord du lac · Savoie', dot: 'var(--c-info)' },
-  { ville: 'Voiron', href: '/salon-de-coiffure/voiron', desc: 'Pays Voironnais · Isère', dot: 'var(--olive-deep)' },
+  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble/', desc: 'Flagship · head spa & barbier', dot: 'var(--terracotta)' },
+  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot/', desc: 'Beauté du regard · Isère', dot: 'var(--olive)' },
+  { ville: 'Aix-les-Bains', href: '/salon-de-coiffure/aix-les-bains/', desc: 'Bord du lac · Savoie', dot: 'var(--c-info)' },
+  { ville: 'Voiron', href: '/salon-de-coiffure/voiron/', desc: 'Pays Voironnais · Isère', dot: 'var(--olive-deep)' },
 ];
 
 // Avis Google cumulés + quelques 5★.
@@ -33,10 +33,10 @@ const posts = (await getCollection('blog', (e) => !e.data.draft)).sort((a, b) =>
 const fmtDate = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const prestations = [
-  { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste', icon: 'scissors' },
-  { titre: 'Coloration & balayage', href: '/coloration-balayage', icon: 'drop' },
-  { titre: 'Lissage & soins', href: '/lissage-soin', icon: 'leaf' },
-  { titre: 'Extensions', href: '/extension-cheveux-grenoble', icon: 'strands' },
+  { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste/', icon: 'scissors' },
+  { titre: 'Coloration & balayage', href: '/coloration-balayage/', icon: 'drop' },
+  { titre: 'Lissage & soins', href: '/lissage-soin/', icon: 'leaf' },
+  { titre: 'Extensions', href: '/extension-cheveux-grenoble/', icon: 'strands' },
 ];
 const ICONS: Record<string, string> = {
   scissors: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 18M8.1 15.9 20 6"/>',
@@ -84,16 +84,16 @@ const videoSchema = {
   <main>
     <!-- 1. HERO -->
     <section class="section hm-hero">
-      <div class="hm-hero-copy reveal">
+      <div class="hm-hero-copy">
         <p class="label">Quatre salons en Isère &amp; Savoie</p>
         <h1 class="editorial hm-h1">L'art du <em>cheveu</em>,<br />au plus près de <em>chez vous</em>.</h1>
         <p class="lede hm-lede">Ici, on prend le temps de vous écouter. Coiffeurs visagistes et coloristes, coupe femme et homme, balayage, lissage brésilien, head spa et beauté du regard : quatre salons de coiffure haut de gamme en Isère et Savoie, une même exigence, vous voir repartir radieux·se.</p>
         <div class="hm-actions">
-          <a class="btn btn-action" href="/consultation-visagiste-coloriste">Découvrir la consultation</a>
+          <a class="btn btn-action" href="/consultation-visagiste-coloriste/">Découvrir la consultation</a>
         </div>
         {note && <p class="hm-trust"><strong>★ {note}</strong> · {totalArrondi}+ avis Google</p>}
       </div>
-      <div class="hm-acces reveal" data-d="1">
+      <div class="hm-acces">
         <div class="hm-acces-head"><span>Accès rapide</span><span>4 salons</span></div>
         <ul class="hm-acces-list">
           {accesSalons.map((s) => (
@@ -136,7 +136,7 @@ const videoSchema = {
         <p class="label">Notre signature</p>
         <h2 class="h-seo">La consultation visagiste, avant tout</h2>
         <p class="body">Quelle coupe selon mon visage ? Quelle couleur pour mon teint ? On ne devine pas : on vous écoute. Chaque coupe femme, chaque coupe homme, chaque balayage ou coloration commence par une consultation visagiste, le temps d’un vrai diagnostic capillaire : mode de vie, géométrie du visage, nature du cheveu et du cuir chevelu. C’est de là que naît une coiffure pensée pour vous, selon la forme de votre visage.</p>
-        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link-arrow link-olive" href="/consultation-visagiste-coloriste/">Découvrir la consultation visagiste<span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <ul class="hm-piliers reveal" data-d="1">
         <li><span class="hm-pilier-n">01</span><p>Votre mode de vie</p></li>
@@ -152,7 +152,7 @@ const videoSchema = {
           <p class="label">Nos prestations</p>
           <h2 class="h-seo">Coupe, balayage, lissage, soin, pensés pour votre visage</h2>
         </div>
-        <a class="link-arrow link-olive hm-presta-all" href="/prestations-coiffure">Toutes les prestations<span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link-arrow link-olive hm-presta-all" href="/prestations-coiffure/">Toutes les prestations<span class="arrow" aria-hidden="true">→</span></a>
       </header>
       <ul class="hm-presta-grid reveal" data-d="1">
         {prestations.map((p) => (
@@ -174,16 +174,16 @@ const videoSchema = {
           <p class="hm-sig-eyebrow">Exclusivités</p>
           <h2 class="hm-sig-title">Deux signatures <em>uniques</em>.</h2>
           <p class="hm-sig-lede">Au-delà de la coupe, de la couleur et du soin, deux rituels développés en exclusivité, chacun ancré dans un de nos salons, à Grenoble et à Montbonnot.</p>
-          <a class="hm-sig-all" href="/prestations-coiffure">Toutes les prestations →</a>
+          <a class="hm-sig-all" href="/prestations-coiffure/">Toutes les prestations →</a>
         </header>
         <div class="hm-sig-cards">
-          <a class="hm-sig-card reveal" href="/head-spa-grenoble">
+          <a class="hm-sig-card reveal" href="/head-spa-grenoble/">
             <p class="hm-sig-cat">Rituel cuir chevelu</p>
             <h3 class="hm-sig-name">Head <em>Spa</em></h3>
             <p class="hm-sig-text">Le head spa japonais : soin du cuir chevelu venu du Japon, vapeur tiède, massage crânien, huiles précieuses. Un moment suspendu pour relâcher la tête et sublimer le cheveu, à Grenoble.</p>
             <span class="hm-sig-foot"><span class="hm-sig-salon">Salon Grenoble</span><span class="hm-sig-go">Découvrir →</span></span>
           </a>
-          <a class="hm-sig-card reveal" data-d="1" href="/beaute-du-regard-montbonnot">
+          <a class="hm-sig-card reveal" data-d="1" href="/beaute-du-regard-montbonnot/">
             <p class="hm-sig-cat">Sourcils &amp; regard</p>
             <h3 class="hm-sig-name">Beauté du <em>regard</em></h3>
             <p class="hm-sig-text">Création et restructuration de la ligne de sourcils, épilation et entretien, par Audrey. Un doute sur votre forme ? Une consultation avant de vous lancer. Aussi maquillage permanent et teinture, à Montbonnot.</p>
@@ -220,7 +220,7 @@ const videoSchema = {
           <p class="label">Nos valeurs</p>
           <h2 class="h-seo">Une coiffure engagée</h2>
           <p class="body">Santé du cheveu d’abord, soin des cheveux abîmés et coloration sans ammoniaque, accompagnement des personnes touchées par le cancer, recyclage des cheveux et produits vegan.</p>
-          <a class="link-arrow link-olive" href="/nos-valeurs">Nos engagements<span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow link-olive" href="/nos-valeurs/">Nos engagements<span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <ul class="hm-engage-chips">
           <li>Vegan & cruelty-free</li>
@@ -238,12 +238,12 @@ const videoSchema = {
             <p class="label">Le journal</p>
             <h2 class="h-seo">Conseils &amp; actualités</h2>
           </div>
-          <a class="link-arrow link-olive hm-presta-all" href="/actualites">Tous les articles<span class="arrow" aria-hidden="true">→</span></a>
+          <a class="link-arrow link-olive hm-presta-all" href="/actualites/">Tous les articles<span class="arrow" aria-hidden="true">→</span></a>
         </header>
         <ul class="hm-journal-grid reveal" data-d="1">
           {posts.map((p) => (
             <li>
-              <a class="hm-jr-card" href={`/actualites/${p.id}`}>
+              <a class="hm-jr-card" href={`/actualites/${p.id}/`}>
                 <span class="hm-jr-media"></span>
                 <span class="hm-jr-cat">{p.data.category}</span>
                 <span class="hm-jr-date">{fmtDate(p.data.date)}</span>
@@ -272,18 +272,18 @@ const videoSchema = {
       </nav>
       <nav class="hm-footer-col" aria-label="Prestations">
         <p class="hm-footer-h">Prestations</p>
-        <a href="/prestations-coiffure">Toutes les prestations</a>
-        <a href="/coloration-balayage">Coloration & balayage</a>
-        <a href="/head-spa-grenoble">Head spa</a>
-        <a href="/consultation-visagiste-coloriste">Consultation</a>
+        <a href="/prestations-coiffure/">Toutes les prestations</a>
+        <a href="/coloration-balayage/">Coloration & balayage</a>
+        <a href="/head-spa-grenoble/">Head spa</a>
+        <a href="/consultation-visagiste-coloriste/">Consultation</a>
       </nav>
       <nav class="hm-footer-col" aria-label="La maison">
         <p class="hm-footer-h">La maison</p>
-        <a href="/nos-valeurs">Nos valeurs</a>
-        <a href="/actualites">Le journal</a>
-        <a href="/nous-rejoindre">Nous rejoindre</a>
+        <a href="/nos-valeurs/">Nos valeurs</a>
+        <a href="/actualites/">Le journal</a>
+        <a href="/nous-rejoindre/">Nous rejoindre</a>
         <a href="/formation/">Academy Leader · formation</a>
-        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/mentions-legales/">Mentions légales</a>
       </nav>
     </div>
     <div class="hm-footer-bottom">
