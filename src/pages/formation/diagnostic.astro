@@ -298,7 +298,7 @@ const q0 = diag.questions[0];
       var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
       save();
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.
-      fetch('/api/formation/lead', {
+      fetch('/api/formation/lead/', {
         method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
       }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
