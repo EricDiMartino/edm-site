@@ -99,7 +99,7 @@ import { url, edxp } from '../../data/formation/site';
     }
     function load() {
       msg('Chargement des créneaux…');
-      fetch('/api/formation/slots' + (CAL ? '?cal=' + CAL : '')).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      fetch('/api/formation/slots/' + (CAL ? '?cal=' + CAL : '')).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
         var map = {}; (d.days || []).forEach(function (x) { map[x.date] = x.slots; });
         build(map); msg(''); render();
         if (D.every(function (x) { return x.full; })) msg('Aucun créneau libre ces prochains jours. Appelle-nous au ' + TEL + '.', true);
@@ -115,7 +115,7 @@ import { url, edxp } from '../../data/formation/site';
       }
       var sel = D[st.day], slot = st.slot;
       st.busy = true; msg(''); render();
-      fetch('/api/formation/book', {
+      fetch('/api/formation/book/', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.assign({ startTime: slot, cal: CAL }, who))
       }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
