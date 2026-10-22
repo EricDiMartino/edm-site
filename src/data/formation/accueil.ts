@@ -29,6 +29,7 @@ export const stats = [
   { n: '4', l: 'salons en exploitation' },
   { n: '27', l: 'collaborateurs' },
   { n: '1,5 M€', l: "de chiffre d'affaires" },
+  { n: '80+', l: 'salons formés ou accompagnés' },
 ];
 
 /** « Academy Leader, c'est quoi ? » — repris tel quel dans le JSON-LD (description). */
