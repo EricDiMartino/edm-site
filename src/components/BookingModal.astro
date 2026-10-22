@@ -44,7 +44,7 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
       var p = location.pathname;
       if (p.indexOf('/beaute-du-regard') === 0) return 'regard';
       if (p.indexOf('/head-spa') === 0) return 'headspa';
-      if (p.indexOf('/salon-de-coiffure') === 0) return 'salon';
+      if (p.indexOf('/salon-de-coiffure/') === 0) return 'salon';
       return 'autre';
     }
     function edmReserveClick(salon) {
@@ -53,7 +53,7 @@ const SALONS = [grenoble, montbonnot, voiron, aixLesBains].map((s) => ({ ville: 
 
     function load(key, cat) {
       if (!key) return;
-      var url = '/reserver-widget?key=' + encodeURIComponent(key);
+      var url = '/reserver-widget/?key=' + encodeURIComponent(key);
       if (cat) url += '&cat=' + encodeURIComponent(cat);
       var salon = edmSalon(key);
       if (salon) url += '&salon=' + encodeURIComponent(salon);

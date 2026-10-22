@@ -56,7 +56,7 @@ const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
     {!bare && <FormationHeader />}
     <slot />
     {!bare && <FormationFooter />}
-    <ConsentBanner storageKey="al_consent" infoHref="/formation/confidentialite" />
+    <ConsentBanner storageKey="al_consent" infoHref="/formation/confidentialite/" />
     <script is:inline>
       // Mémorise les paramètres de campagne (utm_*, gclid, fbclid) de la 1re page vue → envoyés à GHL avec le diagnostic.
       try {

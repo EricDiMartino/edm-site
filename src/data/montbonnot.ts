@@ -80,7 +80,7 @@ export const montbonnot: SalonData = {
     texte:
       'Avant chaque coupe ou couleur, nous prenons le temps du diagnostic : morphologie du visage, nature et état du cheveu, mode de vie. Notre coiffeur visagiste à Montbonnot répond à la vraie question, quelle coupe selon mon visage, pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
-    lien: '/consultation-visagiste-coloriste',
+    lien: '/consultation-visagiste-coloriste/',
   },
 
   // Bloc « Notre maison » — texte local PROVISOIRE (SEO/GEO : Montbonnot, Grésivaudan).
@@ -92,7 +92,7 @@ export const montbonnot: SalonData = {
       'À Montbonnot-Saint-Martin, avenue de l’Europe, notre salon de coiffure accueille le Grésivaudan et l’agglomération grenobloise dans un cadre clair et apaisé.',
       'Coupe pensée pour le visage, balayage et coloration sur-mesure, beauté du regard : chez votre coloriste visagiste, chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
-    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
 
   services: [
@@ -103,7 +103,7 @@ export const montbonnot: SalonData = {
         'Création et restructuration de la ligne de sourcils, épilation et entretien, par Audrey : une ligne dessinée pour votre visage. Un doute ? On en parle en consultation. Aussi maquillage permanent (sourcils, lèvres) et teinture, en prestation seule ou en complément de votre coiffure.',
       points: ['Ligne & restructuration sourcils', 'Épilation & entretien', 'Consultation regard', 'Maquillage permanent & teinture'],
       image: undefined, // pas de visuel dédié → cadre dégradé (à remplacer par une vraie photo)
-      lien: '/beaute-du-regard-montbonnot',
+      lien: '/beaute-du-regard-montbonnot/',
       lienLabel: 'Découvrir la beauté du regard',
     },
   ],

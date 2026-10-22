@@ -19,7 +19,7 @@ faq:
 # Maillage interne : liens vers les pages liées (prestations, salons, consultation). Optionnel.
 related:
   - titre: "La consultation visagiste"
-    href: "/consultation-visagiste-coloriste"
+    href: "/consultation-visagiste-coloriste/"
 draft: true                 # true = non publié (brouillon)
 ---
 
@@ -27,5 +27,5 @@ Le corps de l'article, en **Markdown**.
 
 ## Un sous-titre
 
-Des paragraphes, des listes, et des [liens internes](/prestations-coiffure) vers nos pages
+Des paragraphes, des listes, et des [liens internes](/prestations-coiffure/) vers nos pages
 (maillage). Garder un ton clair, utile, et un mot-clé par section.

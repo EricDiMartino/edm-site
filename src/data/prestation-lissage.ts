@@ -20,7 +20,7 @@ export const lissage: PrestationData = {
       'Tout part d’un diagnostic de la fibre : porosité, état, attentes. On choisit ensuite le soin ou le lissage le plus adapté, jamais l’inverse.',
       'Des soins ciblés aux lissages durables, l’objectif reste le même : un cheveu sain, discipliné et lumineux, dans le respect de sa nature.',
     ],
-    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
+    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste/' },
   },
 
   variantes: {
@@ -49,9 +49,9 @@ export const lissage: PrestationData = {
   maillage: {
     titre: 'À voir aussi',
     items: [
-      { titre: 'Coloration & balayage', href: '/coloration-balayage' },
-      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste' },
-      { titre: 'Head spa', href: '/head-spa-grenoble' },
+      { titre: 'Coloration & balayage', href: '/coloration-balayage/' },
+      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste/' },
+      { titre: 'Head spa', href: '/head-spa-grenoble/' },
     ],
   },
 

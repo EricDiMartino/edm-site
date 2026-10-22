@@ -15,10 +15,10 @@ import AnalyseCapillaire from '../components/AnalyseCapillaire.astro';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const SALONS = [
-  { ...grenoble, href: '/salon-de-coiffure/grenoble' },
-  { ...montbonnot, href: '/salon-de-coiffure/montbonnot' },
-  { ...voiron, href: '/salon-de-coiffure/voiron' },
-  { ...aixLesBains, href: '/salon-de-coiffure/aix-les-bains' },
+  { ...grenoble, href: '/salon-de-coiffure/grenoble/' },
+  { ...montbonnot, href: '/salon-de-coiffure/montbonnot/' },
+  { ...voiron, href: '/salon-de-coiffure/voiron/' },
+  { ...aixLesBains, href: '/salon-de-coiffure/aix-les-bains/' },
 ];
 // Ensemble « consultation » Planity par salon (serviceSetsWhitelist) → widget filtré sur la seule consultation.
 // ⚠️ ids Firebase stables mais opaques ; si un ensemble consultation est supprimé/recréé dans Planity, mettre à jour ici.
@@ -51,7 +51,7 @@ const faqSchema = {
   '@type': 'FAQPage',
   mainEntity: c.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.reponse } })),
 };
-const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Prestations', item: new URL('/prestations-coiffure', Astro.site).href }, { name: 'Consultation visagiste', item: canonical }]);
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Prestations', item: new URL('/prestations-coiffure/', Astro.site).href }, { name: 'Consultation visagiste', item: canonical }]);
 ---
 
 <Layout title="Consultation visagiste & coloriste | Eric Di Martino" description={c.seo.description} canonical={canonical}>
@@ -71,7 +71,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
         <p class="lede cv-lede">{c.hero.lede}</p>
         <div class="cv-actions">
           <a class="btn btn-action" href="#reserver">Réserver ma consultation</a>
-          <a class="btn btn-ghost" href="/prestations-coiffure">Toutes les prestations</a>
+          <a class="btn btn-ghost" href="/prestations-coiffure/">Toutes les prestations</a>
         </div>
       </div>
     </section>
@@ -147,7 +147,7 @@ const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.
         var key = tab.getAttribute('data-key') || '';
         var cat = tab.getAttribute('data-cat') || '';
         if (key) {
-          var url = '/reserver-widget?key=' + encodeURIComponent(key);
+          var url = '/reserver-widget/?key=' + encodeURIComponent(key);
           if (cat) url += '&cat=' + encodeURIComponent(cat);
           frame.style.height = ''; // repli min-height pendant le chargement du nouveau salon
           frame.src = url;

@@ -75,7 +75,7 @@ export const voiron: SalonData = {
     texte:
       'Quelle coupe selon mon visage ? C’est la première question à laquelle nous répondons. Avant chaque coupe ou couleur, notre coiffeur visagiste à Voiron prend le temps du diagnostic capillaire : morphologie du visage, nature du cheveu, mode de vie. Un examen précis pour un résultat qui vous ressemble et se vit simplement, au quotidien.',
     image: expertise,
-    lien: '/consultation-visagiste-coloriste',
+    lien: '/consultation-visagiste-coloriste/',
   },
 
   maison: {
@@ -86,7 +86,7 @@ export const voiron: SalonData = {
       'Avenue du 8 Mai 1945, notre salon de coiffure est une référence à Voiron et dans le Pays Voironnais : coupe femme et homme, dégradé, brushing, balayage et coloration menés avec exigence, dans un cadre soigné. Nos clientes et clients viennent aussi de Coublevie, Saint-Jean-de-Moirans, Moirans, La Buisse et Rives.',
       'Coupe pensée selon la forme du visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation visagiste, jamais par une grille tarifaire.',
     ],
-    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure' },
+    lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
 
   // Pas de service « signature » sur Voiron.

@@ -68,7 +68,7 @@ const faqSchema = {
 };
 const breadcrumb = buildBreadcrumb([
   { name: 'Accueil', item: new URL('/', Astro.site).href },
-  { name: 'Prestations', item: new URL('/prestations-coiffure', Astro.site).href },
+  { name: 'Prestations', item: new URL('/prestations-coiffure/', Astro.site).href },
   { name: 'Rattrapage couleur', item: canonical },
 ]);
 ---
@@ -89,7 +89,7 @@ const breadcrumb = buildBreadcrumb([
         <p class="lede cr-lede">Couleur qui a viré, balayage raté, décoloration abîmée, coupe à récupérer : nos coloristes visagistes corrigent après consultation et diagnostic, dans le respect du cheveu, à Grenoble, Montbonnot, Voiron et Aix-les-Bains.</p>
         <div class="cr-actions">
           <a class="btn btn-action" href="#reserver">Réserver un rattrapage</a>
-          <a class="btn btn-ghost" href="/coloration-balayage">Coloration &amp; balayage</a>
+          <a class="btn btn-ghost" href="/coloration-balayage/">Coloration &amp; balayage</a>
         </div>
       </div>
     </section>

@@ -20,7 +20,7 @@ export const extensions: PrestationData = {
       'Toute pose d’extensions de cheveux commence par une consultation obligatoire : on évalue la nature de votre cheveu, la quantité d’extensions naturelles nécessaire, la méthode de pose et la teinte exacte, pour un résultat invisible, fondu et confortable.',
       'Nous travaillons exclusivement avec des extensions naturelles, posées dans le respect de votre chevelure, avec un entretien suivi dans le temps dans nos salons de Grenoble, Montbonnot, Voiron et Aix-les-Bains.',
     ],
-    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste' },
+    lien: { label: 'La consultation visagiste', href: '/consultation-visagiste-coloriste/' },
   },
 
   variantes: {
@@ -48,9 +48,9 @@ export const extensions: PrestationData = {
   maillage: {
     titre: 'À voir aussi',
     items: [
-      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste' },
-      { titre: 'Coloration & balayage', href: '/coloration-balayage' },
-      { titre: 'Head spa', href: '/head-spa-grenoble' },
+      { titre: 'Coupe & coiffage', href: '/coupe-coiffage-visagiste/' },
+      { titre: 'Coloration & balayage', href: '/coloration-balayage/' },
+      { titre: 'Head spa', href: '/head-spa-grenoble/' },
     ],
   },
 

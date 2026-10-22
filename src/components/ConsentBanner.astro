@@ -6,7 +6,7 @@
 // storageKey / infoHref : un jeu par entité (salons = défauts ; Academy Leader = al_consent + sa page).
 // Couleurs = tokens du système (--ink, --terracotta…) : la charte formation les redéfinit.
 interface Props { storageKey?: string; infoHref?: string }
-const { storageKey = 'edm_consent', infoHref = '/mentions-legales' } = Astro.props;
+const { storageKey = 'edm_consent', infoHref = '/mentions-legales/' } = Astro.props;
 ---
 
 <div id="consent" class="cc" role="dialog" aria-label="Gestion des cookies" aria-modal="false" hidden>

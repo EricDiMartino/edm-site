@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const d = post.data;
-const canonical = new URL(`/actualites/${post.id}`, Astro.site).href;
+const canonical = new URL(`/actualites/${post.id}/`, Astro.site).href;
 const fmtDate = (date: Date) => date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 const words = post.body ? post.body.trim().split(/\s+/).length : 0;
 const lecture = Math.max(1, Math.round(words / 200));
@@ -34,7 +34,7 @@ const article = {
   mainEntityOfPage: canonical,
   ...(d.cover && { image: new URL(d.cover, Astro.site).href }),
 };
-const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Journal', item: new URL('/actualites', Astro.site).href }, { name: d.title, item: canonical }]);
+const breadcrumb = buildBreadcrumb([{ name: 'Accueil', item: new URL('/', Astro.site).href }, { name: 'Journal', item: new URL('/actualites/', Astro.site).href }, { name: d.title, item: canonical }]);
 const faqSchema = d.faq.length
   ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
   : null;
@@ -50,7 +50,7 @@ const faqSchema = d.faq.length
   <main class="ar">
     <article>
       <header class="ar-head reveal">
-        <p class="ar-meta"><a class="ar-cat" href="/actualites">{d.category}</a><span class="ar-sep">·</span>{fmtDate(d.date)}<span class="ar-sep">·</span>{lecture} min de lecture</p>
+        <p class="ar-meta"><a class="ar-cat" href="/actualites/">{d.category}</a><span class="ar-sep">·</span>{fmtDate(d.date)}<span class="ar-sep">·</span>{lecture} min de lecture</p>
         <h1 class="ar-title">{d.title}</h1>
         <p class="ar-lede lede">{d.description}</p>
       </header>
@@ -85,7 +85,7 @@ const faqSchema = d.faq.length
       )}
     </article>
 
-    <div class="ar-back reveal"><a class="link-olive" href="/actualites">‹ Tous les articles</a></div>
+    <div class="ar-back reveal"><a class="link-olive" href="/actualites/">‹ Tous les articles</a></div>
   </main>
 
   <CtaBlock title="Envie de passer à l'action ?" lede="Réservez votre consultation dans le salon de votre choix."><a class="btn btn-action btn-lg" href="#reserver">Réserver</a></CtaBlock>

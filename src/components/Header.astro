@@ -17,33 +17,33 @@ const telHref = tel ? 'tel:' + tel.replace(/[^0-9+]/g, '') : '';
 
 // Liste des salons (menu « Salons » + dropdown résa des pages neutres).
 const SALONS: SalonLink[] = [
-  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble' },
-  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot' },
-  { ville: 'Voiron', href: '/salon-de-coiffure/voiron' },
-  { ville: 'Aix-les-Bains', href: '/salon-de-coiffure/aix-les-bains' },
+  { ville: 'Grenoble', href: '/salon-de-coiffure/grenoble/' },
+  { ville: 'Montbonnot', href: '/salon-de-coiffure/montbonnot/' },
+  { ville: 'Voiron', href: '/salon-de-coiffure/voiron/' },
+  { ville: 'Aix-les-Bains', href: '/salon-de-coiffure/aix-les-bains/' },
 ];
 
 const NAV = [
   {
-    label: 'Salons', href: '/nos-salons-de-coiffure', key: 'salons',
-    drop: { items: SALONS.map((s) => ({ label: s.ville, href: s.href })), all: { label: 'Tous nos salons', href: '/nos-salons-de-coiffure' } },
+    label: 'Salons', href: '/nos-salons-de-coiffure/', key: 'salons',
+    drop: { items: SALONS.map((s) => ({ label: s.ville, href: s.href })), all: { label: 'Tous nos salons', href: '/nos-salons-de-coiffure/' } },
   },
   {
-    label: 'Prestations', href: '/prestations-coiffure', key: 'prestations',
+    label: 'Prestations', href: '/prestations-coiffure/', key: 'prestations',
     active: ['prestations', 'headspa', 'beauteregard'],
     drop: {
       items: [
-        { label: 'Head spa', href: '/head-spa-grenoble', sub: 'Grenoble' },
-        { label: 'Beauté du regard', href: '/beaute-du-regard-montbonnot', sub: 'Montbonnot' },
-        { label: 'Rattrapage couleur', href: '/coloration-rattrapage', sub: '4 salons' },
+        { label: 'Head spa', href: '/head-spa-grenoble/', sub: 'Grenoble' },
+        { label: 'Beauté du regard', href: '/beaute-du-regard-montbonnot/', sub: 'Montbonnot' },
+        { label: 'Rattrapage couleur', href: '/coloration-rattrapage/', sub: '4 salons' },
       ],
-      all: { label: 'Toutes les prestations', href: '/prestations-coiffure' },
+      all: { label: 'Toutes les prestations', href: '/prestations-coiffure/' },
       allFirst: true,
     },
   },
-  { label: 'Nos valeurs', href: '/nos-valeurs', key: 'histoire' },
-  { label: 'Blog', href: '/actualites', key: 'blog' },
-  { label: 'Carrières', href: '/nous-rejoindre', key: 'carrieres' },
+  { label: 'Nos valeurs', href: '/nos-valeurs/', key: 'histoire' },
+  { label: 'Blog', href: '/actualites/', key: 'blog' },
+  { label: 'Carrières', href: '/nous-rejoindre/', key: 'carrieres' },
 ];
 ---
 
