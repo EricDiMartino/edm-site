@@ -49,7 +49,7 @@ export const aixLesBains: SalonData = {
 
   acces: [
     { label: 'Parking', detail: 'Stationnement à proximité' },
-    { label: 'Bord du lac', detail: 'Boulevard Président Wilson' },
+    { label: 'Centre-ville', detail: 'Boulevard Président Wilson' },
     { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
   ],
 
@@ -65,7 +65,7 @@ export const aixLesBains: SalonData = {
   },
 
   heroTexte:
-    'Coupe, couleur et consultation visagiste à Aix-les-Bains, boulevard Président Wilson, au bord du lac. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
+    'Coupe, couleur et consultation visagiste à Aix-les-Bains, boulevard Président Wilson, en centre-ville. Une coiffure pensée pour vous, à partir d’une vraie consultation.',
 
   expertise: {
     titre: 'La consultation visagiste, avant chaque coupe',
@@ -80,7 +80,7 @@ export const aixLesBains: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon d’Aix-les-Bains.',
     paragraphes: [
-      'Boulevard Président Wilson, au cœur d’Aix-les-Bains et tout près du lac, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu. Un point de rendez-vous pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
+      'Boulevard Président Wilson, au cœur d’Aix-les-Bains, un espace entièrement rénové, pensé pour la créativité et la santé du cheveu. Un point de rendez-vous pour les habitants de Grésy-sur-Aix, Mouxy et du Bourget-du-Lac.',
       'Coupe pensée pour le visage et coloration sur-mesure : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
@@ -130,6 +130,6 @@ export const aixLesBains: SalonData = {
   seo: {
     title: 'Coiffeur visagiste à Aix-les-Bains (Savoie) | Eric Di Martino',
     description:
-      'Salon de coiffure premium à Aix-les-Bains, bd Président Wilson, au bord du lac : coupe, couleur et consultation visagiste sur rendez-vous, en Savoie.',
+      'Salon de coiffure premium à Aix-les-Bains, bd Président Wilson, en centre-ville : coupe, couleur et consultation visagiste sur rendez-vous, en Savoie.',
   },
 };
