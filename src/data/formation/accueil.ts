@@ -2,7 +2,7 @@
 // ACADEMY LEADER — ACCUEIL (/formation/)
 // Texte = maquette validée, MOT À MOT (formation-src/maquette.html, écran « 01 Accueil »).
 // Seuls écarts autorisés (validés le 28/09/2026) : doubles espaces / coquilles évidentes,
-// et chiffres sans source masqués (« 50+ salons accompagnés », « ★ 4,9 note Google »).
+// et chiffres sans source masqués (« ★ 4,9 note Google »). « 80+ salons formés ou accompagnés » (page accompagnement) = ventes GHL à des salons distincts (oct. 2026).
 // ============================================================
 import type { Qa } from '../../components/formation/FormationFaq.astro';
 import type { FinalCta } from '../../components/formation/FormationFinalCta.astro';
