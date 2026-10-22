@@ -53,9 +53,9 @@ export const montbonnot: SalonData = {
 
   // Badges d'accès — détails PROVISOIRES à confirmer.
   acces: [
-    { label: 'Parking', detail: 'Parking gratuit sur place' },
-    { label: 'Accès', detail: 'Proche A41 (sortie Montbonnot)' },
-    { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
+    { label: 'Parking gratuit', detail: 'Sur place' },
+    { label: 'Bus T80 · T85', detail: 'Arrêt Montbonnot Gare' },
+    { label: 'Accessible PMR', detail: 'Parking, entrée et toilettes adaptés' },
   ],
 
   // Chiffres-clés. L'entrée « avis » est resynchronisée au build sur les vrais avis Google.
@@ -89,8 +89,9 @@ export const montbonnot: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de Montbonnot.',
     paragraphes: [
-      'À Montbonnot-Saint-Martin, avenue de l’Europe, notre salon de coiffure accueille le Grésivaudan et l’agglomération grenobloise dans un cadre clair et apaisé.',
-      'Coupe pensée pour le visage, balayage et coloration sur-mesure, beauté du regard : chez votre coloriste visagiste, chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+      'Avenue de l’Europe, à deux pas de Botanic et d’Union Primeur, notre salon de coiffure de Montbonnot-Saint-Martin réunit sur 120 m² la coiffure et la beauté de la femme. Ouvert en 2021, il accueille le Grésivaudan et l’agglomération grenobloise.',
+      'Une clientèle moderne et soucieuse de la santé de ses cheveux y trouve des coiffeurs exigeants sur la technique, et Audrey pour la beauté du regard : création de ligne de sourcils, maquillage permanent et teinture. Chaque rendez-vous commence par une vraie consultation.',
+      'Parking gratuit sur place et accès PMR complet : parking, entrée adaptée et toilettes accessibles. En bus, lignes T80 et T85, arrêt Montbonnot Gare.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },

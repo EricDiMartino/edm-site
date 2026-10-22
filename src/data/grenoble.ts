@@ -154,9 +154,9 @@ export const grenoble: SalonData = {
 
   // Badges d'accès (section infos pratiques) — détails PROVISOIRES à ajuster.
   acces: [
-    { label: 'Parking', detail: 'Parking Lafayette à 2 min' },
-    { label: 'Tramway', detail: 'Tram A & B, arrêt Victor Hugo' },
-    { label: 'Accessible PMR', detail: 'Accès de plain-pied' },
+    { label: 'Tram A · B', detail: 'Arrêt Victor Hugo, avec Chrono C3, C4 et bus 40' },
+    { label: '1er étage', detail: 'Au-dessus de Sephora, sonnez au n°9' },
+    { label: 'Parkings publics', detail: 'À quelques minutes à pied' },
   ],
 
   // Chiffres-clés (bandeau réassurance). « 200 m² » = salon principal de Grenoble.
@@ -191,8 +191,9 @@ export const grenoble: SalonData = {
     eyebrow: 'Notre maison',
     titre: 'Le salon de coiffure de Grenoble.',
     paragraphes: [
-      'Place Victor Hugo, en plein cœur de Grenoble, notre salon déploie 200 m² baignés de lumière naturelle, un écrin pensé pour que le geste prime. À deux pas du centre-ville, il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
-      'Coupe pensée pour le visage, coloration sur-mesure, soins capillaires et head spa : chaque rendez-vous commence par une vraie consultation, jamais par une grille tarifaire.',
+      'Au 6 place Victor Hugo, au premier étage au-dessus de Sephora (sonnez au n°9), notre salon de coiffure de Grenoble déploie 200 m² en plein centre-ville. Eric Di Martino y a installé son salon principal en 2026, dans les murs du salon Alexandre, une adresse historique de la place, après dix-huit ans cours Jean Jaurès.',
+      'On y vient pour le confort, l’accueil et une vraie expertise de la santé du cheveu et du cuir chevelu : head spa japonais, espace barbier, balayages techniques, coupes visagistes et rattrapages de couleurs ratées ailleurs. Chaque rendez-vous commence par une consultation, jamais par une grille tarifaire.',
+      'Tram A et B, Chrono C3 et C4 et bus 40 s’arrêtent à Victor Hugo, au pied du salon. Il accueille aussi celles et ceux qui viennent de Meylan, Saint-Martin-d’Hères, La Tronche ou Échirolles.',
     ],
     lien: { label: 'Découvrir nos prestations', href: '/prestations-coiffure/' },
   },
