@@ -37,7 +37,7 @@ import { url, edxp } from '../../data/formation/site';
         </form>
         <button type="button" class="s258" data-r="confirm">Choisis un créneau</button>
         <p class="al-resa-msg" data-r="msg" role="status" hidden></p>
-        <p class="s259">Confirmation par email + SMS · replanifiable en un clic</p>
+        <p class="s259">Confirmation par email + SMS · replanifiable en un clic. Protégé par reCAPTCHA : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">confidentialité</a> et <a href="https://policies.google.com/terms" target="_blank" rel="noopener">conditions</a> Google.</p>
       </div>
     </div>
   </main>
@@ -115,10 +115,7 @@ import { url, edxp } from '../../data/formation/site';
       }
       var sel = D[st.day], slot = st.slot;
       st.busy = true; msg(''); render();
-      fetch('/api/formation/book/', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ startTime: slot, cal: CAL }, who))
-      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
+      alPost('/api/formation/book/', Object.assign({ startTime: slot, cal: CAL }, who), 'book').then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
         st.busy = false;
         if (res.ok && res.d.ok) {
           try { sessionStorage.setItem('al_rdv', JSON.stringify({ fn: who.fn, when: cap(fmt(sel.key, { weekday: 'long', day: 'numeric', month: 'long' })), slot: hm(slot) })); } catch (e) {}

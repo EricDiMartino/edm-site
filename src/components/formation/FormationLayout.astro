@@ -25,6 +25,8 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID_FORMATION || 'GTM-WT68LQZP';
 const isPreviewDeploy = !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
 // Image de partage 1200×630 : les 3 associés (public/og-academy-leader.jpg).
 const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
+// reCAPTCHA v3 (clé publique du site). Clé secrète : variable Vercel RECAPTCHA_SECRET, vérifiée dans api/formation/_ghl.js.
+const recaptchaKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcU2AQuAAAAAFxqQMBdKGh8E_YqTh0VZeyiDvKX';
 ---
 
 <!doctype html>
@@ -53,6 +55,41 @@ const ogImageUrl = new URL('/og-academy-leader.jpg', Astro.site).href;
   </head>
   <body>
     {gtmId && !isPreviewDeploy && <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />}
+    <script is:inline define:vars={{ recaptchaKey }}>
+      // Anti-robot : le script Google n'est chargé qu'à la première saisie dans un formulaire (pas à l'ouverture de la page).
+      (function () {
+        var p = null;
+        function load() {
+          if (p) return p;
+          p = new Promise(function (ok) {
+            var s = document.createElement('script');
+            s.src = 'https://www.google.com/recaptcha/api.js?render=' + recaptchaKey;
+            s.async = true; s.onload = function () { ok(true); }; s.onerror = function () { ok(false); };
+            document.head.appendChild(s);
+          });
+          return p;
+        }
+        document.addEventListener('focusin', function (e) { if (e.target.closest && e.target.closest('form')) load(); });
+        // Jeton reCAPTCHA (chaîne vide si indisponible : le serveur décide)
+        window.alCaptcha = function (action) {
+          return load().then(function (okLoaded) {
+            if (!okLoaded || !window.grecaptcha) return '';
+            return new Promise(function (res) {
+              var t = setTimeout(function () { res(''); }, 4000);
+              window.grecaptcha.ready(function () {
+                window.grecaptcha.execute(recaptchaKey, { action: action }).then(function (tok) { clearTimeout(t); res(tok); }, function () { clearTimeout(t); res(''); });
+              });
+            });
+          });
+        };
+        // POST JSON vers l'API formation avec le jeton
+        window.alPost = function (url, data, action, opts) {
+          return window.alCaptcha(action).then(function (tok) {
+            return fetch(url, Object.assign({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ captcha: tok }, data)) }, opts || {}));
+          });
+        };
+      })();
+    </script>
     {!bare && <FormationHeader />}
     <slot />
     {!bare && <FormationFooter />}

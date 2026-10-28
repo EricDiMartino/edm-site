@@ -61,7 +61,7 @@ const q0 = diag.questions[0];
           <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
         </div>
         <button type="submit" class="al-btn">{diag.gate.btn}</button>
-        <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+        <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic. Protégé par reCAPTCHA : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">confidentialité</a> et <a href="https://policies.google.com/terms" target="_blank" rel="noopener">conditions</a> Google.</p>
       </form>
       <button type="button" class="al-back" data-q="back">← Question précédente</button>
     </div>
@@ -298,10 +298,7 @@ const q0 = diag.questions[0];
       var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
       save();
       // Envoi à GoHighLevel (contact + note des réponses). Le résultat s'affiche sans attendre.
-      fetch('/api/formation/lead/', {
-        method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value })
-      }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
+      alPost('/api/formation/lead/', { fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: seg, answers: answers, utm: utm, page: location.href, website: f.website.value }, 'lead', { keepalive: true }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
       dl({ event: 'lead_submit', form: 'diagnostic', segment: seg });
       st.hist.push('gate'); st.cur = 'res'; render();
     });
