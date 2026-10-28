@@ -1,7 +1,7 @@
 // POST /api/formation/lead — fin du diagnostic : crée/met à jour le contact dans GHL
 // (tags + note avec les réponses), AVANT la réservation : un prospect qui ne réserve pas
 // n'est donc plus perdu. Réponse : { contactId }
-import { upsertContact, addNote, json, sameOrigin, clean, isEmail } from './_ghl.js';
+import { upsertContact, addNote, verifyCaptcha, json, sameOrigin, clean, isEmail } from './_ghl.js';
 
 export async function POST(request) {
   if (!sameOrigin(request)) return json({ error: 'forbidden' }, 403);
@@ -9,6 +9,7 @@ export async function POST(request) {
   try { b = await request.json(); } catch { return json({ error: 'bad_request' }, 400); }
   if (!b || typeof b !== 'object') return json({ error: 'bad_request' }, 400);
   if (clean(b.website)) return json({ contactId: null }); // pot de miel anti-robot
+  if (!(await verifyCaptcha(b.captcha, 'lead'))) return json({ error: 'captcha' }, 403);
 
   const firstName = clean(b.fn, 80);
   const lastName = clean(b.ln, 80);

@@ -123,7 +123,7 @@ const schema = {
               <button type="submit" class="al-btn">{engagement.plaquette.btn}</button>
             </div>
             <a class="al-btn al-plaquette-dl" href={engagement.plaquette.file} download data-plaquette-dl hidden>Télécharger la plaquette (PDF)</a>
-            <p class="al-note">{engagement.plaquette.fine}</p>
+            <p class="al-note">{engagement.plaquette.fine}<Fragment set:html={' Protégé par reCAPTCHA : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">confidentialité</a> et <a href="https://policies.google.com/terms" target="_blank" rel="noopener">conditions</a> Google.'} /></p>
           </div>
         </form>
       </div>
@@ -165,7 +165,7 @@ const schema = {
                 <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="al-hp" />
               </div>
               <button type="submit" class="al-btn">{sim.gate.btn}</button>
-              <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic.</p>
+              <p class="al-note">Pas de spam, pas de revente. Désinscription en un clic. Protégé par reCAPTCHA : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">confidentialité</a> et <a href="https://policies.google.com/terms" target="_blank" rel="noopener">conditions</a> Google.</p>
             </form>
             <button type="button" class="al-back" data-sim="back2">← Question précédente</button>
           </div>
@@ -311,9 +311,8 @@ const schema = {
           sc.ps.forEach(function (x) { answers.push({ q: 'Pilier ' + x.p.n, a: x.v + ' / 100' }); });
           var save = function () { try { sessionStorage.setItem('al_diag', JSON.stringify(lead)); } catch (err) {} };
           save();
-          fetch('/api/formation/lead/', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: 'OUVERTURE', answers: answers, utm: utm, page: location.href, website: f.website.value })
-          }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
+          alPost('/api/formation/lead/', { fn: lead.fn, ln: lead.ln, em: lead.em, tel: lead.tel, segment: 'OUVERTURE', answers: answers, utm: utm, page: location.href, website: f.website.value }, 'lead', { keepalive: true })
+          .then(function (r) { return r.json(); }).then(function (d) { if (d && d.contactId) { lead.contactId = d.contactId; save(); } }).catch(function () {});
           dl({ event: 'lead_submit', form: 'simulateur-ouverture', segment: 'OUVERTURE' });
           dl({ event: 'sim_complete', score: sc.total });
           st.hist.push('gate'); st.cur = 'res'; render();
@@ -327,9 +326,8 @@ const schema = {
         f.addEventListener('submit', function (e) {
           e.preventDefault();
           var x = f.elements;
-          fetch('/api/formation/lead/', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fn: x.fn.value.trim(), em: x.em.value.trim(), segment: 'PLAQUETTE', answers: [{ q: 'Demande', a: 'Plaquette ouverture de salon' }], page: location.href, website: x.website.value })
-          }).catch(function () {});
+          alPost('/api/formation/lead/', { fn: x.fn.value.trim(), em: x.em.value.trim(), segment: 'PLAQUETTE', answers: [{ q: 'Demande', a: 'Plaquette ouverture de salon' }], page: location.href, website: x.website.value }, 'lead', { keepalive: true })
+          .catch(function () {});
           (window.dataLayer = window.dataLayer || []).push({ event: 'lead_submit', form: 'plaquette-ouverture' });
           f.querySelector('[data-plaquette-f]').hidden = true;
           var dlk = f.querySelector('[data-plaquette-dl]'); dlk.hidden = false; dlk.click();

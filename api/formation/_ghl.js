@@ -80,6 +80,27 @@ export function bookAppointment(contactId, startTime, title, calendarId = GHL.ca
   });
 }
 
+// ---------- anti-robot (Google reCAPTCHA v3) ----------
+/** Vérifie le jeton reCAPTCHA. Sans RECAPTCHA_SECRET (variable Vercel), la vérification est désactivée. */
+export async function verifyCaptcha(token, action) {
+  const secret = process.env.RECAPTCHA_SECRET;
+  if (!secret) return true;
+  if (!token) return false;
+  try {
+    const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: String(token) }),
+    });
+    const d = await res.json();
+    if (!d.success || (action && d.action !== action)) return false;
+    return (d.score ?? 0) >= 0.5;
+  } catch (e) {
+    console.error('[captcha]', e?.message);
+    return true; // Google injoignable : on ne bloque pas un vrai prospect
+  }
+}
+
 // ---------- utilitaires HTTP ----------
 export const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
