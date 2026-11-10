@@ -75,8 +75,8 @@
 
   function product(p) {
     const r = R[p.range], done = S.learned.includes(p.id);
-    const motion = p.video
-      ? `<video class="motion-video" src="video/${p.video}" controls playsinline preload="metadata" poster="${img(p.img)}"></video>`
+    const motion = p.video !== false
+      ? `<video class="motion-video" src="video/${p.id}.mp4" controls playsinline preload="metadata" poster="video/${p.id}.webp" aria-label="Vidéo : ${p.name}"></video>`
       : `<div class="motion"><img src="${img(p.img)}" alt=""><div class="inner"><div class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div><b>Motion explicative</b><span style="font-size:14px">En préparation</span></div></div>`;
     return `<section class="view" style="--tint:var(${r.tint})">
      ${back('r-' + r.id, r.name)}

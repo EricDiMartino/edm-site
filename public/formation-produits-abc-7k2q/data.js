@@ -1,7 +1,7 @@
 /* Formation produits Authentic Beauty Concept — contenu.
    Une gamme = { id, name, sub, tint, tile, ready, scent, known, products, routine, quiz }.
    Un produit = { id, img, kind, name, en, short, free, ben, pose, def?, pitch, video? }.
-   video : chemin d'un MP4 dans ./video/ (vide = « en préparation »). */
+   La vidéo de chaque produit est ./video/<id>.mp4 (video: false pour ne pas l'afficher). */
 window.ABC = {
   ranges: [
     {
@@ -26,8 +26,7 @@ window.ABC = {
           free: ['sulfates', 'silicones'],
           ben: ['Préserve la couleur : jusqu’à 10 semaines de protection', 'Nourrissant et hydratant', 'Cheveux incroyablement doux et lumineux', 'Cheveux faciles à coiffer', 'Élimine les frisottis'],
           pose: [['5-10', 'min', 'Pour nourrir le cheveu'], ['20', 'min', 'Réparation intense, sous une serviette chaude']],
-          pitch: "Votre couleur représente un vrai budget : ce masque la protège jusqu’à 10 semaines. Une fois par semaine, 5 à 10 minutes, et vos cheveux restent doux et lumineux.",
-          video: '' },
+          pitch: "Votre couleur représente un vrai budget : ce masque la protège jusqu’à 10 semaines. Une fois par semaine, 5 à 10 minutes, et vos cheveux restent doux et lumineux." },
         { id: 'glow-neutralisant', img: 'cool-glow-cleanser', kind: 'Bain', name: 'Bain brillance neutralisant', en: 'Cool Glow Cleanser · 300 ml',
           short: 'Neutralise les reflets jaunes, riche en antioxydants.',
           free: ['sulfates', 'silicones'],
