@@ -356,6 +356,15 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/formation-produits-abc-7k2q/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
     }
   ],
   "trailingSlash": true
