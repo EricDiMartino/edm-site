@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Formation produits ABC · Eric Di Martino</title>
-<meta name="theme-color" content="#F1F1EF">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light only">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Formation ABC">
@@ -16,7 +17,7 @@
 /* Layout : appli mobile d'abord, une colonne de 720px max ; grilles à 2-3 colonnes sur tablette.
    Typo : Archivo condensé en capitales pour les titres (rappel des étiquettes ABC), Archivo normal pour le texte. */
 :root{
-  --bg:#F1F1EF; --card:#FFFFFF; --ink:#151515; --muted:#66655F; --line:#DCDBD6;
+  --bg:#FFFFFF; --card:#FFFFFF; --ink:#151515; --muted:#66655F; --line:#E2E1DC;
   --accent:#151515; --on-accent:#FFFFFF; --ok:#2F7A4F; --ko:#B3412F;
   --tile-ink:#151515;
   --t-glow:#F2D7D9; --t-amplify:#D7E3D4; --t-hydrate:#D5E4EF; --t-curl:#CFE1E6;
@@ -25,15 +26,9 @@
   --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:14px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#121212; --card:#1C1C1B; --ink:#F0EFEB; --muted:#A3A29C; --line:#2E2E2C;
-  --accent:#F0EFEB; --on-accent:#121212; --ok:#6CC08F; --ko:#E88A78; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#121212; --card:#1C1C1B; --ink:#F0EFEB; --muted:#A3A29C; --line:#2E2E2C;
-  --accent:#F0EFEB; --on-accent:#121212; --ok:#6CC08F; --ko:#E88A78; color-scheme:dark}
 
 *{box-sizing:border-box}
-html,body{background:var(--bg)}
+html,body{background:var(--bg);color-scheme:light}
 body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 .wrap{max-width:760px;margin:0 auto;padding-block:8px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3,.disp{font-family:var(--display);font-stretch:68%;font-weight:800;text-transform:uppercase;letter-spacing:.005em;line-height:.92;margin:0;text-wrap:balance}
