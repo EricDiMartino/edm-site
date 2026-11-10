@@ -148,6 +148,7 @@
     else if (t.dataset.ans != null && qa == null) { qa = +t.dataset.ans; if (qa === qr.quiz[qi].a) qs++; render(); }
     else if (t.dataset.quiz === 'next') { qi++; qa = null; render(); window.scrollTo({ top: 0 }); }
   });
+  document.querySelector('.brand').addEventListener('click', (e) => { e.preventDefault(); go('home'); });
   window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && h !== view) go(h); });
   go(location.hash.slice(1) || 'home');
 })();
