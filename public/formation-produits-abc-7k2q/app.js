@@ -89,6 +89,7 @@
      <div class="block"><h2>Ce qu’il fait</h2><ul class="ben">${p.ben.map((b) => `<li>${b}</li>`).join('')}</ul></div>
      <div class="block"><h2>Formule</h2><div class="free">${p.free.map((f) => `<span>${f}</span>`).join('')}</div>
        ${p.def ? `<p class="def"><strong>${p.def[0]}</strong>${p.def[1]}</p>` : ''}</div>
+     ${p.tips ? `<div class="block"><h2>Comment l’utiliser</h2><div class="tips">${p.tips.map(([t, d]) => `<p><strong>${t}</strong>${d}</p>`).join('')}</div></div>` : ''}
      ${p.pose.length ? `<div class="block"><h2>Temps de pose</h2><div class="pose">${p.pose.map(([n, u, t]) => `<div><b>${n}<small>${u}</small></b><span>${t}</span></div>`).join('')}</div></div>` : ''}
      ${r.routine ? `<div class="block"><h2>Dans la routine</h2>${routine(r, p.id)}</div>` : ''}
      <div class="block pitch"><h2>À dire à la cliente</h2><q>${p.pitch}</q><p class="note">Proposition de phrase, à adapter à ta consultation.</p></div>
