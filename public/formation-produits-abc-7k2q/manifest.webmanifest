@@ -4,7 +4,7 @@
   "start_url": "/formation-produits-abc-7k2q/",
   "scope": "/formation-produits-abc-7k2q/",
   "display": "standalone",
-  "background_color": "#F1F1EF",
-  "theme_color": "#F1F1EF",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
 }
