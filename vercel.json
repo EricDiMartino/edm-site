@@ -2,6 +2,21 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/formation-produits-abc-7k2q",
+      "destination": "https://edm-pilotage.vercel.app/formations/produits",
+      "permanent": false
+    },
+    {
+      "source": "/formation-produits-abc-7k2q/",
+      "destination": "https://edm-pilotage.vercel.app/formations/produits",
+      "permanent": false
+    },
+    {
+      "source": "/formation-produits-abc-7k2q/index.html",
+      "destination": "https://edm-pilotage.vercel.app/formations/produits",
+      "permanent": false
+    },
+    {
       "source": "/site-edm/coiffeur-grenoble/",
       "destination": "/salon-de-coiffure/grenoble/",
       "permanent": true
